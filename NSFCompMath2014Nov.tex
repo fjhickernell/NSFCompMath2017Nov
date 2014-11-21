@@ -1,0 +1,250 @@
+% !TEX TS-program = PDFLatexBibtex
+%&LaTeX
+%Greg and Fred's NSF Grant Dec 2013
+\documentclass[11pt]{NSFamsart}
+\usepackage{latexsym,amsfonts,amsmath,epsfig,multirow,stackrel,natbib,tabularx,enumitem,xspace}
+
+% This package prints the labels in the margin
+%\usepackage[notref,notcite]{showkeys}
+
+
+%\pagestyle{empty}
+\thispagestyle{plain}
+\pagestyle{plain}
+
+\headsep-0.6in
+%\headsep-0.45in
+
+\setlength{\textwidth}{6.5in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\textheight9in
+%\textheight9.1in
+
+\newcommand{\hatf}{\hat{f}}
+\newcommand{\tf}{\tilde{f}}
+\newcommand{\tbf}{\tilde{\bff}}
+\DeclareMathOperator{\loss}{loss}
+\DeclareMathOperator{\lof}{lof}
+\DeclareMathOperator{\reg}{reg}
+
+
+\def\reals{{\mathbb{R}}}
+\def\field{{\mathbb{F}}}
+\def\complex{{\mathbb{C}}}
+\def\naturals{{\mathbb{N}}}
+\def\integer{{\mathbb{Z}}}
+\def\expect{{\mathbb{E}}}
+\def\il{\left<}
+\def\ir{\right>}
+\def\e{\varepsilon}
+\def\g{\gamma}
+\def\l{\lambda}
+\def\b{\beta}
+\def\a{\alpha}
+\def\lall{\Lambda^{{\rm all}}}
+\def\lstd{\Lambda^{{\rm std}}}
+\def\INT{{\rm INT}}
+\def\APP{{\rm APP}}
+
+\newcommand{\bbE}{\mathbb{E}}
+\newcommand{\tQ}{\widetilde{Q}}
+\newcommand{\mB}{\mathsf{B}}
+\newcommand{\mC}{\mathsf{C}}
+\newcommand{\mG}{\mathsf{G}}
+\newcommand{\mH}{\mathsf{H}}
+\newcommand{\mI}{\mathsf{I}}
+\newcommand{\mK}{\mathsf{K}}
+\newcommand{\tmK}{\widetilde{\mathsf{K}}}
+\newcommand{\mL}{\mathsf{L}}
+\newcommand{\mM}{\mathsf{M}}
+\newcommand{\mP}{\mathsf{P}}
+\newcommand{\mQ}{\mathsf{Q}}
+\newcommand{\mR}{\mathsf{R}}
+\newcommand{\mX}{\mathsf{X}}
+\newcommand{\mPhi}{\mathsf{\Phi}}
+\newcommand{\mPsi}{\mathsf{\Psi}}
+\newcommand{\mLambda}{\mathsf{\Lambda}}
+
+\DeclareMathOperator{\Spl}{Spline}
+\DeclareMathOperator{\SSpl}{SmSpline}
+\DeclareMathOperator{\Power}{Power}
+\DeclareMathOperator{\RegSpl}{RegSpline}
+\DeclareMathOperator{\MLS}{MLS}
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\rms}{rms}
+\DeclareMathOperator*{\RMSE}{RMSE}
+\DeclareMathOperator*{\bias}{bias}
+\DeclareMathOperator*{\var}{var}
+
+\newcommand{\bone}{\boldsymbol{1}}
+\newcommand{\bzero}{\boldsymbol{0}}
+\newcommand{\binf}{\boldsymbol{\infty}}
+\newcommand{\ba}{{\boldsymbol{a}}}
+\newcommand{\bb}{{\boldsymbol{b}}}
+\newcommand{\bc}{{\boldsymbol{c}}}
+\newcommand{\bff}{{\boldsymbol{f}}}
+\newcommand{\beps}{{\boldsymbol{\varepsilon}}}
+\newcommand{\tbeps}{\tilde{\beps}}
+\newcommand{\bx}{{\boldsymbol{x}}}
+\newcommand{\bX}{{\boldsymbol{X}}}
+\newcommand{\bh}{{\boldsymbol{h}}}
+\newcommand{\bk}{{\boldsymbol{k}}}
+\newcommand{\bg}{{\boldsymbol{g}}}
+\newcommand{\bv}{{\boldsymbol{v}}}
+\newcommand{\bu}{{\boldsymbol{u}}}
+\newcommand{\by}{{\boldsymbol{y}}}
+\newcommand{\bt}{{\boldsymbol{t}}}
+\newcommand{\bz}{{\boldsymbol{z}}}
+\newcommand{\bgamma}{{\boldsymbol{\gamma}}}
+\newcommand{\bphi}{{\boldsymbol{\phi}}}
+\newcommand{\bpsi}{{\boldsymbol{\psi}}}
+\newcommand{\balpha}{{\boldsymbol{\alpha}}}
+\newcommand{\bbeta}{{\boldsymbol{\beta}}}
+\newcommand{\bo}{{\boldsymbol{\omega}}}  %GF added
+\newcommand{\newton}[2]{\left(\begin{array}{c} #1\\ #2\end{array}\right)}
+\newcommand{\anor}[2]{\| #1\|_{\mu_{#2}}}
+\newcommand{\satop}[2]{\stackrel{\scriptstyle{#1}}{\scriptstyle{#2}}}
+\newcommand{\setu}{{\mathfrak{u}}}
+
+\newcommand{\me}{\textup{e}}
+\newcommand{\mi}{\textup{i}}
+\def\d{\textup{d}}
+\def\dif{\textup{d}}
+%\def\d{{\rm d}}
+
+\def\eavg{{\rm error^{avg}}}
+\def\ewc{{\rm error^{wor}}}
+\def\ewcavg{{\rm error^{\left\{\substack{\rm wor \\ \rm avg}\right\}}}}
+\def\eran{{\rm error^{ran}}}
+%\newcommand{\cl}{{\mathfrak{L}}}
+\newcommand{\cc}{\mathcal{C}}
+\newcommand{\cb}{\mathcal{B}}
+\newcommand{\cl}{L}
+\newcommand{\cx}{{\Omega}}
+\newcommand{\calf}{{\mathfrak{F}}}
+\newcommand{\calfd}{{\calf_d}}
+\newcommand{\calh}{{\mathfrak{H}}}
+\newcommand{\tcalh}{{\widetilde{\calh}}}
+\newcommand{\calhk}{\calh_d(K)}
+\newcommand{\calg}{{\mathfrak{G}}}
+\newcommand{\calgd}{{\calg_d}}
+\def\prob{{\rm PROB}}
+
+\def\abs#1{\ensuremath{\left \lvert #1 \right \rvert}}
+\newcommand{\norm}[2][{}]{\ensuremath{\left \lVert #2 \right \rVert}_{#1}}
+\newcommand{\ip}[3][{}]{\ensuremath{\left \langle #2, #3 \right \rangle_{#1}}}
+\newcommand{\calm}{{\mathfrak{M}}}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\filldis}{fill}
+\DeclareMathOperator{\sep}{sep}
+\DeclareMathOperator{\avg}{avg}
+\DeclareMathOperator{\vol}{vol}
+\DeclareMathOperator{\cov}{cov}
+
+\newcommand{\des}{\{\bx_i\}}
+\newcommand{\desn}{\{\bx_i\}_{i=1}^N}
+\newcommand{\wts}{\{g_i\}_{i=1}^N}
+\newcommand{\wtsn}{\{g_i\}_{i=1}^N}
+\newcommand{\datan}{\{y_i\}_{i=1}^N}
+
+%FJH added
+\newcommand{\Order}{\mathcal{O}}
+\newcommand{\ch}{\mathcal{H}}
+\newcommand{\tch}{{\widetilde{\ch}}}
+\newcommand{\veps}{\boldsymbol{\varepsilon}}
+\DeclareMathOperator{\err}{err}
+\DeclareMathOperator{\best}{best}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\hmu}{\hat{\mu}}
+\newcommand{\hsigma}{\hat{\sigma}}
+\newcommand{\fC}{\mathfrak{C}}
+\newcommand{\tK}{\widetilde{K}}
+\newcommand{\Matlab}{{\sc Matlab}\xspace}
+
+\newtheorem{resproblem}{Research Problem}
+\newtheorem{research}{Research Objectives}
+
+%\setcounter{page}{1}
+
+
+\begin{document}
+%\setlength{\leftmargini}{2.5ex}
+
+\centerline{\large \bf Proposed Research}
+
+There has been a substantial effort to construct efficient algorithms for function recovery (approximation) and integration, and to derive rigorous error bounds for these algorithms.  Yet, even the best algorithms have not progressed to the stage where they produce answers reliably within the user-specified error tolerance and without intervention from the user.  The proposed research will fill the gap between what we already understand about numerical approximation and integration algorithms, and what we  need to make them more \emph{practical and reliable}.  \emph{We aim to develop algorithms satisfying the following criteria.}
+
+\begin{description}[leftmargin=2.5ex]
+\item[Automatic \& Adaptive] The algorithm determines the sample size and the placement of data sites needed to meet a specified error tolerance, $\varepsilon$. Furthermore, these decisions are based primarily on function data collected by the algorithm rather than a priori knowledge.
+
+\item[Guaranteed] There are rigorously justified conditions that guarantee the success of the algorithm.
+
+\item[Efficient \& Stable] The computational cost is asymptotically optimal, and the computations do not suffer from catastrophic round-off error.
+\end{description}
+
+
+\subsection*{Prime Example} To illustrate the challenges that we face, consider the problem of multivariate function recovery.  This problem arises in the construction of computationally cheap surrogates for computationally expensive computer experiments \citep{ForEtal09}.  Suppose that there exists a (computationally expensive) process for generating an output, $y=f(\bx)$, given any input $\bx \in \Omega \subset\reals^d$.  The goal is to construct a surrogate, $\tf$, based on the data $(\bx_1, y_1), \ldots, (\bx_N,y_N)$.  A popular approach is to specify that
+\begin{subequations} \label{rbfapprox}
+\begin{equation} \label{rbfform}
+\tf(\bx) = \sum_{j=1}^N K(\bx,\bx_j) c_j,
+\end{equation}
+where $K:\Omega \times \Omega \to \reals$ is a known symmetric, positive definite kernel. One example is the Gaussian (or squared exponential) kernel
+\begin{equation}  \label{gausskernel}
+K(\bx,\bt) = \exp\bigl(-\gamma_1^2 (x_1-t_1)^2 - \cdots - \gamma_d^2 (x_d-t_d)^2 \bigr), \quad \bx = (x_1,\ldots,x_d),\ \gamma_1,\ldots,\gamma_d >0,
+\end{equation}
+but there are also other good choices for the kernel.  The unknown $\bc=(c_1, \ldots, c_N)^T$ is determined by imposing interpolation.  Specifically,
+\begin{equation} \label{rbfcoef}
+\bc=\mK^{-1} \by, \qquad \mK=\bigl(K(\bx_i,\bx_j)\bigr)_{i,j=1}^N, \quad \by=\bigl(f(\bx_i)\bigr)_{i=1}^N.
+\end{equation}
+\end{subequations}
+
+This numerical algorithm goes by different names, such as, radial basis function approximation \citep{Buh03a}, scattered data approximation \citep{Wen05a}, meshfree approximation \citep{Fas07a}, and kriging \citep{Ste99}. It is part of the JMP \citep{JMP11} and R \citep{R3.03_2013} software packages.  It is flexible because the data sites need not follow a regular pattern. There is a deterministic optimality: $\tf$ is the best approximation to $f$ in the Hilbert space whose reproducing kernel is $K$ \citep{Fas07a,Wen05a}.  There is a stochastic optimality: $\tf$ is the best approximation to $f$ in the set of Gaussian stochastic processes whose covariance kernel is $K$ \citep{BerT-A04,Wah90}.  The procedure outlined above can be extended to include the exact reproduction of polynomials and also the situation where the $y_i$ are noisy observations of the $f(\bx_i)$ \citep{Wah90}.  Meshfree approximation is also a key component of numerical partial differential equation algorithms \citep{Fas07a,SchWen06a}.
+
+\subsection*{Data-Driven Error Estimation} One may estimate the error of the meshfree approximation \eqref{rbfapprox} in a data-driven way by using cross-validation (CV).  The parameters of the kernel may be estimated by maximum likelihood estimation (MLE).  However, neither of these methods have finite-sample size guarantees of success.
+
+On the other hand, there exist error bounds of the form \citep{Wen05a}
+\begin{equation} \label{rbferrbd}
+\sup_{\bx \in \cx} \abs{f(\bx) - \tf(\bx)} \le C \norm[\ch]{f} [\filldis(\desn)]^r, \qquad \filldis(\desn): = \max_{\bx \in \cx} \min_{i=1,  \ldots, N} \norm[2]{\bx - \bx_i},
+\end{equation}
+Here $C$ is some constant, and $\filldis(\{\bx_i\}_{i=1}^N)$ is the fill or maximin distance of the data sites.  Moreover, $\norm[\ch]{f}$ is the Hilbert space norm of $f$, where the reproducing kernel for $\ch$ is the $K$ used in \eqref{rbfapprox}. Finally, $r$ reflects the smoothness of $K$.  Error bound \eqref{rbferrbd} tells us that the error depends on both the roughness (Hilbert space norm) of $f$ and the unevenness (fill distance) of the data sites.
+
+However, the error of the meshfree approximation cannot be bounded in terms of the data, $(\bx_1, y_1), \ldots, (\bx_N,y_N)$, because $\norm[\ch]{f}$ is unknown a priori.  The user does not know how large the error is in practice and whether $N$ needs to be increased to meet a desired tolerance. Thus, \eqref{rbferrbd} by itself does not lead to a guaranteed, automatic, adaptive algorithm.
+
+Sect.\ \ref{SectCones} introduces the idea of \emph{cones} of input functions, where a stronger norm of $f$ is bounded above in terms of a weaker norm of $f$.  We have already successfully used this idea to construct guaranteed, adaptive, automatic algorithms for integration and for univariate function approximation.  Moreover, we have derived known upper bounds on their computational costs. \emph{We aim to apply the cones idea to multivariate function approximation using meshfree methods.}
+
+\subsection*{Stable Kernel Computation and Data-Driven Parameter Optimization} Another serious practical problem with meshfree approximation is that the matrix $\mK$ in \eqref{rbfcoef} can easily become \emph{ill-conditioned for moderate $N$}---especially if the kernel $K$ contains shape parameters, $\gamma_\ell>0$, such as the anisotropic Gaussian kernel in \eqref{gausskernel}.  The ill-conditioning will arise if the kernel has a high degree of smoothness ($r$ is large), and/or if it becomes ``flat'' (the $\gamma_\ell$ are near zero). This means that $f$ is very smooth and the discretization error \eqref{rbferrbd} vanishes rapidly as the fill distance decreases.
+Traditionally, this has led to a widely accepted trade-off or uncertainty principle, according to which one must find values of the shape parameters that optimize the balance between (decreased) stability and (increased) discretization error.  This is explained in Sect.\ \ref{SectMisconcept}.
+
+Moreover, the CV and MLE computations often used to optimize the parameters in the kernel also depend on working with the possibly ill-conditioned $\mK$.  This can make CV and MLE unreliable.
+
+We intend to use equivalent, but ``better'' basis representations for kernel-based approximation methods of the form \eqref{rbfform} that lead to \emph{reliable and numerically stable algorithms} and to new and more dependable ways for estimating the shape parameters that provide optimal accuracy. We note here that such non-zero optima have been shown to exist in many cases (see, e.g., Fig.~\ref{Fig_HSSVD})---due to reasons other than the trade-off principle such as Runge-like boundary effects. In particular, we plan to develop practical, reliable and automatic algorithms that take advantage of the additional flexibility provided by the kernel parameters, instead of viewing them as a nuisance.
+
+\subsection*{Two Big Research Thrusts} To solve the problems mentioned above, plus related problems, we will employ the following two big ideas.
+\begin{description}[leftmargin=2.5ex]
+
+\item[Cones (Sect.\ \ref{SectCones})] Identify suitable cones of input functions that can be used to develop theoretically justified, data-driven error bounds for approximation and integration algorithms.  Use these to construct guaranteed, automatic algorithms with upper bounds on the computational cost and lower bounds on the computational complexity.
+
+\item [Hilbert-Schmidt SVD (Sect.\ \ref{SectHSSVD})] Develop stable kernel-based algorithms together with associated parameter estimation methods which result in practical and reliable algorithms that can be applied to a wide range of function recovery problems.
+
+\end{description}
+
+\input{cones2013a} %cones idea
+\input{qr2013a} %qr idea
+\input{previous2013a} %results of previous work
+\input{broader2013a} %broader impact statement (required)
+
+
+\newpage
+\clearpage
+\pagenumbering{arabic}
+
+\bibliographystyle{spbasic}
+
+\renewcommand{\refname}{\hfill \textbf{\large References Cited} \hfill \hfill}                   %%
+\renewcommand{\bibliofont}{\normalsize}
+
+\bibliography{FJH22,FJHown22,GEF}
+\end{document}
