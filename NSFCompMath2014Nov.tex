@@ -1,6 +1,6 @@
 % !TEX TS-program = PDFLatexBibtex
 %&LaTeX
-%Greg and Fred's NSF Grant Dec 2013
+%Greg and Fred's NSF Grant Dec 2014
 \documentclass[11pt]{NSFamsart}
 \usepackage{latexsym,amsfonts,amsmath,epsfig,multirow,stackrel,natbib,tabularx,enumitem,xspace}
 
@@ -44,8 +44,6 @@
 \def\a{\alpha}
 \def\lall{\Lambda^{{\rm all}}}
 \def\lstd{\Lambda^{{\rm std}}}
-\def\INT{{\rm INT}}
-\def\APP{{\rm APP}}
 
 \newcommand{\bbE}{\mathbb{E}}
 \newcommand{\tQ}{\widetilde{Q}}
@@ -66,6 +64,10 @@
 \newcommand{\mPsi}{\mathsf{\Psi}}
 \newcommand{\mLambda}{\mathsf{\Lambda}}
 
+\DeclareMathOperator{\APP}{APP}
+\DeclareMathOperator{\INT}{INT}
+\DeclareMathOperator{\hAPP}{\widehat{\APP}}
+\DeclareMathOperator{\hINT}{\widehat{\INT}}
 \DeclareMathOperator{\Spl}{Spline}
 \DeclareMathOperator{\SSpl}{SmSpline}
 \DeclareMathOperator{\Power}{Power}
@@ -122,13 +124,17 @@
 \newcommand{\cb}{\mathcal{B}}
 \newcommand{\cl}{L}
 \newcommand{\cx}{{\Omega}}
-\newcommand{\calf}{{\mathfrak{F}}}
+\newcommand{\calc}{{\mathcal{C}}}
+\newcommand{\calf}{{\mathcal{F}}}
 \newcommand{\calfd}{{\calf_d}}
-\newcommand{\calh}{{\mathfrak{H}}}
+\newcommand{\calh}{{\mathcal{H}}}
 \newcommand{\tcalh}{{\widetilde{\calh}}}
 \newcommand{\calhk}{\calh_d(K)}
-\newcommand{\calg}{{\mathfrak{G}}}
+\newcommand{\calg}{{\mathcal{G}}}
 \newcommand{\calgd}{{\calg_d}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cT}{\mathcal{T}}
 \def\prob{{\rm PROB}}
 
 \def\abs#1{\ensuremath{\left \lvert #1 \right \rvert}}
@@ -155,14 +161,13 @@
 \newcommand{\veps}{\boldsymbol{\varepsilon}}
 \DeclareMathOperator{\err}{err}
 \DeclareMathOperator{\best}{best}
-\newcommand{\cL}{\mathcal{L}}
-\newcommand{\cP}{\mathcal{P}}
-\newcommand{\cT}{\mathcal{T}}
 \newcommand{\hmu}{\hat{\mu}}
 \newcommand{\hsigma}{\hat{\sigma}}
 \newcommand{\fC}{\mathfrak{C}}
 \newcommand{\tK}{\widetilde{K}}
 \newcommand{\Matlab}{{\sc Matlab}\xspace}
+\newcommand{\abstol}{\varepsilon_{\text{a}}}
+\newcommand{\reltol}{\varepsilon_{\text{r}}}
 
 \newtheorem{resproblem}{Research Problem}
 \newtheorem{research}{Research Objectives}
@@ -173,7 +178,39 @@
 \begin{document}
 %\setlength{\leftmargini}{2.5ex}
 
-\centerline{\large \bf Proposed Research}
+\centerline{\Large \bf Project Description}
+
+Function approximation (recovery) and integration problems arise in several application areas, including the construction of surrogates for computer experiments, numerical solution of partial differential equations, and financial risk management.  While there has been a substantial effort to construct efficient algorithms to solve these problems, even the best algorithms may fail to produce answers within the user-specified error tolerance in a reliable and efficient manner.  \emph{We aim to develop algorithms that are:}
+\begin{description}[leftmargin=2.5ex]
+\item[Stable] The computations do not suffer from catastrophic round-off error.
+
+\item[Efficient] The computational cost is asymptotically optimal.
+
+\item[Adaptive] The algorithm adjust its parameters based on the data it observes---rather than a priori knowledge---to meet a specified error tolerance. 
+\end{description}
+
+\section{Introduction to the Problem}
+The approximation and integration problems that we wish to solve may be described as 
+\begin{equation}
+\APP: f (\in \calf) \mapsto f (\in \calg), \qquad \INT: f (\in \calf) \mapsto \int_{\Omega} f(\bx) \varrho(\bx) \, \dif \bx (\in \reals)
+\end{equation}
+Here, $\calf$ is a Banach space of real-valued candidate functions defined on $\Omega \in \reals^d$, $\calg$ is some other normed vector space of functions, $\APP$ is the embedding operator, and $\INT$ is an integration functional.  Our aim is to find adaptive algorithms, $\hAPP$ and $\hINT$, such that 
+\begin{subequations}
+\begin{gather}
+\norm[\calg]{\APP(f)-\hAPP(f,\abstol,\reltol)} \le \max(\abstol,\reltol \norm[\calg]{f}), \qquad \forall f \in \calc \subseteq \calf\\
+\abs{\INT(f) -\hINT(f,\abstol,\reltol)} \le \max(\abstol,\reltol \abs{\INT(f)}), \qquad \forall f \in \calc \subseteq \calf
+\end{gather}
+\end{subequations}
+
+The algorithms $\hAPP$ and $\hINT$ are assumed to depend on $f$ only via a finite number of data points, e.g., function values $f(\bx_1), \ldots, f(\bx_N)$, not on a more complete knowledge of $f$.  This mirrors the situation in many applications.  The algorithms are \emph{adaptive} in the sense $N$ is not an input, but rather $N$ is determined by the algorithms based on the absolute and relative error tolerances, $\abstol$ and $\reltol$, as well as the observed function data.
+
+
+
+
+
+
+
+\vspace{2cm}{\huge \bf Everything below here is the old proposal}\vspace{2cm}
 
 There has been a substantial effort to construct efficient algorithms for function recovery (approximation) and integration, and to derive rigorous error bounds for these algorithms.  Yet, even the best algorithms have not progressed to the stage where they produce answers reliably within the user-specified error tolerance and without intervention from the user.  The proposed research will fill the gap between what we already understand about numerical approximation and integration algorithms, and what we  need to make them more \emph{practical and reliable}.  \emph{We aim to develop algorithms satisfying the following criteria.}
 
@@ -231,10 +268,10 @@ We intend to use equivalent, but ``better'' basis representations for kernel-bas
 
 \end{description}
 
-\input{cones2013a} %cones idea
-\input{qr2013a} %qr idea
-\input{previous2013a} %results of previous work
-\input{broader2013a} %broader impact statement (required)
+\input{cones2014a} %cones idea
+%\input{qr2013a} %qr idea
+%\input{previous2013a} %results of previous work
+%\input{broader2013a} %broader impact statement (required)
 
 
 \newpage
