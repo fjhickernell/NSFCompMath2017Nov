@@ -142,11 +142,13 @@
 \newcommand{\fC}{\mathfrak{C}}
 \newcommand{\fF}{\mathfrak{F}}
 \newcommand{\fL}{\mathfrak{L}}
-\def\prob{{\rm PROB}}
+\DeclareMathOperator{\Prob}{\mathbb{P}}
 
 \def\abs#1{\ensuremath{\left \lvert #1 \right \rvert}}
+\newcommand{\bigabs}[1]{\ensuremath{\bigl \lvert #1 \bigr \rvert}}
 \newcommand{\norm}[2][{}]{\ensuremath{\left \lVert #2 \right \rVert}_{#1}}
 \newcommand{\ip}[3][{}]{\ensuremath{\left \langle #2, #3 \right \rangle_{#1}}}
+\newcommand{\bignorm}[2][{}]{\ensuremath{\bigl \lVert #2 \bigr \rVert}_{#1}}
 \newcommand{\calm}{{\mathfrak{M}}}
 \DeclareMathOperator{\diag}{diag}
 \DeclareMathOperator{\dist}{dist}
@@ -208,6 +210,7 @@ Here, $\calf$ is a Banach space of real-valued candidate functions defined on $\
 \begin{gather}
 \label{hAPPerr}
 \norm[\calg]{\APP(f)-\hAPP(f,\abstol,\reltol)} \le \max(\abstol,\reltol \norm[\calg]{f}), \qquad \forall f \in \calc \subseteq \calf\\
+\label{hINTerr}
 \abs{\INT(f) -\hINT(f,\abstol,\reltol)} \le \max(\abstol,\reltol \abs{\INT(f)}), \qquad \forall f \in \calc \subseteq \calf
 \end{gather}
 \end{subequations}
@@ -217,7 +220,7 @@ The algorithms $\hAPP$ and $\hINT$ are assumed to depend on $f$ only via a finit
 The computational cost of the algorithm will be proportional to, $N$, the number of data required, which as already mentioned will be determined adaptively. The computational cost may also depend on the dimension of the domain of the functions, $d$.  This is discussed further in Section \ref{???}.  We aim to construct algorithms that can be shown to have asymptotically optimal cost as $\abstol^{-1}, \reltol^{-1}, \norm[\calf]{f}$, and $d$ tend to infinity.  Thus, although the problems of function approximation and integration are relatively simple compared to other numerical problems, the demands that we are making on our algorithms are quite high and the answers to the questions that we are posing are not yet known.
 
 \subsection*{Interpolation}
-To illustrate the numerical stability and efficiency issues we consider the problem of function approximation via interpolation.  
+To illustrate the numerical stability and efficiency issues we consider the problem of function approximation ($\APP$) via interpolation.  
 Suppose that the space of candidate functions, $\calf$, is a Hilbert space with a basis $\{\varphi_n\}_{n=1}^{\infty}$ that is orthonormal with respect to the $L^2:=L^2(\Omega, \varrho)$ inner product $\ip[L^2]{f}{g} := \int_{\Omega} f(\bx) g(\bx) \, \varrho(\bx) \, \dif \bx$.  Moreover, suppose that $\{\varphi_n\}_{n=1}^{\infty}$ is orthogonal with respect to the $\calf$-inner product: 
 \begin{equation}
 \ip[\calf]{f}{g}=\sum_{n=1}^{\infty} \lambda_n \hatf(n)\hatg(n), \qquad \text{where }  f=\sum_{n=1}^{\infty} \hatf(n) \varphi_n, \quad g=\sum_{n=1}^{\infty} \hatg(n) \varphi_n.
@@ -257,13 +260,13 @@ The kernel $K$ is the \emph{reproducing kernel} for the Hilbert space $\calf$, i
 
 This numerical algorithm for function recovery goes by different names, such as, radial basis function approximation \citep{Buh03a}, scattered data approximation \citep{Wen05a}, meshfree approximation \citep{Fas07a}, and kriging \citep{Ste99}. It is part of the JMP \citep{JMP11} and R \citep{R3.03_2013} software packages.  It is flexible because the data sites need not follow a regular pattern. It is known that $\tf$ is the best approximation to $f$ in $\calf$ given the the data \citep{Fas07a,Wen05a}.  There is also a stochastic optimality if one considers $f$ to be a Gaussian stochastic process whose covariance kernel is $K$ \citep{BerT-A04,Wah90}.  The procedure outlined above can be extended to include the exact reproduction of polynomials and also the situation where the $y_i$ are noisy observations of the $f(\bx_i)$ \citep{Wah90}.
 
-Unfortunately, this meshfree approach also has the disadvantage of numerical instability {\bf Greg, please insert as much as you want}
+\subsection*{Numerical Stability} Unfortunately, this meshfree approach also has the disadvantage of numerical instability {\bf Greg, please insert as much as you want}
 
-\subsection*{Error Bounds} The pointwise error of the function approximation given by \eqref{meshfreeapprox} is known to have the following upper bound \citep{???}:
+\subsection*{Error Bounds} Adaptive algorithms depend on reliable methods for bounding the error.  The pointwise error of the meshfree function approximation given in \eqref{meshfreeapprox} is known to have the following upper bound \citep{???}:
 \begin{equation} \label{errbda}
 \abs{f(\bx)-\tf(\bx)} \le \sqrt{K(\bx,\bx)-\bk^T(\bx)\mK^{-1} \bk(\bx)} \norm[\calf]{f}, \qquad \bx \in \Omega.
 \end{equation}
-Using this error bound to construct an adaptive algorithm $\hAPP$  satisfying \eqref{hAPPerr} poses several challenges.  The numerical singularity of $\mK^{-1}$ mentioned above makes the computation of $\mK^{-1}\bk(\bx)$ inaccurate.  Ensuring that the sup norm of the error is bounded requires taking the supremum of the quantity under the square root in \eqref{errbda}, which is difficult.  Although the error bound does depend on the placement of the data sites, $\{\bx_i\}_{i=1}^N$, it does not depend on the values of $f$ at those data sites.  This means that an adaptive algorithm based on \eqref{errbda} has no way of detecting a spike in $f$ and deciding to put more data sites near that spike.  Finally, there is no known upper bound on $\norm[\calf]{f}$, unless one is assumed a priori.
+Using this error bound to construct an adaptive algorithm $\hAPP$  satisfying \eqref{hAPPerr} poses several challenges.  The numerical singularity of $\mK^{-1}$ mentioned above makes the computation of $\mK^{-1}\bk(\bx)$ inaccurate.  Bounding $\bignorm[\infty,\Omega]{f-\tf}$ requires the supremum of the quantity under the square root in \eqref{errbda}, which is difficult.  Although the error bound does depend on the placement of the data sites, $\{\bx_i\}_{i=1}^N$, it does not depend on the values of $f$ at those data sites.  This means that an adaptive algorithm based on \eqref{errbda} has no way of detecting a spike in $f$ and deciding to put more data sites near that spike.  Finally, there is no known upper bound on $\norm[\calf]{f}$, unless one is assumed a priori.
 
 Function approximation for machine learning or for surrogates of computer experiments may involve a large number of inputs, $d$, relative to the number of data $N$.  Therefore, we want to know how any error bound that we use depends on both $N$ and $d$, so that we may understand under what conditions the function approximation algorithm is practical for large $d$.
 
@@ -286,7 +289,7 @@ Greg Fasshauer (GEF) and Fred Hickernell (FJH) are the PIs for \emph{NSF-DMS-111
 
 \subsection{Intellectual Merit from Current NSF Funding}
 
-Together with a collaborator, we have investigated the convergence and tractability of meshfree methods, \eqref{meshfreeapprox}, using the isotropic Gaussian reproducing kernel and its extension with non-isotropic shape parameters, $\{\gamma_{\ell}\}_{\ell =1}^{\infty}$, \eqref{gausskernel}. Dimension \emph{independent} convergent rates for function approximation are possible and they depend on the rate of decay of the $\gamma_{\ell}$ as $\ell \to \infty$, not on the smoothness of the reproducing kernel \citep{FasHicWoz12b, FasHicWoz12a}. These results have been extended by XZ to a more general class of reproducing kernels with that have a sequence of scale parameters $\{\alpha_{\ell}\}_{\ell=1}^{\infty}$ as well as shape parameters.  In this case the dimension independent convergence rates dependon the rate of decay of the product $\alpha_{\ell} \gamma_{\ell}$ as $\ell \to \infty$ \citep{ZhoHic15a}.
+Together with a collaborator, we have investigated the convergence and tractability of meshfree methods, \eqref{meshfreeapprox}, using the isotropic Gaussian reproducing kernel and its extension with non-isotropic shape parameters, $\{\gamma_{\ell}\}_{\ell =1}^{\infty}$, \eqref{gausskernel}. Dimension \emph{independent} convergent rates for function approximation (the problem $\APP$) are possible and they depend on the rate of decay of the $\gamma_{\ell}$ as $\ell \to \infty$, not on the smoothness of the reproducing kernel \citep{FasHicWoz12b, FasHicWoz12a}. These results have been extended by XZ to a more general class of reproducing kernels with that have a sequence of scale parameters $\{\alpha_{\ell}\}_{\ell=1}^{\infty}$ as well as shape parameters.  In this case the dimension independent convergence rates dependon the rate of decay of the product $\alpha_{\ell} \gamma_{\ell}$ as $\ell \to \infty$ \citep{ZhoHic15a}.
 
 Together with QY and other collaborators, we have shown how the optimal solution of problems posed on reproducing kernel Hilbert spaces can be extended to Banach spaces \citep{SonZhaHic12a, FasHicYe13a}.
 
@@ -332,6 +335,24 @@ The research team has attended conferences, presented talks at departmental coll
 \item FJH gave a talk at a special session at the 2012 Joint Mathematics Meetings (JMM), a plenary lecture at the Tenth International Conference on Monte Carlo and Quasi-Monte Carlo Methods in Scientific Computing (MCQMC) in 2012, an invited talk at the 2013 Midwest Numerical Analysis Day, and an invited session talk at the Eleventh MCQMC in April, 2014, an invited session talk at the 2014 SIAM Annual Meeting, and an invited talk at an ICERM workshop in September, 2014.  He spoke at the 2014 JMM and will speak at the 2015 JMM. FJH gave departmental colloquium/seminar talks at Argonne National Laboratory (mathematics and computer science), U Chicago (statistics), DePaul U (mathematics), Georgia Tech (industrial and systems engineering), and Illinois Institute of Technology (computer science, mathematics).  FJH was invited to speak to STEM students at Oakton Community College and to students at Hinsdale Central High School.
 
 \end{itemize}
+
+\section{Stable Computation and Designer Kernels???} {\bf Greg perhaps you can put the relevant material here and arrange as you see fit.}
+
+\section{Error Bounds and Adaptive Algorithms}
+\subsection*{Why Cones}
+\subsection*{Adaptive Algorithms for Integration Problems ($\INT$)}  We have already developed an adaptive simple Monte Carlo algorithm \citep{HicEtal14b} (\texttt{cubMC\_g.m} and \texttt{meanMC\_g.m} in the GAIL \citep{ChoEtal14a}) for multivariate integration problems, but \emph{only for the pure absolute error} case ($\reltol=0$).  The integral is approximated by IID samples of $f(\bX)$ where $\bX$ is generated by probability density function (PDF) $\varrho$. Because this is a random algorithm, the deterministic guarantee of success in \eqref{hINTerr} is replaced by a probabilistic one:
+\begin{equation} \label{cubMCguar}
+ \Prob\bigl[\bigabs{\INT(f) -\hINT(f,\abstol,\reltol)} \bigr ] \le \max(\abstol,\reltol \abs{\INT(f)}) \bigr] \le 1-\alpha.
+\end{equation}
+This guarantee holds for the cone of integrands with bounded kurtosis: 
+\begin{equation}
+\calc := \bigl \{ f : \INT(\abs{f - \INT(f)}^4) \le \kappa_{\max} [\INT(\abs{f - \INT(f)}^2)]^2 \bigr\}
+\end{equation} 
+The bounded kurtosis allows us to reliably bound the population variance $f(\bX)$ by the an inflation of the sample variance of the $f(\bX_i)$. This variance bound along with the kurtosis bound are input into a Berry-Esseen inequality (a finite sample version of the Central Limit Theorem) to guarantee \eqref{cubMCguar}.
+
+We are now trying to extend our results to the more general error tolerance that includes nonzero $\reltol$.  The difficulty is that we must bound $\abs{\INT(f)}$ at the same time that we are trying to estimate it.  This requires an algorithm with a varying number of iterations.  Since the intermediate results are probabilistic, we must split the uncertainty, $\alpha$, among all of these intermediate iterations.
+
+
 
 
 \vspace{2cm}{\huge \section*{Everything below here is the old proposal}}\vspace{2cm}

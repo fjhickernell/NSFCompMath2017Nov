@@ -1,0 +1,295 @@
+\def\Ignore#1{}\def\notesupp#1{}\def\Ignore#1{}\def\notesupp#1{}\providecommand{\HickernellFJ}{Hickernell\xspace}
+\begin{thebibliography}{57}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{{#1}}
+\providecommand{\urlprefix}{URL }
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{DOI~\discretionary{}{}{}#1}\else
+  \providecommand{\doi}{DOI~\discretionary{}{}{}\begingroup
+  \urlstyle{rm}\Url}\fi
+\providecommand{\eprint}[2][]{\url{#2}}
+
+\bibitem[{Ala et~al(2013)Ala, Fasshauer, Francomano, Ganci, and
+  {McCourt}}]{AFFGM13}
+Ala G, Fasshauer GE, Francomano E, Ganci S, {McCourt} MJ (2013) The method of
+  fundamental solutions in solving coupled boundary value problems for {M/EEG},
+  submitted
+
+\bibitem[{Berlinet and Thomas-{A}gnan(2004)}]{BerT-A04}
+Berlinet A, Thomas-{A}gnan C (2004) Reproducing Kernel {H}ilbert Spaces in
+  Probability and Statistics. Kluwer Academic Publishers, Boston
+
+\bibitem[{Brass and Petras(2011)}]{BraPet11a}
+Brass H, Petras K (2011) Quadrature theory: the theory of numerical integration
+  on a compact interval, 1st edn. American Mathematical Society, Rhode Island
+
+\bibitem[{Buhmann(2003)}]{Buh03a}
+Buhmann MD (2003) Radial Basis Functions. Cambridge Monographs on Applied and
+  Computational Mathematics, Cambridge University Press, Cambridge
+
+\bibitem[{Burden and Faires(2010)}]{BurFai10}
+Burden RL, Faires JD (2010) Numerical Analysis, ninth edition edn. Cengage
+  Brooks/Cole, Belmont, CA
+
+\bibitem[{Cavoretto et~al(2013)Cavoretto, Fasshauer, and {McCourt}}]{CFMcC13}
+Cavoretto R, Fasshauer GE, {McCourt} MJ (2013) Compact {M}at\'ern kernels and
+  piecewise polynomial splines viewed from a {H}ilbert-{S}chmidt perspective,
+  submitted
+
+\bibitem[{Choi et~al({2013--2014})Choi, Ding, \HickernellFJ, Jiang, {Jim\'enez
+  Rugama}, Tong, Zhang, and Zhou}]{ChoEtal14a}
+Choi SCT, Ding Y, \HickernellFJ FJ, Jiang L, {Jim\'enez Rugama} {\relax Ll}A,
+  Tong X, Zhang Y, Zhou X ({2013--2014}) {GAIL}: {G}uaranteed {A}utomatic
+  {I}ntegration {L}ibrary (versions 1.0--2.0). MATLAB software,
+  \urlprefix\url{http://code.google.com/p/gail}
+
+\bibitem[{Cialenco et~al(2012)Cialenco, Fasshauer, and Ye}]{CFY12}
+Cialenco I, Fasshauer GE, Ye Q (2012) Approximation of stochastic partial
+  differential equations by a kernel-based collocation method. International
+  Journal of Computer Mathematics 89(18):2543--2561,
+  \doi{10.1080/00207160.2012.688111}
+
+\bibitem[{Clancy et~al(2014)Clancy, Ding, Hamilton, \HickernellFJ, and
+  Zhang}]{HicEtal14b}
+Clancy N, Ding Y, Hamilton C, \HickernellFJ FJ, Zhang Y (2014) The cost of
+  deterministic, adaptive, automatic algorithms: Cones, not balls. J Complexity
+  30:21--45, \doi{10.1016/j.jco.2013.09.002}
+
+\bibitem[{Courant and Hilbert(1953)}]{CourantHilbert53}
+Courant R, Hilbert D (1953) Methods of Mathematical Physics, Vol. 1. Wiley,
+  reprinted 1989
+
+\bibitem[{Dick et~al(2014{\natexlab{a}})Dick, Kuo, and Sloan}]{DicEtal14a}
+Dick J, Kuo F, Sloan IH (2014{\natexlab{a}}) High dimensional integration ---
+  the {Q}uasi-{M}onte {C}arlo way. Acta Numer pp 1--153
+
+\bibitem[{Dick et~al(2014{\natexlab{b}})Dick, Kuo, Peters, and
+  Sloan}]{KuoEtal14a}
+Dick J, Kuo FY, Peters GW, Sloan IH (eds) (2014{\natexlab{b}}) {M}onte {C}arlo
+  and Quasi-{M}onte {C}arlo Methods 2012, Springer-Verlag, Berlin
+
+\bibitem[{Fasshauer(2007)}]{Fas07a}
+Fasshauer GE (2007) Meshfree Approximation Methods with {{\sc Matlab}},
+  Interdisciplinary Mathematical Sciences, vol~6. World Scientific Publishing
+  Co., Singapore
+
+\bibitem[{Fasshauer(2011)}]{Fasshauer11}
+Fasshauer GE (2011) Positive definite kernels: past, present and future.
+  Dolomites Research Notes on Approximation 4:21--63,
+  \urlprefix\url{http://drna.di.univr.it/volume04.html}
+
+\bibitem[{Fasshauer and {McCourt}(2012)}]{FMcC12}
+Fasshauer GE, {McCourt} MJ (2012) Stable evaluation of {G}aussian radial basis
+  function interpolants. {SIAM} J Sci Comput 34(2):A737---A762,
+  \doi{10.1137/110824784}
+
+\bibitem[{Fasshauer and Ye(2011)}]{FasshauerYe11}
+Fasshauer GE, Ye Q (2011) Reproducing kernels of generalized {S}obolev spaces
+  via a {G}reen function approach with distributional operators. Numerische
+  Mathematik 119:585--611, \doi{10.1007/s00211-011-0391-2}
+
+\bibitem[{Fasshauer and Ye(2013{\natexlab{a}})}]{FasshauerYe13b}
+Fasshauer GE, Ye Q (2013{\natexlab{a}}) Kernel-based collocation methods versus
+  {G}alerkin finite element methods for approximating elliptic stochastic
+  partial differential equations. In: Schweitzer MA (ed) Meshfree Methods for
+  Partial Differential Equations {VI}, Springer, pp 155---170
+
+\bibitem[{Fasshauer and Ye(2013{\natexlab{b}})}]{FasshauerYe13}
+Fasshauer GE, Ye Q (2013{\natexlab{b}}) Reproducing kernels of {S}obolev spaces
+  via a {G}reen kernel approach with differential operators and boundary
+  operators. Advances in Computational Mathematics 38(4):891--921,
+  \doi{10.1007/s10444-011-9264-6}
+
+\bibitem[{Fasshauer and Ye(2014)}]{FasshauerYe14}
+Fasshauer GE, Ye Q (2014) A kernel-based collocation method for elliptic
+  partial differential equations with random coefficients. In: Dick J, Kuo FY,
+  Peters GW, Sloan IH (eds) Monte Carlo and Quasi-Monte Carlo Methods 2012,
+  Springer Proceedings in Mathematics and Statistics, vol~65, Springer, pp
+  331--347
+
+\bibitem[{Fasshauer et~al(2012{\natexlab{a}})Fasshauer, \HickernellFJ, and
+  Wo\'{z}niakowski}]{FasHicWoz12b}
+Fasshauer GE, \HickernellFJ FJ, Wo\'{z}niakowski H (2012{\natexlab{a}}) Average
+  case approximation: Convergence and tractability of {G}aussian kernels. In:
+  Plaskota L, Wo\'{z}niakowski H (eds) {M}onte {C}arlo and Quasi-{M}onte
+  {C}arlo Methods 2010, Springer-Verlag, Berlin, pp 329--344
+
+\bibitem[{Fasshauer et~al(2012{\natexlab{b}})Fasshauer, \HickernellFJ, and
+  Wo\'{z}niakowski}]{FasHicWoz12a}
+Fasshauer GE, \HickernellFJ FJ, Wo\'{z}niakowski H (2012{\natexlab{b}}) On
+  dimension-independent rates of convergence for function approximation with
+  {G}aussian kernels. SIAM J Numer\ Anal 50:247--271, \doi{10.1137/10080138X}
+
+\bibitem[{Fasshauer et~al(2015)Fasshauer, \HickernellFJ, and Ye}]{FasHicYe13a}
+Fasshauer GE, \HickernellFJ FJ, Ye Q (2015) Solving support vector machines in
+  reproducing kernel {B}anach spaces with positive definite functions. Appl\
+  Comput\ Harmon\ Anal 38:115--139, \doi{10.1016/j.acha.2014.03.007}
+
+\bibitem[{Fornberg and Piret(2008)}]{FornbergPiret08}
+Fornberg B, Piret C (2008) A stable algorithm for flat radial basis functions
+  on a sphere. {SIAM} Journal on Scientific Computing 30(1):60---80,
+  \doi{10.1137/060671991}
+
+\bibitem[{Fornberg et~al(2011)Fornberg, Larsson, and
+  Flyer}]{FornbergFlyerLarsson11}
+Fornberg B, Larsson E, Flyer N (2011) Stable computations with {G}aussian
+  radial basis functions. {SIAM} Journal on Scientific Computing
+  33(2):869--892, \doi{10.1137/09076756X}
+
+\bibitem[{Forrester et~al(2008)Forrester, S\'obester, and Keane}]{ForEtal09}
+Forrester AIJ, S\'obester A, Keane AJ (2008) Engineering Design via Surrogate
+  Modelling. Wiley, Chichester
+
+\bibitem[{Giles(2014)}]{Gil14a}
+Giles M (2014) Multilevel {M}onte {C}arlo methods. In:  \cite{KuoEtal14a}
+
+\bibitem[{Glasserman(2004)}]{Gla03}
+Glasserman P (2004) {M}onte {C}arlo Methods in Financial Engineering,
+  Applications of Mathematics, vol~53. Springer-Verlag, New York
+
+\bibitem[{Griebel et~al(2013)Griebel, Rieger, and
+  Zwicknagl}]{GriebelRiegerZwicknagl13}
+Griebel M, Rieger C, Zwicknagl B (2013) Multiscale approximation and
+  reproducing kernel {H}ilbert space methods, preprint
+
+\bibitem[{\HickernellFJ and {Jim\'enez Rugama}(2014)}]{HicJim16a}
+\HickernellFJ FJ, {Jim\'enez Rugama} {\relax Ll}A (2014) Reliable adaptive
+  cubature using digital sequences. Submitted for publication, arXiv:1410.8615
+  [math.NA]
+
+\bibitem[{\HickernellFJ et~al(2014)\HickernellFJ, Jiang, Liu, and
+  Owen}]{HicEtal14a}
+\HickernellFJ FJ, Jiang L, Liu Y, Owen AB (2014) Guaranteed conservative fixed
+  width confidence intervals via {M}onte {C}arlo sampling. In:
+  \cite{KuoEtal14a}, pp 105--128
+
+\bibitem[{Hong and \HickernellFJ(2003)}]{HonHic00a}
+Hong HS, \HickernellFJ FJ (2003) Algorithm 823: Implementing scrambled digital
+  nets. ACM Trans\ Math\ Software 29:95--109, \doi{10.1145/779359.779360}
+
+\bibitem[{{Jim\'enez Rugama} and \HickernellFJ(2014)}]{JimHic16a}
+{Jim\'enez Rugama} {\relax Ll}A, \HickernellFJ FJ (2014) Adaptive
+  multidimensional integration based on rank-1 lattices. In preparation
+
+\bibitem[{Li and \HickernellFJ(2003)}]{LiHic03a}
+Li D, \HickernellFJ FJ (2003) Trigonometric spectral collocation methods on
+  lattices. In: Cheng SY, Shu CW, Tang T (eds) Recent Advances in Scientific
+  Computing and Partial Differential Equations, American Mathematical Society,
+  Providence, Rhode Island, AMS Series in Contemporary Mathematics, vol 330, pp
+  121--132
+
+\bibitem[{Liu et~al(2009)Liu, Dick, and \HickernellFJ}]{DicHicLiu07a}
+Liu KI, Dick J, \HickernellFJ FJ (2009) A multivariate fast discrete {W}alsh
+  transform with an application to function interpolation. Math\ Comp
+  78:1573--1591, \doi{10.1090/S0025-5718-09-02202-9}
+
+\bibitem[{Lyness(1983)}]{Lyn83}
+Lyness JN (1983) When not to use an automatic quadrature routine. SIAM Rev
+  25:63--87, \doi{10.1137/1025003}
+
+\bibitem[{{McCourt}(2013{\natexlab{a}})}]{McCourt13}
+{McCourt} M (2013{\natexlab{a}}) Using {G}aussian eigenfunctions to solve
+  boundary value problems. Advances in Applied Mathematics and Mechanics
+  5:569--594, \doi{10.4208/aamm.13-13S08}
+
+\bibitem[{{McCourt}(2013{\natexlab{b}})}]{McCourt13b}
+{McCourt} MJ (2013{\natexlab{b}}) A fast {QR} method for {G}aussian
+  eigenfunction approximation, submitted
+
+\bibitem[{{McCourt} and Fasshauer(2013)}]{McCF13}
+{McCourt} MJ, Fasshauer GE (2013) Approximating derivatives stably using
+  {G}aussians, submitted
+
+\bibitem[{{McCourt} et~al(2013){McCourt}, Fasshauer, Bian, and
+  Ganci}]{McCFBG13}
+{McCourt} MJ, Fasshauer GE, Bian H, Ganci S (2013) {GaussQR:} stable {G}aussian
+  computation. (a software package in {MATLAB}).
+  \urlprefix\url{http://math.iit.edu/$\sim$mccomic/gaussqr/}
+
+\bibitem[{Niu and \HickernellFJ(2010)}]{NiuHic09a}
+Niu B, \HickernellFJ FJ (2010) {M}onte {C}arlo simulation of stochastic
+  integrals when the cost of function evaluation is dimension dependent. In:
+  L'Ecuyer P, Owen A (eds) {M}onte {C}arlo and Quasi-{M}onte {C}arlo Methods
+  2008, Springer-Verlag, Berlin, pp 545--560
+
+\bibitem[{Niu et~al(2011)Niu, \HickernellFJ, M\"uller-Gronbach, and
+  Ritter}]{NiuHic09b}
+Niu B, \HickernellFJ FJ, M\"uller-Gronbach T, Ritter K (2011) Deterministic
+  multi-level algorithms for infinite-dimensional integration on
+  {$\mathbb{R}^{\mathbb{N}}$}. J Complexity 27:331--351,
+  \doi{10.1016/j.jco.2010.08.001}
+
+\bibitem[{Oostenveld et~al(2011)Oostenveld, Fries, Maris, and
+  Schoffelen}]{fieldtrip11}
+Oostenveld R, Fries P, Maris E, Schoffelen J (2011) {FieldTrip}: {O}pen source
+  software for advanced analysis of {MEG}, {EEG}, and invasive
+  electrophysiological data. Computational intelligence and neuroscience
+  2011:1--9, \doi{10.1155/2011/156869}
+
+\bibitem[{{R Development Core Team}(2013)}]{R3.03_2013}
+{R Development Core Team} (2013) {The R Project for Statistical Computing}. GNU
+  Project
+
+\bibitem[{Rasmussen and Williams(2006)}]{RasWil06a}
+Rasmussen CE, Williams C (2006) Gaussian Processes for Machine Learning. MIT
+  Press, Cambridge, Massachusetts, (online version at {\tt
+  http://www.gaussianprocess.org/gpml/})
+
+\bibitem[{{SAS Institute}(2013)}]{JMP11}
+{SAS Institute} (2013) {JMP 11}
+
+\bibitem[{Schaback(1995{\natexlab{a}})}]{Schaback95b}
+Schaback R (1995{\natexlab{a}}) Error estimates and condition numbers for
+  radial basis function interpolation. Advances in Computational Mathematics
+  3(3):251--264, \doi{10.1007/BF02432002}
+
+\bibitem[{Schaback(1995{\natexlab{b}})}]{Schaback95c}
+Schaback R (1995{\natexlab{b}}) Multivariate interpolation and approximation by
+  translates of a basis function. In: Chui CK, Schumaker LL (eds) Approximation
+  Theory {VIII}, Vol. 1: Approximation and Interpolation, World Scientific
+  Publishing (Singapore), pp 491--514
+
+\bibitem[{Schaback and Wendland(2006)}]{SchWen06a}
+Schaback R, Wendland H (2006) Kernel techniques: From machine learning to
+  meshless methods. Acta Numer 15:543--639
+
+\bibitem[{Song et~al(2013)Song, Zhang, and \HickernellFJ}]{SonZhaHic12a}
+Song G, Zhang H, \HickernellFJ FJ (2013) Reproducing kernel {B}anach spaces
+  with the $\ell^1$ norm. Appl\ Comput\ Harmon\ Anal 34:96--116,
+  \doi{10.1016/j.acha.2012.03.009}
+
+\bibitem[{Stein(1999)}]{Ste99}
+Stein ML (1999) Interpolation of Spatial Data: Some theory for Kriging.
+  Springer-Verlag, New York
+
+\bibitem[{{The MathWorks, Inc.}(2013)}]{MAT8.2}
+{The MathWorks, Inc} (2013) {MATLAB} 8.2. Natick, MA
+
+\bibitem[{{The Numerical Algorithms Group}(2012)}]{NAG23}
+{The Numerical Algorithms Group} (2012) The {NAG} Library. Oxford, {M}ark 23
+  edn
+
+\bibitem[{Tong(2014)}]{Ton14a}
+Tong X (2014) A guaranteed, adaptive, automatic algorithm for univariate
+  function minimization. Master's thesis, Illinois Institute of Technology
+
+\bibitem[{Traub et~al(1988)Traub, Wasilkowski, and
+  Wo\'zniakowski}]{TraWasWoz88}
+Traub JF, Wasilkowski GW, Wo\'zniakowski H (1988) Information-Based Complexity.
+  Academic Press, Boston
+
+\bibitem[{Wahba(1990)}]{Wah90}
+Wahba G (1990) Spline Models for Observational Data, CBMS-NSF Regional
+  Conference Series in Applied Mathematics, vol~59. SIAM, Philadelphia
+
+\bibitem[{Wendland(2005)}]{Wen05a}
+Wendland H (2005) Scattered Data Approximation. No.~17 in Cambridge Monographs
+  on Applied and Computational Mathematics, Cambridge University Press,
+  Cambridge
+
+\bibitem[{Zhou and \HickernellFJ(2014)}]{ZhoHic15a}
+Zhou X, \HickernellFJ FJ (2014) Tractability of the radial function
+  approximation problem with kernels of a product form. Submitted for
+  publication, arXiv:1411.0790 [math.NA]
+
+\end{thebibliography}
