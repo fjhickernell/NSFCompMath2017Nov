@@ -26,6 +26,7 @@
 \newcommand{\hatg}{\hat{g}}
 \newcommand{\tf}{\tilde{f}}
 \newcommand{\tbf}{\tilde{\bff}}
+\DeclareMathOperator{\cost}{cost}
 \DeclareMathOperator{\loss}{loss}
 \DeclareMathOperator{\lof}{lof}
 \DeclareMathOperator{\reg}{reg}
@@ -68,8 +69,19 @@
 
 \DeclareMathOperator{\APP}{APP}
 \DeclareMathOperator{\INT}{INT}
+\DeclareMathOperator{\app}{app}
+\DeclareMathOperator{\integ}{int}
 \DeclareMathOperator{\hAPP}{\widehat{\APP}}
 \DeclareMathOperator{\hINT}{\widehat{\INT}}
+\DeclareMathOperator{\happ}{\widehat{\app}}
+\DeclareMathOperator{\hint}{\widehat{\integ}}
+\DeclareMathOperator{\err}{err}
+\DeclareMathOperator{\oerr}{\overline{\err}}
+\DeclareMathOperator{\apperr}{aerr}
+\DeclareMathOperator{\oaerr}{\overline{\apperr}}
+\DeclareMathOperator{\interr}{ierr}
+\DeclareMathOperator{\oierr}{\overline{\interr}}
+
 \DeclareMathOperator{\Spl}{Spline}
 \DeclareMathOperator{\SSpl}{SmSpline}
 \DeclareMathOperator{\Power}{Power}
@@ -142,6 +154,7 @@
 \newcommand{\fC}{\mathfrak{C}}
 \newcommand{\fF}{\mathfrak{F}}
 \newcommand{\fL}{\mathfrak{L}}
+\newcommand{\hS}{\widehat{S}}
 \DeclareMathOperator{\Prob}{\mathbb{P}}
 
 \def\abs#1{\ensuremath{\left \lvert #1 \right \rvert}}
@@ -169,7 +182,6 @@
 \newcommand{\ch}{\mathcal{H}}
 \newcommand{\tch}{{\widetilde{\ch}}}
 \newcommand{\veps}{\boldsymbol{\varepsilon}}
-\DeclareMathOperator{\err}{err}
 \DeclareMathOperator{\best}{best}
 \newcommand{\hmu}{\hat{\mu}}
 \newcommand{\hsigma}{\hat{\sigma}}
@@ -203,7 +215,7 @@ In the first section we frame the problems that we wish to solve and introduce s
 \section{Introduction to the Problem}
 \subsection*{Algorithm Requirements} The approximation and integration problems that we wish to solve may be described as 
 \begin{equation}
-\APP: f (\in \calf) \mapsto f (\in \calg), \qquad \INT: f (\in \calf) \mapsto \int_{\Omega} f(\bx) \varrho(\bx) \, \dif \bx (\in \reals)
+\APP: f (\in \calf) \mapsto f (\in \calg), \qquad \INT: f (\in \calf) \mapsto \int_{\Omega} f(\bx) \varrho(\bx) \, \dif \bx (\in \reals).
 \end{equation}
 Here, $\calf$ is a Banach space of real-valued candidate functions defined on $\Omega \in \reals^d$, $\calg$ is some other normed vector space of functions, $\APP$ is the embedding operator, and $\INT$ is an integration functional, which depends on the probability density $\varrho$.  Our aim is to find adaptive algorithms, $\hAPP$ and $\hINT$, such that 
 \begin{subequations} \label{adaptalgoerr}
@@ -215,13 +227,32 @@ Here, $\calf$ is a Banach space of real-valued candidate functions defined on $\
 \end{gather}
 \end{subequations}
 
-The algorithms $\hAPP$ and $\hINT$ are assumed to depend on $f$ only via a finite number of data points, e.g., function values $f(\bx_1), \ldots, f(\bx_N)$, not on a more complete knowledge of $f$.  This mirrors the situation in many applications.  The algorithms are \emph{adaptive} in the sense $N$ is not an input, but rather $N$ is determined by the algorithms based on the absolute and relative error tolerances, $\abstol$ and $\reltol$, as well as the observed function data.  The choice of the data sites, $\bx_i$, may be adaptive as well.  Algorithms, even adaptive ones, that only use a finite number of data to approximate a function in an infinite-dimensional Banach space, $\calf$, cannot be expected to provide the correct answer for all $f\in \calf$.  One can easily construct a (spiky) function that is zero at all data sites $\bx_1, \ldots, \bx_N$, but that is not zero and has a nonzero integral.  Thus, our algorithms will only be correct for some subset, $\calc$, of functions in $\calf$.  We must identify a reasonable $\calc$, which we expect to be a \emph{cone}.
 
-The computational cost of the algorithm will be proportional to, $N$, the number of data required, which as already mentioned will be determined adaptively. The computational cost may also depend on the dimension of the domain of the functions, $d$.  This is discussed further in Section \ref{???}.  We aim to construct algorithms that can be shown to have asymptotically optimal cost as $\abstol^{-1}, \reltol^{-1}, \norm[\calf]{f}$, and $d$ tend to infinity.  Thus, although the problems of function approximation and integration are relatively simple compared to other numerical problems, the demands that we are making on our algorithms are quite high and the answers to the questions that we are posing are not yet known.
+The algorithms $\hAPP$ and $\hINT$ are assumed to depend on $f$ only via a finite number of data points, not on a more complete knowledge of $f$.  This mirrors the situation in many applications.  The algorithms are \emph{adaptive} in the sense that the number of of data points, $N$, is not an input, but rather is determined by based on the absolute and relative error tolerances, $\abstol$ and $\reltol$, as well as the observed function data.  
+
+For a sequence of data sites $\{\bx_i\}_{i=1}^{\infty}$, where the $\bx_j$ may depend on function values $\{f(\bx_i)\}_{i=1}^{j-1}$, we will use fixed sample size algorithms $\happ(f,N)$ and $\hint(f,N)$, which depend on the function values $\{f(\bx_i)\}_{i=1}^N$.  Multidimensional integrals well be approximated by averages of function values:
+\begin{equation} \label{QMCcub}
+\hint(f,N) = \frac 1N \sum_{i=1}^N f(\bx_i), \qquad N \in \naturals,\ f \in \calf.
+\end{equation}
+Function approximation algorithms, $\happ$, are discussed more below.  We will also construct data-based error bounds, $\oaerr$ and $\oierr$ such that
+\begin{equation*}
+\norm[\calg]{\APP(f)-\happ(f,N)} \le \oaerr(f,N), \ \
+\bigabs{\INT(f)-\hint(f,N)} \le \oierr(f,N), \quad N \in \naturals,\ f \in \calc.
+\end{equation*}
+Practicality requires that $\oaerr(f,N)$ and $\oierr(f,N)$ depend only on the function data $\{f(\bx_i)\}_{i=1}^N$. Then $\hAPP(f,\abstol,\reltol)$ will choose $N$ to satisfy $\oaerr(f,N) \le \max(\abstol,\reltol \norm[\calg]{f})$ and return the answer $\happ(f,N)$. An analogous procedure will hold for $\hINT(f,\abstol,\reltol)$.
+
+The computational costs of our adaptive algorithms will be measured in terms of the number of data required. For $S \in \{\APP, \INT\}$, let $\$[\hS(f,\abstol,\reltol)]$ denote the number of data required for the given inputs.  The cost of algorithm $\hS$ is then
+\begin{equation}
+\cost(\hS,\sigma,\abstol,\reltol) := \min\{N \in \naturals : \$[\hS(f,\abstol,\reltol)] \le N \text{ for all } f \in \calc \text{ with } \norm[\calf]{f} \le \sigma\}.
+\end{equation}
+This computational cost is allowed to depend on the $\calf$-norm of $f$ since we expect that a given absolute error tolerance a larger $f$ requires more computational effort. However, $\hS$ has no knowledge of $\sigma$. The computational cost may also depend on the dimension of the number of function inputs, $d$.  We aim to construct algorithms that can be shown to have asymptotically optimal cost as $\abstol^{-1}, \reltol^{-1}, \sigma$, and $d$ tend to infinity.
+
+Algorithms---even adaptive ones---that only use a finite number of data cannot be expected to provide the correct answer for all $f\in \calf$.  One can easily construct a (spiky) function $f$ that vanishes at all data sites $\bx_1, \ldots, \bx_N$, but that is not zero and has a nonzero integral.  Thus, our algorithms will only be correct for some subset, $\calc$, of functions in $\calf$.  We must identify a reasonable $\calc$, which we expect to be a \emph{cone}.
+
+Although function approximation and integration are relatively simple compared to some other numerical problems, the demands that we are making on our algorithms are quite high and the answers to the questions that we are posing are not yet known.  However, we believe that these questions are important.
 
 \subsection*{Interpolation}
-To illustrate the numerical stability and efficiency issues we consider the problem of function approximation ($\APP$) via interpolation.  
-Suppose that the space of candidate functions, $\calf$, is a Hilbert space with a basis $\{\varphi_n\}_{n=1}^{\infty}$ that is orthonormal with respect to the $L^2:=L^2(\Omega, \varrho)$ inner product $\ip[L^2]{f}{g} := \int_{\Omega} f(\bx) g(\bx) \, \varrho(\bx) \, \dif \bx$.  Moreover, suppose that $\{\varphi_n\}_{n=1}^{\infty}$ is orthogonal with respect to the $\calf$-inner product: 
+To illustrate some of the challenges further we consider the problem of function approximation ($\APP$) via interpolation.  Suppose that the space of candidate functions, $\calf$, is a Hilbert space with a basis $\{\varphi_n\}_{n=1}^{\infty}$ that is orthonormal with respect to the $L^2:=L^2(\Omega, \varrho)$ inner product $\ip[L^2]{f}{g} := \int_{\Omega} f(\bx) g(\bx) \, \varrho(\bx) \, \dif \bx$.  Moreover, suppose that $\{\varphi_n\}_{n=1}^{\infty}$ is orthogonal with respect to the $\calf$-inner product: 
 \begin{equation}
 \ip[\calf]{f}{g}=\sum_{n=1}^{\infty} \lambda_n \hatf(n)\hatg(n), \qquad \text{where }  f=\sum_{n=1}^{\infty} \hatf(n) \varphi_n, \quad g=\sum_{n=1}^{\infty} \hatg(n) \varphi_n.
 \end{equation}
@@ -229,13 +260,13 @@ Suppose that the space of candidate functions, $\calf$, is a Hilbert space with 
 
 Given the data $(\bx_1,y_1), \ldots, (\bx_N,y_N)$ with $\by_i=f(\bx_i)$, one might approximate $f$ by interpolation using the first $N$ elements of the basis:
 \[
-\tf(\bx) := \sum_{n=1}^N a_n \varphi_n(\bx), \quad \text{where }\ba=\mPhi^{-1} \by, \ \ba:=(a_n)_{n=1}^{N}, \ \mPhi:=(\varphi_n(\bx_i))_{i,n=1}^{N}, \ \by:=(y_i)_{i=1}^{N}
+\happ(f,N)(\bx) := \sum_{n=1}^N a_n \varphi_n(\bx),  \text{ where }\ba=\mPhi^{-1} \by, \ \ba:=(a_n)_{n=1}^{N}, \ \mPhi:=(\varphi_n(\bx_i))_{i,n=1}^{N}, \ \by:=(y_i)_{i=1}^{N}.
 \]
-Two disadvantages of this approach are i) it is not the optimal approximation to $f$, and ii) for $d>1$ there are choices of the data sites for $\mPhi$ is singular by the Mairhuber-Curtis Theorem \cite{???}
+Two disadvantages of this approach are i) $\happ(f,N)$ is not the optimal approximation to $f$, and ii) for $d>1$ there are choices of the data sites for which $\mPhi$ is singular by the Mairhuber-Curtis Theorem \cite{???}
 
-An alternative is to fit the data by the element of $\calf$ with minimum norm.  This means that $\tf$ is an infinite series including all basis elements
+An alternative is to fit the data by the element of $\calf$ with minimum norm.  This means that $\happ(f,N)$ is an infinite series including all basis elements
 \begin{gather*}
-\tf(\bx) := \sum_{n=1}^\infty a_n \varphi_n(\bx), \quad \text{where }\ba=\argmin_{\bb: \mPhi\bb=\by} \sum_{n=1}^{\infty} \lambda_n b_n^2 = \mPhi^T \mLambda (\mPhi^T\mLambda\mPhi)^{-1}  \by, \\
+\happ(f,N)(\bx) := \sum_{n=1}^\infty a_n \varphi_n(\bx), \quad \text{where }\ba=\argmin_{\bb: \mPhi\bb=\by} \sum_{n=1}^{\infty} \lambda_n b_n^2 = \mPhi^T \mLambda (\mPhi^T\mLambda\mPhi)^{-1}  \by, \\
 \bb:=(b_n)_{n=1}^{N}, \ \mPhi:=(\varphi_n(\bx_i))_{i,n=1}^{N,\infty}, \ \mLambda=\diag(\lambda_1, \lambda_2, \ldots), \ \by:=(y_i)_{i=1}^{N}
 \end{gather*}
 This formula may look numerically impractical since it involves manipulations with vectors and matrices of infinite extent.  However, the situation is not so bad.
@@ -255,22 +286,21 @@ The kernel $K$ is the \emph{reproducing kernel} for the Hilbert space $\calf$, i
 \nonumber
 \bk(\bx) := \bigl(K(\bx,\bx_i)\bigr)_{i=1}^N = \mPhi \mLambda \bvarphi(\bx), \quad \bvarphi(\bx):=\bigl(\varphi_n(\bx)\bigr)_{n=1}^{\infty} \qquad \mK:=\bigl(K(\bx_i,\bx_j)\bigr)_{i,j=1}^N=\mPhi^T\mLambda\mPhi, \\
 \label{meshfreeapprox}
-\tf(\bx) := \bvarphi_n^T(\bx) \ba  = \bvarphi_n^T(\bx)\mPhi^T \mLambda (\mPhi^T\mLambda\mPhi)^{-1}  \by = \bk^T(\bx)\bc, \quad \text{where }\bc:= \mK^{-1} \by.
+\happ(f,N)(\bx) := \bvarphi_n^T(\bx) \ba  = \bvarphi_n^T(\bx)\mPhi^T \mLambda (\mPhi^T\mLambda\mPhi)^{-1}  \by = \bk^T(\bx)\bc, \quad \text{where }\bc:= \mK^{-1} \by.
 \end{gather}
 
-This numerical algorithm for function recovery goes by different names, such as, radial basis function approximation \citep{Buh03a}, scattered data approximation \citep{Wen05a}, meshfree approximation \citep{Fas07a}, and kriging \citep{Ste99}. It is part of the JMP \citep{JMP11} and R \citep{R3.03_2013} software packages.  It is flexible because the data sites need not follow a regular pattern. It is known that $\tf$ is the best approximation to $f$ in $\calf$ given the the data \citep{Fas07a,Wen05a}.  There is also a stochastic optimality if one considers $f$ to be a Gaussian stochastic process whose covariance kernel is $K$ \citep{BerT-A04,Wah90}.  The procedure outlined above can be extended to include the exact reproduction of polynomials and also the situation where the $y_i$ are noisy observations of the $f(\bx_i)$ \citep{Wah90}.
+This numerical algorithm for function recovery goes by different names, such as, radial basis function approximation \citep{Buh03a}, scattered data approximation \citep{Wen05a}, meshfree approximation \citep{Fas07a}, and kriging \citep{Ste99}. It is part of the JMP \citep{JMP11} and R \citep{R3.03_2013} software packages.  It is flexible because the data sites need not follow a regular pattern. It is known that $\happ(f,N)$ is the best approximation to $f$ in $\calf$ given the the data \citep{Fas07a,Wen05a}.  There is also a stochastic optimality if one considers $f$ to be a Gaussian stochastic process whose covariance kernel is $K$ \citep{BerT-A04,Wah90}.  The procedure outlined above can be extended to include the exact reproduction of polynomials and also the situation where the $y_i$ are noisy observations of the $f(\bx_i)$ \citep{Wah90}.
 
 \subsection*{Numerical Stability} Unfortunately, this meshfree approach also has the disadvantage of numerical instability {\bf Greg, please insert as much as you want}
 
-\subsection*{Error Bounds} Adaptive algorithms depend on reliable methods for bounding the error.  The pointwise error of the meshfree function approximation given in \eqref{meshfreeapprox} is known to have the following upper bound \citep{???}:
+\subsection*{Error Bounds} 
+The pointwise error of the meshfree function approximation $\happ$ given in \eqref{meshfreeapprox} is known to have the following upper bound \citep{???}:
 \begin{equation} \label{errbda}
-\abs{f(\bx)-\tf(\bx)} \le \sqrt{K(\bx,\bx)-\bk^T(\bx)\mK^{-1} \bk(\bx)} \norm[\calf]{f}, \qquad \bx \in \Omega.
+\abs{\APP(f)(\bx)-\happ(f,N)(\bx)} \le \sqrt{K(\bx,\bx)-\bk^T(\bx)\mK^{-1} \bk(\bx)} \norm[\calf]{f}, \qquad \bx \in \Omega.
 \end{equation}
-Using this error bound to construct an adaptive algorithm $\hAPP$  satisfying \eqref{hAPPerr} poses several challenges.  The numerical singularity of $\mK^{-1}$ mentioned above makes the computation of $\mK^{-1}\bk(\bx)$ inaccurate.  Bounding $\bignorm[\infty,\Omega]{f-\tf}$ requires the supremum of the quantity under the square root in \eqref{errbda}, which is difficult.  Although the error bound does depend on the placement of the data sites, $\{\bx_i\}_{i=1}^N$, it does not depend on the values of $f$ at those data sites.  This means that an adaptive algorithm based on \eqref{errbda} has no way of detecting a spike in $f$ and deciding to put more data sites near that spike.  Finally, there is no known upper bound on $\norm[\calf]{f}$, unless one is assumed a priori.
+Using this inequality to find a data-driven error bound, $\oaerr(f,N)$, poses several challenges.  The numerical singularity of $\mK^{-1}$ mentioned above makes the computation of $\mK^{-1}\bk(\bx)$ inaccurate.  Bounding $\bignorm[\infty,\Omega]{\APP(f) - \happ(f,N)}$ requires the supremum of the quantity under the square root in \eqref{errbda}, which is difficult.  Although \eqref{errbda} does depend on the placement of the data sites, $\{\bx_i\}_{i=1}^N$, it does not depend on the $\{f(\bx_i)\}_{i=1}^N$.  This means that an adaptive algorithm based on \eqref{errbda} has no way of detecting a spike in $f$ and deciding to put more data sites near that spike.  Finally, there is no known upper bound on $\norm[\calf]{f}$, unless one is assumed a priori.
 
-Function approximation for machine learning or for surrogates of computer experiments may involve a large number of inputs, $d$, relative to the number of data $N$.  Therefore, we want to know how any error bound that we use depends on both $N$ and $d$, so that we may understand under what conditions the function approximation algorithm is practical for large $d$.
-
-To recap, we intend to construct adaptive algorithms for function approximation and integration that satisfy error bounds of the form \eqref{adaptalgoerr}.  For the function approximation problem we will focus on interpolation, but must somehow choose a basis that gives an accurate answer that can be computed stably.  Our adaptive integration algorithm will be an average of function values.  For both problems we need error bounds depending on function data that we can compute stably.  We want to show that our algorithm has a reasonable computational cost, paying particular attention to the problem of large $d$.
+To recap, we intend to construct adaptive algorithms, $\hAPP$ and $\hINT$ for function approximation and integration that satisfy error bounds of the form \eqref{adaptalgoerr}.  For the function approximation problem we will focus on interpolation and must somehow choose a basis so that $\happ(f,n)$ can be computed stably.  For both $\happ(f,n)$ and $\hint(f,n)$ we need reliable error bounds depending on function data.  We want to show that our adaptive algorithms has a reasonable computational cost, paying particular attention to the problem of large $d$.
 
 Some of these problems have partial answers obtained through previous NSF-funded research, which are highlighted in the next section.  Our plan to complete the solution of these problems is  given in Sections ???
 
