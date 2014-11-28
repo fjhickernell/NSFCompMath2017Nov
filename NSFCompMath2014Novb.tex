@@ -201,16 +201,54 @@
 
 \centerline{\Large \bf Project Description}
 
-Function approximation (recovery) and integration problems arise in several application areas, including the construction of surrogates for computer experiments \citep{ForEtal09}, numerical solution of partial differential equations \citep{Fas07a,SchWen06a}, and financial risk management \citep{Gla03}.  While there has been a substantial effort to construct efficient algorithms to solve these problems, even the best algorithms may fail to produce answers within the user-specified error tolerance in a reliable and efficient manner.  \emph{We aim to develop algorithms that are:}
+Function approximation (recovery) and integration problems arise in several application areas, including the construction of surrogates for computer experiments \citep{FangEtAl06,ForEtal09,SantnerWilliamsNotz03}, numerical solution of partial differential equations \citep{ChenEtAl14,Fas07a,FornbergFlyer15,SarraKansa09,SchWen06a,Wendland04}, and financial risk management \citep{Gla03}.  While there has been a substantial effort to construct efficient algorithms to solve these problems, even the best algorithms may fail to produce answers within the user-specified error tolerance in a reliable and efficient manner.  \emph{We aim to develop algorithms that are:}
 \begin{description}[leftmargin=2.5ex]
 \item[Stable] The computations do not suffer from catastrophic round-off error.
 
 \item[Efficient] The computational cost is asymptotically optimal compared to the best possible algorithm.
 
 \item[Adaptive] The algorithm adjust its parameters based on the data it observes---rather than a priori knowledge---to meet a specified error tolerance.
+    
+\item[What about Accurate/Guaranteed?]
 \end{description}
 
-In the first section we frame the problems that we wish to solve and introduce several key ideas.  Section \ref{SectPrevious} then describes previous related work funded by the NSF. This is folowed by \ldots
+\subsection*{Two Typical Examples From Our Earlier NSF-Funded Work}
+Kernel methods are used in many different applications, and the function approximation problem may be considered as the fundamental application since it directly applies in the context of scattered data fitting, surrogate modeling and regression approaches in machine learning. Moreover, the function approximation problem is also the starting point for various approaches to the solution of partial differential equations, such as, e.g., pseudospectral collocation methods, partition of unity methods, or RBF-based finite difference methods. One of the main accomplishments of \emph{NSF-DMS-1115392 Kernel Methods for Numerical Computation} (see Section~\ref{SectPrevious}) was the development of the so-called \emph{Hilbert--Schmidt SVD}. This algorithm provides a framework for finding a new stable basis for often ill-conditioned kernel methods.
+
+%Since the Hilbert--Schmidt SVD depends on the availability of the Mercer series of the kernel $K$, one obvious research thrust is to extend the class of kernels for which the Hilbert--Schmidt SVD can be implemented. We plan on doing this along three different paths: (1) analytically computing eigenvalues and eigenfunctions for a given kernel $K$, (2) numerically computing eigenvalues and eigenfunctions for a given kernel $K$, and (3) building \emph{designer kernels} starting from a given orthogonal set of functions $\{\varphi_n\}_{n=1}^\infty$ and appropriately decaying scalars $\{\lambda_n\}_{n=1}^\infty$ which will serve as eigenfunctions and eigenvalues for $K$.
+
+A second major accomplishment of \emph{NSF-DMS-1115392 Kernel Methods for Numerical Computation} was the development of guaranteed numerical integration algorithms such as the guaranteed quasi-Monte Carlo method of (?? Hickernell and Jimenez).
+
+\section{Proposed Research}
+Based on our previous research accomplishments, we propose to extend our work in several different directions:
+
+\begin{description}[leftmargin=2.5ex]
+
+\item[Research Project 1] Extend our research on the Hilbert--Schmidt SVD by identifying more kernels and their Mercer series for which the Hilbert--Schmidt SVD can be implemented by
+\begin{itemize}
+\item analytically computing eigenvalues and eigenfunctions for a given kernel $K$,
+\item numerically computing eigenvalues and eigenfunctions for a given kernel $K$, and
+\item building \emph{designer kernels} starting from a given orthogonal set of functions $\{\varphi_n\}_{n=1}^\infty$ and appropriately decaying scalars $\{\lambda_n\}_{n=1}^\infty$ which will serve as eigenfunctions and eigenvalues for $K$.
+\end{itemize}
+
+\item[Research Project 2] Extend the research on guaranteed algorithms.
+
+\item[Research Project 3] Combine earlier results to obtain guaranteed and automatic algorithms for kernel methods.
+\begin{itemize}
+\item Use cones to obtain error bounds and guarantees for function approximation with kernels.
+\item Use the Hilbert--Schmidt SVD for automatic and adaptive data-based parameter selection of kernel methods.
+\item Use the Hilbert--Schmidt SVD to obtain good automatic and adaptive data-based designs for kernel methods.
+\end{itemize}
+
+\item[Research Project 4] Application of earlier results.
+\begin{itemize}
+\item Use kernel methods (and the Hilbert--Schmidt SVD) for the solution of PDEs (such as for (W)ENO).
+\item Use kernel methods for the solution of the MEG/EEG problem.
+\item Use the eigenfunction expansion for low-rank approximations in machine learning.
+\end{itemize}
+
+\end{description}
+
 
 \section{Introduction to the Problem}
 \subsection*{Algorithm Requirements} The approximation and integration problems that we wish to solve may be described as
