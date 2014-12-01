@@ -243,19 +243,19 @@ The research proposed here focuses primarily on \emph{algorithms for constructin
 \item[Efficiency] The computational cost of the algorithms are asymptotically optimal---compared to the best possible algorithms---as the error tolerance vanishes.
 \end{description}
 
-In addition to surrogate construction---essentially a problem of function approximation---we will also research two related problems.  One is multivariate integration, which is a simpler problem that shares many of the same mathematical features of function approximation.  Moreover, we will also propose the use of kernels for the numerical solution of PDEs \citep{ChenEtAl14,FornbergFlyer15,SarraKansa09}. 
+In addition to surrogate construction---essentially a problem of function approximation---we will also research two related problems.  One is integration, a simpler problem that shares many of the same mathematical features of function approximation.  Moreover, we will also propose the use of kernels for the numerical solution of PDEs \citep{ChenEtAl14,FornbergFlyer15,SarraKansa09}. 
 
-For the function approximation problem, each data point consists of a combination of the input parameters for a computer simulation, and the corresponding data value is given by the output/response obtained from running the computer simulation with these inputs. In other words, one needs to run the computer simulation multiple times in order to produce a set of data, and then one can use a function approximation algorithm to produce a response surface which in turn can be evaluated stably, efficiently and accurately for any desired set of input parameters. The number of these input parameters determines the dimensionality of the data fitting problem, and it is not difficult to imagine that this dimension can be rather large. {\bf [Fred, can you add a similar statement about integration?]}
+%For the surrogate construction problem, each data point consists of a combination of the input parameters and the corresponding output value. In other words, one needs to run the computer simulation multiple times in order to produce a set of data, and then one can use a function approximation algorithm to produce a response surface which in turn can be evaluated stably, efficiently and accurately for any desired set of input parameters. The number of these input parameters determines the dimensionality of the data fitting problem, and it is not difficult to imagine that this dimension can be rather large. {\bf [Fred, can you add a similar statement about integration?]}
 
 \section{Overview of Proposed Research}
 Kernel methods \citep{Fas07a,SchWen06a,Wen05a} are often viewed as an ideal approach to the function approximation problem, which in turn serves as a fundamental application in the context of scattered data fitting and surrogate modeling, but also for classification and regression approaches in machine learning \citep{HasTibFrie01} and as the starting point for various approaches to the solution of partial differential equations, such as, e.g., pseudospectral collocation methods, partition of unity methods, or RBF-based finite difference methods \citep{Fas07a,FornbergFlyer15}.
 
-In the context of surrogate modeling, we are presented with a (costly) computer simulation which generates an output/response, $y=f(\bx)$, given any input $\bx \in \Omega \subset\reals^d$.  The goal is to construct a surrogate, $\tf$, based on the data $(\bx_1, y_1), \ldots, (\bx_N,y_N)$.  An approach based on kernel methods is of the form
+In the context of surrogate modeling, we are presented with a (costly) computer simulation which generates an output/response, $y=f(\bx)$, given any input $\bx \in \Omega \subset\reals^d$.  The goal is to construct a surrogate, $\tf$, based on the data $(\bx_1, y_1), \ldots, (\bx_N,y_N)$.  An approach based on kernel methods takes the form
 \begin{subequations} \label{rbfapprox}
 \begin{equation} \label{rbfform}
 \tf(\bx) = \sum_{j=1}^N K(\bx,\bx_j) c_j,
 \end{equation}
-where $K:\Omega \times \Omega \to \reals$ is a known symmetric, positive definite kernel. One example is the Gaussian (or squared exponential) kernel
+where $K:\Omega \times \Omega \to \reals$ is a known symmetric, positive definite kernel. One example is the Gaussian (or squared exponential) kernel:
 \begin{equation}  \label{gausskernel}
 K(\bx,\bt) = \exp\bigl(-\gamma_1^2 (x_1-t_1)^2 - \cdots - \gamma_d^2 (x_d-t_d)^2 \bigr), \quad \bx = (x_1,\ldots,x_d),\ \gamma_1,\ldots,\gamma_d >0,
 \end{equation}
@@ -276,15 +276,15 @@ Building upon these previous research accomplishments, we propose to extend our 
 \item[\refproba] Extend our research on the Hilbert--Schmidt SVD by identifying more kernels and their Mercer series for which the Hilbert--Schmidt SVD can be implemented.
 \begin{enumerate}
 \renewcommand{\labelenumi}{1.\arabic{enumi}.}
-\item Analytically compute eigenvalues and eigenfunctions for a given kernel $K$,
-\item Numerically compute eigenvalues and eigenfunctions for a given kernel $K$, and
-\item Build \emph{designer kernels} starting from a given orthogonal set of functions $\{\varphi_n\}_{n=1}^\infty$ and appropriately decaying scalars $\{\lambda_n\}_{n=1}^\infty$ which will serve as eigenfunctions and eigenvalues for $K$.
+\item Analytically compute eigenvalues and eigenfunctions for new kernels $K$,
+\item Numerically compute eigenvalues and eigenfunctions for new kernels $K$.
+\item Build \emph{designer kernels}, $K$, starting from a given orthogonal set of functions $\{\varphi_n\}_{n=1}^\infty$ and appropriately decaying scalars $\{\lambda_n\}_{n=1}^\infty$ which will serve as eigenfunctions and eigenvalues for $K$.
 \end{enumerate}
 
-\item[\refprobb] Extend our research on guaranteed algorithms.  In particular,
+\item[\refprobb] Extend our research on guaranteed, adaptive algorithms.
 \begin{enumerate}
 \renewcommand{\labelenumi}{2.\arabic{enumi}.}
-\item Develop adaptive (quasi-)Monte Carlo methods for multivariate integration that handle both absolute and relative error tolerances.
+\item Develop adaptive (quasi-)Monte Carlo methods for multivariate integration that satisfy both absolute and relative error tolerances.
 \item Develop adaptive univariate integration and function approximation algorithms that are higher order and locally adaptive.
 \end{enumerate}
 
@@ -296,15 +296,16 @@ Building upon these previous research accomplishments, we propose to extend our 
 \item Use the Hilbert--Schmidt SVD to obtain ``optimal'' automatic and adaptive data-based designs for kernel methods.
 \end{enumerate}
 
-\item[\refprobd] Apply earlier results.
+\item[\refprobd] Apply new results.
 \begin{enumerate}
 \renewcommand{\labelenumi}{4.\arabic{enumi}.}
 \item Use kernel methods and the Hilbert--Schmidt SVD for the solution of PDEs via so-called RBF-(W)ENO (weighted essentially non-oscillatory) methods.
 \item Use kernel methods for the solution of the MEG/EEG forward problem.
 \item Use the eigenfunction expansion of kernels for low-rank approximations in machine learning.
-\item Use of kernel methods to create a surrogate model to predict the spread of Ebola in West Africa.
+\item Use kernel methods to create a surrogate model to predict the spread of Ebola in West Africa.
 \end{enumerate}
 \end{description}
+In the following sections we outline our plans for completing these four projects.
 
 \section*{Research Project 1. Extensions of the Hilbert--Schmidt SVD}\label{SectHSSVD}
 
@@ -368,8 +369,7 @@ Depending on the choice of basis and kernel, it may be possible to evaluate thes
 It is possible to build a positive definite kernel via Mercer's theorem by combining an appropriate sequence of
 ``eigenvalues'' $\lambda_n$ with a given set of orthogonal functions. Thus, the closed form of the kernel may or may not be known in this case. For example, one could start with Chebyshev polynomials on $[-1,1]$ and combine them with either a sequence of algebraically or geometrically decaying eigenvalues. This will result in Mercer kernels that provide either algebraic of spectral approximation rates and can be implemented stably and reliably within the Hilbert--Schmidt SVD framework. The iterated Brownian bridge kernels of \cite{CavorettoEtAl14} provide another example of a family of designer kernels where the sinusoidal eigenfunctions (see \eqref{IBBkernel}) were chosen to satisfy boundary conditions generalizing those of natural cubic splines. Kernels with other (e.g., periodic) boundary conditions can be constructed using similar ideas.
 
-\section*{Research Project 2. Extensions of Guaranteed Algorithms}\label{SectGAIL}
-\subsection*{Why Cones}
+\section*{Research Project 2. Extensions of Guaranteed, Adaptive Algorithms}\label{SectGAIL}
 \subsection*{Adaptive Algorithms for Integration Problems ($\INT$)}  We have already developed an adaptive simple Monte Carlo algorithm \citep{HicEtal14b} (\texttt{cubMC\_g.m} and \texttt{meanMC\_g.m} in the GAIL \citep{ChoEtal14a}) for multivariate integration problems, but \emph{only for the pure absolute error} case ($\reltol=0$).  The integral is approximated by IID samples of $f(\bX)$ where $\bX$ is generated by probability density function (PDF) $\varrho$. Because this is a random algorithm, the deterministic guarantee of success in \eqref{hINTerr} is replaced by a probabilistic one:
 \begin{equation} \label{cubMCguar}
  \Prob\bigl[\bigabs{\INT(f) -\hINT(f,\abstol,\reltol)} \bigr ] \le \max(\abstol,\reltol \abs{\INT(f)}) \bigr] \le 1-\alpha.
@@ -381,6 +381,8 @@ This guarantee holds for the cone of integrands with bounded kurtosis:
 The bounded kurtosis allows us to reliably bound the population variance $f(\bX)$ by the an inflation of the sample variance of the $f(\bX_i)$. This variance bound along with the kurtosis bound are input into a Berry-Esseen inequality (a finite sample version of the Central Limit Theorem) to guarantee \eqref{cubMCguar}.
 
 We are now trying to extend our results to the more general error tolerance that includes nonzero $\reltol$.  The difficulty is that we must bound $\abs{\INT(f)}$ at the same time that we are trying to estimate it.  This requires an algorithm with a varying number of iterations.  Since the intermediate results are probabilistic, we must split the uncertainty, $\alpha$, among all of these intermediate iterations.
+
+\subsection*{Why Cones}
 
 
 
