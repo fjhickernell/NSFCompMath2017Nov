@@ -205,7 +205,19 @@
 \newcommand{\refproba}{\hyperref[SectHSSVD]{Research Project~1}}
 \newcommand{\refprobaa}{\hyperref[AnalyticEigensubsec]{Research Project~1.1}}
 \newcommand{\refprobab}{\hyperref[NumerEigensubsec]{Research Project~1.2}}
-\newcommand{\refprobac}{\hyperref[SectDesignerKernels]{Research Project~1.3}}
+\newcommand{\refprobac}{\hyperref[DesignerKernelssubsec]{Research Project~1.3}}
+\newcommand{\refprobb}{\hyperref[SectGAIL]{Research Project~2}}
+\newcommand{\refprobba}{\hyperref[Conessubsec]{Research Project~2.1}}
+\newcommand{\refprobbb}{\hyperref[Integrationsubsec]{Research Project~2.2}}
+\newcommand{\refprobc}{\hyperref[SectGuaranteedKernels]{Research Project~3}}
+\newcommand{\refprobca}{\hyperref[DatadrivenErrorsubsec]{Research Project~3.1}}
+\newcommand{\refprobcb}{\hyperref[DatadrivenParametersubsec]{Research Project~3.2}}
+\newcommand{\refprobcc}{\hyperref[DatadrivenDesignsubsec]{Research Project~3.3}}
+\newcommand{\refprobd}{\hyperref[SectApplications]{Research Project~4}}
+\newcommand{\refprobda}{\hyperref[ENOsubsec]{Research Project~4.1}}
+\newcommand{\refprobdb}{\hyperref[MEEGsubsec]{Research Project~4.2}}
+\newcommand{\refprobdc}{\hyperref[TruncHSsubsec]{Research Project~4.3}}
+\newcommand{\refprobdd}{\hyperref[Ebolasubsec]{Research Project~4.4}}
 
 %\setcounter{page}{1}
 
@@ -218,7 +230,7 @@
 For a long time, scientific research was classified as being either theoretical or experimental in nature. More recently, however, computer simulation (or computer experimentation) has emerged as a third pillar of science \citep{PITAC05,OdenGhattas14}. Sometimes computer experimentation is the only way to obtain an understanding of a physical process, and sometimes it is just considerably cheaper, safer, ethically more responsible or environmentally friendlier than performing an actual physical experiment.
 Computer simulation arises quite naturally in situations where one has a complex mathematical model (e.g., specified in terms of a system of partial differential equations or involving randomness) and one can use a computational approach to produce an output (or response) based on a given set of initial conditions and/or model parameters. A few typical examples of where computer simulations are employed are weather and climate modeling, drug design, financial risk management \citep{Gla03}, and the design of nuclear reactors \citep[Sect.\ 2.4]{Smi14a}.
 
-Computer simulation can be quite costly in terms of computation time and high-performance computing hardware.  The potential cost increases when one wishes to perform uncertainty quantification or sensitivity analysis.  Substantial cost savings can often be realized by constructing inexpensive \emph{surrogate models} from the actual outputs of these complex computer simulations \citep{FangEtAl06,ForEtal09,SantnerWilliamsNotz03}. 
+Computer simulation can be quite costly in terms of computation time and high-performance computing hardware.  The potential cost increases when one wishes to perform uncertainty quantification or sensitivity analysis.  Substantial cost savings can often be realized by constructing inexpensive \emph{surrogate models} from the actual outputs of these complex computer simulations \citep{FangEtAl06,ForEtal09,SantnerWilliamsNotz03}.
 
 The research proposed here focuses primarily on \emph{algorithms for constructing surrogates} that will allow us to quickly and reliably predict the output of the computer simulation for a previously not used combination of input factors with an accuracy guaranteed to lie within a user-specified tolerance.  We want our algorithms to have the following properties:
 \begin{description}[leftmargin=2.5ex]
@@ -229,7 +241,7 @@ The research proposed here focuses primarily on \emph{algorithms for constructin
 \item[Efficiency] The computational cost of the algorithms are asymptotically optimal---compared to the best possible algorithms---as the error tolerance vanishes.
 \end{description}
 
-In addition to surrogate construction---essentially a problem of function approximation---we will also research two related problems.  One is multivariate integration, which is a simpler problem that shares many of the same mathematical features of function approximation.  Moreover, we will also propose the use of kernels for the numerical solution of PDEs \citep{ChenEtAl14,FornbergFlyer15,SarraKansa09}. 
+In addition to surrogate construction---essentially a problem of function approximation---we will also research two related problems.  One is multivariate integration, which is a simpler problem that shares many of the same mathematical features of function approximation.  Moreover, we will also propose the use of kernels for the numerical solution of PDEs \citep{ChenEtAl14,FornbergFlyer15,SarraKansa09}.
 
 For the function approximation problem, each data point consists of a combination of the input parameters for a computer simulation, and the corresponding data value is given by the output/response obtained from running the computer simulation with these inputs. In other words, one needs to run the computer simulation multiple times in order to produce a set of data, and then one can use a function approximation algorithm to produce a response surface which in turn can be evaluated stably, efficiently and accurately for any desired set of input parameters. The number of these input parameters determines the dimensionality of the data fitting problem, and it is not difficult to imagine that this dimension can be rather large. {\bf [Fred, can you add a similar statement about integration?]}
 
@@ -254,7 +266,7 @@ but there are also other good choices for the kernel.  In the most-straightforwa
 This numerical algorithm goes by different names, such as, radial basis function approximation \citep{Buh03a}, scattered data approximation \citep{Wen05a}, meshfree approximation \citep{Fas07a}, and kriging \citep{Ste99}. It is part of the JMP \citep{JMP11}, \Matlab \citep{MAT8.4} and R \citep{R3.03_2013} software packages.  It is flexible because the data sites need not follow a regular pattern. There is a deterministic optimality: $\tf$ is the best approximation to $f$ in the Hilbert space whose reproducing kernel is $K$ \citep{Fas07a,Wen05a}.  There is a stochastic optimality: $\tf$ is the best approximation to $f$ in the set of Gaussian stochastic processes whose covariance kernel is $K$ \citep{BerT-A04,Wah90}.  The procedure outlined above can be extended to include the exact reproduction of polynomials and also the situation where the $y_i$ are noisy observations of the $f(\bx_i)$ \citep{Wah90}.
 
 One of the main accomplishments of \emph{NSF-DMS-1115392 Kernel Methods for Numerical Computation} (see Section~\ref{SectPrevious}) was the development of the so-called \emph{Hilbert--Schmidt SVD} (see Section \refproba). This algorithm provides a framework for finding a new stable basis for often ill-conditioned kernel methods.
-A second major accomplishment was the development of guaranteed numerical integration algorithms such as the guaranteed quasi-Monte Carlo method of (?? Hickernell and Jimenez) (see Section~\ref{SectGAIL}). 
+A second major accomplishment was the development of guaranteed numerical integration algorithms such as the guaranteed quasi-Monte Carlo method of (?? Hickernell and Jimenez) (see Section~\ref{SectGAIL}).
 
 Building upon these previous research accomplishments, we propose to extend our work in several different directions:
 
@@ -313,7 +325,7 @@ where all matrices are of size $N\times N$, but the matrix $\mPsi$ is formed as 
 \left(\begin{matrix}\mLambda_1 & \\ & \mLambda_2\end{matrix}\right) = \text{diag}(\lambda_n)_{n=1}^\infty,\ \left(\mPhi_1\ \mPhi_2\right) = \mPhi = \left(\varphi_n(\bx_i)\right)_{i,n=1}^{N,\infty}.
 \end{equation}
 \end{subequations}
-For practical applications the matrices $\mLambda_2$ and $\mPhi_2$ will therefore have to be truncated appropriately (see Sect.~\ref{Sec_TruncHS}). We refer to the Hilbert--Schmidt SVD \eqref{HSSVD} as a ``formal decomposition'' since it is important to note that the matrices $\mPsi$, $\mLambda_1$, $\mLambda_2$, $\mPhi_1$ and $\mPhi_2$ are not found by manipulating $\mK$, but are formed directly from the eigenvalues and eigenfunctions of $\cK$. In fact, the ill-conditioned matrix $\mK$ never needs to be formed, nor is precise knowledge of the closed form of the kernel $K$ essential. As long as the eigenfunctions and eigenvalues are known, the Hilbert--Schmidt SVD enables us to formulate stable and efficient algorithms for the associated kernel approximation problems \citep{CavorettoEtAl14}.
+For practical applications the matrices $\mLambda_2$ and $\mPhi_2$ will therefore have to be truncated appropriately (see Sect.~\ref{TruncHSsubsec}). We refer to the Hilbert--Schmidt SVD \eqref{HSSVD} as a ``formal decomposition'' since it is important to note that the matrices $\mPsi$, $\mLambda_1$, $\mLambda_2$, $\mPhi_1$ and $\mPhi_2$ are not found by manipulating $\mK$, but are formed directly from the eigenvalues and eigenfunctions of $\cK$. In fact, the ill-conditioned matrix $\mK$ never needs to be formed, nor is precise knowledge of the closed form of the kernel $K$ essential. As long as the eigenfunctions and eigenvalues are known, the Hilbert--Schmidt SVD enables us to formulate stable and efficient algorithms for the associated kernel approximation problems \citep{CavorettoEtAl14}.
 
 A typical comparison between interpolation errors based on the standard (or direct) approach \eqref{rbfapprox} and the Hilbert--Schmidt approach applied to isotropic Gaussian kernel interpolation is shown in the left plot of Fig.~\ref{Fig_HSSVD}. The most accurate results are obtained for a positive value of $\gamma$ (they compare favorably to a polynomial interpolant corresponding to the ``flat'' $\gamma\to0$ limit). Moreover, in or near the ``flat'' limit regime the standard approach generates completely unreliable results (the dashed lines), i.e., the standard approach yields reliable answers only for relatively spiky kernels.
 
@@ -350,16 +362,17 @@ $\varphi(\bx) \approx \sum_{j=1}^N c_j h_j(\bx)$, where $\{h_1,h_2,\ldots,h_N\}$
 \end{equation}
 Depending on the choice of basis and kernel, it may be possible to evaluate these integrals analytically or not. In the latter case we will use the techniques of Section~\ref{SectGAIL}. Since the solution of \eqref{GeneralizedEVProblem} in its full generality is not yet a standard numerical linear algebra problem---although some work exists \citep{DasNeumaier13}---we will also consider the simpler case when $M=N$, i.e., the number of collocation points equals the number of basis functions.
 
-\subsection*{Research Project 1.3. Designer Kernels}\label{SectDesignerKernels}
+\subsection*{Research Project 1.3. Designer Kernels}\label{DesignerKernelssubsec}
 
 This is Section \refprobac.
 
 It is possible to build a positive definite kernel via Mercer's theorem by combining an appropriate sequence of
 ``eigenvalues'' $\lambda_n$ with a given set of orthogonal functions. Thus, the closed form of the kernel may or may not be known in this case. For example, one could start with Chebyshev polynomials on $[-1,1]$ and combine them with either a sequence of algebraically or geometrically decaying eigenvalues. This will result in Mercer kernels that provide either algebraic of spectral approximation rates and can be implemented stably and reliably within the Hilbert--Schmidt SVD framework. The iterated Brownian bridge kernels of \cite{CavorettoEtAl14} provide another example of a family of designer kernels where the sinusoidal eigenfunctions (see \eqref{IBBkernel}) were chosen to satisfy boundary conditions generalizing those of natural cubic splines. Kernels with other (e.g., periodic) boundary conditions can be constructed using similar ideas.
 
-\section{Research Project 2 (Extensions of Guaranteed Algorithms)}\label{SectGAIL}
-\subsection*{Why Cones}
-\subsection*{Adaptive Algorithms for Integration Problems ($\INT$)}  We have already developed an adaptive simple Monte Carlo algorithm \citep{HicEtal14b} (\texttt{cubMC\_g.m} and \texttt{meanMC\_g.m} in the GAIL \citep{ChoEtal14a}) for multivariate integration problems, but \emph{only for the pure absolute error} case ($\reltol=0$).  The integral is approximated by IID samples of $f(\bX)$ where $\bX$ is generated by probability density function (PDF) $\varrho$. Because this is a random algorithm, the deterministic guarantee of success in \eqref{hINTerr} is replaced by a probabilistic one:
+\section*{Research Project 2. Extensions of Guaranteed Algorithms}\label{SectGAIL}
+\subsection*{Why Cones}\label{Conessubsec}
+\subsection*{Adaptive Algorithms for Integration Problems ($\INT$)}\label{Integrationsubsec}  
+We have already developed an adaptive simple Monte Carlo algorithm \citep{HicEtal14b} (\texttt{cubMC\_g.m} and \texttt{meanMC\_g.m} in the GAIL \citep{ChoEtal14a}) for multivariate integration problems, but \emph{only for the pure absolute error} case ($\reltol=0$).  The integral is approximated by IID samples of $f(\bX)$ where $\bX$ is generated by probability density function (PDF) $\varrho$. Because this is a random algorithm, the deterministic guarantee of success in \eqref{hINTerr} is replaced by a probabilistic one:
 \begin{equation} \label{cubMCguar}
  \Prob\bigl[\bigabs{\INT(f) -\hINT(f,\abstol,\reltol)} \bigr ] \le \max(\abstol,\reltol \abs{\INT(f)}) \bigr] \le 1-\alpha.
 \end{equation}
@@ -373,9 +386,10 @@ We are now trying to extend our results to the more general error tolerance that
 
 
 
-\section{Research Project 3 (Combining Kernel Methods with Guaranteed and Automatic Algorithms}
+\section*{Research Project 3. Combining Kernel Methods with Guaranteed and Automatic Algorithms}\label{SectGuaranteedKernels}
 
-\subsection{Data-Driven Error Estimation (Research Project 3.1)} One may estimate the error of the meshfree approximation \eqref{rbfapprox} in a data-driven way by using cross-validation (CV).  The parameters of the kernel may be estimated by maximum likelihood estimation (MLE).  However, neither of these methods have finite-sample size guarantees of success.
+\subsection*{Research Project 3.1. Data-Driven Error Estimation}\label{DatadrivenErrorsubsec} 
+One may estimate the error of the meshfree approximation \eqref{rbfapprox} in a data-driven way by using cross-validation (CV).  The parameters of the kernel may be estimated by maximum likelihood estimation (MLE).  However, neither of these methods have finite-sample size guarantees of success.
 
 On the other hand, there exist error bounds of the form \citep{Wen05a}
 \begin{equation} \label{rbferrbd}
@@ -393,7 +407,8 @@ K(x,t) = \sum_{n=1}^{\infty} \left(n^2\pi^2 + \gamma^2\right)^{-\beta} 2\sin(n\p
 \end{equation}
 and therefore it is a perfect candidate for the data-dependent error bounds discussed above since the eigenfunctions do not depend on the parameters $\beta$ and $\gamma$, while a smaller smoothness parameter $\beta$ leads to slower decay of the eigenvalues.
 
-\subsection{Data-Driven Parameter Estimation (Research Project 3.2)} Another serious practical problem with meshfree approximation is that the matrix $\mK$ in \eqref{rbfcoef} can easily become \emph{ill-conditioned for moderate $N$}---especially if the kernel $K$ contains shape parameters, $\gamma_\ell>0$, such as the anisotropic Gaussian kernel in \eqref{gausskernel}.  The ill-conditioning will arise if the kernel has a high degree of smoothness ($r$ is large), and/or if it becomes ``flat'' (the $\gamma_\ell$ are near zero). This means that $f$ is very smooth and the discretization error \eqref{rbferrbd} vanishes rapidly as the fill distance decreases.
+\subsection*{Research Project 3.2. Data-Driven Parameter Estimation}\label{DatadrivenParametersubsec}
+Another serious practical problem with meshfree approximation is that the matrix $\mK$ in \eqref{rbfcoef} can easily become \emph{ill-conditioned for moderate $N$}---especially if the kernel $K$ contains shape parameters, $\gamma_\ell>0$, such as the anisotropic Gaussian kernel in \eqref{gausskernel}.  The ill-conditioning will arise if the kernel has a high degree of smoothness ($r$ is large), and/or if it becomes ``flat'' (the $\gamma_\ell$ are near zero). This means that $f$ is very smooth and the discretization error \eqref{rbferrbd} vanishes rapidly as the fill distance decreases.
 Traditionally, this has led to a widely accepted trade-off or uncertainty principle, according to which one must find values of the shape parameters that optimize the balance between (decreased) stability and (increased) discretization error.  This is explained in Sect.\ \ref{SectMisconcept}.
 
 Moreover, the CV and MLE computations often used to optimize the parameters in the kernel also depend on working with the possibly ill-conditioned $\mK$.  This can make CV and MLE unreliable.
@@ -404,8 +419,8 @@ As Fig.~\ref{Fig_HSSVD} shows, for any given set of data, finding an ``optimal''
 
 This latter investigation necessitates a framework in which such a comparison can take place. We plan to answer questions regarding the \emph{consistency}, \emph{rate of convergence} and \emph{stability} of various parameter estimation schemes. For consistency we ask whether a scheme is able to recover the ``true'' value of $\gamma$ as we sample more and more densely. The rate of convergence of a scheme determines how fast the ``optimal'' value suggested by the method approaches the ``true'' value as the sampling density increases, and stability of a scheme will be judged by the effects small changes in the data have on the consistency and convergence rate of the scheme. \emph{We intend to investigate and introduce a metric for comparing the quality of different parameter estimation criteria, and we also plan to derive other parameter optimization criteria, including for the low-rank version of the Hilbert-Schmidt SVD mentioned in the next section.}
 
-\subsection{Data-Driven Designs (Research Project 3.3)} 
-An important issue is not only the surface fitting problem itself, but also the choice of \emph{design}, i.e., the data locations or input parameter settings. The main objectives for finding a ``good'' design are that it successfully deal with the \emph{curse of dimensionality}, i.e., that it effectively fill out the high-dimensional design space, and that it ensure an accurate solution of the scattered data fitting problem. In many realistic surrogate modeling applications we are free to decide where and how often we want to sample the computer experiment to generate the data required for our surrogate model. A popular design in the statistics literature looks at so-called \emph{$D$-optimality}, i.e., it aims to maximize the determinant of the Gram matrix $\mK^T\mK$ (see, e.g., \citep{FangEtAl06, MorrisEtAl93}). In approximation theory, so-called (approximate) \emph{Fekete points} are analogous to $D$-optimal designs, i.e., they maximize the determinant of the interpolation matrix $\mK$ (see, e.g., \citep{BrianiEtAl12, DeMarchi03}). Since Fekete points also minimize the Lebesgue constant 
+\subsection*{Research Project 3.3. Data-Driven Designs}\label{DatadrivenDesignsubsec}
+An important issue is not only the surface fitting problem itself, but also the choice of \emph{design}, i.e., the data locations or input parameter settings. The main objectives for finding a ``good'' design are that it successfully deal with the \emph{curse of dimensionality}, i.e., that it effectively fill out the high-dimensional design space, and that it ensure an accurate solution of the scattered data fitting problem. In many realistic surrogate modeling applications we are free to decide where and how often we want to sample the computer experiment to generate the data required for our surrogate model. A popular design in the statistics literature looks at so-called \emph{$D$-optimality}, i.e., it aims to maximize the determinant of the Gram matrix $\mK^T\mK$ (see, e.g., \citep{FangEtAl06, MorrisEtAl93}). In approximation theory, so-called (approximate) \emph{Fekete points} are analogous to $D$-optimal designs, i.e., they maximize the determinant of the interpolation matrix $\mK$ (see, e.g., \citep{BrianiEtAl12, DeMarchi03}). Since Fekete points also minimize the Lebesgue constant
 \begin{equation}\label{LebesgueConst}
 \Lambda_{K,\desn} = \max_{\bx \in \Omega} \sum_{j=1}^N |\starred{w}_j(\bx)|,
 \end{equation}
@@ -418,11 +433,11 @@ The value at $\bx$ of the cardinal function $\starred{w}_j$ from \eqref{Lebesgue
 where $\det_{K,\desn}(\bt_1,\ldots,\bt_N)=\det\left(\bt_i,\bx_j\right)_{i,j=1}^N$.
 Without the use of the Hilbert--Schmidt SVD, evaluation of these determinants is subject to severe numerical instabilities and therefore has been avoided in practice \citep{DeMarchi03}. While the Hilbert--Schmidt SVD directly applies to the determinant in the denominator, we will need to develop an extension in order to be able to handle the numerator-determinant. Once this has been accomplished, we find a $D$-optimal design by stably solving a multivariate maximization problem.
 
-\section{Research Project 4 (Applications of Kernels)}
-\subsection{Numerical Solution of PDEs via Kernel ENO Methods (Research Project 4.1)} 
+\section*{Research Project 4. Applications of Kernels}\label{SectApplications}
+\subsection*{Research Project 4.1. Numerical Solution of PDEs via Kernel ENO Methods}\label{ENOsubsec}
 The use of kernel methods for the solution of hyperbolic PDEs via a (weighted) essentially non-oscillatory (W)ENO) approach is not new \citep{AboiyarEtAl06,CecilEtAl04,IskeSonar96}. However, previous attempts have suffered either from numerical instabilities \citep{CecilEtAl04} or from the limitations of using a low-order method \citep{AboiyarEtAl06,IskeSonar96}. In \citep{McCourt13} the Hilbert--Schmidt SVD was used within the context of kernel collocation methods such as Kansa's approach \citep{Fas07a} yielding solutions that were vastly superior in accuracy to the standard (ill-conditioned) kernel approach, and also to polynomial spectral methods (see Fig.~\ref{Fig_MFS_BEM}). We expect similar benefits when using the Hilbert--Schmidt SVD within the (W)ENO framework.
 
-\subsection{Using Kernels to Solve the MEG and EEG Forward Problems (Research Project 4.2)}\label{SectMEEG}
+\subsection*{Research Project 4.2. Using Kernels to Solve the MEG and EEG Forward Problems}\label{MEEGsubsec}
 There are plenty of other related questions we might tackle if time allows or the opportunity arises. However, we would like to highlight one ongoing collaboration in which kernels are used to solve a system of coupled Poisson and Laplace PDE boundary value problems that arise in MEG and EEG modeling of brain activity. Fig.~\ref{Fig_MFS_BEM} is taken from \citep{AFFGM13} and provides a cost-per-accuracy plot comparing a kernel-based solver using a method of fundamental solutions approach with a boundary element method that is considered state-of-the-art in the community \citep{fieldtrip11}. The coupled system is solved on three nested concentric spherical shells and describes the forward problem corresponding to the electric potential on the outside surface resulting from a single dipole located inside a simplified brain-skull-scalp geometry. The three different low-rank MFS solutions are all more accurate and more efficient than the BEM solution. For any desired accuracy, the MFS solution is more efficient, and this effect is more pronounced as we demand more accuracy.
 
 \begin{figure}[h]
@@ -434,7 +449,7 @@ There are plenty of other related questions we might tackle if time allows or th
 
 As the next steps on this project we expect (i) \emph{to integrate the forward solver into a full inverse problem framework} which will allow us to identify the locations of activity inside the brain from measurements of the electric potential (instead of simulating the electric surface potential based on a given dipole source as done for the forward problem in Fig.~\ref{Fig_MFS_BEM}), and (ii) \emph{to move to a head model that reflects the geometry of the brain more realistically}.
 
-\subsection{Low-rank Approximations for Kernel Classification (Research Project 4.3)}\label{Sec_TruncHS} 
+\subsection*{Research Project 4.3. Low-rank Approximations for Kernel Classification}\label{TruncHSsubsec}
 
 One way to make support vector machines (SVMs) perform more efficiently is to consider a low-rank representation for the kernel as in \citep{FineScheinberg02}. We anticipate that we can use the eigenfunction expansion of $K$ to decrease the cost involved in the quadratic program required for the SVM solution. The standard SVM quadratic program can be written in matrix form as
 \begin{align}
@@ -469,7 +484,7 @@ values are inconsequential in making predictions with the SVM.
 
 In order to make the Hilbert-Schmidt SVD practical and ensure that it can be used in conjunction with the error guarantees of Sect.~\ref{SectCones}, a theoretical basis for the truncation of the Hilbert-Schmidt series needs to be established. \cite{FMcC12} introduced two different scenarios: (i) truncation at $M\ge N$ terms so that every entry $K(\bx_i,\bx_j)$ of $\mK$ is represented to within a tolerance $\varepsilon$, (ii) truncation at $M < N$. The former approach results in data-dependent basis functions generated by the $N$ first eigenfunctions of $\cT_K$ corrected by linear combinations of the next $M-N$ eigenfunctions (cf.~\eqref{StableBasis}), while the low-rank approach (ii) uses only the first $M$ (data-independent) eigenfunctions as a basis. The method used by \cite{FMcC12} to determine the truncation length $M$ is similar to that used earlier by Fornberg and co-workers in their RBF-QR approach \citep{FornbergPiret08, FornbergFlyerLarsson11}.  We discussed a more straightforward strategy to determine $M$ in \cite{CavorettoEtAl14}. However, neither of these methods provide any direct insight on the approximation error. Work in that general direction can be found in a recent preprint \citep{GriebelRiegerZwicknagl13}. Based on this, \emph{we plan to develop improved criteria for the truncation of the Hilbert-Schmidt series.}
 
-\subsection{Mike's Ebola Surrogate Model (Research Problem 4.4)}
+\subsection*{Research Problem 4.4. Mike's Ebola Surrogate Model}\label{Ebolasubsec}
 
 \section{Results of Previous NSF-Funded Research}\label{SectPrevious}
 
