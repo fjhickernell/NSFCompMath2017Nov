@@ -266,24 +266,29 @@ but there are also other good choices for the kernel.  In the most-straightforwa
 \end{subequations}
 
 This numerical algorithm goes by different names, such as, radial basis function approximation \citep{Buh03a}, scattered data approximation \citep{Wen05a}, meshfree approximation \citep{Fas07a}, and kriging \citep{Ste99}. It is part of the JMP \citep{JMP11}, \Matlab \citep{MAT8.4} and R \citep{R3.03_2013} software packages.  It is flexible because the data sites need not follow a regular pattern. There is a deterministic optimality: $\tf$ is the best approximation to $f$ in the Hilbert space whose reproducing kernel is $K$ \citep{Fas07a,Wen05a}.  There is a stochastic optimality: $\tf$ is the best approximation to $f$ in the set of Gaussian stochastic processes whose covariance kernel is $K$ \citep{BerT-A04,Wah90}.  The procedure outlined above can be extended to include the exact reproduction of polynomials and also the situation where the $y_i$ are noisy observations of the $f(\bx_i)$ \citep{Wah90}.
-One of the main accomplishments of \emph{NSF-DMS-1115392 Kernel Methods for Numerical Computation} (see Sect.~\ref{SectPrevious}) was the development of the so-called \emph{Hilbert--Schmidt SVD} (see Sect.\ \refproba). This algorithm provides a framework for finding a new stable basis for often ill-conditioned kernel methods.
-A second major accomplishment was the development of guaranteed numerical integration algorithms such as the guaranteed quasi-Monte Carlo method of (?? Hickernell and Jimenez) (see Sect.\ \refprobb). 
+One of the main accomplishments of \emph{NSF-DMS-1115392 Kernel Methods for Numerical Computation} (see Sect.~\ref{SectPrevious}) was the development of the so-called \emph{Hilbert--Schmidt SVD} (see \refproba). This algorithm provides a framework for finding a new stable basis for often ill-conditioned kernel methods.
+A second major accomplishment was the development of \emph{guaranteed, adaptive numerical integration algorithms} \citep{HicEtal14b,HicEtal14a,HicJim16a,JimHic16a} (see \refprobb). 
 
 Building upon these previous research accomplishments, we propose to extend our work in several different directions:
 
 \begin{description}[leftmargin=2.5ex]
 
-\item[\refproba] Extend our research on the Hilbert--Schmidt SVD by identifying more kernels and their Mercer series for which the Hilbert--Schmidt SVD can be implemented by
+\item[\refproba] Extend our research on the Hilbert--Schmidt SVD by identifying more kernels and their Mercer series for which the Hilbert--Schmidt SVD can be implemented.
 \begin{enumerate}
 \renewcommand{\labelenumi}{1.\arabic{enumi}.}
-\item analytically computing eigenvalues and eigenfunctions for a given kernel $K$,
-\item numerically computing eigenvalues and eigenfunctions for a given kernel $K$, and
-\item building \emph{designer kernels} starting from a given orthogonal set of functions $\{\varphi_n\}_{n=1}^\infty$ and appropriately decaying scalars $\{\lambda_n\}_{n=1}^\infty$ which will serve as eigenfunctions and eigenvalues for $K$.
+\item Analytically compute eigenvalues and eigenfunctions for a given kernel $K$,
+\item Numerically compute eigenvalues and eigenfunctions for a given kernel $K$, and
+\item Build \emph{designer kernels} starting from a given orthogonal set of functions $\{\varphi_n\}_{n=1}^\infty$ and appropriately decaying scalars $\{\lambda_n\}_{n=1}^\infty$ which will serve as eigenfunctions and eigenvalues for $K$.
 \end{enumerate}
 
-\item[\refprobb] Extend the research on guaranteed algorithms.
+\item[\refprobb] Extend our research on guaranteed algorithms.  In particular,
+\begin{enumerate}
+\renewcommand{\labelenumi}{2.\arabic{enumi}.}
+\item Develop adaptive (quasi-)Monte Carlo methods for multivariate integration that handle both absolute and relative error tolerances.
+\item Develop adaptive univariate integration and function approximation algorithms that are higher order and locally adaptive.
+\end{enumerate}
 
-\item[\refprobc] Combine earlier results to obtain guaranteed and automatic algorithms for kernel methods.
+\item[\refprobc] Obtain guaranteed, adaptive algorithms for kernel methods.
 \begin{enumerate}
 \renewcommand{\labelenumi}{3.\arabic{enumi}.}
 \item Use cones to obtain error bounds and guarantees for function approximation with kernels.
@@ -291,7 +296,7 @@ Building upon these previous research accomplishments, we propose to extend our 
 \item Use the Hilbert--Schmidt SVD to obtain ``optimal'' automatic and adaptive data-based designs for kernel methods.
 \end{enumerate}
 
-\item[\refprobd] Application of earlier results.
+\item[\refprobd] Apply earlier results.
 \begin{enumerate}
 \renewcommand{\labelenumi}{4.\arabic{enumi}.}
 \item Use kernel methods and the Hilbert--Schmidt SVD for the solution of PDEs via so-called RBF-(W)ENO (weighted essentially non-oscillatory) methods.
@@ -430,7 +435,7 @@ Without the use of the Hilbert--Schmidt SVD, evaluation of these determinants is
 \subsection{Research Project 4.1. Numerical Solution of PDEs via Kernel ENO Methods}  \label{PDEsubsec}
 The use of kernel methods for the solution of hyperbolic PDEs via a (weighted) essentially non-oscillatory (W)ENO) approach is not new \citep{CecilEtAl04,IskeSonar96}. However, previous attempts have suffered either from numerical instabilities \citep{CecilEtAl04} or from the limitations of using a low-order method \citep{IskeSonar96}. In \citep{McCourt13} the Hilbert--Schmidt SVD was used within the context of kernel collocation methods such as Kansa's approach \citep{Fas07a} yielding solutions that were vastly superior in accuracy to the standard (ill-conditioned) kernel approach, and also to polynomial spectral methods (see Fig.~\ref{Fig_MFS_BEM}). We expect similar benefits of using the Hilbert--Schmidt SVD within the (W)ENO framework.
 
-\subsection{Research Project 4.2. Using Kernels to Solve the MEG and EEG Forward Problems} \label{SectMEEG}
+\subsection*{Research Project 4.2. Using Kernels to Solve the MEG and EEG Forward Problems} \label{SectMEEG}
 There are plenty of other related questions we might tackle if time allows or the opportunity arises. However, we would like to highlight one ongoing collaboration in which kernels are used to solve a system of coupled Poisson and Laplace PDE boundary value problems that arise in MEG and EEG modeling of brain activity. Fig.~\ref{Fig_MFS_BEM} is taken from \citep{AFFGM13} and provides a cost-per-accuracy plot comparing a kernel-based solver using a method of fundamental solutions approach with a boundary element method that is considered state-of-the-art in the community \citep{fieldtrip11}. The coupled system is solved on three nested concentric spherical shells and describes the forward problem corresponding to the electric potential on the outside surface resulting from a single dipole located inside a simplified brain-skull-scalp geometry. The three different low-rank MFS solutions are all more accurate and more efficient than the BEM solution. For any desired accuracy, the MFS solution is more efficient, and this effect is more pronounced as we demand more accuracy.
 
 \begin{figure}[h]
@@ -442,7 +447,7 @@ There are plenty of other related questions we might tackle if time allows or th
 
 As the next steps on this project we expect (i) \emph{to integrate the forward solver into a full inverse problem framework} which will allow us to identify the locations of activity inside the brain from measurements of the electric potential (instead of simulating the electric surface potential based on a given dipole source as done for the forward problem in Fig.~\ref{Fig_MFS_BEM}), and (ii) \emph{to move to a head model that reflects the geometry of the brain more realistically}.
 
-\subsection{Research Project 4.3. Low-rank Approximations for Kernel Classification}\label{Sec_TruncHS} 
+\subsection*{Research Project 4.3. Low-rank Approximations for Kernel Classification}\label{Sec_TruncHS} 
 
 One way to make support vector machines (SVMs) perform more efficiently is to consider a low-rank representation for the kernel as in \citep{FineScheinberg02}. We anticipate that we can use the eigenfunction expansion of $K$ to decrease the cost involved in the quadratic program required for the SVM solution. The standard SVM quadratic program can be written in matrix form as
 \begin{align}
@@ -477,7 +482,7 @@ values are inconsequential in making predictions with the SVM.
 
 In order to make the Hilbert-Schmidt SVD practical and ensure that it can be used in conjunction with the error guarantees of Sect.~\ref{SectCones}, a theoretical basis for the truncation of the Hilbert-Schmidt series needs to be established. \cite{FMcC12} introduced two different scenarios: (i) truncation at $M\ge N$ terms so that every entry $K(\bx_i,\bx_j)$ of $\mK$ is represented to within a tolerance $\varepsilon$, (ii) truncation at $M < N$. The former approach results in data-dependent basis functions generated by the $N$ first eigenfunctions of $\cT_K$ corrected by linear combinations of the next $M-N$ eigenfunctions (cf.~\eqref{StableBasis}), while the low-rank approach (ii) uses only the first $M$ (data-independent) eigenfunctions as a basis. The method used by \cite{FMcC12} to determine the truncation length $M$ is similar to that used earlier by Fornberg and co-workers in their RBF-QR approach \citep{FornbergPiret08, FornbergFlyerLarsson11}.  We discussed a more straightforward strategy to determine $M$ in \cite{CavorettoEtAl14}. However, neither of these methods provide any direct insight on the approximation error. Work in that general direction can be found in a recent preprint \citep{GriebelRiegerZwicknagl13}. Based on this, \emph{we plan to develop improved criteria for the truncation of the Hilbert-Schmidt series.}
 
-\subsection{Research Problem 4.4. Mike's Ebola Surrogate Model} \label{ebolasubsec}
+\subsection*{Research Problem 4.4. Mike's Ebola Surrogate Model} \label{ebolasubsec}
 
 \section{Results of Previous NSF-Funded Research}\label{SectPrevious}
 
