@@ -3,7 +3,8 @@
 %Greg and Fred's NSF Grant Dec 2014
 \documentclass[11pt]{NSFamsart}
 \usepackage{latexsym,amsfonts,amsmath,epsfig,multirow}
-\usepackage{stackrel,natbib,tabularx,enumitem,xspace}
+\usepackage{stackrel,tabularx,enumitem,xspace}
+\usepackage[numbers]{natbib}
 \usepackage{hyperref,accents}
 
 % This package prints the labels in the margin
@@ -372,10 +373,10 @@ It is possible to build a positive definite kernel via Mercer's theorem by combi
 ``eigenvalues'' $\lambda_n$ with a given set of orthogonal functions. Thus, the closed form of the kernel may or may not be known in this case. For example, one could start with Chebyshev polynomials on $[-1,1]$ and combine them with either a sequence of algebraically or geometrically decaying eigenvalues. This will result in Mercer kernels that provide either algebraic of spectral approximation rates and can be implemented stably and reliably within the Hilbert--Schmidt SVD framework. The iterated Brownian bridge kernels of \cite{CavorettoEtAl14} provide another example of a family of designer kernels where the sinusoidal eigenfunctions (see \eqref{IBBkernel}) were chosen to satisfy boundary conditions generalizing those of natural cubic splines. Kernels with other (e.g., periodic) boundary conditions can be constructed using similar ideas.
 
 \section*{Research Project 2. Extensions of Guaranteed, Adaptive Algorithms}\label{SectGAIL}
-\subsection*{Research Project 2.1. Adaptive (Quasi-) Monte Carlo Algorithms for Multivariate Integration}  
+\subsection*{Research Project 2.1. Adaptive (Quasi-) Monte Carlo Algorithms for Multivariate Integration}
 Multivariate integrals are often approximated by an equal-weighted average of function values:
 \begin{equation} \label{integprob}
-I(f) = \int_{\reals^d} f(\bx)  \, \varrho(\bx) \, \dif \bx, \qquad 
+I(f) = \int_{\reals^d} f(\bx)  \, \varrho(\bx) \, \dif \bx, \qquad
 \hI_N(f) = \frac 1 N \sum_{i=1}^N f(\bx_i).
 \end{equation}
 Here $\varrho$ is a probability density function, and the carefully chosen data sites come from an infinite sequence $\desinf$.  Two popular choices are i) independent and identically distributed (IID) points with density $\varrho$, which corresponds to simple Monte Carlo sampling, and ii) low discrepancy sequences, such as digital sequences or integration lattice sequences, with a suitable transformation, which corresponds to quasi-Monte Carlo sampling \citep{Nie92,SloJoe94,Lem09a,DicPil10a,DicEtal14a,Owe13a}.
@@ -529,7 +530,7 @@ Greg Fasshauer (GEF) and Fred Hickernell (FJH) are the PIs for \emph{NSF-DMS-111
 \item High School Student: Sunny Yun (SY).
 \end{itemize}
 
-\subsection{Intellectual Merit from Current NSF Funding}
+\subsection{Intellectual Merit from Previous NSF Funding}
 \label{previousmeritsubsec}
 
 Together with a collaborator, we have investigated the convergence and tractability of meshfree methods, \eqref{meshfreeapprox}, using the isotropic Gaussian reproducing kernel and its extension with non-isotropic shape parameters, $\{\gamma_{\ell}\}_{\ell =1}^{\infty}$, \eqref{gausskernel}. Dimension \emph{independent} convergent rates for function approximation (the problem $\APP$) are possible and they depend on the rate of decay of the $\gamma_{\ell}$ as $\ell \to \infty$, not on the smoothness of the reproducing kernel \citep{FasHicWoz12b, FasHicWoz12a}. These results have been extended by XZ to a more general class of reproducing kernels with that have a sequence of scale parameters $\{\alpha_{\ell}\}_{\ell=1}^{\infty}$ as well as shape parameters.  In this case the dimension independent convergence rates dependon the rate of decay of the product $\alpha_{\ell} \gamma_{\ell}$ as $\ell \to \infty$ \citep{ZhoHic15a}.
@@ -552,7 +553,7 @@ During SG's visit to IIT (08/2012-02/2013) he performed joint work with GEF and 
 
 Understanding the covariance kernels, eigenfunctions and associated Hilbert spaces of certain stochastic processes, in particular fractional Brownian motion, was the focus of a research project during summer 2013 involving MD under the guidance of JE and GEF. Some outcomes of this research will be presented at the 2014 Joint Mathematics Meeting.
 
-\subsection{Broader Impacts from Current NSF Funding}
+\subsection{Broader Impacts from Previous NSF Funding}
 
 We have trained a number of PhD, MS, BS, and high school students in research, as evidenced by the list above.  QY defended his PhD thesis in April 2012 and became a Philip T. Church postdoc in the Department of Mathematics at Syracuse University starting August 2012. He has four published papers, with an additional two accepted, one submitted, and two more in preparation.  YL defended her thesis in August 2014 and is a visiting assistant professor at DePaul University.  Of the other nine IIT PhD students listed, YD, YL, XZ, and YZ have completed their comprehensive exams and are expected to graduate by the end of 2015.  AB has passed his qualifying exams.  LAJR, JR, TS, and XiZ are in the earlier stages of their PhD studies. SD, YaL, TS, XT, and XiZ completed their MS theses. The latter three are now PhD students.  QY, YD, LJ, LAJR, YL, XZ, HB, MR, SY, NC, MD, CH, BL, CB, WM, and SY have all presented their work at academic meetings in talks.
 
