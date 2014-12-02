@@ -380,7 +380,7 @@ I(f) = \int_{\reals^d} f(\bx)  \, \varrho(\bx) \, \dif \bx, \qquad
 \end{equation}
 Here $\varrho$ is a probability density function, and the carefully chosen data sites come from an infinite sequence $\desinf$.  Two popular choices are i) independent and identically distributed (IID) points with density $\varrho$, which corresponds to simple Monte Carlo sampling, and ii) low discrepancy sequences, such as digital sequences or integration lattice sequences, with a suitable transformation, which corresponds to quasi-Monte Carlo sampling \citep{Nie92,SloJoe94,Lem09a,DicPil10a,DicEtal14a,Owe13a}.
 
-In our previous NSF-funded project (see Sect.\ ??) we developed a simple Monte Carlo algorithm \citep{HicEtal14b} and two quasi-Monte Carlo algorithms \citep{HicJim16a,JimHic16a}, that \emph{adaptively} choose the sample size, $N$, to satisfy the user-specified error tolerance:
+In our previous NSF-funded project (see Sect.\ \ref{previousmeritsubsec}) we developed a simple Monte Carlo algorithm \citep{HicEtal14b} and two quasi-Monte Carlo algorithms \citep{HicJim16a,JimHic16a}, that \emph{adaptively} choose the sample size, $N$, to satisfy the user-specified error tolerance:
 \begin{equation} \label{cubMCguar}
 \bigabs{I(f) -I_N(f)} \le \abstol \quad \text{or} \quad \Prob\bigl[\bigabs{I(f) -I_N(f)} \le \abstol \bigr] \le 1-\alpha,
 \end{equation}
@@ -390,8 +390,10 @@ We propose to extend these algorithms to handle a hybrid absolute/relative error
 
 We also propose to add control variates to of our adaptive (quasi-)Monte Carlo algorithms.  Given an integrand $g$ whose integral, $I(g)$, is known, the control variate estimator is $\hI_{\CV,N}=\hI_N(f) + \beta [ I(g) - \hI_N(g)]$.  For simple Monte Carlo sampling there is a standard way to estimate the optimal $\beta$, but this method may give the wrong answer for low discrepancy sampling \citep{HicEtal03}.  We will follow this insight and find a better way of determining $\beta$ for low discrepancy sampling.
 
-Besides establishing rigorous guarantees for our new algorithms, we also will establish upper bounds on the computational cost of these algorithms.  As in our previous work, the cost depends not only on the known input parameters, such as the error tolerance(s) and the uncertainty, $\alpha$, but also on unknown quantities, such as the variance of $f(\bX)$, $\vX \sim \varrho$ (for simple Monte Carlo) and the rate of decay of the series coefficients for $f$ (for quasi-Monte Carlo).  This is natural since adaptive algorithms by nature expend different amounts of effort depending on the difficulty of the problem.  We also propose to show that these computational costs are asymptotically optimal relative to the best possible algorithms that make the same assumptions on the set of possible integrands.
+Besides establishing rigorous guarantees for our new algorithms, we also will establish upper bounds on the computational cost of these algorithms.  As in our previous work, the cost depends not only on the known input parameters, such as the error tolerance(s) and the uncertainty, $\alpha$, but also on unknown quantities, such as the variance of $f(\bX)$, $\bX \sim \varrho$ (for simple Monte Carlo) and the rate of decay of the series coefficients for $f$ (for quasi-Monte Carlo).  This is natural since adaptive algorithms by nature expend different amounts of effort depending on the difficulty of the problem.  We also propose to show that these computational costs are asymptotically optimal relative to the best possible algorithms that make the same assumptions on the set of possible integrands.  This will be done using bump functions, as is done in the information-based complexity literature (see \cite{TraWasWoz88,Nov88}).
 
+\subsection*{Research Project 2.2. Higher Order and Locally Adaptive Univariate Function Approximation and Integration}
+In our previous NSF-funded project (see Sect.\ \ref{previousmeritsubsec}) we developed adaptive univariate function approximation and integration algorithms based on linear splines, but \emph{with rigorous guarantees of success}.
 
 
 
@@ -528,6 +530,7 @@ Greg Fasshauer (GEF) and Fred Hickernell (FJH) are the PIs for \emph{NSF-DMS-111
 \end{itemize}
 
 \subsection{Intellectual Merit from Current NSF Funding}
+\label{previousmeritsubsec}
 
 Together with a collaborator, we have investigated the convergence and tractability of meshfree methods, \eqref{meshfreeapprox}, using the isotropic Gaussian reproducing kernel and its extension with non-isotropic shape parameters, $\{\gamma_{\ell}\}_{\ell =1}^{\infty}$, \eqref{gausskernel}. Dimension \emph{independent} convergent rates for function approximation (the problem $\APP$) are possible and they depend on the rate of decay of the $\gamma_{\ell}$ as $\ell \to \infty$, not on the smoothness of the reproducing kernel \citep{FasHicWoz12b, FasHicWoz12a}. These results have been extended by XZ to a more general class of reproducing kernels with that have a sequence of scale parameters $\{\alpha_{\ell}\}_{\ell=1}^{\infty}$ as well as shape parameters.  In this case the dimension independent convergence rates dependon the rate of decay of the product $\alpha_{\ell} \gamma_{\ell}$ as $\ell \to \infty$ \citep{ZhoHic15a}.
 
