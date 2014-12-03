@@ -374,45 +374,39 @@ It is possible to build a positive definite kernel via Mercer's theorem by combi
 
 \section*{Research Project 2. Extensions of Guaranteed, Adaptive Algorithms}\label{SectGAIL}
 \subsection*{Research Project 2.1. Adaptive (Quasi-) Monte Carlo Algorithms for Multivariate Integration}
-Multivariate integrals are often approximated by an equal-weighted average of function values:
+Multivariate integrals may be approximated by an equal-weighted average of function values:
 \begin{equation} \label{integprob}
-I(f) = \int_{\reals^d} f(\bx)  \, \varrho(\bx) \, \dif \bx, \qquad
-\hI_N(f) = \frac 1 N \sum_{i=1}^N f(\bx_i).
+I(f) := \int_{\reals^d} f(\bx)  \, \varrho(\bx) \, \dif \bx \approx
+\frac 1 N \sum_{i=1}^N f(\bx_i) =: \hI_N(f).
 \end{equation}
-Here $\varrho$ is a probability density function, and the carefully chosen data sites come from an infinite sequence $\desinf$.  Two popular choices are i) independent and identically distributed (IID) points with density $\varrho$, which corresponds to simple Monte Carlo sampling, and ii) low discrepancy sequences, such as digital sequences or integration lattice sequences, with a suitable transformation, which corresponds to quasi-Monte Carlo sampling \citep{Nie92,SloJoe94,Lem09a,DicPil10a,DicEtal14a,Owe13a}.
+Here $\varrho$ is a probability density function, and the well-chosen data sites come from an infinite sequence $\desinf$.  Two popular choices are i) independent and identically distributed (IID) points with density $\varrho$---corresponding to simple Monte Carlo sampling---and ii) suitably transformed low discrepancy sequences, such as digital sequences or integration lattice sequences---corresponding to quasi-Monte Carlo sampling \citep{Nie92,SloJoe94,Lem09a,DicPil10a,DicEtal14a,Owe13a}.
 
 In our previous NSF-funded project (see Sect.\ \ref{previousmeritsubsec}) we developed a simple Monte Carlo algorithm \citep{HicEtal14b} and two quasi-Monte Carlo algorithms \citep{HicJim16a,JimHic16a}, that \emph{adaptively} choose the sample size, $N$, to satisfy the user-specified error tolerance:
 \begin{equation} \label{cubMCguar}
 \bigabs{I(f) -I_N(f)} \le \abstol \quad \text{or} \quad \Prob\bigl[\bigabs{I(f) -I_N(f)} \le \abstol \bigr] \le 1-\alpha,
 \end{equation}
-the former holding for the deterministic quasi-Monte Carlo sampling, and the latter holding for the random simple Monte Carlo sampling and being valid with confidence level $1-\alpha$.  All three of these adaptive algorithms base their decisions on data-driven error estimates, rather than a priori knowledge of the integrands.
+the former holding for deterministic quasi-Monte Carlo sampling, and the latter holding for the random simple Monte Carlo sampling and confidence level $1-\alpha$.  All three adaptive algorithms base their decisions on data-driven error estimates, rather than a priori knowledge of the integrands.
 
-We propose to extend these algorithms to handle a hybrid absolute/relative error tolerance of the form $\max(\abstol,\reltol \abs{I(f)})$ instead of pure absolute error, $\abstol$.  This would be more convenient for the user.  Since we already know how to estimate the error from the data, this problem is partially solved.  The missing piece is that we need to estimate  $I(f)$---at least crudely---to determine the error tolerance, $\max(\abstol,\reltol \abs{I(f)})$.  Thus, our new algorithms will require an unspecified number of iterations.  For the simple Monte Carlo algorithm we must ensure that all these iterations together we stay within the specified confidence level.
+We will extend these algorithms to handle a hybrid absolute/relative error tolerance of the form $\max(\abstol,\reltol \abs{I(f)})$, which is more flexible than our present pure absolute error tolerance, $\abstol$.  Since we already know how to estimate the error from the data, this problem is partially solved.  The missing piece is how to estimate $I(f)$ appearing in the error tolerance, $\max(\abstol,\reltol \abs{I(f)})$.  This will require an unspecified number of iterations.  For the simple Monte Carlo algorithm we must ensure that all these iterations combined stay within the specified confidence level.
 
-We also propose to add control variates to of our adaptive (quasi-)Monte Carlo algorithms.  Given an integrand $g$ whose integral, $I(g)$, is known, the control variate estimator is $\hI_{\CV,N}=\hI_N(f) + \beta [ I(g) - \hI_N(g)]$.  For simple Monte Carlo sampling there is a standard way to estimate the optimal $\beta$, but this method may give the wrong answer for low discrepancy sampling \citep{HicEtal03}.  We will follow this insight and find a better way of determining $\beta$ for low discrepancy sampling.
+We also propose to add control variates to our adaptive (quasi-)Monte Carlo algorithms.  Given an integrand $g$ whose integral, $I(g)$, is known, the control variate estimator is $\hI_{\CV,N}=\hI_N(f) + \beta [ I(g) - \hI_N(g)]$.  For simple Monte Carlo sampling there is a standard way to estimate the optimal $\beta$, but this method may give the wrong answer for low discrepancy sampling \citep{HicEtal03}.  We will follow this insight and find a better way of determining $\beta$ for low discrepancy sampling.
 
-Besides establishing rigorous guarantees for our new algorithms, we also will establish upper bounds on the computational cost of these algorithms.  As in our previous work, the cost depends not only on the known input parameters, such as the error tolerance(s) and the uncertainty, $\alpha$, but also on unknown quantities, such as the variance of $f(\bX)$, $\bX \sim \varrho$ (for simple Monte Carlo) and the rate of decay of the series coefficients for $f$ (for quasi-Monte Carlo).  This is natural since adaptive algorithms by nature expend different amounts of effort depending on the difficulty of the problem.  We also propose to show that these computational costs are asymptotically optimal relative to the best possible algorithms that make the same assumptions on the set of possible integrands.  This will be done using bump functions, as is done in the information-based complexity literature (see \cite{TraWasWoz88,Nov88}).
+Option pricing is an important application of multivariate integration, and the case where the stock price is monitored continuously corresponds to the  limiting case of $d\to \infty$.  Multi-level methods \citep{Hei01a,Gil14a} have been found to be successful in efficiently evaluating infinite dimensional integrals.  We will extend our existing adaptive (quasi-)Monte Carlo algorithms to become adaptive multi-level methods.  The unbiased approach of \cite{RheGly12a} looks very promising.
+
+Besides establishing rigorous guarantees for our new algorithms, we also will establish upper bounds on the computational cost of these algorithms.  As in our previous work, the cost depends not only on the known input parameters, such as the error tolerance(s) and the uncertainty, $\alpha$, but also on unknown quantities, such as the variance of $f(\bX)$, $\bX \sim \varrho$ (for simple Monte Carlo) and the rate of decay of the series coefficients for $f$ (for quasi-Monte Carlo).  This is natural since adaptive algorithms by nature expend different amounts of effort depending on the difficulty of the problem.  We also propose to show that these computational costs are asymptotically optimal relative to the best possible algorithms that make the same assumptions on the set of possible integrands.  This will be done by using bump functions, a well-known method in the information-based complexity literature (see \cite{TraWasWoz88,Nov88}).
 
 \subsection*{Research Project 2.2. Higher Order and Locally Adaptive Univariate Function Approximation and Integration}
-In our previous NSF-funded project (see Sect.\ \ref{previousmeritsubsec}) we developed adaptive univariate function approximation and integration algorithms based on linear splines, but \emph{with rigorous guarantees of success}.
+In our previous NSF-funded project (see Sect.\ \ref{previousmeritsubsec}) we developed adaptive univariate function approximation and integration algorithms based on linear splines, but \emph{with rigorous guarantees of success} \citep{HicEtal14b}.  In our proposed work we will extend these methods in two directions.  One obvious goal is to increase the efficiency by using higher order function approximation than the linear spline. The general framework provided in \cite{HicEtal14b} will facilitate this.  
 
+All of our adaptive algorithms for univariate or multivariate problems developed so far have been globally adaptive, i.e., the design, $\desinf$, is fixed but the number of data, $N$, is determined adaptively.  This is called global adaption.  A second goal of this project  is to introduce local adaption, i.e., algorithms where the density of the data sites, as well as their number, depends on the function data.  This is easiest to do for univariate problems.  We will sub-divide the whole domain into sub-domains and solve function approximation or integration problem separately on those.  These subdivisions will be data driven.
 
+Finally, as was done for the original algorithms in\citep{HicEtal14b}, we will derive upper bounds on the costs of our new higher order and locally adaptive algorithms.  We will also demonstrate their asymptotic optimality by using bump functions \cite{TraWasWoz88,Nov88}. 
 
- (\texttt{cubMC\_g.m} and \texttt{meanMC\_g.m} in the GAIL \citep{ChoEtal14a}) for multivariate integration problems, but \emph{only for the pure absolute error} case ($\reltol=0$).  The integral is approximated by IID samples of $f(\bX)$ where $\bX$ is generated by probability density function (PDF) $\varrho$. Because this is a random algorithm, the deterministic guarantee of success in \eqref{hINTerr} is replaced by a probabilistic one:
-\begin{equation} \label{cubMCguar}
- \Prob\bigl[\bigabs{\INT(f) -\hINT(f,\abstol,\reltol)} \bigr ] \le \max(\abstol,\reltol \abs{\INT(f)}) \bigr] \le 1-\alpha.
-\end{equation}
-This guarantee holds for the cone of integrands with bounded kurtosis:
-\begin{equation}
-\calc := \bigl \{ f : \INT(\abs{f - \INT(f)}^4) \le \kappa_{\max} [\INT(\abs{f - \INT(f)}^2)]^2 \bigr\}
-\end{equation}
-The bounded kurtosis allows us to reliably bound the population variance $f(\bX)$ by the an inflation of the sample variance of the $f(\bX_i)$. This variance bound along with the kurtosis bound are input into a Berry-Esseen inequality (a finite sample version of the Central Limit Theorem) to guarantee \eqref{cubMCguar}.
+\subsection*{Why Cones} The adaptive algorithms that we have derived in our previous work, and the adaptive algorithms that we propose to derive are or will be \emph{guaranteed} to satisfy the user-specified error tolerance.  This sets them apart from existing adaptive algorithms, which have no such guarantees.  For example, MATLAB's adaptive quadrature algorithm, \texttt{integral}, has no theoretical guarantee of success.  MATLAB has no adaptive (quasi-)Monte Carlo cubature methods (guaranteed or not), and MATLAB's spline functions for univariate function approximation are not adaptive either.
 
-We are now trying to extend our results to the more general error tolerance that includes nonzero $\reltol$.  The difficulty is that we must bound $\abs{\INT(f)}$ at the same time that we are trying to estimate it.  This requires an algorithm with a varying number of iterations.  Since the intermediate results are probabilistic, we must split the uncertainty, $\alpha$, among all of these intermediate iterations.
+To obtain rigorous guarantees of success for adaptive algorithms requires limiting the functions to some set, $\calc$.  Our past experience and future expectation is that $\calc$ turns out to be a \emph{cone} of functions. There is a good reason for this.
 
-\subsection*{Why Cones}
-
-
+The true absolute error of function approximation or integration, $\err(f,N):=\bignorm[\infty]{f-\tf}$ or $\err(f,N):= \bigabs{I(f) - \hI_N(f)}$, is positively homogeneous, i.e., $\err(cf,N)=\abs{c} \err(f,N)$. So we expect any reasonable data-driven error bound, $\oerr(f,N)$, to also be positively homogeneous.  This means that the set of functions for which the error bound is correct, $\calc:=\{f : \err(f,N) \le \oerr(f,N)\}$, must be a cone, i.e., $f\in \calc \implies cf \in \calc$.
 
 \section*{Research Project 3. Combining Kernel Methods with Guaranteed and Automatic Algorithms} \label{combinesec}
 
@@ -540,6 +534,19 @@ Together with QY and other collaborators, we have shown how the optimal solution
 Existing algorithms for multivariate or even infinite-dimensional approximation and integration problems require hand-tuning based on the parameters that define the spaces of functions, $\calf$, e.g., the shape or scale parameters of the associated reproducing kernel.  In our search for adaptive algorithms that automatically select these parameters, we started by looking at simpler problems and algorithms.  FJH, JL, YiL, and a collaborator developed an  adaptive algorithm for Monte Carlo calculation of means of random variables and of multidimensional integrals, which has a rigorous guarantee of success for a cone of random variables \citep{HicEtal14a}.  FJH and LAJR developed adaptive quasi-Monte Carlo cubature algorithms based on digital nets \citep{HicJim16a} and rank-1 integration lattices \citep{JimHic16a}, which bound the error in terms of the discrete Fourier coefficients of the integrands.
 FJH, NC, YD, CH, and YZ constructed adaptive algorithms for univariate integration and function approximation \citep{HicEtal14b}.  This paper also sets out a general framework for constructing guaranteed adaptive algorithms for any problem where the solution operator is homogeneous by considering cones if input functions.  FJH, MR, and SY are preparing a paper to explain these ideas to a broader audience.  XT completed her MS thesis \citep{Ton14a} on guaranteed adaptive optimization of univariate functions.
 FJH, YD, LJ, LJAR, XT, and YZ have implemented their algorithms in the Guaranteed Automated Integration Library (GAIL) \citep{ChoEtal14a}.  This \Matlab library is publicly available and under ongoing development.
+
+
+
+ (\texttt{cubMC\_g.m} and \texttt{meanMC\_g.m} in the GAIL \citep{ChoEtal14a}) for multivariate integration problems, but \emph{only for the pure absolute error} case ($\reltol=0$).  The integral is approximated by IID samples of $f(\bX)$ where $\bX$ is generated by probability density function (PDF) $\varrho$. Because this is a random algorithm, the deterministic guarantee of success in \eqref{hINTerr} is replaced by a probabilistic one:
+\begin{equation} \label{cubMCguar}
+ \Prob\bigl[\bigabs{\INT(f) -\hINT(f,\abstol,\reltol)} \bigr ] \le \max(\abstol,\reltol \abs{\INT(f)}) \bigr] \le 1-\alpha.
+\end{equation}
+This guarantee holds for the cone of integrands with bounded kurtosis:
+\begin{equation}
+\calc := \bigl \{ f : \INT(\abs{f - \INT(f)}^4) \le \kappa_{\max} [\INT(\abs{f - \INT(f)}^2)]^2 \bigr\}
+\end{equation}
+The bounded kurtosis allows us to reliably bound the population variance $f(\bX)$ by the an inflation of the sample variance of the $f(\bX_i)$. This variance bound along with the kurtosis bound are input into a Berry-Esseen inequality (a finite sample version of the Central Limit Theorem) to guarantee \eqref{cubMCguar}.
+
 
 GEF and QY have formulated a theory of generalized Sobolev spaces for reproducing kernel Hilbert spaces that connects kernel-based approximation methods to fundamental solutions of differential operators \cite{FasshauerYe11, FasshauerYe13}. An important contribution is the fact that the definition of these generalized Sobolev spaces involves both a notion of smoothness and of scale, while traditional Sobolev spaces take into account only the smoothness of functions in the space.
 
