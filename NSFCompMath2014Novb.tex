@@ -424,19 +424,17 @@ The true absolute error of function approximation or integration, $\err(f,N):=\b
 
 \subsection*{Research Project 3.1. Data-Driven Error Estimation}\label{errestsubsec} Our goal is adaptive meshfree function approximation algorithms.  This requires an error bound, $\oerr(f,N)$, based on the function data, that is no smaller than $\err(f,N):=\bignorm[\infty]{f-\tf}$. Cross-validation (CV) is sometimes used to approximate the error. One form of CV is
 \begin{subequations} \label{rbferrbd}
-\begin{equation} \label{crossvalid}
-\err(f,N) \approx \sqrt{\frac{C}{N} \sum_{i=1}^{N/2} \abs{f(\bx_{2i-1})-\tf(\bx_{2i-1};\{\bx_{2i}\}_{i=1}^{N/2})}^2 + \sum_{i=1}^{N/2} \abs{f(\bx_{2i})-\tf(\bx_{2i};\{\bx_{2i-1}\}_{i=1}^{N/2})}^2}.
-\end{equation}
-There also exist error bounds of the form \citep{Wen05a}
-\begin{multline} \label{numanalerrbd}
-\err(f,N) \le \begin{Bmatrix} \sqrt{\sup_{\bx \in \cx}[K(\bx,\bx)-\bk^T(\bx)\mK^{-1} \bk(\bx)]} \\
-C [\filldis(\desn)]^r
-\end{Bmatrix}
-\norm[\ch]{f},  \\
- \filldis(\desn): = \max_{\bx \in \cx} \min_{i=1,  \ldots, N} \norm[2]{\bx - \bx_i}. 
-\end{multline}
+\begin{align} \label{crossvalid}
+\err(f,N) &\approx \sqrt{\frac{C}{N} \sum_{i=1}^{N/2} \abs{f(\bx_{2i-1})-\tf(\bx_{2i-1};\{\bx_{2i}\}_{i=1}^{N/2})}^2 + \sum_{i=1}^{N/2} \abs{f(\bx_{2i})-\tf(\bx_{2i};\{\bx_{2i-1}\}_{i=1}^{N/2})}^2}.
+\intertext{There also exist rigorous error bounds of the form \citep{Wen05a}}
+\label{powfunerrbd}
+\err(f,N) & \le \sqrt{\sup_{\bx \in \cx}[K(\bx,\bx)-\bk^T(\bx)\mK^{-1} \bk(\bx)]} \norm[\ch]{f} \\
+\label{filldiserrbd}
+\err(f,N) & \le C [\filldis(\desn)]^r \norm[\ch]{f}, \qquad 
+\filldis(\desn): = \max_{\bx \in \cx} \min_{i=1,  \ldots, N} \norm[2]{\bx - \bx_i}. 
+\end{align}
 \end{subequations}
-All of these expressions have drawbacks.  CV has no finite-sample size guarantees of successfully providing an upper bound on the true error.  The error bounds in \eqref{numanalerrbd}
+All of these expressions have drawbacks as candidates for a data-driven $\oerr(f,N)$.  CV has no finite-sample size guarantees of successfully providing an upper bound on the true error.  The error bounds in \eqref{numanalerrbd}
 
 Here $C$ is some constant, and $\filldis(\{\bx_i\}_{i=1}^N)$ is the fill or maximin distance of the data sites.  Moreover, $\norm[\ch]{f}$ is the Hilbert space norm of $f$, where the reproducing kernel for $\ch$ is the $K$ used in \eqref{rbfapprox}. Finally, $r$ reflects the smoothness of $K$.  Error bound \eqref{rbferrbd} tells us that the error depends on both the roughness (Hilbert space norm) of $f$ and the unevenness (fill distance) of the data sites.
 
