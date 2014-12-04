@@ -393,7 +393,7 @@ I(f) := \int_{\reals^d} f(\bx)  \, \varrho(\bx) \, \dif \bx \approx
 \end{equation}
 Here $\varrho$ is a probability density function, and the well-chosen data sites come from an infinite sequence $\desinf$.  Two popular choices are i) independent and identically distributed (IID) points with density $\varrho$---corresponding to simple Monte Carlo sampling---and ii) suitably transformed low discrepancy sequences, such as digital sequences or integration lattice sequences---corresponding to quasi-Monte Carlo sampling \citep{Nie92,SloJoe94,Lem09a,DicPil10a,DicEtal14a,Owe13a}.
 
-In our previous NSF-funded project (see Sect.\ \ref{previousmeritsubsec}) we developed a simple Monte Carlo algorithm \citep{HicEtal14b} and two quasi-Monte Carlo algorithms \citep{HicJim16a,JimHic16a}, that \emph{adaptively} choose the sample size, $N$, to satisfy the user-specified error tolerance:
+In our previous NSF-funded project we developed a simple Monte Carlo algorithm \citep{HicEtal14b} and two quasi-Monte Carlo algorithms \citep{HicJim16a,JimHic16a}, that \emph{adaptively} choose the sample size, $N$, to satisfy the user-specified error tolerance:
 \begin{equation} \label{cubMCguar}
 \bigabs{I(f) -I_N(f)} \le \abstol \quad \text{or} \quad \Prob\bigl[\bigabs{I(f) -I_N(f)} \le \abstol \bigr] \le 1-\alpha,
 \end{equation}
@@ -420,17 +420,27 @@ To obtain rigorous guarantees of success for adaptive algorithms requires limiti
 
 The true absolute error of function approximation or integration, $\err(f,N):=\bignorm[\infty]{f-\tf}$ or $\err(f,N):= \bigabs{I(f) - \hI_N(f)}$, is positively homogeneous, i.e., $\err(cf,N)=\abs{c} \err(f,N)$. So we expect any reasonable data-driven error bound, $\oerr(f,N)$, to also be positively homogeneous.  This means that the set of functions for which the error bound is correct, $\calc:=\{f : \err(f,N) \le \oerr(f,N)\}$, must be a cone, i.e., $f\in \calc \implies cf \in \calc$.
 
-\section*{Research Project 3. Combining Kernel Methods with Guaranteed and Automatic Algorithms} \label{combinesec}
+\section*{Research Project 3. Combining Kernel Methods with Guaranteed and Adpative Algorithms} \label{combinesec}
 
-\subsection*{Research Project 3.1. Data-Driven Error Estimation}\label{errestsubsec} One may estimate the error of the meshfree approximation \eqref{rbfapprox} in a data-driven way by using cross-validation (CV).  The parameters of the kernel may be estimated by maximum likelihood estimation (MLE).  However, neither of these methods have finite-sample size guarantees of success.
-
-On the other hand, there exist error bounds of the form \citep{Wen05a}
-\begin{equation} \label{rbferrbd}
-\sup_{\bx \in \cx} \abs{f(\bx) - \tf(\bx)} \le C \norm[\ch]{f} [\filldis(\desn)]^r, \qquad \filldis(\desn): = \max_{\bx \in \cx} \min_{i=1,  \ldots, N} \norm[2]{\bx - \bx_i},
+\subsection*{Research Project 3.1. Data-Driven Error Estimation}\label{errestsubsec} Our goal is adaptive meshfree function approximation algorithms.  This requires an error bound, $\oerr(f,N)$, based on the function data, that is no smaller than $\err(f,N):=\bignorm[\infty]{f-\tf}$. Cross-validation (CV) is sometimes used to approximate the error. One form of CV is
+\begin{subequations} \label{rbferrbd}
+\begin{equation} \label{crossvalid}
+\err(f,N) \approx \sqrt{\frac{C}{N} \sum_{i=1}^{N/2} \abs{f(\bx_{2i-1})-\tf(\bx_{2i-1};\{\bx_{2i}\}_{i=1}^{N/2})}^2 + \sum_{i=1}^{N/2} \abs{f(\bx_{2i})-\tf(\bx_{2i};\{\bx_{2i-1}\}_{i=1}^{N/2})}^2}.
 \end{equation}
+There also exist error bounds of the form \citep{Wen05a}
+\begin{multline} \label{numanalerrbd}
+\err(f,N) \le \begin{Bmatrix} \sqrt{\sup_{\bx \in \cx}[K(\bx,\bx)-\bk^T(\bx)\mK^{-1} \bk(\bx)]} \\
+C [\filldis(\desn)]^r
+\end{Bmatrix}
+\norm[\ch]{f},  \\
+ \filldis(\desn): = \max_{\bx \in \cx} \min_{i=1,  \ldots, N} \norm[2]{\bx - \bx_i}. 
+\end{multline}
+\end{subequations}
+All of these expressions have drawbacks.  CV has no finite-sample size guarantees of successfully providing an upper bound on the true error.  The error bounds in \eqref{numanalerrbd}
+
 Here $C$ is some constant, and $\filldis(\{\bx_i\}_{i=1}^N)$ is the fill or maximin distance of the data sites.  Moreover, $\norm[\ch]{f}$ is the Hilbert space norm of $f$, where the reproducing kernel for $\ch$ is the $K$ used in \eqref{rbfapprox}. Finally, $r$ reflects the smoothness of $K$.  Error bound \eqref{rbferrbd} tells us that the error depends on both the roughness (Hilbert space norm) of $f$ and the unevenness (fill distance) of the data sites.
 
-However, the error of the meshfree approximation cannot be bounded in terms of the data, $(\bx_1, y_1), \ldots, (\bx_N,y_N)$, because $\norm[\ch]{f}$ is unknown a priori.  The user does not know how large the error is in practice and whether $N$ needs to be increased to meet a desired tolerance. Thus, \eqref{rbferrbd} by itself does not lead to a guaranteed, automatic, adaptive algorithm.
+However, the error of the meshfree approximation cannot be bounded in terms of the data, $(\bx_1, y_1), \ldots, (\bx_N,y_N)$, because $\norm[\ch]{f}$ is unknown a priori.  The user does not know how large the error is in practice and whether $N$ needs to be increased to meet a desired tolerance. Thus, \eqref{rbferrbd} by itself does not lead to a guaranteed, adaptive algorithm.
 
 Sect.\ \ref{SectCones} introduces the idea of \emph{cones} of input functions, where a stronger norm of $f$ is bounded above in terms of a weaker norm of $f$.  We have already successfully used this idea to construct guaranteed, adaptive, automatic algorithms for integration and for univariate function approximation.  Moreover, we have derived known upper bounds on their computational costs. \emph{We aim to apply the cones idea to multivariate function approximation using meshfree methods.}
 
@@ -441,7 +451,7 @@ K(x,t) = \sum_{n=1}^{\infty} \left(n^2\pi^2 + \gamma^2\right)^{-\beta} 2\sin(n\p
 and therefore it is a perfect candidate for the data-dependent error bounds discussed above since the eigenfunctions do not depend on the parameters $\beta$ and $\gamma$, while a smaller smoothness parameter $\beta$ leads to slower decay of the eigenvalues.
 
 \subsection*{Research Project 3.2. Data-Driven Parameter Estimation} \label{parestsubsec}
-Another serious practical problem with meshfree approximation is that the matrix $\mK$ in \eqref{rbfcoef} can easily become \emph{ill-conditioned for moderate $N$}---especially if the kernel $K$ contains shape parameters, $\gamma_\ell>0$, such as the anisotropic Gaussian kernel in \eqref{gausskernel}.  The ill-conditioning will arise if the kernel has a high degree of smoothness ($r$ is large), and/or if it becomes ``flat'' (the $\gamma_\ell$ are near zero). This means that $f$ is very smooth and the discretization error \eqref{rbferrbd} vanishes rapidly as the fill distance decreases.
+The parameters of the kernel may be estimated by maximum likelihood estimation (MLE).  Another serious practical problem with meshfree approximation is that the matrix $\mK$ in \eqref{rbfcoef} can easily become \emph{ill-conditioned for moderate $N$}---especially if the kernel $K$ contains shape parameters, $\gamma_\ell>0$, such as the anisotropic Gaussian kernel in \eqref{gausskernel}.  The ill-conditioning will arise if the kernel has a high degree of smoothness ($r$ is large), and/or if it becomes ``flat'' (the $\gamma_\ell$ are near zero). This means that $f$ is very smooth and the discretization error \eqref{rbferrbd} vanishes rapidly as the fill distance decreases.
 Traditionally, this has led to a widely accepted trade-off or uncertainty principle, according to which one must find values of the shape parameters that optimize the balance between (decreased) stability and (increased) discretization error.  This is explained in Sect.\ \ref{SectMisconcept}.
 
 Moreover, the CV and MLE computations often used to optimize the parameters in the kernel also depend on working with the possibly ill-conditioned $\mK$.  This can make CV and MLE unreliable.
@@ -545,21 +555,9 @@ Together with QY and other collaborators, we have shown how the optimal solution
 
 Existing algorithms for multivariate or even infinite-dimensional approximation and integration problems require hand-tuning based on the parameters that define the spaces of functions to which they apply, e.g., the shape or scale parameters of the associated reproducing kernel.  In our search for adaptive algorithms that automatically select these parameters, we started by looking for adaptive algorithms for even simpler problems. The adaptve algorithms that we developed are described below.  They all come with rigorous guarantees and are published in our Guaranteed Automated Integration Library (GAIL) \citep{ChoEtal14a}.  This \Matlab library is publicly available and under ongoing development.
 
-FJH, JL, YiL, and a collaborator developed an adaptive simple Monte Carlo algorithm for calculating means of random variables and multidimensional integrals \citep{HicEtal14a}.  This algorithm is based on Cantelli's inequality to guarantee our estimate of the variance and on a Berry-Esseen inequality (a finite sample Central Limit Theorem).  It is guaranteed to succeed for the cone of random variables or integrands whose kurtosis satisfies some known bound.  FJH and LAJR developed adaptive quasi-Monte Carlo cubature algorithms based on digital nets \citep{HicJim16a} and rank-1 integration lattices \citep{JimHic16a} by expressing the integrands as infinite series, $f=\sum_{\bk} \hatf_\bk \varphi_{\bk}$, where the $\varphi_{\bk}$ are Walsh functions or complex exponential functions.  The cubature error in terms of the discrete  approximations to the coefficients, $\hatf_\bk$.  These algorithms are guaranteed to succeed for the cone of integrands whose true coefficients do not decay erratically.
+FJH, JL, YiL, and a collaborator developed an adaptive simple Monte Carlo algorithm for calculating means of random variables and multidimensional integrals \citep{HicEtal14a}.  This algorithm is based on Cantelli's inequality to guarantee our estimate of the variance and on a Berry-Esseen inequality (a finite sample Central Limit Theorem).  It is guaranteed to succeed for the cone of random variables or integrands whose kurtosis satisfies some known bound.  FJH and LAJR developed adaptive quasi-Monte Carlo cubature algorithms based on digital nets \citep{HicJim16a} and rank-1 integration lattices \citep{JimHic16a} by expressing the integrands as infinite series, $f=\sum_{\bk} \hatf_\bk \varphi_{\bk}$, where the $\varphi_{\bk}$ are Walsh functions or complex exponential functions.  The cubature error in terms of the discrete  approximations to the coefficients, $\hatf_\bk$.  These algorithms must succeed for a cone of integrands whose true series coefficients do not decay erratically.
 
 FJH, NC, YD, CH, and YZ constructed adaptive algorithms for univariate integration and function approximation \citep{HicEtal14b}.  This paper also sets out a general framework for constructing guaranteed adaptive algorithms for any problem where the solution operator is homogeneous by considering cones if input functions.  FJH, MR, and SY are preparing a paper to explain these ideas to a broader audience.  XT completed her MS thesis \citep{Ton14a} on guaranteed adaptive optimization of univariate functions.
-
-
-
- (\texttt{cubMC\_g.m} and \texttt{meanMC\_g.m} in the GAIL \citep{ChoEtal14a}) for multivariate integration problems, but \emph{only for the pure absolute error} case ($\reltol=0$).  The integral is approximated by IID samples of $f(\bX)$ where $\bX$ is generated by probability density function (PDF) $\varrho$. Because this is a random algorithm, the deterministic guarantee of success in \eqref{hINTerr} is replaced by a probabilistic one:
-\begin{equation} \label{cubMCguar}
- \Prob\bigl[\bigabs{\INT(f) -\hINT(f,\abstol,\reltol)} \bigr ] \le \max(\abstol,\reltol \abs{\INT(f)}) \bigr] \le 1-\alpha.
-\end{equation}
-This guarantee holds for the cone of integrands with bounded kurtosis:
-\begin{equation}
-\calc := \bigl \{ f : \INT(\abs{f - \INT(f)}^4) \le \kappa_{\max} [\INT(\abs{f - \INT(f)}^2)]^2 \bigr\}
-\end{equation}
-The bounded kurtosis allows us to reliably bound the population variance $f(\bX)$ by the an inflation of the sample variance of the $f(\bX_i)$. This variance bound along with the kurtosis bound are input into a Berry-Esseen inequality (a finite sample version of the Central Limit Theorem) to guarantee \eqref{cubMCguar}.
 
 
 GEF and QY have formulated a theory of generalized Sobolev spaces for reproducing kernel Hilbert spaces that connects kernel-based approximation methods to fundamental solutions of differential operators \cite{FasshauerYe11, FasshauerYe13}. An important contribution is the fact that the definition of these generalized Sobolev spaces involves both a notion of smoothness and of scale, while traditional Sobolev spaces take into account only the smoothness of functions in the space.
@@ -572,7 +570,7 @@ A new class of so-called \emph{compact Mat\'ern kernels} was investigated by RC,
 
 During SG's visit to IIT (08/2012-02/2013) he performed joint work with GEF and MM on the use of kernel-based methods for the solution of coupled boundary value problems for the application in EEG and MEG (see Sect.~\ref{SecMEEG}). This work made use of the coupling framework of \cite{McCF13}. A joint paper \citep{AFFGM13} has been submitted.
 
-Understanding the covariance kernels, eigenfunctions and associated Hilbert spaces of certain stochastic processes, in particular fractional Brownian motion, was the focus of a research project during summer 2013 involving MD under the guidance of JE and GEF. Some outcomes of this research will be presented at the 2014 Joint Mathematics Meeting.
+Understanding the covariance kernels, eigenfunctions and associated Hilbert spaces of certain stochastic processes, in particular fractional Brownian motion, was the focus of a research project during summer 2013 involving MD under the guidance of JE and GEF. Some outcomes of this research were presented at the 2014 Joint Mathematics Meeting.
 
 \subsection{Broader Impacts from Previous NSF Funding}
 
@@ -661,104 +659,7 @@ We will continue to develop GAIL \citep{ChoEtal14a} as part of our proposed rese
 
 \item[Reaching Out]
 GEF and FJH both have a record of reaching out to high school students and we plan to continue. The website {\tt http://math.iit.edu/$\sim$openscholar/meshfree/} helps manage our internal and external communication and dissemination of research findings. Advertising for the summer REU experiences is also facilitated via this website.
-
-
-
-\vspace{2cm}{\huge \section*{Everything below here is the old proposal}}\vspace{2cm}
-
-\section{Reliable Error Estimation Via Cones}\label{SectCones}
-
-\subsection{The Flaws in {\tt integral.m} and Other Automatic, Adaptive Algorithms} \label{drugssubsect} Computations are prevalent in research, development and operations.  These computations solve large complex problems by assembling basic numerical algorithms for sub-problems. Errors in one piece can propagate throughout.  Our focus is on some of these basic algorithms for function approximation and integration.  As explained at the beginning of the proposal, we want these algorithms to be automatic, adaptive, guaranteed, efficient, and stable.
-
-\Matlab's {\tt integral.m} \citep{MAT8.2} is a typical automatic, adaptive quadrature algorithm.  According to its documentation ``{\tt integral} attempts to satisfy {\tt |Q - I| <= max(AbsTol, RelTol*|Q|)}, where {\tt I} denotes the exact value of the integral.'' Although {\tt integral.m} is automatic, adaptive and stable, it has no guarantees of success and no known bound on its computational cost. Automatic quadrature algorithms in other common software packages suffer the same flaws.  We have developed an alternative to {\tt integral.m}, described in Sect.\ \ref{integral_g_sec}, which satisfies all of our desired criteria for reliability and practicality.
-
-\Matlab's {\tt integral.m} begins by splitting the integration interval into ten sub-intervals and applies Gauss-Kronrod quadrature using $15$ nodes on each sub-interval.  The absolute error on a sub-interval is estimated in terms of the difference between two Gauss quadrature rules using the same nodes, $\bigl \lvert Q(f)-\tQ(f) \bigr \rvert$. If the estimated error is too large, the sub-interval is further subdivided and the process is repeated.
-
-This kind of error estimation can fail in two ways as depicted in Fig.\ \ref{MatIntegFailFig}. The first way is for the sampling scheme (in this case $150$ initial data sites) to miss significant \emph{spikes} in the integrand.  Any quadrature scheme is susceptible to this problem, but {\tt integral.m} fails to quantify how spiky integrands can be and still be integrated correctly.
-
-%\begin{figure}[h]
-%\centering
-%\includegraphics[width=6cm]{SpikyFoolIntegral.eps} \qquad
-%\includegraphics[width=6cm]{FlukyFoolIntegral.eps} \\
-%$\int_0^1 f_{\text{spiky}}(x) \, \dif x=0.5$, \qquad \qquad $\int_0^1 f_{\text{fluky}}(x) \, \dif x=0.278827$ \\
-%{\tt integral(fspiky,0,1,'AbsTol',1e-13,'RelTol',1e-13)=0} \\
-%{\tt integral(ffluky,0,1,'AbsTol',1e-13,'RelTol',1e-13)=0.278799}
-%\caption{Integrands for which {\tt integral.m} fails to give the answer to within the user-specified tolerance. \label{MatIntegFailFig}}
-%\end{figure}
-
-The fluctuations of the \emph{fluky} integrand in Fig.\ \ref{MatIntegFailFig} are observed by the sampling scheme, but the error estimate, $\bigl \lvert Q(f)-\tQ(f) \bigr \rvert$, just happens to vanish on each sub-interval. Again, {\tt integral.m} fails to say when this might happen. Thirty years ago, \cite{Lyn83} warned that the error estimates of the form $\bigl \lvert Q(f)-\tQ(f) \bigr \rvert$---used by virtually all automatic quadrature rules---were flawed because they could be fooled by fluky integrands.  Lyness offered no alternative.  \emph{We have one.}
-
-\subsection{Guaranteed Automatic Quadrature via {\tt integral\_g.m}} \label{integral_g_sec} Our guaranteed automatic algorithm for evaluating $\int_0^1 f(x) \, \dif x$ is based on the trapezoidal rule with $n$ trapezoids ($N=n+1$ data) and its well-known error bound \cite[(7.15)]{BraPet11a}:
-\begin{equation} \label{traprule}
-T_n(f) = \frac{1}{n} \left[f(0) + 2 f\left(\frac 1n \right) + \cdots + 2 f\left(\frac {n-1} n \right) + f(1) \right], \ \
-\abs{\int_0^1 f(x) \, \dif x - T_n(f)} \le \frac{\norm[1]{f''}}{8 n^2}.
-\end{equation}
-Like error bound \eqref{rbferrbd}, this error bound by itself is insufficient for constructing an automatic, adaptive quadrature algorithm because $\norm[1]{f''}$ is unknown in advance.
-
-Our approach assumes that the integrand lies in the cone of functions \citep{HicEtal14b}
-\begin{equation} \label{integralcone}
-\cc_{n^*} := \{f : \norm[1]{f''} \le 2 n^* \norm[1]{f'-f(1)+f(0)} \},
-\end{equation}
-namely functions whose stronger semi-norm is bounded in terms of a weaker semi-norm.  We then approximate the weaker norm by replacing $f$ by it linear spline, $S_n(f)$.  Because $\norm[1]{f'}-\norm[1]{S_n(f)'} \le \norm[1]{f''}/(2n)$, we can derive this data-driven upper bound on the error of the trapezoidal rule:
-\begin{equation} \label{traperrupbd}
-\abs{\int_0^1 f(x) \, \dif x - T_n(f)} \le  \frac{\norm[1]{f''}}{8 n^2} \le \frac{n^* \norm[1]{S_n(f)'-f(1)+f(0)}}{4 n(n - n^*)}, \qquad n>n^*.
-\end{equation}
-
-Algorithm 4 in \cite{HicEtal14b} increases $n$ until the right hand side of \eqref{traperrupbd} is no greater than the error tolerance, $\varepsilon$.  This algorithm has been implemented as {\tt integral\_g.m} in the Guaranteed Automatic Integration Library (GAIL) \citep{ChoEtal14a}.  Like \Matlab's {\tt integral.m}, algorithm {\tt integral\_g.m} is automatic, adaptive, and numerically stable.  However, {\tt integral\_g.m} also satisfies the other required criteria stated at the beginning of the proposal \citep{HicEtal14b}.
-\begin{description}[leftmargin=2.5ex]
-\item[Guarantee] $\displaystyle \abs{\int_0^1 f(x) \dif x - T_n(f)} \le \varepsilon$ for all $f \in \cc_{n^*}$.
-\item[Computational Cost Upper Bound] The number of trapezoids needed does not exceed $\displaystyle 3+2n^*+\sqrt{\frac{n^* \norm[1]{f''}}{2 \varepsilon}}$, where $\norm[1]{f''}$ is not known a priori but bounded by the algorithm using data.
-\item[Complexity Lower Bound] Any algorithm that succeeds for all $f \in \cc_{n^*}$ must use at least $\displaystyle -1 + \sqrt{\frac{(n^* - 1) \norm[1]{f''}}{16 n^* \varepsilon}}$ integrand values.  Our {\tt integral\_g.m} has asymptotically optimal computational cost as $\varepsilon/\norm[1]{f''} \to 0$.
 \end{description}
-
-The spikiness of the integrands, $f$, for which {\tt integral\_g.m} succeeds is precisely quantified by the condition $f \in \cc_{n^*}$. The parameter $n^*$ has an intuitive interpretation:  the minimum number of trapezoids is $n^*+1$, and $1/n^*$ is the width of the spikes that can barely be observed.  Fluky integrands like the one in Fig.\ \ref{MatIntegFailFig} cannot fool {\tt integral\_g.m} because its error estimation is not based on the difference of two quadrature rules.
-
-Although {\tt integral\_g.m} has the desirable properties listed above, it has \emph{deficiencies that we intend to rectify.}
-\begin{itemize}[leftmargin=2.5ex]
-\item Our {\tt integral\_g.m} needs to be extended to include a relative error tolerance as well as the present absolute error tolerance.
-
-\item Now {\tt integral\_g.m} is globally adaptive, meaning that the data sites are uniformly spaced, but the number of sites is chosen adaptively.  We need should local adaptivity to improve efficiency for integrands that are spikier in only part of the interval of integration.
-
-\item The trapezoidal rule underlying {\tt integral\_g.m} should be replaced with a higher order rule for greater efficiency.
-\end{itemize}
-
-\subsection{Cones Are the Key}
-Constructing an automatic, adaptive algorithm that is also \emph{guaranteed}, such as {\tt integral\_g.m}, depends on defining the right cone of input functions.  Adaptive algorithms have no significant advantage over non-adaptive algorithms for problems defined for convex sets of input functions and satisfying certain other reasonable conditions \cite[Chapter 4, Theorem 5.2.1]{TraWasWoz88}. For example, if we want to construct a guaranteed, automatic algorithm for functions in the (convex) ball, $\cb_{\sigma} = \{f : \norm[1]{f''} \le \sigma \}$, then using the trapezoidal rule, $T_n(f)$, with $n=\bigl\lceil\sqrt{\sigma/(8 \varepsilon)}\, \bigr \rceil$ has nearly optimal computational cost, but it is \emph{non-adaptive}.  By requiring integrands to lie inside a non-convex cone, we allow adaption to be useful. We are also able to prove that the algorithm must succeed, bound its computational cost, and bound the computational complexity of the problem.
-
-The arguments leading to {\tt integral\_g.m} are not restricted to univariate integration but have wider possible application \citep{HicEtal14b}.  The main constraint is that the solution operator be positively homogeneous.  \emph{Thus, we plan to develop guaranteed, automatic, adaptive algorithms for other approximation and integration problems as well.}
-
-\subsection{Guaranteed Monte Carlo} \label{MC_g_sec}
-\cite{HicEtal14a} have developed {\tt meanMC\_g.m} in GAIL for constructing guaranteed $\varepsilon$-half-width confidence intervals for the mean, $\mu=\bbE(Y)$, of a random variable, $Y$, via independent and identically distributed (IID) Monte Carlo simulation.  We use the sample mean and sample variance:
-\begin{equation} \label{samplemean}
-\hmu_{N}:=\frac 1{N} \sum_{i=1}^{N} Y_i, \quad \hsigma_{N}^2:=\frac 1{N-1} \sum_{i=1}^N (Y_i-\hmu_{N})^2, \qquad Y_1, Y_2, \ldots \text{ IID}.
-\end{equation}
-A typical approach is to pick an $n_{\sigma}$, compute $\hsigma_{n_{\sigma}}^2$, perhaps multiply it by an inflation factor $\fC^2>1$ to approximate $\var(Y)=\bbE[(Y-\mu)^2]$, and then appeal to the  Central Limit Theorem (CLT), to construct an approximate confidence interval.  There are no guarantees because the estimate of the variance may be wrong and the CLT is not a finite sample result.
-
-Instead, we assume that $Y$ lies in the \emph{cone} of random variables whose kurtosis, $\bbE[(Y-\mu)^4]/[\var(Y)]^2$, is no greater than a parameter $\kappa_{\max}$, which depends explicitly on $n_{\sigma}$ and $\fC^2$.  The cone condition allows us to use Cantelli's inequality to prove that $\var(Y)\le \fC^2\hsigma_{n_\sigma}^2$ with high probability.  The cone condition also allows us to use a Berry-Esseen inequality to choose $n_{\mu}$ that \emph{guarantees} that $\Pr[\abs{\mu-\hmu_{n_{\mu}}} \le \varepsilon]\le 1-\alpha$, where $\hmu_{n_{\mu}}$ is based on a sample that is independent of the one used to compute $\hsigma_{n_\sigma}^2$.
-
-The multidimensional integral $\int_{\reals^d} f(\bx) \rho(\bx) \, \dif \bx$ can be interpreted as $\mu=\bbE(Y)$ with $Y=f(\bX)$ and $\bX$ having probability density $\rho$. In this way {\tt meanMC\_g.m} can be used for guaranteed automatic, adaptive multidimensional integration (cubature) \citep{HicEtal14a}.  The cone condition $Y$ translates into a cone condition on $f$.
-
-Our {\tt meanMC\_g.m} also lacks the ability to satisfy a relative error tolerance. \emph{We aim to rectify this deficiency.}
-
-\subsection{Other Monte Carlo Research Topics} We intend to develop guaranteed versions of two other versions of Monte Carlo methods:
-\begin{description}[leftmargin=2.5ex]
-\item[Multi-Level Monte Carlo] In some situations, generating an exact instance of the random variable, $Y$, would take an infinite amount of time, e.g., if $Y$ is an option payoff that depends on the numerical solution of a stochastic differential equation.  Multi-level methods overcome this problem by computing a large number of coarse approximations to $Y$ and a small number of fine approximations to $Y$ (see the PI's work \citep{NiuHic09a, NiuHic09b} and the review by \cite{Gil14a}).  \emph{We will develop guaranteed multi-level Monte Carlo methods.}
-
-\item[Quasi-Monte Carlo] Quasi-Monte Carlo methods \citep{DicEtal14a} reduce the error in approximating $\mu=\bbE(Y)=\int_{\reals^d} f(\bx) \rho(\bx) \, \dif \bx$, by replacing the IID samples, $\bX_1, \bX_2, \ldots$ in $Y_i=f(\bX_i)$ with evenly distributed samples, such as integration lattices or digital nets.  The error can be expressed in terms of the Fourier (complex exponential or Walsh) coefficients of $f$.  We will use the discrete Fourier coefficients of the integrand values, which can be computed in $N \log(N)$ operations, to reliably estimate the error and \emph{construct guaranteed, automatic, adaptive quasi-Monte Carlo cubature algorithms.} The PI has used these fast discrete Fourier transforms in earlier work \citep{LiHic03a,DicHicLiu07a}.
-
-\end{description}
-
-\subsection{Multivariate Function Approximation (Recovery)}\label{SecRecovery}
-Constructing reliable and practical  univariate and multivariate integration algorithms as described in the previous subsections are important objectives in their own right.  As relatively easier problems, they also support our \emph{objective of constructing a guaranteed, adaptive, automatic multivariate function approximation algorithm,} as discussed in the introduction.
-
-There exist univariate function approximation algorithms, such as cubic splines, in widely used software packages, but those algorithms are not automatic.  GAIL \citep{ChoEtal14a} includes a guaranteed, adaptive linear spline algorithm, {\tt funappx\_g.m}, whose theoretical underpinnings resemble those of {\tt integral\_g.m} \citep{HicEtal14b}.  Like {\tt integral\_g.m}, we intend to derive \emph{a higher order version of {\tt funappx\_g.m} that is also locally adaptive and satisfies a relative error tolerance.}
-
-For multivariate function approximation we focus on meshfree approximation \eqref{rbfapprox}.  Here is how we might proceed.  As in Sect.\ \ref{integral_g_sec}, we need to identify a cone of input functions where the stronger norm, i.e., the Hilbert space norm, $\norm[\ch]{\cdot}$, is bounded above by some multiple of a weaker norm.  We might choose the weaker norm to correspond to a Hilbert space, $\tch$, whose reproducing kernel $\tK$ has a Hilbert-Schmidt series involving the same eigenfunctions as $K$ but a more slowly decaying sequence of eigenvalues (see \eqref{HSseries} below). See \eqref{CMatern} and the kernels in \citep[Chap.\ 2]{Wah90} as examples of such kernels.  Analogously to Sect.\ \ref{integral_g_sec}, we would then need to find a bound on $\norm[\tch]{f} - \bigl\lVert \tf \bigr \rVert_{\tch}$ in terms of $\norm[\ch]{f}$ and use the data-driven $\bigl\lVert \tf \bigr \rVert_{\tch}$ to approximate $\norm[\tch]{f}$, which by the cone condition would give an upper bound on $\norm[\ch]{f}$. These calculations would involve the matrices $\mK$ and $\tmK$, which may be ill-conditioned, as mentioned in the introduction.  To make our proposed algorithm numerically stable we need to employ the techniques introduced in the next section.
-
-
-
-\end{description}
-
 
 \newpage
 \clearpage
