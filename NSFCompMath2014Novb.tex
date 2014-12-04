@@ -329,15 +329,19 @@ The Hilbert--Schmidt SVD \citep{CavorettoEtAl14,FMcC12} of the kernel matrix $\m
 \mK = \mPsi \mLambda_1 \mPhi_1^T,
 \end{equation}
 where all matrices are of size $N\times N$, but the matrix $\mPsi$ is formed as a product of semi-infinite and bi-infinite matrices, i.e.,
-\begin{equation}\label{StableBasis}
+\begin{equation}\label{PsiMatrix}
 \mPsi = \left(\mPhi_1\ \mPhi_2\right)\left(\begin{matrix}\mI_N\\\mLambda_2\mPhi_2^T\mPhi_1^{-T}\mLambda_1^{-1}\end{matrix}\right),
 \quad
 \left(\begin{matrix}\mLambda_1 & \\ & \mLambda_2\end{matrix}\right) = \text{diag}(\lambda_n)_{n=1}^\infty,\ \left(\mPhi_1\ \mPhi_2\right) = \mPhi = \left(\varphi_n(\bx_i)\right)_{i,n=1}^{N,\infty}.
 \end{equation}
 \end{subequations}
-For practical applications the matrices $\mLambda_2$ and $\mPhi_2$ will therefore have to be truncated appropriately (see Sect. \refprobdc). We refer to the Hilbert--Schmidt SVD \eqref{HSSVD} as a ``formal decomposition'' since it is important to note that the matrices $\mPsi$, $\mLambda_1$, $\mLambda_2$, $\mPhi_1$ and $\mPhi_2$ are not found by manipulating $\mK$, but are formed directly from the eigenvalues and eigenfunctions of $\cK$. In fact, the ill-conditioned matrix $\mK$ never needs to be formed, nor is precise knowledge of the closed form of the kernel $K$ essential. As long as the eigenfunctions and eigenvalues are known, the Hilbert--Schmidt SVD enables us to formulate stable and efficient algorithms for the associated kernel approximation problems \citep{CavorettoEtAl14}.
+For practical applications the matrices $\mLambda_2$ and $\mPhi_2$ will therefore have to be truncated appropriately (see Sect. \refprobdc). We refer to the Hilbert--Schmidt SVD \eqref{HSSVD} as a ``formal decomposition'' since it is important to note that the matrices $\mPsi$, $\mLambda_1$, $\mLambda_2$, $\mPhi_1$ and $\mPhi_2$ are not found by manipulating $\mK$, but are formed directly from the eigenvalues and eigenfunctions of $\cK$. In fact, the ill-conditioned matrix $\mK$ never needs to be formed, nor is precise knowledge of the closed form of the kernel $K$ essential. As long as the eigenfunctions and eigenvalues are known, the Hilbert--Schmidt SVD enables us to formulate stable and efficient algorithms for the associated kernel approximation problems \citep{CavorettoEtAl14}. From \eqref{PsiMatrix} we see that the Hilbert--Schmidt SVD provides a new and stable basis $\{\psi_1,\ldots,\psi_N\}$ collected in the vector
+\begin{equation}\label{StableBasis}
+\bpsi(\cdot)^T = \bphi(\cdot)^T\left(\begin{matrix}\mI_N\\\mLambda_2\mPhi_2^T\mPhi_1^{-T}\mLambda_1^{-1}\end{matrix}\right),
+\end{equation}
+which can be viewed as a generic row of $\mPsi$. This serves as an alternative to the standard basis $\{K(\cdot,\bx_1),\ldots,K(\cdot,\bx_N)\}$ collected in the vector $\bk(\cdot)^T = \bpsi(\cdot)^T\mLambda_1\mPhi_1^T$, where $\bphi(\cdot)^T$ is a vector of eigenfunctions. If we apply the Hilbert--Schmidt SVD to the standard (or direct) interpolation approach \eqref{rbfapprox} then the result is a stable linear system of the form $\mPsi \bb = \by$, and the interpolant is evaluated as $\tf(\bx) = \sum_{j=1}^N \psi_j(\bx) b_j$.
 
-A typical comparison between interpolation errors based on the standard (or direct) approach \eqref{rbfapprox} and the Hilbert--Schmidt approach $\mPsi \bb = \by$ applied to isotropic Gaussian kernel interpolation is shown in the left plot of Fig.~\ref{Fig_HSSVD}. The most accurate results are obtained for a positive value of $\gamma$ (they compare favorably to a polynomial interpolant corresponding to the ``flat'' $\gamma\to0$ limit). Moreover, in or near the ``flat'' limit regime the standard approach generates completely unreliable results (the dashed lines), i.e., the standard approach yields reliable answers only for relatively spiky kernels.
+A typical comparison between interpolation errors based on the standard approach and the Hilbert--Schmidt approach for isotropic Gaussian kernel interpolation is shown in the left plot of Fig.~\ref{Fig_HSSVD}. The most accurate results are obtained for a positive value of $\gamma$ (they compare favorably to a polynomial interpolant corresponding to the ``flat'' $\gamma\to0$ limit). Moreover, in or near the ``flat'' limit regime the standard approach generates completely unreliable results (the dashed lines), i.e., the standard approach yields reliable answers only for relatively spiky kernels.
 
 \begin{figure}[h]
     \centering
@@ -361,20 +365,13 @@ The integral equation $2\int_0^\infty \me^{-\gamma|x-t|}\varphi(t)\me^{-2t} \dif
 
 \subsection*{Research Project 1.2. Numerical Computation of Eigensystems} \label{NumerEigensubsec}
 
-The standard approach to approximating the eigenfunctions of the Hilbert--Schmidt operator $\cK$ uses a Nystr\"om method (see, e.g., \citep{Atkinson97,BachJordan03}). We propose the use of a more general collocation method.
+The Hilbert--Schmidt SVD depends on the availability of the eigenvalues and eigenfunctions of $\cK$. If the analytical approach \ref{AnalyticEigensubsec} fails, then we can instead generate approximate eigenvalues and eigenfunctions numerically. This is especially useful if one wants to use ``traditional'' (RBF) kernels such as (inverse) multiquadrics, for which the analytical eigensystems are not known to us. The standard approach to approximating the eigenfunctions of the Hilbert--Schmidt operator $\cK$ uses a Nystr\"om method (see, e.g., \citep{Atkinson97,BachJordan03}). We propose the use of a more general collocation method.
 Assuming that the eigenfunctions can be approximated as
 $\varphi(\bx) \approx \sum_{j=1}^N h_j(\bx) d_j$, where $\{h_1,h_2,\ldots,h_N\}$, is a basis of a finite-dimensional approximation space, one can use $M$ collocation points $\bx_1,\ldots,\bx_M$ to discretize the Hilbert--Schmidt integral eigenvalue problem resulting in a rectangular generalized eigenvalue problem with $M\times N$ matrices $\mA$ and $\mH$
 \begin{equation}\label{GeneralizedEVProblem}
     \mA\bd = \lambda\mH\bd, \quad \mA_{ij}=\int_\Omega K(\bx_i,\bt) h_j(\bt)\d\bt, \quad \mH_{ij}=h_j(\bx_i).
 \end{equation}
-Depending on the choice of basis and kernel, it may be possible to evaluate these integrals analytically or not. In the latter case we will use the techniques of Section \refprobb. Since the solution of \eqref{GeneralizedEVProblem} in its full generality is not yet a standard numerical linear algebra problem---although some work exists \citep{DasNeumaier13}---we will also consider the simpler case when $M=N$, i.e., the number of collocation points equals the number of basis functions. The benefit of using a linear combinations of the basis functions $h_1,\ldots,h_N$ which approximate the eigenfunctions instead of the basis functions themselves is that the Hilbert--Schmidt SVD ensures that we are using a data-dependent basis as demanded for higher dimensions by the Haar--Mairhuber--Curtis theorem \citep{Fas07a}. The Hilbert--Schmidt SVD provides a new and stable basis $\{\psi_1,\ldots,\psi_N\}$ collected in the vector
-\[
-\bpsi(\cdot)^T = \bphi(\cdot)^T\left(\begin{matrix}\mI_N\\\mLambda_2\mPhi_2^T\mPhi_1^{-T}\mLambda_1^{-1}\end{matrix}\right)
-\]
-as an alternative to the standard basis $\{K(\cdot,\bx_1),\ldots,K(\cdot,\bx_N)\}$ collected in the vector $\bk(\cdot)^T = \bpsi(\cdot)^T\mLambda_1\mPhi_1^T$ (see \eqref{StableBasis}), where $\bphi(\cdot)^T$ is a vector of eigenfunctions. Using the numerical eigenfunctions $\bphi(\cdot)^T\approx\bhh(\cdot)^T\mD$ with the coefficients determined via their corresponding eigenvalue problems \eqref{GeneralizedEVProblem} one then has the data-dependent approximate stable basis as a ``corrected'' version of the $h$-basis:
-\[
-\bpsi(\cdot)^T \approx \bhh(\cdot)^T\left(\begin{matrix}\mI_N\\\mD\mLambda_2\mPhi_2^T\mPhi_1^{-T}\mLambda_1^{-1}\mD^{-1}\end{matrix}\right)\mD.
-\]
+Depending on the choice of basis and kernel, it may be possible to evaluate these integrals analytically or not. In the latter case we will use the techniques of Section \refprobb. Since the solution of \eqref{GeneralizedEVProblem} in its full generality is not yet a standard numerical linear algebra problem---although some work exists \citep{DasNeumaier13}---we will also consider the simpler case when $M=N$, i.e., the number of collocation points equals the number of basis functions. The advantage of the collocation method is that we can evaluate the approximate eigenfunctions at any point $\bx \in \Omega$ and therefore we can directly use those functions and corresponding eigenvalues just as we would use the analytical formulas to fill the matrices involved in the Hilbert--Schmidt SVD. All the advantages of using kernels and the Hilbert--Schmidt SVD will still be available to us, such as optimality, data-dependence (as demanded for higher dimensions by the Mairhuber--Curtis theorem \citep{Fas07a}) and stability.
 
 \subsection*{Research Project 1.3. Designer Kernels}\label{SectDesignerKernels}
 
@@ -433,7 +430,7 @@ There also exist error bounds of the form \citep{Wen05a}
 C [\filldis(\desn)]^r
 \end{Bmatrix}
 \norm[\ch]{f},  \\
- \filldis(\desn): = \max_{\bx \in \cx} \min_{i=1,  \ldots, N} \norm[2]{\bx - \bx_i}. 
+ \filldis(\desn): = \max_{\bx \in \cx} \min_{i=1,  \ldots, N} \norm[2]{\bx - \bx_i}.
 \end{multline}
 \end{subequations}
 All of these expressions have drawbacks.  CV has no finite-sample size guarantees of successfully providing an upper bound on the true error.  The error bounds in \eqref{numanalerrbd}
