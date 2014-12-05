@@ -207,23 +207,25 @@
 \newtheorem{resproblem}{Research Problem}
 \newtheorem{research}{Research Objectives}
 
-\newcommand{\refproba}{\hyperref[SectHSSVD]{Research Project~1}}
-\newcommand{\refprobaa}{\hyperref[AnalyticEigensubsec]{Research Project~1.1}}
-\newcommand{\refprobab}{\hyperref[NumerEigensubsec]{Research Project~1.2}}
-\newcommand{\refprobac}{\hyperref[SectDesignerKernels]{Research Project~1.3}}
+\newcommand{\refproba}{\hyperref[SectHSSVD]{Research Project~1}\xspace}
+\newcommand{\refprobaa}{\hyperref[AnalyticEigensubsec]{Research Project~1.1}\xspace}
+\newcommand{\refprobab}{\hyperref[NumerEigensubsec]{Research Project~1.2}\xspace}
+\newcommand{\refprobac}{\hyperref[SectDesignerKernels]{Research Project~1.3}\xspace}
 
-\newcommand{\refprobb}{\hyperref[SectGAIL]{Research Project~2}}
+\newcommand{\refprobb}{\hyperref[SectGAIL]{Research Project~2}\xspace}
+\newcommand{\refprobba}{\hyperref[Integrationsubsec]{Research Project~2.1}\xspace}
+\newcommand{\refprobbb}{\hyperref[Higherordersubsec]{Research Project~2.2}\xspace}
 
-\newcommand{\refprobc}{\hyperref[combinesec]{Research Project~3}}
-\newcommand{\refprobca}{\hyperref[errestsubsec]{Research Project~3.1}}
-\newcommand{\refprobcb}{\hyperref[parestsubsec]{Research Project~3.2}}
-\newcommand{\refprobcc}{\hyperref[designsubsec]{Research Project~3.3}}
+\newcommand{\refprobc}{\hyperref[combinesec]{Research Project~3}\xspace}
+\newcommand{\refprobca}{\hyperref[errestsubsec]{Research Project~3.1}\xspace}
+\newcommand{\refprobcb}{\hyperref[parestsubsec]{Research Project~3.2}\xspace}
+\newcommand{\refprobcc}{\hyperref[designsubsec]{Research Project~3.3}\xspace}
 
-\newcommand{\refprobd}{\hyperref[appsec]{Research Project~4}}
-\newcommand{\refprobda}{\hyperref[PDEsubsec]{Research Project~4.1}}
-\newcommand{\refprobdb}{\hyperref[SectMEEG]{Research Project~4.2}}
-\newcommand{\refprobdc}{\hyperref[Sec_TruncHS]{Research Project~4.3}}
-\newcommand{\refprobdd}{\hyperref[ebolasubsec]{Research Project~4.4}}
+\newcommand{\refprobd}{\hyperref[appsec]{Research Project~4}\xspace}
+\newcommand{\refprobda}{\hyperref[PDEsubsec]{Research Project~4.1}\xspace}
+\newcommand{\refprobdb}{\hyperref[SectMEEG]{Research Project~4.2}\xspace}
+\newcommand{\refprobdc}{\hyperref[Sec_TruncHS]{Research Project~4.3}\xspace}
+\newcommand{\refprobdd}{\hyperref[ebolasubsec]{Research Project~4.4}\xspace}
 
 
 %\setcounter{page}{1}
@@ -297,8 +299,8 @@ Building upon these previous research accomplishments, we propose to extend our 
 \begin{enumerate}
 \renewcommand{\labelenumi}{3.\arabic{enumi}.}
 \item Use cones to obtain error bounds and guarantees for function approximation with kernels.
-\item Use the Hilbert--Schmidt SVD for automatic and adaptive data-based parameter estimation of kernel methods.
-\item Use the Hilbert--Schmidt SVD to obtain ``optimal'' automatic and adaptive data-based designs for kernel methods.
+\item Use the Hilbert--Schmidt SVD for automatic and adaptive data-driven parameter estimation of kernel methods.
+\item Use the Hilbert--Schmidt SVD to obtain ``optimal'' automatic and adaptive data-driven designs for kernel methods.
 \end{enumerate}
 
 \item[\refprobd] Apply new results.
@@ -335,13 +337,16 @@ where all matrices are of size $N\times N$, but the matrix $\mPsi$ is formed as 
 \left(\begin{matrix}\mLambda_1 & \\ & \mLambda_2\end{matrix}\right) = \text{diag}(\lambda_n)_{n=1}^\infty,\ \left(\mPhi_1\ \mPhi_2\right) = \mPhi = \left(\varphi_n(\bx_i)\right)_{i,n=1}^{N,\infty}.
 \end{equation}
 \end{subequations}
-For practical applications the matrices $\mLambda_2$ and $\mPhi_2$ will therefore have to be truncated appropriately (see Sect. \refprobdc). We refer to the Hilbert--Schmidt SVD \eqref{HSSVD} as a ``formal decomposition'' since it is important to note that the matrices $\mPsi$, $\mLambda_1$, $\mLambda_2$, $\mPhi_1$ and $\mPhi_2$ are not found by manipulating $\mK$, but are formed directly from the eigenvalues and eigenfunctions of $\cK$. In fact, the ill-conditioned matrix $\mK$ never needs to be formed, nor is precise knowledge of the closed form of the kernel $K$ essential. As long as the eigenfunctions and eigenvalues are known, the Hilbert--Schmidt SVD enables us to formulate stable and efficient algorithms for the associated kernel approximation problems \citep{CavorettoEtAl14}. From \eqref{PsiMatrix} we see that the Hilbert--Schmidt SVD provides a new and stable basis $\{\psi_1,\ldots,\psi_N\}$ collected in the vector
+For practical applications the matrices $\mLambda_2$ and $\mPhi_2$ will therefore have to be truncated appropriately \citep{CavorettoEtAl14,FMcC12}. %(see Sect. \refprobdc).
+We refer to the Hilbert--Schmidt SVD \eqref{HSSVD} as a ``formal decomposition'' since it is important to note that the matrices $\mPsi$, $\mLambda_1$, $\mLambda_2$, $\mPhi_1$ and $\mPhi_2$ are not found by manipulating $\mK$, but are formed directly from the eigenvalues and eigenfunctions of $\cK$. In fact, \emph{the ill-conditioned matrix $\mK$ never needs to be formed, nor is precise knowledge of the closed form of the kernel $K$ essential}. As long as the eigenfunctions and eigenvalues are known, the Hilbert--Schmidt SVD enables us to formulate stable and efficient algorithms for the associated kernel approximation problems \citep{CavorettoEtAl14}. These insights are the motivation for \refprobaa--\refprobac.
+
+From \eqref{PsiMatrix} we see that the Hilbert--Schmidt SVD provides a new and stable basis $\{\psi_1,\ldots,\psi_N\}$ collected in the vector
 \begin{equation}\label{StableBasis}
 \bpsi(\cdot)^T = \bphi(\cdot)^T\left(\begin{matrix}\mI_N\\\mLambda_2\mPhi_2^T\mPhi_1^{-T}\mLambda_1^{-1}\end{matrix}\right),
 \end{equation}
-which can be viewed as a generic row of $\mPsi$. This serves as an alternative to the standard basis $\{K(\cdot,\bx_1),\ldots,K(\cdot,\bx_N)\}$ collected in the vector $\bk(\cdot)^T = \bpsi(\cdot)^T\mLambda_1\mPhi_1^T$, where $\bphi(\cdot)^T$ is a vector of eigenfunctions. If we apply the Hilbert--Schmidt SVD to the standard (or direct) interpolation approach \eqref{rbfapprox} then the result is a stable linear system of the form $\mPsi \bb = \by$, and the interpolant is evaluated as $\tf(\bx) = \sum_{j=1}^N \psi_j(\bx) b_j$.
+which can be viewed as a generic row of $\mPsi$. This serves as an alternative to the standard basis $\{K(\cdot,\bx_1),\ldots,K(\cdot,\bx_N)\}$ collected in the vector $\bk(\cdot)^T = \bpsi(\cdot)^T\mLambda_1\mPhi_1^T$, where $\bphi(\cdot)^T$ is a vector of eigenfunctions. If we apply the Hilbert--Schmidt SVD to the standard (or direct) interpolation approach \eqref{rbfapprox} then the result is a stable linear system of the form $\mPsi \bb = \by$, and the interpolant is evaluated as $\tf(\bx) = \sum_{j=1}^N \psi_j(\bx) b_j = \bpsi(\bx)^T \bb$.
 
-A typical comparison between interpolation errors based on the standard approach and the Hilbert--Schmidt approach for isotropic Gaussian kernel interpolation is shown in the left plot of Fig.~\ref{Fig_HSSVD}. The most accurate results are obtained for a positive value of $\gamma$ (they compare favorably to a polynomial interpolant corresponding to the ``flat'' $\gamma\to0$ limit). Moreover, in or near the ``flat'' limit regime the standard approach generates completely unreliable results (the dashed lines), i.e., the standard approach yields reliable answers only for relatively spiky kernels.
+A typical comparison between interpolation errors based on the standard approach and the Hilbert--Schmidt approach for isotropic Gaussian kernel interpolation is shown in the left plot of Fig.~\ref{Fig_HSSVD}. The most accurate results are obtained for a positive value of $\gamma$, and they compare favorably to a polynomial interpolant corresponding to the ``flat'' $\gamma\to0$ limit. Moreover, in or near the ``flat'' limit regime the standard approach generates completely unreliable results (the dashed lines), i.e., the standard approach yields reliable answers only for relatively spiky kernels.
 
 \begin{figure}[h]
     \centering
@@ -356,33 +361,36 @@ While Fig.~\ref{Fig_HSSVD} demonstrates that we are able to solve simple moderat
 
 In addition to the Gaussian kernel \citep{FMcC12} and the iterated Brownian bridge kernels \citep{CavorettoEtAl14}, there are many other kernels for which it would be desirable to have stable and reliable algorithms. One family of special interest in the statistics community \citep{Ste99} are the Mat\'ern kernels defined on $\reals^d$, $K(\bx,\bt) = K_{\beta-d/2}\left(\gamma\|\bx-\bt\|\right) \left( \gamma \| \bx - \bt \|\right)^{\beta-d/2}$, $\beta > \frac d2$,
 where $K_{\beta-d/2}$ are modified Bessel functions of the second kind and $\beta$ is a smoothness parameter that should be chosen in a data-dependent way together with the shape parameter $\gamma$. For $\beta = \frac{d + 2k+1}{2}$, $k=0,1,2,\ldots$, the Mat\'ern kernels take on a simpler form. For example
-\begin{align*}
-\text{$k = 0$, i.e., $\beta = \frac{d+1}{2}$:}\quad & K(\bx,\bt) = \me^{-\gamma \|\bx-\bt\|}, \\
-\text{$k = 1$, i.e., $\beta = \frac{d+3}{2}$:}\quad & K(\bx,\bt) = (1+\gamma \|\bx-\bt\|)\me^{-\gamma \|\bx-\bt\|}, \\
-\text{$k = 2$, i.e., $\beta = \frac{d+5}{2}$:}\quad & K(\bx,\bt) = \left(1+\gamma \|\bx-\bt\|+\frac{1}{3}(\gamma \|\bx-\bt\|)^2\right)\me^{-\gamma \|\bx-\bt\|}.
-\end{align*}
-The integral equation $2\int_0^\infty \me^{-\gamma|x-t|}\varphi(t)\me^{-2t} \dif t = \lambda \varphi(x)$ was solved by \citet{Juncosa45} in the context of random noise in radio receivers. This can be interpreted as the Hilbert--Schmidt integral eigenvalue problem for the $k=0$ Mat\'ern kernel on $[0,\infty)$ with $\rho(x) = 2\me^{-2|x|}$. We plan to generalize the work of \citet{Juncosa45} in two steps. First, we plan to obtain the eigenvalues and eigenfunctions of the $k=0$ Mat\'ern kernel on the entire real line. Next, we will tackle Mat\'ern kernels with higher smoothness on $\reals$ by solving the corresponding ODE boundary value problems of increasingly higher order. While a generalization of this approach to higher dimensions seems unlikely, it will be possible to consider product kernels as a new type of designer kernel (see Section \refprobac).
+\begin{subequations}\label{Maternkernels}
+\begin{align}
+\text{$k = 0$, i.e., $\beta = \frac{d+1}{2}$:}\quad & K(\bx,\bt) = \me^{-\gamma \|\bx-\bt\|}, \label{C0Matern} \\
+\text{$k = 1$, i.e., $\beta = \frac{d+3}{2}$:}\quad & K(\bx,\bt) = (1+\gamma \|\bx-\bt\|)\me^{-\gamma \|\bx-\bt\|}, \label{C2Matern}\\
+\text{$k = 2$, i.e., $\beta = \frac{d+5}{2}$:}\quad & K(\bx,\bt) = \left(1+\gamma \|\bx-\bt\|+\frac{1}{3}(\gamma \|\bx-\bt\|)^2\right)\me^{-\gamma \|\bx-\bt\|}.\label{C4Matern}
+\end{align}
+\end{subequations}
+The integral equation $2\int_0^\infty \me^{-\gamma|x-t|}\varphi(t)\me^{-2t} \dif t = \lambda \varphi(x)$ was solved by \citet{Juncosa45} in the context of random noise in radio receivers. This can be interpreted as the Hilbert--Schmidt integral eigenvalue problem for the $k=0$ Mat\'ern kernel \eqref{C0Matern} on $[0,\infty)$ with $\rho(x) = 2\me^{-2|x|}$. We plan to generalize the work of \citet{Juncosa45} in two steps. First, we plan to obtain the eigenvalues and eigenfunctions of the $k=0$ Mat\'ern kernel on the entire real line. Next, we will tackle Mat\'ern kernels with higher smoothness on $\reals$ by solving the corresponding ODE boundary value problems of increasingly higher order. While a generalization of this approach to higher dimensions seems unlikely, it will be possible to consider product kernels as a new type of designer kernel (see Section \refprobac).
 
 \subsection*{Research Project 1.2. Numerical Computation of Eigensystems} \label{NumerEigensubsec}
 
-The Hilbert--Schmidt SVD depends on the availability of the eigenvalues and eigenfunctions of $\cK$. If the analytical approach \ref{AnalyticEigensubsec} fails, then we can instead generate approximate eigenvalues and eigenfunctions numerically. This is especially useful if one wants to use ``traditional'' (RBF) kernels such as (inverse) multiquadrics, for which the analytical eigensystems are not known to us. The standard approach to approximating the eigenfunctions of the Hilbert--Schmidt operator $\cK$ uses a Nystr\"om method (see, e.g., \citep{Atkinson97,BachJordan03}). We propose the use of a more general collocation method.
+The Hilbert--Schmidt SVD depends on the availability of the eigenvalues and eigenfunctions of $\cK$. If the analytical approach in \refprobab\ fails, then we can instead generate approximate eigenvalues and eigenfunctions numerically. This is especially useful if one wants to use ``traditional'' (RBF) kernels such as (inverse) multiquadrics, for which the analytical eigensystems are not known to us. The standard approach to approximating the eigenfunctions of the Hilbert--Schmidt operator $\cK$ uses a Nystr\"om method (see, e.g., \citep{Atkinson97,BachJordan03}). We propose the use of a more general collocation method.
 Assuming that the eigenfunctions can be approximated as
-$\varphi(\bx) \approx \sum_{j=1}^N h_j(\bx) d_j$, where $\{h_1,h_2,\ldots,h_N\}$, is a basis of a finite-dimensional approximation space, one can use $M$ collocation points $\bx_1,\ldots,\bx_M$ to discretize the Hilbert--Schmidt integral eigenvalue problem resulting in a rectangular generalized eigenvalue problem with $M\times N$ matrices $\mA$ and $\mH$
+$\varphi(\bx) \approx \sum_{j=1}^{N_b} h_j(\bx) d_j$, where $\{h_1,h_2,\ldots,h_{N_b}\}$, is a basis of a finite-dimensional approximation space, one can use $N_c$ collocation points $\bx_1,\ldots,\bx_{N_c}$ to discretize the Hilbert--Schmidt integral eigenvalue problem resulting in a rectangular generalized eigenvalue problem with $N_c\times N_b$ matrices $\mA$ and $\mH$
 \begin{equation}\label{GeneralizedEVProblem}
     \mA\bd = \lambda\mH\bd, \quad \mA_{ij}=\int_\Omega K(\bx_i,\bt) h_j(\bt)\d\bt, \quad \mH_{ij}=h_j(\bx_i).
 \end{equation}
-Depending on the choice of basis and kernel, it may be possible to evaluate these integrals analytically or not. In the latter case we will use the techniques of Section \refprobb. Since the solution of \eqref{GeneralizedEVProblem} in its full generality is not yet a standard numerical linear algebra problem---although some work exists \citep{DasNeumaier13}---we will also consider the simpler case when $M=N$, i.e., the number of collocation points equals the number of basis functions. The advantage of the collocation method is that we can evaluate the approximate eigenfunctions at any point $\bx \in \Omega$ and therefore we can directly use those functions and corresponding eigenvalues just as we would use the analytical formulas to fill the matrices involved in the Hilbert--Schmidt SVD. All the advantages of using kernels and the Hilbert--Schmidt SVD will still be available to us, such as optimality, data-dependence (as demanded for higher dimensions by the Mairhuber--Curtis theorem \citep{Fas07a}) and stability.
+Depending on the choice of basis and kernel, it may be possible to evaluate these integrals analytically or not. In the latter case we will use the quadrature rules of \refprobb. Since the solution of \eqref{GeneralizedEVProblem} in its full generality is not yet a standard numerical linear algebra problem---although some work exists \citep{DasNeumaier13}---we will also consider the simpler case when $N_c=N_b$, 
+%i.e., the number of collocation points equals the number of basis functions, 
+for which one of the REU students funded by our previous grant has obtained preliminary results. An important advantage of the collocation method over the simpler Nystr\"om method is that we can evaluate the approximate eigenfunctions at any point $\bx \in \Omega$ and therefore we can directly use those functions and corresponding eigenvalues just as we would use the analytical formulas from \refprobaa to fill the matrices involved in the Hilbert--Schmidt SVD. All the advantages of using kernels and the Hilbert--Schmidt SVD will still be available to us, such as optimality, data-dependence (as demanded for higher dimensions by the Mairhuber--Curtis theorem \citep{Fas07a}) and stability.
 
 \subsection*{Research Project 1.3. Designer Kernels}\label{SectDesignerKernels}
-
-It is possible to build a positive definite kernel via Mercer's theorem by combining an appropriate sequence of
-``eigenvalues'' $\lambda_n$ with a given set of orthogonal functions. Thus, the closed form of the kernel may or may not be known in this case. For example, one could start with Chebyshev polynomials on $[-1,1]$ and combine them with either a sequence of algebraically or geometrically decaying eigenvalues. This will result in Mercer kernels that provide either algebraic of spectral approximation rates and can be implemented stably and reliably within the Hilbert--Schmidt SVD framework. The iterated Brownian bridge kernels of \cite{CavorettoEtAl14} provide another example of a family of designer kernels where the sinusoidal eigenfunctions (see \eqref{IBBkernel}) were chosen to satisfy boundary conditions generalizing those of natural cubic splines. Kernels with other (e.g., periodic) boundary conditions can be constructed using similar ideas.
+In addition to the ``traditional'' approach in which we are given some kernel (such as, e.g., a Gaussian) whose eigensystem we can then use with the Hilbert--Schmidt SVD, it is also possible to turn the picture upside down and build a positive definite kernel via Mercer's theorem by combining an appropriate sequence of
+``eigenvalues'' $\{\lambda_n\}_{n=1}^\infty$ with a given set of orthogonal functions. Thus, the closed form of the kernel may or may not be known in this case. For example, one could start with Chebyshev polynomials on $[-1,1]$ and combine them with either a sequence of algebraically or geometrically decaying eigenvalues. This will result in Mercer kernels that provide either algebraic of spectral approximation rates and can be implemented stably and reliably within the Hilbert--Schmidt SVD framework. The iterated Brownian bridge kernels of \cite{CavorettoEtAl14} provide another example of a family of designer kernels where the sinusoidal eigenfunctions (see \eqref{IBBkernel}) were chosen to satisfy boundary conditions generalizing those of natural cubic splines. Kernels with other (e.g., periodic) boundary conditions can be constructed using similar ideas.
 
 \section*{Research Project 2. Extensions of Guaranteed, Adaptive Algorithms}\label{SectGAIL}
 
-In our previous NSF-funded work (see Sect.\ \ref{previousmeritsubsec}) we derived a number of  adaptive algorithms for function approximation and integration, that are \emph{guaranteed} to satisfy the user-specified error tolerance.  This sets them apart from existing adaptive algorithms, which have no such guarantees.  For example, MATLAB's adaptive quadrature algorithm, \texttt{integral}, has no theoretical guarantee of success.  MATLAB has no adaptive (quasi-)Monte Carlo cubature methods (guaranteed or not).  The Chebfun MATLAB toolbox \citep{TrefEtal14} solves a host of problems adaptively, but has no theoretical guarantees.  Our proposed new adaptive algorithms will build upon our previous work and provide guarantees of success, upper bounds on computational cost, and proof of asymptotic optimality.
+In our previous NSF-funded work (see Sect.\ \ref{previousmeritsubsec}) we derived a number of  adaptive algorithms for function approximation and integration, that are \emph{guaranteed} to satisfy the user-specified error tolerance.  This sets them apart from existing adaptive algorithms, which have no such guarantees.  For example, \Matlab's adaptive quadrature algorithm, \texttt{integral}, has no theoretical guarantee of success.  \Matlab has no adaptive (quasi-)Monte Carlo cubature methods (guaranteed or not).  The Chebfun \Matlab toolbox \citep{TrefEtal14} solves a host of problems adaptively, but has no theoretical guarantees.  Our proposed new adaptive algorithms will build upon our previous work and provide guarantees of success, upper bounds on computational cost, and proof of asymptotic optimality.
 
-\subsection*{Research Project 2.1. Adaptive (Quasi-) Monte Carlo Algorithms for Multivariate Integration}
+\subsection*{Research Project 2.1. Adaptive (Quasi-) Monte Carlo Algorithms for Multivariate Integration}\label{Integrationsubsec}
 Multivariate integrals may be approximated by an average of function values:
 \begin{equation} \label{integprob}
 I(f) := \int_{\reals^d} f(\bx)  \, \varrho(\bx) \, \dif \bx \approx
@@ -392,7 +400,7 @@ Here $\varrho$ is a probability density function, and the well-chosen data sites
 
 In our previous NSF-funded project we developed a simple Monte Carlo algorithm \citep{HicEtal14b} and two quasi-Monte Carlo algorithms \citep{HicJim16a,JimHic16a}, that \emph{adaptively} choose the sample size, $N$, to satisfy the user-specified error tolerance:
 \begin{equation} \label{cubMCguar}
-\bigabs{I(f) -I_N(f)} \le \abstol \quad \text{or} \quad \Prob\bigl[\bigabs{I(f) -I_N(f)} \le \abstol \bigr] \le 1-\alpha,
+\bigabs{I(f) -\hI_N(f)} \le \abstol \quad \text{or} \quad \Prob\bigl[\bigabs{I(f) -\hI_N(f)} \le \abstol \bigr] \le 1-\alpha,
 \end{equation}
 the former holding for deterministic quasi-Monte Carlo sampling, and the latter holding for the random simple Monte Carlo sampling and confidence level $1-\alpha$.  All three adaptive algorithms base their decisions on data-driven error estimates, rather than a priori knowledge of the integrands.
 
@@ -404,14 +412,14 @@ Option pricing is an important application of multivariate integration, and the 
 
 Besides establishing rigorous guarantees for our new algorithms, we also will establish upper bounds on the computational cost of these algorithms.  As in our previous work, the cost depends not only on the known input parameters, such as the error tolerance(s) and the uncertainty, $\alpha$, but also on unknown quantities, such as the variance of $f(\bX)$, $\bX \sim \varrho$ (for simple Monte Carlo) and the rate of decay of the series coefficients for $f$ (for quasi-Monte Carlo).  This is natural since adaptive algorithms by nature expend different amounts of effort depending on the difficulty of the problem.  We also propose to show that these computational costs are asymptotically optimal relative to the best possible algorithms that make the same assumptions on the set of possible integrands.  This will be done by using bump functions, a well-known method in the information-based complexity literature (see \cite{TraWasWoz88,Nov88}).
 
-\subsection*{Research Project 2.2. Higher Order and Locally Adaptive Univariate Function Approximation and Integration}
+\subsection*{Research Project 2.2. Higher Order and Locally Adaptive Univariate Function Approximation and Integration}\label{Higherordersubsec}
 In our previous NSF-funded project (see Sect.\ \ref{previousmeritsubsec}) we developed adaptive univariate function approximation and integration algorithms based on linear splines, but \emph{with rigorous guarantees of success} \citep{HicEtal14b}.  In our proposed work we will extend these methods in two directions.  One obvious goal is to increase the efficiency by using higher order function approximation than the linear spline. The general framework provided in \cite{HicEtal14b} will facilitate this.
 
 All of our adaptive algorithms for univariate or multivariate problems developed so far have been globally adaptive, i.e., the design, $\desinf$, is fixed but the number of data, $N$, is determined adaptively.  This is called global adaption.  A second goal of this project  is to introduce local adaption, i.e., algorithms where the density of the data sites, as well as their number, depends on the function data.  This is easiest to do for univariate problems.  We will sub-divide the whole domain into sub-domains and solve function approximation or integration problem separately on those.  These subdivisions will be data driven.
 
 Finally, as was done for the original algorithms in\citep{HicEtal14b}, we will derive upper bounds on the costs of our new higher order and locally adaptive algorithms.  We will also demonstrate their asymptotic optimality by using bump functions \cite{TraWasWoz88,Nov88}.
 
-\subsection*{Why Cones} The adaptive algorithms that we have derived in our previous work, and the adaptive algorithms that we propose to derive are or will be \emph{guaranteed} to satisfy the user-specified error tolerance.  This sets them apart from existing adaptive algorithms, which have no such guarantees.  For example, MATLAB's adaptive quadrature algorithm, \texttt{integral}, has no theoretical guarantee of success.  MATLAB has no adaptive (quasi-)Monte Carlo cubature methods (guaranteed or not), and MATLAB's spline functions for univariate function approximation are not adaptive either.
+\subsection*{Why Cones} The adaptive algorithms that we have derived in our previous work, and the adaptive algorithms that we propose to derive are or will be \emph{guaranteed} to satisfy the user-specified error tolerance.  This sets them apart from existing adaptive algorithms, which have no such guarantees.  For example, \Matlab's adaptive quadrature algorithm, \texttt{integral}, has no theoretical guarantee of success.  \Matlab has no adaptive (quasi-)Monte Carlo cubature methods (guaranteed or not), and \Matlab's spline functions for univariate function approximation are not adaptive either.
 
 To obtain rigorous guarantees of success for adaptive algorithms requires limiting the functions to some set, $\calc$.  Our past experience and future expectation is that $\calc$ turns out to be a \emph{cone} of functions. There is a good reason for this.
 
@@ -427,8 +435,8 @@ The true absolute error of function approximation or integration, $\err(f,N):=\b
 \label{powfunerrbd}
 \err(f,N) & \le \sqrt{\sup_{\bx \in \cx}[K(\bx,\bx)-\bk^T(\bx)\mK^{-1} \bk(\bx)]} \norm[\ch]{f} \\
 \label{filldiserrbd}
-\err(f,N) & \le C [\filldis(\desn)]^r \norm[\ch]{f}, \qquad 
-\filldis(\desn): = \max_{\bx \in \cx} \min_{i=1,  \ldots, N} \norm[2]{\bx - \bx_i}. 
+\err(f,N) & \le C [\filldis(\desn)]^r \norm[\ch]{f}, \qquad
+\filldis(\desn): = \max_{\bx \in \cx} \min_{i=1,  \ldots, N} \norm[2]{\bx - \bx_i}.
 \end{align}
 \end{subequations}
 All of these expressions have drawbacks as candidates for a data-driven $\oerr(f,N)$.  CV has no finite-sample size guarantees of successfully providing an upper bound on the true error.  The error bounds in \eqref{numanalerrbd}
@@ -443,19 +451,12 @@ The Hilbert--Schmidt series of the iterated Brownian bridge kernels \citep{Cavor
 \begin{equation}\label{IBBkernel}
 K(x,t) = \sum_{n=1}^{\infty} \left(n^2\pi^2 + \gamma^2\right)^{-\beta} 2\sin(n\pi x) \sin(n\pi t), \quad x,t \in [0,1],\ \gamma>0, \beta \in \mathbb{N},
 \end{equation}
-and therefore it is a perfect candidate for the data-dependent error bounds discussed above since the eigenfunctions do not depend on the parameters $\beta$ and $\gamma$, while a smaller smoothness parameter $\beta$ leads to slower decay of the eigenvalues.
+and therefore it is a perfect candidate for the data-driven error bounds discussed above since the eigenfunctions do not depend on the parameters $\beta$ and $\gamma$, while a smaller smoothness parameter $\beta$ leads to slower decay of the eigenvalues.
 
 \subsection*{Research Project 3.2. Data-Driven Parameter Estimation} \label{parestsubsec}
-The parameters of the kernel may be estimated by maximum likelihood estimation (MLE).  Another serious practical problem with meshfree approximation is that the matrix $\mK$ in \eqref{rbfcoef} can easily become \emph{ill-conditioned for moderate $N$}---especially if the kernel $K$ contains shape parameters, $\gamma_\ell>0$, such as the anisotropic Gaussian kernel in \eqref{gausskernel}.  The ill-conditioning will arise if the kernel has a high degree of smoothness ($r$ is large), and/or if it becomes ``flat'' (the $\gamma_\ell$ are near zero). This means that $f$ is very smooth and the discretization error \eqref{rbferrbd} vanishes rapidly as the fill distance decreases.
-Traditionally, this has led to a widely accepted trade-off or uncertainty principle, according to which one must find values of the shape parameters that optimize the balance between (decreased) stability and (increased) discretization error.  This is explained in Sect.\ \ref{SectMisconcept}.
-
-Moreover, the CV and MLE computations often used to optimize the parameters in the kernel also depend on working with the possibly ill-conditioned $\mK$.  This can make CV and MLE unreliable.
-
-We intend to use equivalent, but ``better'' basis representations for kernel-based approximation methods of the form \eqref{rbfform} that lead to \emph{reliable and numerically stable algorithms} and to new and more dependable ways for estimating the shape parameters that provide optimal accuracy. We note here that such non-zero optima have been shown to exist in many cases (see, e.g., Fig.~\ref{Fig_HSSVD})---due to reasons other than the trade-off principle such as Runge-like boundary effects. In particular, we plan to develop practical, reliable and automatic algorithms that take advantage of the additional flexibility provided by the kernel parameters, instead of viewing them as a nuisance.
-
-As Fig.~\ref{Fig_HSSVD} shows, for any given set of data, finding an ``optimal'' (or near-optimal) value of the shape parameter(s) can have a significant impact on the accuracy of the recovered function $\tf$. A number of potential criteria for optimizing the shape parameters were introduced by \cite{Fasshauer11}. However, up to now all of those criteria have been based on the use of the standard approach, i.e., they were subject to the effects of ill-conditioning of the $\mK$ matrix, and thus often unreliable or impractical. Recently, the MLE criterion (or more precisely, negative concentrated log-likelihood) was the first of these criteria to be converted to the stable framework. A plot demonstrating the typical effect of this conversion is given in the right part of Fig.~\ref{Fig_HSSVD}. \emph{We propose to extend the application of the Hilbert-Schmidt SVD to other criteria, and then to investigate which of these criteria is most effective.}
-
-This latter investigation necessitates a framework in which such a comparison can take place. We plan to answer questions regarding the \emph{consistency}, \emph{rate of convergence} and \emph{stability} of various parameter estimation schemes. For consistency we ask whether a scheme is able to recover the ``true'' value of $\gamma$ as we sample more and more densely. The rate of convergence of a scheme determines how fast the ``optimal'' value suggested by the method approaches the ``true'' value as the sampling density increases, and stability of a scheme will be judged by the effects small changes in the data have on the consistency and convergence rate of the scheme. \emph{We intend to investigate and introduce a metric for comparing the quality of different parameter estimation criteria, and we also plan to derive other parameter optimization criteria, including for the low-rank version of the Hilbert-Schmidt SVD mentioned in the next section.}
+The parameters of the kernel---such as the shape parameters $\gamma_\ell>0$ for the anisotropic Gaussian kernel in \eqref{gausskernel}, or the smoothness and shape parameters, $\beta$ and $\gamma$, for the Mat\'ern kernels in \eqref{Maternkernels}---may be estimated by maximum likelihood estimation (MLE).  In practice, one usually assumes that the data is generated by a Gaussian process, and then often uses the profile log-likelihood $\ell(\bgamma) = N\log(\by^T\mK^{-1}\by) + \log(\det(\mK))$ to estimate the best kernel parameters. Here these parameters are collected in the vector $\bgamma$, and $N$ and $\by$, the vector of given function values, are as in \eqref{rbfcoef}. Since the matrix $\mK$ can easily become \emph{ill-conditioned even for moderate $N$} the profile log-likelihood needs to be computed with a stable numerical algorithm such as the Hilbert--Schmidt SVD since it becomes unreliable otherwise (see Fig.~\ref{Fig_HSSVD}). 
+%The ill-conditioning will arise if the kernel has a high degree of smoothness, and/or if it becomes ``flat'' (the $\gamma_\ell$ are near zero). This means that $f$ is very smooth and the discretization error \eqref{rbferrbd} vanishes rapidly as the fill distance decreases.
+As Fig.~\ref{Fig_HSSVD} also shows, for any given set of data, finding an ``optimal'' (or near-optimal) value of the kernel parameter(s) can have a significant impact on the accuracy of the recovered function $\tf$. A number of potential criteria for optimizing kernel parameters were introduced \citep{Fasshauer11}. However, up to now all of those criteria have been based on the use of the standard approach, i.e., they were subject to the effects of ill-conditioning of the $\mK$ matrix, and thus often unreliable or impractical. Recently, the MLE criterion (or more precisely, profile log-likelihood) was the first of these criteria to be converted to the stable framework \citep{McCF14}, and this is the approach used in the right part of Fig.~\ref{Fig_HSSVD}. We propose to extend the application of the Hilbert--Schmidt SVD to other criteria, and then to investigate which of these criteria is most effective.
 
 \subsection*{Research Project 3.3. Data-Driven Designs} \label{designsubsec}
 An important issue is not only the surface fitting problem itself, but also the choice of \emph{design}, i.e., the data locations or input parameter settings. The main objectives for finding a ``good'' design are that it successfully deal with the \emph{curse of dimensionality}, i.e., that it effectively fill out the high-dimensional design space, and that it ensure an accurate solution of the scattered data fitting problem. In many realistic surrogate modeling applications we are free to decide where and how often we want to sample the computer experiment to generate the data required for our surrogate model. A popular design in the statistics literature looks at so-called \emph{$D$-optimality}, i.e., it aims to maximize the determinant of the Gram matrix $\mK^T\mK$ (see, e.g., \citep{FangEtAl06, MorrisEtAl93}). In approximation theory, so-called \emph{Fekete points} are analogous to $D$-optimal designs, i.e., they maximize the determinant of the interpolation matrix $\mK$ (see, e.g., \citep{BrianiEtAl12, DeMarchi03}). Since Fekete points also approximately minimize the Lebesgue constant
