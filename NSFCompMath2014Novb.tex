@@ -3,7 +3,7 @@
 %Greg and Fred's NSF Grant Dec 2014
 \documentclass[11pt]{NSFamsart}
 \usepackage{latexsym,amsfonts,amsmath,epsfig,multirow}
-\usepackage{stackrel,tabularx,enumitem,xspace}
+\usepackage{stackrel,tabularx,mathtools,enumitem,xspace}
 \usepackage[numbers]{natbib}
 \usepackage{hyperref,accents}
 
@@ -429,23 +429,22 @@ The true absolute error of function approximation or integration, $\err(f,N):=\b
 
 \subsection*{Research Project 3.1. Data-Driven Error Estimation}\label{errestsubsec} Our goal is adaptive meshfree function approximation algorithms.  This requires an error bound, $\oerr(f,N)$, based on the function data, that is no smaller than $\err(f,N):=\bignorm[\infty]{f-\tf}$. Cross-validation (CV) is sometimes used to approximate the error. One form of CV is
 \begin{subequations} \label{rbferrbd}
-\begin{align} \label{crossvalid}
-\err(f,N) &\approx \sqrt{\frac{C}{N} \sum_{i=1}^{N/2} \abs{f(\bx_{2i-1})-\tf(\bx_{2i-1};\{\bx_{2i}\}_{i=1}^{N/2})}^2 + \sum_{i=1}^{N/2} \abs{f(\bx_{2i})-\tf(\bx_{2i};\{\bx_{2i-1}\}_{i=1}^{N/2})}^2}.
-\intertext{There also exist rigorous error bounds of the form \citep{Wen05a}}
+\begin{multline} \label{crossvalid}
+\err(f,N) \\
+\approx \sqrt{\frac{C}{N} \left[ \sum_{i=1}^{N/2} \abs{f(\bx_{2i-1})-\tf(\bx_{2i-1};\{\bx_{2i}\}_{i=1}^{N/2})}^2 + \sum_{i=1}^{N/2} \abs{f(\bx_{2i})-\tf(\bx_{2i};\{\bx_{2i-1}\}_{i=1}^{N/2})}^2 \right]}.
+\end{multline}
+There also exist rigorous error bounds of the form \citep{Wen05a}
+\begin{align}
 \label{powfunerrbd}
 \err(f,N) & \le \sqrt{\sup_{\bx \in \cx}[K(\bx,\bx)-\bk^T(\bx)\mK^{-1} \bk(\bx)]} \norm[\ch]{f} \\
 \label{filldiserrbd}
 \err(f,N) & \le C [\filldis(\desn)]^r \norm[\ch]{f}, \qquad
-\filldis(\desn): = \max_{\bx \in \cx} \min_{i=1,  \ldots, N} \norm[2]{\bx - \bx_i}.
+\filldis(\desn): = \sup_{\bx \in \cx} \min_{i=1,  \ldots, N} \norm[2]{\bx - \bx_i}.
 \end{align}
 \end{subequations}
-All of these expressions have drawbacks as candidates for a data-driven $\oerr(f,N)$.  CV has no finite-sample size guarantees of successfully providing an upper bound on the true error.  The error bounds in \eqref{numanalerrbd}
+All of these expressions have drawbacks as candidates for a data-driven $\oerr(f,N)$.  CV has no finite-sample size guarantees of successfully providing an upper bound on the true error.  The error bounds in \eqref{powfunerrbd} and \eqref{filldiserrbd} require $\norm[\ch]{f}$, which is not known a priori. computation of $\bk^T(\bx)\mK^{-1} \bk(\bx)$ may suffer from stability issues.  Taking the supremums in \eqref{powfunerrbd} and \eqref{filldiserrbd} are nontrivial. The constant $C$ is not always known explicitly.
 
-Here $C$ is some constant, and $\filldis(\{\bx_i\}_{i=1}^N)$ is the fill or maximin distance of the data sites.  Moreover, $\norm[\ch]{f}$ is the Hilbert space norm of $f$, where the reproducing kernel for $\ch$ is the $K$ used in \eqref{rbfapprox}. Finally, $r$ reflects the smoothness of $K$.  Error bound \eqref{rbferrbd} tells us that the error depends on both the roughness (Hilbert space norm) of $f$ and the unevenness (fill distance) of the data sites.
-
-However, the error of the meshfree approximation cannot be bounded in terms of the data, $(\bx_1, y_1), \ldots, (\bx_N,y_N)$, because $\norm[\ch]{f}$ is unknown a priori.  The user does not know how large the error is in practice and whether $N$ needs to be increased to meet a desired tolerance. Thus, \eqref{rbferrbd} by itself does not lead to a guaranteed, adaptive algorithm.
-
-Sect.\ \ref{SectCones} introduces the idea of \emph{cones} of input functions, where a stronger norm of $f$ is bounded above in terms of a weaker norm of $f$.  We have already successfully used this idea to construct guaranteed, adaptive, automatic algorithms for integration and for univariate function approximation.  Moreover, we have derived known upper bounds on their computational costs. \emph{We aim to apply the cones idea to multivariate function approximation using meshfree methods.}
+We propose find guaranteed data-driven error bounds for functions in certain  \emph{cones}.  Given our experience with the integration problem, these cones may take the form of a strong norm of the function being bounded above by a weaker norm, as in \cite{HicEtal14b}.  This may allow us to justify the CV. Alternatively, our cones they may involve assumptions on the regularity of the bases, $\varphi_n$, as in \cite{HicJim16a,JimHic16a} and see us deal directly with the bases in our calculations as in \refproba.  We may find some other way to overcome the drawbacks for one of the error bounds listed above.  For example, the results of \refproba may help us overcome the instablity problem of computing with $\mK^{-1}$. 
 
 The Hilbert--Schmidt series of the iterated Brownian bridge kernels \citep{CavorettoEtAl14} is given by
 \begin{equation}\label{IBBkernel}
