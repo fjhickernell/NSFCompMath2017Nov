@@ -235,26 +235,27 @@
 
 \centerline{\Large \bf Project Description}
 \section{Scientific Context and Timeliness of the Proposed Research}
-For a long time, scientific research was classified as being either theoretical or experimental in nature. More recently, however, computer simulation (or computer experimentation) has emerged as a third pillar of science \citep{PITAC05,OdenGhattas14}. Sometimes computer experimentation is the only way to obtain an understanding of a physical process, and sometimes it is just considerably cheaper, safer, ethically more responsible or environmentally friendlier than performing an actual physical experiment.
-Computer simulation arises quite naturally in situations where one has a complex mathematical model (e.g., specified in terms of a system of partial differential equations or involving randomness) and one can use a computational approach to produce an output (or response) based on a given set of initial conditions and/or model parameters. A few typical examples of where computer simulations are employed are weather and climate modeling, drug design, financial risk management \citep{Gla03}, and the design of nuclear reactors \citep[Sect.\ 2.4]{Smi14a}.
+Computer simulation (or computer experimentation) has emerged as a third pillar of science \citep{PITAC05,OdenGhattas14}, complementing theory and experiment. Sometimes computer experimentation is the only way to obtain an understanding of a physical process, and sometimes it is just considerably cheaper, safer, ethically more responsible or environmentally friendlier than performing an actual physical experiment.  Computer simulation arises quite naturally in situations where one has a complex mathematical model (e.g., specified in terms of a system of partial differential equations and/or involving randomness) and one can use a computational approach to produce an output (or response) based on a given set of initial conditions and/or model parameters. A few typical examples of where computer simulations are employed are weather and climate modeling, drug design, financial risk management \citep{Gla03}, and the design of nuclear reactors \citep[Sect.\ 2.4]{Smi14a}.
 
-Computer simulation can be quite costly in terms of computation time and high-performance computing hardware.  The potential cost increases when one wishes to perform uncertainty quantification or sensitivity analysis.  Substantial cost savings can often be realized by constructing inexpensive \emph{surrogate models} from the actual outputs of these complex computer simulations \citep{FangEtAl06,ForEtal09,SantnerWilliamsNotz03}.
+Our research focuses on aspects of computer simulation that involve numerical function approximation or integration.  One application is situations where the cost in computation time and/or high-performance computing hardware to produce \emph{a single output} is quite high.  This cost may be compounded by the desire to perform uncertainty quantification or sensitivity analysis. Substantial cost savings can often be realized by constructing inexpensive \emph{surrogate models} from the actual outputs of these complex computer simulations \citep{FangEtAl06,ForEtal09,SantnerWilliamsNotz03}.  This is a function approximation problem.
 
-The research proposed here focuses primarily on \emph{algorithms for constructing surrogates} that will allow us to quickly and reliably predict the output of the computer simulation for a previously not used combination of input factors with an accuracy guaranteed to lie within a user-specified tolerance.  We want our algorithms to have the following properties:
+The function approximation methods that we focus on, namely kernel methods, also arise in the numerical solution of PDEs \citep{ChenEtAl14,FornbergFlyer15,SarraKansa09}.  This is another application of interest to us.
+
+A third application is when one wishes to understand the expected behavior of a physical, geophysical, or financial system driven by many random variables or even several continuous time stochastic processes.  This is a problem of multivariate (or even infinite dimensional) integration.
+ 
+The research proposed constructs and analyzes function approximation and integration algorithms with the following properties:
 \begin{description}[leftmargin=2.5ex]
-\item[Stability] The computations do not suffer from catastrophic round-off error.
+\item[Stability] The computations do not suffer from catastrophic round-off error as some otherwise excellent algorithms do.
 
-\item[Adaptivity] The algorithms adjust their parameters based on the data they observe---rather than a priori knowledge---to meet the specified error tolerance, and they do so with theoretical guarantees.
+\item[Adaptivity] The algorithms adjust their parameters based on the data they observe---rather than a priori knowledge---to meet the specified error tolerance, and they do so with theoretical guarantees.  This frees the user from having to guess how much computational effort to expend.
 
 \item[Efficiency] The computational cost of the algorithms are asymptotically optimal---compared to the best possible algorithms---as the error tolerance vanishes.
 \end{description}
 
-In addition to surrogate construction---essentially a problem of function approximation---we will also research two related problems.  One is integration, a simpler problem that shares many of the same mathematical features of function approximation.  Moreover, we will also propose the use of kernels for the numerical solution of PDEs \citep{ChenEtAl14,FornbergFlyer15,SarraKansa09}.
-
 %For the surrogate construction problem, each data point consists of a combination of the input parameters and the corresponding output value. In other words, one needs to run the computer simulation multiple times in order to produce a set of data, and then one can use a function approximation algorithm to produce a response surface which in turn can be evaluated stably, efficiently and accurately for any desired set of input parameters. The number of these input parameters determines the dimensionality of the data fitting problem, and it is not difficult to imagine that this dimension can be rather large. {\bf [Fred, can you add a similar statement about integration?]}
 
 \section{Overview of Proposed Research}
-Kernel methods \citep{Fas07a,SchWen06a,Wen05a} are often viewed as an ideal approach to the function approximation problem, which in turn serves as a fundamental application in the context of scattered data fitting and surrogate modeling, but also for classification and regression approaches in machine learning \citep{HasTibFrie01} and as the starting point for various approaches to the solution of partial differential equations, such as, e.g., pseudospectral collocation methods, partition of unity methods, or RBF-based finite difference methods \citep{Fas07a,FornbergFlyer15}.
+Much of our proposed research revolves around kernel methods for function approximation\citep{Fas07a,SchWen06a,Wen05a}. These methods find their application in the context of scattered data fitting and surrogate modeling, for classification and regression approaches in machine learning \citep{HasTibFrie01}, and as the starting point for various approaches to the solution of partial differential equations, such as, e.g., pseudospectral collocation methods, partition of unity methods, or RBF-based finite difference methods \citep{Fas07a,FornbergFlyer15}.
 
 In the context of surrogate modeling, we are presented with a (costly) computer simulation which generates an output/response, $y=f(\bx)$, given any input $\bx \in \Omega \subset\reals^d$.  The goal is to construct a surrogate, $\tf$, based on the data $(\bx_1, y_1), \ldots, (\bx_N,y_N)$.  An approach based on kernel methods takes the form
 \begin{subequations} \label{rbfapprox}
@@ -272,10 +273,12 @@ but there are also other good choices for the kernel.  In the most-straightforwa
 \end{subequations}
 
 This numerical algorithm goes by different names, such as, radial basis function approximation \citep{Buh03a}, scattered data approximation \citep{Wen05a}, meshfree approximation \citep{Fas07a}, and kriging \citep{Ste99}. It is part of the JMP \citep{JMP11}, \Matlab \citep{MAT8.4} and R \citep{R3.03_2013} software packages.  It is flexible because the data sites need not follow a regular pattern. There is a deterministic optimality: $\tf$ is the best approximation to $f$ in the Hilbert space whose reproducing kernel is $K$ \citep{Fas07a,Wen05a}.  There is a stochastic optimality: $\tf$ is the best approximation to $f$ in the set of Gaussian stochastic processes whose covariance kernel is $K$ \citep{BerT-A04,Wah90}.  The procedure outlined above can be extended to include the exact reproduction of polynomials and also the situation where the $y_i$ are noisy observations of the $f(\bx_i)$ \citep{Wah90}.
-One of the main accomplishments of \emph{NSF-DMS-1115392 Kernel Methods for Numerical Computation} (see Sect.~\ref{SectPrevious}) was the development of the so-called \emph{Hilbert--Schmidt SVD} \citep{CavorettoEtAl14,FMcC12,McCF14,McCourtFas14} (see \refproba). This algorithm provides a framework for finding a new stable basis for often ill-conditioned kernel methods.
-A second major accomplishment was the development of \emph{guaranteed, adaptive numerical integration algorithms} \citep{HicEtal14b,HicEtal14a,HicJim16a,JimHic16a} (see \refprobb).
 
-Building upon these previous research accomplishments, we propose to extend our work in several different directions:
+One of the main accomplishments of \emph{NSF-DMS-1115392 Kernel Methods for Numerical Computation} (see Sect.~\ref{SectPrevious}) was the development of the so-called \emph{Hilbert--Schmidt SVD} \citep{CavorettoEtAl14,FMcC12,McCF14,McCourtFas14}. The Hilbert--Schmidt SVD provides a framework for finding a new stable basis for often ill-conditioned kernel methods (\refproba), for optimizing kernel algorithms (\refprobc), and for solving a variety of applications (\refprobd).
+
+A second major accomplishment was the development of \emph{guaranteed, adaptive numerical integration algorithms} \citep{HicEtal14b,HicEtal14a,HicJim16a,JimHic16a} (see \refprobb).  We want to extend the capability of these integration algorithms  (\refprobb) and apply these ideas to kernel methods for function approximation (\refprobc).
+
+Specifically, we propose the following four projects:
 
 \begin{description}[leftmargin=2.5ex]
 
@@ -319,9 +322,9 @@ Every positive definite kernel $K$ has a Hilbert--Schmidt (or Mercer) series dec
 \begin{equation}\label{HSseries}
 K(\bx,\bt) = \sum_{n=1}^\infty \lambda_n \varphi_n(\bx) \varphi_n(\bt),
 \end{equation}
-where the $\lambda_n$ and $\varphi_n$ are the eigenvalues and eigenfunctions of the associated Hilbert--Schmidt integral operator $\cK : L_2(\Omega, \rho) \to L_2(\Omega, \rho)$ which depends on the probability density $\rho$ and is defined by
+where the $\lambda_n$ and $\varphi_n$ are the eigenvalues and eigenfunctions of the associated Hilbert--Schmidt integral operator $\cK : L_2(\Omega, \varrho) \to L_2(\Omega, \varrho)$, which depends on the probability density $\varrho$ and is defined by
 \begin{equation}\label{TK}
-(\cK f)(\bx) = \int_\Omega K(\bx, \bt)f(\bt)\, \rho(\bt)\, \d \bt.
+(\cK f)(\bx) = \int_\Omega K(\bx, \bt)f(\bt)\, \varrho(\bt)\, \d \bt.
 \end{equation}
 
 The Hilbert--Schmidt SVD \citep{CavorettoEtAl14,FMcC12} of the kernel matrix $\mK$ from \eqref{rbfcoef} is the \emph{formal decomposition}
@@ -367,7 +370,7 @@ where $K_{\beta-d/2}$ are modified Bessel functions of the second kind and $\bet
 \text{$k = 2$, i.e., $\beta = \frac{d+5}{2}$:}\quad & K(\bx,\bt) = \left(1+\gamma \|\bx-\bt\|+\frac{1}{3}(\gamma \|\bx-\bt\|)^2\right)\me^{-\gamma \|\bx-\bt\|}.\label{C4Matern}
 \end{align}
 \end{subequations}
-The integral equation $2\int_0^\infty \me^{-\gamma|x-t|}\varphi(t)\me^{-2t} \dif t = \lambda \varphi(x)$ was solved by \citet{Juncosa45} in the context of random noise in radio receivers. This can be interpreted as the Hilbert--Schmidt integral eigenvalue problem for the $k=0$ Mat\'ern kernel \eqref{C0Matern} on $[0,\infty)$ with $\rho(x) = 2\me^{-2|x|}$. We plan to generalize the work of \citet{Juncosa45} in two steps. First, we plan to obtain the eigenvalues and eigenfunctions of the $k=0$ Mat\'ern kernel on the entire real line. Next, we will tackle Mat\'ern kernels with higher smoothness on $\reals$ by solving the corresponding ODE boundary value problems of increasingly higher order. While a generalization of this approach to higher dimensions seems unlikely, it will be possible to consider product kernels as a new type of designer kernel (see Section \refprobac).
+The integral equation $2\int_0^\infty \me^{-\gamma|x-t|}\varphi(t)\me^{-2t} \dif t = \lambda \varphi(x)$ was solved by \citet{Juncosa45} in the context of random noise in radio receivers. This can be interpreted as the Hilbert--Schmidt integral eigenvalue problem for the $k=0$ Mat\'ern kernel \eqref{C0Matern} on $[0,\infty)$ with $\varrho(x) = 2\me^{-2|x|}$. We plan to generalize the work of \citet{Juncosa45} in two steps. First, we plan to obtain the eigenvalues and eigenfunctions of the $k=0$ Mat\'ern kernel on the entire real line. Next, we will tackle Mat\'ern kernels with higher smoothness on $\reals$ by solving the corresponding ODE boundary value problems of increasingly higher order. While a generalization of this approach to higher dimensions seems unlikely, it will be possible to consider product kernels as a new type of designer kernel (see Section \refprobac).
 
 \subsection*{Research Project 1.2. Numerical Computation of Eigensystems} \label{NumerEigensubsec}
 
