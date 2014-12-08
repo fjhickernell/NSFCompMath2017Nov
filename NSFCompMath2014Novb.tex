@@ -242,7 +242,7 @@ Our research focuses on aspects of computer simulation that involve numerical fu
 The function approximation methods that we focus on, namely kernel methods, also arise in the numerical solution of PDEs \citep{ChenEtAl14,FornbergFlyer15,SarraKansa09}.  This is another application of interest to us.
 
 A third application is when one wishes to understand the expected behavior of a physical, geophysical, or financial system driven by many random variables or even several continuous time stochastic processes.  This is a problem of multivariate (or even infinite dimensional) integration.
- 
+
 The research proposed constructs and analyzes function approximation and integration algorithms with the following properties:
 \begin{description}[leftmargin=2.5ex]
 \item[Stability] The computations do not suffer from catastrophic round-off error as some otherwise excellent algorithms do.
@@ -314,6 +314,7 @@ Specifically, we propose the following four projects:
 %\item Use the eigenfunction expansion of kernels for low-rank approximations in machine learning.
 \end{enumerate}
 \end{description}
+GEF 1,3,4, FJH 2,3 MM 1,4 SCC 2 and general software.
 In the following sections we outline our plans for completing these four projects.
 
 \section*{Research Project 1. Extensions of the Hilbert--Schmidt SVD}\label{SectHSSVD}
@@ -449,6 +450,9 @@ All of these expressions have drawbacks as candidates for a data-driven $\oerr(f
 We propose find guaranteed data-driven error bounds for functions in certain  \emph{cones}.  Given our experience with the integration problem, these cones may take the form of a strong norm of the function being bounded above by a weaker norm, as in \cite{HicEtal14b}.  This may allow us to justify the CV. Alternatively, our cones they may involve assumptions on the regularity of the bases, $\varphi_n$, as in \cite{HicJim16a,JimHic16a} and suggest that we deal directly with the bases---rather than the kernels---in our calculations as in \refproba.  We may find some other way to overcome the drawbacks for one of the error bounds listed above.  For example, the results of \refproba may help us overcome the instablity problem of computing with $\mK^{-1}$.
 
 The Hilbert--Schmidt series of the iterated Brownian bridge kernels \citep{CavorettoEtAl14} is given by
+
+Put periodic kernels here
+
 \begin{equation}\label{IBBkernel}
 K(x,t) = \sum_{n=1}^{\infty} \left(n^2\pi^2 + \gamma^2\right)^{-\beta} 2\sin(n\pi x) \sin(n\pi t), \quad x,t \in [0,1],\ \gamma>0, \beta \in \mathbb{N},
 \end{equation}
