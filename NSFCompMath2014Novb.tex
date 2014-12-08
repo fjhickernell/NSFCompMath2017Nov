@@ -4,6 +4,7 @@
 \documentclass[11pt]{NSFamsart}
 \usepackage{latexsym,amsfonts,amsmath,epsfig,multirow}
 \usepackage{stackrel,tabularx,mathtools,enumitem,xspace}
+\usepackage[dvipsnames]{xcolor}
 \usepackage[numbers]{natbib}
 \usepackage{hyperref,accents}
 % This package prints the labels in the margin
@@ -391,7 +392,23 @@ In addition to the ``traditional'' approach in which we are given some kernel (s
 
 \section*{Research Project 2. Extensions of Guaranteed, Adaptive Algorithms}\label{SectGAIL}
 
-In our previous NSF-funded work (see Sect.\ \ref{previousmeritsubsec}) we derived a number of  adaptive algorithms for function approximation and integration, that are \emph{guaranteed} to satisfy the user-specified error tolerance.  This sets them apart from existing adaptive algorithms, which have no such guarantees.  For example, \Matlab's adaptive quadrature algorithm, \texttt{integral}, has no theoretical guarantee of success.  \Matlab has no adaptive (quasi-)Monte Carlo cubature methods (guaranteed or not).  The Chebfun \Matlab toolbox \citep{TrefEtal14} solves a host of problems adaptively, but has no theoretical guarantees.  Our proposed new adaptive algorithms will build upon our previous work and provide guarantees of success, upper bounds on computational cost, and proof of asymptotic optimality.
+In our previous NSF-funded work (see Sect.\ \ref{previousmeritsubsec}) we derived a number of  adaptive algorithms for function approximation and integration, that are \emph{guaranteed} to satisfy the user-specified error tolerance.  This sets them apart from existing adaptive algorithms, which have no such guarantees.  For example, \Matlab's adaptive quadrature algorithm, \texttt{integral}, has no theoretical guarantee of success.  
+
+\Matlab has no adaptive (quasi-)Monte Carlo cubature methods (guaranteed or not).  The Chebfun \Matlab toolbox \citep{TrefEtal14} solves a host of problems adaptively, but has no theoretical guarantees.  Our proposed new adaptive algorithms will build upon our previous work and provide guarantees of success, upper bounds on computational cost, and proof of asymptotic optimality.
+
+\begin{figure}[h]
+\centering
+\begin{tabular}{>{\centering}m{6cm}@{\hspace{1cm}}>{\centering}m{6cm}}
+\includegraphics[width=6cm]{SpikyFoolIntegral.pdf} \newline
+ $\int_0^1 f_{\text{spiky}}(x) \, \dif x=0.5$ 
+ & 
+\includegraphics[width=6cm]{FlukyFoolIntegral.pdf} \newline
+ $\int_0^1 f_{\text{fluky}}(x) \, \dif x=0.278827$
+\end{tabular}
+\texttt{integral(fspiky,0,1,'AbsTol',1e-13,'RelTol',1e-13)={\color{red}0}} \\
+\texttt{integral(ffluky,0,1,'AbsTol',1e-13,'RelTol',1e-13)=0.278{\color{red}799}}
+\caption{Integrands for which {\tt integral.m} fails to give the answer to within the user-specified tolerance. \label{MatIntegFailFig}}
+\end{figure}
 
 \subsection*{Research Project 2.1. Adaptive (Quasi-) Monte Carlo Algorithms for Multivariate Integration}\label{Integrationsubsec}
 Multivariate integrals may be approximated by an average of function values:
