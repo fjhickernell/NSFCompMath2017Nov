@@ -459,14 +459,14 @@ The traditional error analysis works with \emph{balls} of input functions, $\cb 
 There also exist rigorous error bounds for functions in the Hilbert space $\ch$ with reproducing kernel $K$ of the form \citep{Wen05a}
 \begin{align}
 \label{powfunerrbd}
-\err(f,N) & \le \sqrt{\sup_{\bx \in \cx}[K(\bx,\bx)-\bk^T(\bx)\mK^{-1} \bk(\bx)]} \norm[\ch]{f} \\
+\err(f,N) & \le \sqrt{\sup_{\bx \in \cx}[K(\bx,\bx)-\bk^T(\bx)\mK^{-1} \bk(\bx)]} \norm[\ch_K]{f} \\
 \label{filldiserrbd}
-\err(f,N) & \le C [\filldis(\desn)]^r \norm[\ch]{f}, \qquad
+\err(f,N) & \le C [\filldis(\desn)]^r \norm[\ch_K]{f}, \qquad
 \filldis(\desn): = \sup_{\bx \in \cx} \min_{i=1,  \ldots, N} \norm[2]{\bx - \bx_i}.
 \end{align}
 \end{subequations}
 
-All of these expressions have drawbacks as candidates for a data-driven $\oerr(f,N)$.  CV has no finite-sample size guarantees of successfully providing an upper bound on the true error.  The error bounds in or (\ref{powfunerrbd}, \ref{filldiserrbd}) require $\norm[\ch]{f}$, which is not known a priori. computation of $\bk^T(\bx)\mK^{-1} \bk(\bx)$ may suffer from stability issues.  Taking the supremums in \ref{powfunerrbd}, \ref{filldiserrbd}) are nontrivial. While $r$ denotes the kernel smoothness in \eqref{filldiserrbd}, the constant $C$ is not always known explicitly.
+All of these expressions have drawbacks as candidates for a data-driven $\oerr(f,N)$.  CV has no finite-sample size guarantees of successfully providing an upper bound on the true error.  The error bounds in or (\ref{powfunerrbd}, \ref{filldiserrbd}) require $\norm[\ch_K]{f}$, which is not known a priori. computation of $\bk^T(\bx)\mK^{-1} \bk(\bx)$ may suffer from stability issues.  Taking the supremums in \ref{powfunerrbd}, \ref{filldiserrbd}) are nontrivial. While $r$ denotes the kernel smoothness in \eqref{filldiserrbd}, the constant $C$ is not always known explicitly.
 
 We propose finding guaranteed data-driven error bounds for functions in certain  \emph{cones}.  Given our experience with the integration problem, these cones may take the form of a strong norm of the function being bounded above by a weaker norm, as in \cite{HicEtal14b}, which rules out spiky functions.  This may allow us to justify the CV. Alternatively, our cones they may involve assumptions on the decay rates of the series representations of the functions in terms of the basis, $\{\varphi_n\}_{n=1}^{\infty}$, as in \cite{HicJim16a,JimHic16a} and suggest that we calculate directly with the basis elements---rather than the kernels---as in \refproba.  We may find some other way to overcome the drawbacks for one of the error bounds listed above.  For example, the results of \refproba may help us overcome the instability of computing with $\mK^{-1}$.
 
