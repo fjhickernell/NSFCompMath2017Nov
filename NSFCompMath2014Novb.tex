@@ -236,7 +236,7 @@
 
 \centerline{\Large \bf Project Description}
 \section{Scientific Context and Timeliness of the Proposed Research}
-Computer simulation (or computer experimentation) has emerged as a third pillar of science \citep{PITAC05,OdenGhattas14}, complementing theory and experiment. Sometimes computer experimentation is the only way to obtain an understanding of a physical process, and sometimes it is just considerably cheaper, safer, ethically more responsible or environmentally friendlier than performing an actual physical experiment.  Computer simulation arises quite naturally in situations where one has a complex mathematical model (e.g., specified in terms of a system of partial differential equations (PDEs) and/or involving randomness) and one can use a computational approach to produce an output (or response) based on a given set of initial conditions and/or model parameters. A few typical examples of where computer simulations are employed are weather and climate modeling, drug design, financial risk management \citep{Gla03}, and the design of nuclear reactors \citep[Sect.\ 2.4]{Smi14a}.
+Computer simulation (or computer experimentation) has emerged as a third pillar of science \citep{PITAC05,OdenGhattas14}, complementing theory and experiment. Sometimes computer experimentation is the only way to obtain an understanding of a physical process, and sometimes it is just considerably cheaper, safer, ethically more responsible or environmentally friendlier than performing an actual physical experiment.  Computer simulation arises quite naturally in situations where one has a complex mathematical model (e.g., specified in terms of a system of partial differential equations (PDEs) and/or involving randomness) and one can use a computational approach to produce an output (or response) based on a given set of initial conditions and/or model parameters. A few typical examples of where computer simulations are employed are weather and climate modeling \citep{Lynch08}, drug design \citep{Baron12}, financial risk management \citep{Gla03}, and the design of nuclear reactors \citep[Sect.\ 2.4]{Smi14a}.
 
 Our research focuses on aspects of computer simulation that involve numerical function approximation or integration.  One application arises when the cost in computation time and/or high-performance computing hardware to produce \emph{a single output} is quite high.  This cost may be compounded by the desire to perform uncertainty quantification or sensitivity analysis. Substantial cost savings can often be realized by constructing inexpensive \emph{surrogate models} from the outputs of these complex computer simulations \citep{FangEtAl06,ForEtal09,SantnerWilliamsNotz03}.  This is a function approximation problem.
 
@@ -250,11 +250,11 @@ The research proposed constructs and analyzes function approximation and integra
 
 \item[Adaptivity] The algorithms adjust their parameters based on the data they observe---rather than a priori knowledge---to meet the specified error tolerance, and they do so with theoretical guarantees.  This frees the user from having to guess how much computational effort to expend.
 
-\item[Efficiency] The computational cost of the algorithms are asymptotically optimal---compared to the best possible algorithms---as the error tolerance vanishes.
+\item[Efficiency] The computational cost of the algorithms are asymptotically optimal---compared to the best possible algorithms---as the error tolerance becomes tighter.
 \end{description}
 
 \section{Overview of Proposed Research}
-Much of our proposed research revolves around kernel methods for function approximation\citep{Fas07a,SchWen06a,Wen05a}. These methods find their application in the context of scattered data fitting and surrogate modeling, for classification and regression approaches in machine learning \citep{HasTibFrie01}, and as the starting point for various approaches to the solution of PDEs, such as, e.g., pseudospectral collocation methods, partition of unity methods, or RBF-based finite difference methods \citep{Fas07a,FornbergFlyer15}.
+Much of our proposed research revolves around kernel methods for function approximation \citep{Fas07a,SchWen06a,Wen05a}. These methods find their application in the context of scattered data fitting and surrogate modeling, for classification and regression approaches in machine learning \citep{HasTibFrie01}, and as the starting point for various approaches to the solution of PDEs, such as, e.g., pseudospectral collocation methods, partition of unity methods, or RBF-based finite difference methods \citep{Fas07a,FornbergFlyer15}.
 
 In the context of surrogate modeling, we are presented with a (costly) computer simulation which generates an output/response, $y=f(\bx)$, given any input $\bx \in \Omega \subset\reals^d$.  The goal is to construct a surrogate, $\tf$, based on the data $(\bx_1, y_1), \ldots, (\bx_N,y_N)$.
 %An approach based on kernel methods takes the form
@@ -273,7 +273,7 @@ but there are also other good choices for the kernel.  In the most-straightforwa
 \end{equation}
 \end{subequations}
 
-This numerical algorithm goes by different names, such as, radial basis function approximation \citep{Buh03a}, scattered data approximation \citep{Wen05a}, meshfree approximation \citep{Fas07a}, and kriging \citep{Ste99}. It is part of the JMP \citep{JMP11}, \Matlab \citep{MAT8.4} and R \citep{R3.03_2013} software packages.  It is flexible because the data sites need not follow a regular pattern. There is a deterministic optimality: $\tf$ is the best approximation to $f$ in the Hilbert space whose reproducing kernel is $K$ \citep{Fas07a,Wen05a}.  There is a stochastic optimality: $\tf$ is the best approximation to $f$ in the set of Gaussian stochastic processes whose covariance kernel is $K$ \citep{BerT-A04,Wah90}.  The procedure outlined above can be extended to include the exact reproduction of polynomials and also the situation where the $y_i$ are noisy observations of the $f(\bx_i)$ \citep{Wah90}.
+This numerical algorithm goes by different names, such as, radial basis function approximation \citep{Buh03a}, scattered data approximation \citep{Wen05a}, meshfree approximation \citep{Fas07a}, and kriging \citep{Ste99}. It is part of the JMP \citep{JMP11}, \Matlab \citep{MAT8.4} and R \citep{R3.03_2013} software packages.  It is flexible because the data sites need not follow a regular pattern. There is a deterministic optimality: $\tf$ is the best approximation to $f$ in the Hilbert space $\ch_K$ whose reproducing kernel is $K$ \citep{Fas07a,Wen05a}.  There is a stochastic optimality: $\tf$ is the best approximation to $f$ in the set of Gaussian stochastic processes whose covariance kernel is $K$ \citep{BerT-A04,Wah90}.  The procedure outlined above can be extended to include the exact reproduction of polynomials and also the situation where the $y_i$ are noisy observations of the $f(\bx_i)$ \citep{Wah90}.
 
 One of the main accomplishments of \emph{NSF-DMS-1115392 Kernel Methods for Numerical Computation} (see Sect.~\ref{SectPrevious}) was the development of the so-called \emph{Hilbert--Schmidt SVD} \citep{CavorettoEtAl14,FMcC12,McCF14,McCourtFas14}. The Hilbert--Schmidt SVD provides a framework for finding a new stable basis for often ill-conditioned kernel methods (Sect.\ \refproba), for optimizing kernel algorithms (Sect.\ \refprobc), and for solving a variety of applications (Sect.\ \refprobd).
 
@@ -286,23 +286,23 @@ Specifically, we propose the following four projects:
 \item[\refproba] Extend our research on the Hilbert--Schmidt SVD by identifying more kernels and their Mercer series for which the Hilbert--Schmidt SVD can be implemented.
 \begin{enumerate}
 \renewcommand{\labelenumi}{1.\arabic{enumi}.}
-\item Analytically compute eigenvalues and eigenfunctions for new kernels $K$.
-\item Numerically compute eigenvalues and eigenfunctions for new kernels $K$.
-\item Build \emph{designer kernels}, $K$, starting from a given orthogonal set of functions $\{\varphi_n\}_{n=1}^\infty$ and appropriately decaying scalars $\{\lambda_n\}_{n=1}^\infty$ which will serve as eigenfunctions and eigenvalues for $K$.
+\item Analytically compute eigenvalues and eigenfunctions associated with popular kernels.
+\item Numerically compute eigenvalues and eigenfunctions associated with popular kernels.
+\item Build new \emph{designer kernels}, $K$, by using a given orthogonal set of functions $\{\varphi_n\}_{n=1}^\infty$ and appropriately decaying scalars $\{\lambda_n\}_{n=1}^\infty$ to provide the Mercer series of $K$.
 \end{enumerate}
 
 \item[\refprobb] Extend our research on guaranteed, adaptive algorithms.
 \begin{enumerate}
 \renewcommand{\labelenumi}{2.\arabic{enumi}.}
 \item Develop adaptive (quasi-)Monte Carlo methods for multivariate integration that satisfy both absolute and relative error tolerances.
-\item Develop adaptive univariate integration and function approximation algorithms that are higher order and locally adaptive.
+\item Develop adaptive univariate integration and function approximation algorithms that are of higher order and locally adaptive.
 \end{enumerate}
 
 \item[\refprobc] Obtain guaranteed, adaptive algorithms for kernel methods.
 \begin{enumerate}
 \renewcommand{\labelenumi}{3.\arabic{enumi}.}
 \item Use cones to obtain error bounds and guarantees for function approximation with kernels.
-\item Use the Hilbert--Schmidt SVD for adaptive data-driven parameter estimation of kernel methods.
+\item Use the Hilbert--Schmidt SVD for adaptive data-driven estimation of kernel parameters.
 \item Use the Hilbert--Schmidt SVD to obtain ``optimal'' adaptive data-driven designs for kernel methods.
 \end{enumerate}
 
@@ -358,12 +358,12 @@ A typical comparison between interpolation errors based on the standard approach
 \caption{Interpolation errors (left) and maximum likelihood estimates of ``optimal'' $\gamma$ (right) for data sampled at $N$ Halton points from $f(\bx) = \sin\left(\tfrac{x_1+x_2+\ldots+x_5}{5}\right)$, $\bx=(x_1,x_2,\ldots,x_5) \in [-1,1]^5$. Solid lines denote Hilbert--Schmidt SVD, dashed lines standard basis approach.}\label{Fig_HSSVD}
 \end{figure}
 
-While Fig.~\ref{Fig_HSSVD} demonstrates that we are able to solve simple moderate-dimensional problems, the results of \cite{FasHicWoz12b, FasHicWoz12a} show that the use of anisotropic kernels is essential for maintaining good convergence rates in high dimensions. Therefore, in addition to the research projects we are about to describe, the implementation of the Hilbert--Schmidt SVD algorithm needs to be extended to the anisotropic case.
+While Fig.~\ref{Fig_HSSVD} demonstrates that we are able to solve simple moderate-dimensional problems, the results of \cite{FasHicWoz12b, FasHicWoz12a} show that the use of anisotropic kernels is essential for maintaining good convergence rates in high dimensions. Therefore, in addition to the research projects we are about to describe, the implementation of the Hilbert--Schmidt SVD algorithm will benefit from an extension to the anisotropic case.
 
 \subsection*{Research Project 1.1. Analytical Computation of Eigensystems} \label{AnalyticEigensubsec}
 
 In addition to the Gaussian kernel \citep{FMcC12} and the iterated Brownian bridge kernels \citep{CavorettoEtAl14}, there are many other kernels for which it would be desirable to have stable and reliable algorithms. One family of special interest in the statistics community \citep{Ste99} are the Mat\'ern kernels defined on $\reals^d$, $K(\bx,\bt) = K_{\beta-d/2}\left(\gamma\|\bx-\bt\|\right) \left( \gamma \| \bx - \bt \|\right)^{\beta-d/2}$, $\beta > \frac d2$,
-where $K_{\beta-d/2}$ are modified Bessel functions of the second kind and $\beta$ is a smoothness parameter that should be chosen in a data-dependent way together with the shape parameter $\gamma$. For $\beta = \frac{d + 2k+1}{2}$, $k=0,1,2,\ldots$, the Mat\'ern kernels take on a simpler form. For example
+where $K_{\beta-d/2}$ are modified Bessel functions of the second kind and $\beta$ is a smoothness parameter that should be chosen in a data-dependent way together with the shape parameter $\gamma$. For $\beta = \frac{d + 2k+1}{2}$, $k=0,1,2,\ldots$, the Mat\'ern kernels take on a simpler form and the Hilbert space $\ch_K$ is equivalent to $\ch^\beta$, a classical Sobolev space \citep{FasshauerYe11,FasshauerYe13}. For example
 \begin{subequations}\label{Maternkernels}
 \begin{align}
 \text{$k = 0$, i.e., $\beta = \frac{d+1}{2}$:}\quad & K(\bx,\bt) = \me^{-\gamma \|\bx-\bt\|}, \label{C0Matern} \\
@@ -375,9 +375,9 @@ The integral equation $2\int_0^\infty \me^{-\gamma|x-t|}\varphi(t)\me^{-2t} \dif
 
 \subsection*{Research Project 1.2. Numerical Computation of Eigensystems} \label{NumerEigensubsec}
 
-The Hilbert--Schmidt SVD depends on the availability of the eigenvalues and eigenfunctions of $\cK$. If the analytical approach in \refprobab\ fails, then we can instead generate approximate eigenvalues and eigenfunctions numerically. This is especially useful if one wants to use ``traditional'' (RBF) kernels such as (inverse) multiquadrics, for which the analytical eigensystems are not known to us. The standard approach to approximating the eigenfunctions of the Hilbert--Schmidt operator $\cK$ uses a Nystr\"om method (see, e.g., \citep{Atkinson97,BachJordan03}). We propose the use of a more general collocation method.
-Assuming that the eigenfunctions can be approximated as
-$\varphi(\bx) \approx \sum_{j=1}^{N_b} h_j(\bx) d_j$, where $\{h_1,h_2,\ldots,h_{N_b}\}$, is a basis of a finite-dimensional approximation space, one can use $N_c$ collocation points $\bx_1,\ldots,\bx_{N_c}$ to discretize the Hilbert--Schmidt integral eigenvalue problem resulting in a rectangular generalized eigenvalue problem with $N_c\times N_b$ matrices $\mA$ and $\mH$
+The Hilbert--Schmidt SVD depends on the availability of the eigenvalues and eigenfunctions of $\cK$. If the analytical approach in \refprobab\ fails, then we can instead numerically generate approximate eigenvalues and eigenfunctions. This is especially useful if one wants to use ``traditional'' (RBF) kernels such as (inverse) multiquadrics, for which the analytical eigensystems are not known to us. The standard approach to approximating the eigenfunctions of the Hilbert--Schmidt operator $\cK$ uses a Nystr\"om method (see, e.g., \citep{Atkinson97,BachJordan03}). We propose the use of a more general collocation method.
+Assuming that an eigenfunction can be approximated as
+$\varphi(\bx) \approx \sum_{j=1}^{N_b} h_j(\bx) d_j$, where $\{h_1,h_2,\ldots,h_{N_b}\}$, is a basis of a finite-dimensional approximation space, one can use $N_c$ collocation points $\bx_1,\ldots,\bx_{N_c}$ to discretize the Hilbert--Schmidt integral eigenvalue problem resulting in a rectangular generalized eigenvalue problem with $N_c\times N_b$ matrices $\mA$ and $\mH$, i.e.,
 \begin{equation}\label{GeneralizedEVProblem}
     \mA\bd = \lambda\mH\bd, \qquad \mA_{ij}=\int_\Omega K(\bx_i,\bt) h_j(\bt)\d\bt, \quad \mH_{ij}=h_j(\bx_i).
 \end{equation}
@@ -387,11 +387,11 @@ for which one of the REU students funded by our previous grant has obtained prel
 
 \subsection*{Research Project 1.3. Designer Kernels}\label{SectDesignerKernels}
 In addition to the ``traditional'' approach in which we are given some kernel (such as, e.g., a Gaussian) whose eigensystem we can then use with the Hilbert--Schmidt SVD, it is also possible to turn the picture upside down and build a positive definite kernel via Mercer's theorem by combining an appropriate sequence of
-``eigenvalues'' $\{\lambda_n\}_{n=1}^\infty$ with a given set of orthogonal functions. Thus, the closed form of the kernel may or may not be known in this case. For example, one could start with Chebyshev polynomials on $[-1,1]$ and combine them with either a sequence of algebraically or geometrically decaying eigenvalues. This will result in Mercer kernels that provide either algebraic of spectral approximation rates and can be implemented stably and reliably within the Hilbert--Schmidt SVD framework. The kernels \eqref{PeriodicKernel} provide another example of a family of designer kernels, where the trigonometric eigenfunctions were chosen to satisfy periodic boundary conditions. Kernels with other boundary conditions, such as the iterated Brownian bridge kernels of \cite{CavorettoEtAl14} which obey boundary conditions that generalize those of natural cubic splines, have been constructed using similar ideas.
+``eigenvalues'' $\{\lambda_n\}_{n=1}^\infty$ with a given set of orthogonal functions $\{\varphi_n\}_{n=1}^\infty$. Thus, the closed form of the kernel may or may not be known in this case. For example, one could start with Chebyshev polynomials on $[-1,1]$ and combine them with either a sequence of algebraically or geometrically decaying eigenvalues. This will result in Mercer kernels that provide either algebraic of spectral approximation rates and can be implemented stably and reliably within the Hilbert--Schmidt SVD framework. The kernels \eqref{PeriodicKernel} provide another example of a family of designer kernels, where the trigonometric eigenfunctions were chosen to satisfy periodic boundary conditions. Kernels with other boundary conditions, such as the iterated Brownian bridge kernels of \cite{CavorettoEtAl14} which obey boundary conditions that generalize those of natural cubic splines, have been constructed using similar ideas.
 
 \section*{Research Project 2. Extensions of Guaranteed, Adaptive Algorithms}\label{SectGAIL}
 
-In our previous NSF-funded work (see Sect.\ \ref{previousmeritsubsec}) we derived a number of  adaptive algorithms for function approximation and integration, that are \emph{guaranteed} to satisfy the user-specified error tolerance.  This sets them apart from existing adaptive algorithms, which have no such guarantees.
+In our previous NSF-funded work (see Sect.\ \ref{previousmeritsubsec}) we derived a number of  adaptive algorithms for function approximation and integration, that are \emph{guaranteed} to satisfy a user-specified error tolerance.  This sets them apart from existing adaptive algorithms, which have no such guarantees.
 
 For example, \Matlab's adaptive quadrature algorithm, \texttt{integral}, has no theoretical guarantee of success. Fig.\ \ref{MatIntegFailFig} displays two integrands for which \texttt{integral} fails to return the correct answer to within the specified error tolerances.  Sufficiently spiky integrands will always fool an algorithm, but we would like a theorem that tells us how spiky an integrand can be.  The fluky integrand is not too difficult handle, but \texttt{integral} fails because of its flawed error estimation---common to all adaptive quadrature algorithms---as highlighted by James Lyness \cite{Lyn83} thirty years ago.
 
@@ -417,9 +417,9 @@ Multivariate integrals may be approximated by an average of function values:
 I(f) := \int_{\reals^d} f(\bx)  \, \varrho(\bx) \, \dif \bx \approx
 \frac 1 N \sum_{i=1}^N f(\bx_i) =: \hI_N(f).
 \end{equation}
-Here $\varrho$ is a probability density function, and the well-chosen data sites come from an infinite sequence $\desinf$.  In the applications we have in mind, $f$ is not smooth enough or $d$ is large enough that tensor product rules of higher order are not competitive.  Two popular choices are i) independent and identically distributed (IID) points with density $\varrho$---corresponding to simple Monte Carlo sampling---and ii) suitably transformed low discrepancy sequences, such as digital sequences or integration lattice sequences---corresponding to quasi-Monte Carlo sampling \citep{DicPil10a,DicEtal14a,Lem09a,Nie92,Owe13a,SloJoe94}.
+Here $\varrho$ is a probability density function, and the well-chosen data sites come from an infinite sequence $\desinf$.  In the applications we have in mind, $f$ is not smooth enough or $d$ is so large that tensor product rules of higher order are not competitive.  Two popular choices are i) independent and identically distributed (IID) points with density $\varrho$---corresponding to simple Monte Carlo sampling---and ii) suitably transformed low discrepancy sequences, such as digital sequences or integration lattice sequences---corresponding to quasi-Monte Carlo sampling \citep{DicPil10a,DicEtal14a,Lem09a,Nie92,Owe13a,SloJoe94}.
 
-We have already constructed a simple Monte Carlo algorithm \citep{HicEtal14b} and two quasi-Monte Carlo algorithms \citep{HicJim16a,JimHic16a}, that \emph{adaptively} choose the sample size, $N$, to in a way that rigorously ensures the user-specified error tolerance is satisfied:
+We have already constructed a simple Monte Carlo algorithm \citep{HicEtal14b} and two quasi-Monte Carlo algorithms \citep{HicJim16a,JimHic16a}, that \emph{adaptively} choose the sample size, $N$, in a way that rigorously ensures the user-specified error tolerance is satisfied:
 \begin{equation} \label{cubMCguar}
 \bigabs{I(f) -\hI_N(f)} \le \abstol \quad \text{or} \quad \Prob\bigl[\bigabs{I(f) -\hI_N(f)} \le \abstol \bigr] \le 1-\alpha,
 \end{equation}
@@ -436,39 +436,39 @@ Besides establishing rigorous guarantees for our new algorithms, we also will es
 \subsection*{Research Project 2.2. Higher Order and Locally Adaptive Univariate Function Approximation and Integration}\label{Higherordersubsec}
 In our previous NSF-funded project (see Sect.\ \ref{previousmeritsubsec}) we developed adaptive univariate function approximation and integration algorithms based on linear splines, but \emph{with rigorous guarantees of success} \citep{HicEtal14b}.  In our proposed work we will extend these methods in two directions.  One obvious goal is to increase the efficiency by using higher order function approximation than the linear spline. The general framework provided in \cite{HicEtal14b} will facilitate this.
 
-All of our adaptive algorithms for univariate or multivariate problems developed so far have been globally adaptive, i.e., the design, $\desinf$, is fixed but the number of data, $N$, is determined adaptively.  This is called global adaption.  A second goal of this project  is to introduce local adaption, i.e., algorithms where the density of the data sites, as well as their number, depends on the function data.  This is easiest to do for univariate problems.  We will sub-divide the whole domain into sub-domains and solve function approximation or integration problem separately on those.  These subdivisions will be data driven.
+All of our adaptive algorithms for univariate or multivariate problems developed so far have been globally adaptive, i.e., the design, $\desinf$, is fixed but the number of data, $N$, is determined adaptively.  This is called global adaption.  A second goal of this project  is to introduce local adaption, i.e., algorithms where the density of the data sites, as well as their number, depends on the function data.  This is easiest to do for univariate problems.  We will sub-divide the whole domain into sub-domains and solve function approximation or integration problems separately on those.  These subdivisions will be data driven.
 
-Finally, as was done for the original algorithms in\citep{HicEtal14b}, we will derive upper bounds on the costs of our new higher order and locally adaptive algorithms.  We will also demonstrate their asymptotic optimality by using bump functions \cite{Nov88,TraWasWoz88}.
+Finally, as was done for the original algorithms in \citep{HicEtal14b}, we will derive upper bounds on the costs of our new higher order and locally adaptive algorithms.  We will also demonstrate their asymptotic optimality by using bump functions \cite{Nov88,TraWasWoz88}.
 
 \subsection*{Why Cones} The adaptive algorithms that we have derived in our previous work, and the adaptive algorithms that we propose to derive are or will be \emph{guaranteed} to satisfy the user-specified error tolerance.  This sets them apart from existing adaptive algorithms, which have no such guarantees.
 
 Obtaining rigorous guarantees of success for adaptive algorithms requires limiting the functions to some set, $\calc$.  Our past experience and future expectation is that $\calc$ turns out to be a \emph{cone} of functions.
 
-There a few good reasons for this. The true absolute error of function approximation, $\err(f,N):=\bignorm[\infty]{f-\tf}$, or integration, $\err(f,N):= \bigabs{I(f) - \hI_N(f)}$, is positively homogeneous, i.e., $\err(cf,N)=\abs{c} \err(f,N)$. So we expect any reasonable data-driven error bound, $\oerr(f,N)$, to also be positively homogeneous.  This means that the set of functions for which the error bound is correct, $\calc:=\{f : \err(f,N) \le \oerr(f,N)\}$, must be a cone, i.e., $f\in \calc \implies cf \in \calc$.
+There are a few good reasons for this. The true absolute error of function approximation, $\err(f,N):=\bignorm[\infty]{f-\tf}$, or integration, $\err(f,N):= \bigabs{I(f) - \hI_N(f)}$, is positively homogeneous, i.e., $\err(cf,N)=\abs{c} \err(f,N)$. So we expect any reasonable data-driven error bound, $\oerr(f,N)$, to also be positively homogeneous.  This means that the set of functions for which the error bound is correct, $\calc:=\{f : \err(f,N) \le \oerr(f,N)\}$, must be a cone, i.e., $f\in \calc \implies cf \in \calc$.
 
 The traditional error analysis works with \emph{balls} of input functions, $\cb :=\{ f : \norm[\ch]{f} \le \sigma\}$, where $\ch$ is some normed vector space of functions, and $\sigma$ is the radius of the ball.  For example, see (\ref{powfunerrbd}, \ref{filldiserrbd}) below.  Unfortunately, an algorithm that works for $f \in \cb$ may fail for $c f$ if $c>1$.  Moreover, it is known that adaptive algorithms cannot be better than non-adaptive algorithms for functions in balls, because balls are convex sets \cite[Chapter 4, Theorem 5.2.1]{TraWasWoz88}. Because cones need not be convex (think of a hollow ice cream cone), adaptive algorithms may be advantageous for cones of input functions.
 
 \section*{Research Project 3. Combining Kernel Methods with Guaranteed and Adpative Algorithms} \label{combinesec}
 
-\subsection*{Research Project 3.1. Data-Driven Error Estimation}\label{errestsubsec} Our goal is to construct adaptive multivariate function approximation algorithms using kernel algorithms of the form \eqref{rbfapprox}, but perhaps using the Hilbert-Schmidt SVD for stable computation.  This requires an error bound, $\oerr(f,N)$, based on the function data, that conservatively estimates the true error, $\err(f,N):=\bignorm[\infty]{f-\tf}$. Cross-validation (CV) is sometimes used to approximate the error. One form of CV is
+\subsection*{Research Project 3.1. Data-Driven Error Estimation}\label{errestsubsec} Our goal is to construct adaptive multivariate function approximation algorithms using kernel algorithms of the form \eqref{rbfapprox}, but perhaps using the Hilbert--Schmidt SVD for stable computation.  This requires an error bound, $\oerr(f,N)$, based on the function data, that conservatively estimates the true error, $\err(f,N):=\bignorm[\infty]{f-\tf}$. Cross-validation (CV) {\bf [Greg: You also used CV to denote your control variates earlier.]} is sometimes used to approximate the error. One form of CV is
 \begin{subequations} \label{rbferrbd}
 \begin{multline} \label{crossvalid}
 \err(f,N) \\
 \approx \sqrt{\frac{C}{N} \left[ \sum_{i=1}^{N/2} \abs{f(\bx_{2i-1})-\tf(\bx_{2i-1};\{\bx_{2i}\}_{i=1}^{N/2})}^2 + \sum_{i=1}^{N/2} \abs{f(\bx_{2i})-\tf(\bx_{2i};\{\bx_{2i-1}\}_{i=1}^{N/2})}^2 \right]}.
 \end{multline}
-There also exist rigorous error bounds for functions in the Hilbert space $\ch$ with reproducing kernel $K$ of the form \citep{Wen05a}
+Using the same notation as in \refproba, there also exist rigorous error bounds for functions in the Hilbert space $\ch_K$ with reproducing kernel $K$ of the form \citep{Wen05a}
 \begin{align}
 \label{powfunerrbd}
-\err(f,N) & \le \sqrt{\sup_{\bx \in \cx}[K(\bx,\bx)-\bk^T(\bx)\mK^{-1} \bk(\bx)]} \norm[\ch_K]{f} \\
+\err(f,N) & \le \sqrt{\sup_{\bx \in \cx}[K(\bx,\bx)-\bk(\bx)^T\mK^{-1} \bk(\bx)]} \norm[\ch_K]{f} \\
 \label{filldiserrbd}
 \err(f,N) & \le C [\filldis(\desn)]^r \norm[\ch_K]{f}, \qquad
 \filldis(\desn): = \sup_{\bx \in \cx} \min_{i=1,  \ldots, N} \norm[2]{\bx - \bx_i}.
 \end{align}
 \end{subequations}
 
-All of these expressions have drawbacks as candidates for a data-driven $\oerr(f,N)$.  CV has no finite-sample size guarantees of successfully providing an upper bound on the true error.  The error bounds in or (\ref{powfunerrbd}, \ref{filldiserrbd}) require $\norm[\ch_K]{f}$, which is not known a priori. computation of $\bk^T(\bx)\mK^{-1} \bk(\bx)$ may suffer from stability issues.  Taking the supremums in \ref{powfunerrbd}, \ref{filldiserrbd}) are nontrivial. While $r$ denotes the kernel smoothness in \eqref{filldiserrbd}, the constant $C$ is not always known explicitly.
+All of these expressions have drawbacks as candidates for a data-driven $\oerr(f,N)$.  CV has no finite-sample size guarantees of successfully providing an upper bound on the true error.  The error bounds in (\ref{powfunerrbd}, \ref{filldiserrbd}) require $\norm[\ch_K]{f}$, which is not known a priori. Computation of $\bk(\bx)^T\mK^{-1} \bk(\bx)$ may suffer from stability issues.  Taking the supremums in (\ref{powfunerrbd}, \ref{filldiserrbd}) is nontrivial. While $r$ denotes the kernel smoothness in \eqref{filldiserrbd} {\bf [Greg: I'm not thrilled about using $r$ (only) here for smoothness, and elsewhere it is $\beta$. However, the $\beta$ in \eqref{PeriodicKernel} corresponds to $r/2$ (since the kernels are in $C^{2\beta}$), so perhaps it's fine to use separate symbols. On the other hand, the casual reader will not catch that subtlety and instead might be annoyed by the use of two different symbols for smoothness.]}, the constant $C$ is not always known explicitly.
 
-We propose finding guaranteed data-driven error bounds for functions in certain  \emph{cones}.  Given our experience with the integration problem, these cones may take the form of a strong norm of the function being bounded above by a weaker norm, as in \cite{HicEtal14b}, which rules out spiky functions.  This may allow us to justify the CV. Alternatively, our cones they may involve assumptions on the decay rates of the series representations of the functions in terms of the basis, $\{\varphi_n\}_{n=1}^{\infty}$, as in \cite{HicJim16a,JimHic16a} and suggest that we calculate directly with the basis elements---rather than the kernels---as in \refproba.  We may find some other way to overcome the drawbacks for one of the error bounds listed above.  For example, the results of \refproba may help us overcome the instability of computing with $\mK^{-1}$.
+We propose finding guaranteed data-driven error bounds for functions in certain  \emph{cones}.  Given our experience with the integration problem, these cones may take the form of a strong norm of the function being bounded above by a weaker norm, as in \cite{HicEtal14b}, which rules out spiky functions.  This may allow us to justify the CV. Alternatively, our cones may involve assumptions on the decay rates of the series representations of the functions in terms of the basis, $\{\varphi_n\}_{n=1}^{\infty}$, as in \cite{HicJim16a,JimHic16a} and suggest that we calculate directly with the basis elements---rather than the kernels---as in \refproba.  We may find some other way to overcome the drawbacks for one of the error bounds listed above.  For example, the results of \refproba may help us overcome the instability of computing with $\mK^{-1}$. {\bf [Greg: I would rather say something like ``For example, the results of \refproba may help us overcome the instability associated with expressions involving $\mK^{-1}$.'' We don't want to ``compute with'' $\mK^{-1}$, we need to rewrite expressions into the Hilbert--Schmidt SVD form, and then compute with those pieces (see my discussion in \refprobcb).]}
 
 %The Hilbert--Schmidt series of the iterated Brownian bridge kernels \citep{CavorettoEtAl14} is given by
 %\begin{equation}\label{IBBkernel}
