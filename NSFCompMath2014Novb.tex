@@ -363,15 +363,25 @@ While Fig.~\ref{Fig_HSSVD} demonstrates that we are able to solve simple moderat
 
 \subsection*{Research Project 1.1. Analytical Computation of Eigensystems} \label{AnalyticEigensubsec}
 
-In addition to the Gaussian kernel \citep{FMcC12} and the iterated Brownian bridge kernels \citep{CavorettoEtAl14}, there are many other kernels for which it would be desirable to have stable and reliable algorithms. One family of special interest in the statistics community \citep{Ste99} is the Mat\'ern kernels defined on $\reals^d$, $K(\bx,\bt) = K_{\beta-d/2}\left(\gamma\|\bx-\bt\|\right) \left( \gamma \| \bx - \bt \|\right)^{\beta-d/2}$, $\beta > \frac d2$,
-where $K_{\beta-d/2}$ are modified Bessel functions of the second kind and $\beta$ is a smoothness parameter that should be chosen in a data-dependent way together with the shape parameter $\gamma$. For $\beta = \frac{d + 2k+1}{2}$, $k=0,1,\ldots$, the Mat\'ern kernels take on a simpler form and the Hilbert space $\ch_K$ is equivalent to a classical Sobolev space \citep{FasshauerYe11,FasshauerYe13}. For example
+In addition to the Gaussian kernel \citep{FMcC12} and the iterated Brownian bridge kernels \citep{CavorettoEtAl14}, there are many other kernels for which it would be desirable to have stable and reliable algorithms. One family of special interest in the statistics community \citep{Ste99} is the Mat\'ern kernels defined on 
+$\reals^d$, $K(\bx,\bt) = K_{(r-d)/2}\left(\gamma\|\bx-\bt\|\right) \left( \gamma \| \bx - \bt \|\right)^{(r-d)/2}$, $r > d$,
+where $K_{(r-d)/2}$ are modified Bessel functions of the second kind and $r$ is a smoothness parameter that should be chosen in a data-dependent way together with the shape parameter $\gamma$. For $r = d + 2k+1$, $k=0,1,\ldots$, the Mat\'ern kernels take on a simpler form and the Hilbert space $\ch_K$ is a classical Sobolev space \citep{FasshauerYe11,FasshauerYe13}. For example
 \begin{subequations}\label{Maternkernels}
 \begin{align}
-\text{$k = 0$, i.e., $\beta = \frac{d+1}{2}$:}\quad & K(\bx,\bt) = \me^{-\gamma \|\bx-\bt\|}, \label{C0Matern} \\
-\text{$k = 1$, i.e., $\beta = \frac{d+3}{2}$:}\quad & K(\bx,\bt) = (1+\gamma \|\bx-\bt\|)\me^{-\gamma \|\bx-\bt\|}, \label{C2Matern}
-%\\ \text{$k = 2$, i.e., $\beta = \frac{d+5}{2}$:}\quad & K(\bx,\bt) = \left(1+\gamma \|\bx-\bt\|+\frac{1}{3}(\gamma \|\bx-\bt\|)^2\right)\me^{-\gamma \|\bx-\bt\|}.\label{C4Matern}
+\text{$k = 0$, i.e., $r = d+1$:}\quad & K(\bx,\bt) = \me^{-\gamma \|\bx-\bt\|}, \label{C0Matern} \\
+\text{$k = 1$, i.e., $r = d+3$:}\quad & K(\bx,\bt) = (1+\gamma \|\bx-\bt\|)\me^{-\gamma \|\bx-\bt\|}, \label{C2Matern}
+\\ \text{$k = 2$, i.e., $\beta = d+5$:}\quad & K(\bx,\bt) = \left(1+\gamma \|\bx-\bt\|+\frac{1}{3}(\gamma \|\bx-\bt\|)^2\right)\me^{-\gamma \|\bx-\bt\|}.\label{C4Matern}
 \end{align}
 \end{subequations}
+%$\reals^d$, $K(\bx,\bt) = K_{\beta-d/2}\left(\gamma\|\bx-\bt\|\right) \left( \gamma \| \bx - \bt \|\right)^{\beta-d/2}$, $\beta > \frac d2$,
+%where $K_{\beta-d/2}$ are modified Bessel functions of the second kind and $\beta$ is a smoothness parameter that should be chosen in a data-dependent way together with the shape parameter $\gamma$. For $\beta = \frac{d + 2k+1}{2}$, $k=0,1,\ldots$, the Mat\'ern kernels take on a simpler form and the Hilbert space $\ch_K$ is equivalent to a classical Sobolev space \citep{FasshauerYe11,FasshauerYe13}. For example
+%\begin{subequations}\label{Maternkernels}
+%\begin{align}
+%\text{$k = 0$, i.e., $\beta = \frac{d+1}{2}$:}\quad & K(\bx,\bt) = \me^{-\gamma \|\bx-\bt\|}, \label{C0Matern} \\
+%\text{$k = 1$, i.e., $\beta = \frac{d+3}{2}$:}\quad & K(\bx,\bt) = (1+\gamma \|\bx-\bt\|)\me^{-\gamma \|\bx-\bt\|}, \label{C2Matern}
+%%\\ \text{$k = 2$, i.e., $\beta = \frac{d+5}{2}$:}\quad & K(\bx,\bt) = \left(1+\gamma \|\bx-\bt\|+\frac{1}{3}(\gamma \|\bx-\bt\|)^2\right)\me^{-\gamma \|\bx-\bt\|}.\label{C4Matern}
+%\end{align}
+%\end{subequations}
 The integral equation $2\int_0^\infty \me^{-\gamma|x-t|}\varphi(t)\me^{-2t} \dif t = \lambda \varphi(x)$ was solved by \citet{Juncosa45} in the context of random noise in radio receivers. This can be interpreted as the Hilbert--Schmidt integral eigenvalue problem for the $k=0$ Mat\'ern kernel \eqref{C0Matern} on $[0,\infty)$ with $\varrho(x) = 2\me^{-2|x|}$. We plan to generalize the work of \citet{Juncosa45} in two steps. First, we plan to obtain the eigenvalues and eigenfunctions of the $k=0$ Mat\'ern kernel on the entire real line. Next, we will tackle Mat\'ern kernels with higher smoothness on $\reals$ by solving the corresponding ODE boundary value problems of increasingly higher order. While a generalization of this approach to higher dimensions seems unlikely, it will be possible to consider product kernels as a new type of designer kernel (see Sect. \refprobac).
 
 \subsection*{Research Project 1.2. Numerical Computation of Eigensystems} \label{NumerEigensubsec}
@@ -469,9 +479,9 @@ Using the same notation as in \refproba, there also exist rigorous error bounds 
 \end{align}
 \end{subequations}
 
-All of these expressions have drawbacks as candidates for a data-driven $\oerr(f,N)$.  CV has no finite-sample size guarantees of successfully providing an upper bound on the true error.  The error bounds in (\ref{powfunerrbd}, \ref{filldiserrbd}) require $\norm[\ch_K]{f}$, which is not known a priori. Computation of $\bk(\bx)^T\mK^{-1} \bk(\bx)$ may suffer from stability issues.  Taking the supremums in (\ref{powfunerrbd}, \ref{filldiserrbd}) is nontrivial. While $r$ denotes the kernel smoothness in \eqref{filldiserrbd} {\bf [Greg: I'm not thrilled about using $r$ (only) here for smoothness, and elsewhere it is $\beta$. However, the $\beta$ in \eqref{PeriodicKernel} corresponds to $r/2$ (since the kernels are in $C^{2\beta}$), so perhaps it's fine to use separate symbols. On the other hand, the casual reader will not catch that subtlety and instead might be annoyed by the use of two different symbols for smoothness.]}, the constant $C$ is not always known explicitly.
+All of these expressions have drawbacks as candidates for a data-driven $\oerr(f,N)$.  CV has no finite-sample size guarantees of successfully providing an upper bound on the true error.  The error bounds in (\ref{powfunerrbd}, \ref{filldiserrbd}) require $\norm[\ch_K]{f}$, which is not known a priori. Computation of $\bk(\bx)^T\mK^{-1} \bk(\bx)$ may suffer from stability issues.  Taking the supremums in (\ref{powfunerrbd}, \ref{filldiserrbd}) is nontrivial. While $r$ denotes the kernel smoothness in \eqref{filldiserrbd}, the constant $C$ is not always known explicitly.
 
-We propose finding guaranteed data-driven error bounds for functions in certain  \emph{cones}.  Given our experience with the integration problem, these cones may take the form of a strong norm of the function being bounded above by a weaker norm, as in \cite{HicEtal14b}, which rules out spiky functions.  This may allow us to justify the CV. Alternatively, our cones may involve assumptions on the decay rates of the series representations of the functions in terms of the basis, $\{\varphi_n\}_{n=1}^{\infty}$, as in \cite{HicJim16a,JimHic16a} and suggest that we calculate directly with the basis elements---rather than the kernels---as in \refproba.  We may find some other way to overcome the drawbacks for one of the error bounds listed above.  For example, the results of \refproba may help us overcome the instability of computing with $\mK^{-1}$. {\bf [Greg: I would rather say something like ``For example, the results of \refproba may help us overcome the instability associated with expressions involving $\mK^{-1}$.'' We don't want to ``compute with'' $\mK^{-1}$, we need to rewrite expressions into the Hilbert--Schmidt SVD form, and then compute with those pieces (see my discussion in \refprobcb).]}
+We propose finding guaranteed data-driven error bounds for functions in certain  \emph{cones}.  Given our experience with the integration problem, these cones may take the form of a strong norm of the function being bounded above by a weaker norm, as in \cite{HicEtal14b}, which rules out spiky functions.  This may allow us to justify the CV. Alternatively, our cones may involve assumptions on the decay rates of the series representations of the functions in terms of the basis, $\{\varphi_n\}_{n=1}^{\infty}$, as in \cite{HicJim16a,JimHic16a} and suggest that we calculate directly with the basis elements---rather than the kernels---as in \refproba.  We may find some other way to overcome the drawbacks for one of the error bounds listed above.  For example, the results of \refproba may help us overcome the instability associated with expressions involving $\mK^{-1}$.
 
 %The Hilbert--Schmidt series of the iterated Brownian bridge kernels \citep{CavorettoEtAl14} is given by
 %\begin{equation}\label{IBBkernel}
@@ -479,7 +489,7 @@ We propose finding guaranteed data-driven error bounds for functions in certain 
 %\end{equation}
 %and therefore it is a perfect candidate for the data-driven error bounds discussed above since the eigenfunctions do not depend on the parameters $\beta$ and $\gamma$, while a smaller smoothness parameter $\beta$ leads to slower decay of the eigenvalues.
 
-The Hilbert--Schmidt series of a family of kernels generalizing the periodic spline kernels of \citep[Chapt.~2]{Wah90} is given by
+The Hilbert--Schmidt series of a family of kernels generalizing the periodic spline kernels of \citep[Chapt.~2]{Wah90} is given by {\bf Fred: So what should this $\beta$ become in terms of $r$?}
 \begin{align}\label{PeriodicKernel}
 K(x,t) &= \sum_{n=1}^\infty \left(4n^2\pi^2 + \gamma^2\right)^{-\beta} 2\left(\cos (2n\pi x) \cos (2n\pi t) + \sin (2n\pi x) \sin (2n\pi t)\right) \\
  &= \sum_{n=1}^\infty \left(4n^2\pi^2 + \gamma^2\right)^{-\beta} 2\cos\left(2n\pi(x-t)\right), \quad x,t \in [0,1],\ \gamma>0, \beta \in \mathbb{N}. \nonumber
