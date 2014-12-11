@@ -310,7 +310,7 @@ Specifically, we propose the following four projects:
 \begin{enumerate}
 \renewcommand{\labelenumi}{4.\arabic{enumi}.}
 \item Use kernel methods and the Hilbert--Schmidt SVD for the solution of PDEs via so-called RBF-(W)ENO (weighted essentially non-oscillatory) methods.
-\item Use kernel methods for the solution of the MEG/EEG forward problem.
+\item Use kernel methods to predict brain activity from MEG/EEG measurements.
 \item Use kernel methods to create a surrogate model to predict the spread of Ebola in West Africa.
 %\item Use the eigenfunction expansion of kernels for low-rank approximations in machine learning.
 \end{enumerate}
@@ -417,7 +417,7 @@ Multivariate integrals may be approximated by an average of function values:
 I(f) := \int_{\reals^d} f(\bx)  \, \varrho(\bx) \, \dif \bx \approx
 \frac 1 N \sum_{i=1}^N f(\bx_i) =: \hI_N(f).
 \end{equation}
-Here $\varrho$ is a probability density function, and the well-chosen data sites come from an infinite sequence $\desinf$.  In the applications we have in mind, $f$ is not smooth enough or $d$ is so large that tensor product rules of higher order are not competitive.  Two popular choices are i) independent and identically distributed (IID) points with density $\varrho$---corresponding to simple Monte Carlo sampling---and ii) suitably transformed low discrepancy sequences, such as digital sequences or integration lattice sequences---corresponding to quasi-Monte Carlo sampling \citep{DicPil10a,DicEtal14a,Lem09a,Nie92,Owe13a,SloJoe94}.
+Here $\varrho$ is a probability density function, and the well-chosen data sites come from an infinite sequence $\desinf$.  In the applications we have in mind, $f$ is not smooth enough or $d$ is so large that tensor product rules of higher order are not competitive.  Two popular choices are (i) independent and identically distributed (IID) points with density $\varrho$---corresponding to simple Monte Carlo sampling---and (ii) suitably transformed low discrepancy sequences, such as digital sequences or integration lattice sequences---corresponding to quasi-Monte Carlo sampling \citep{DicPil10a,DicEtal14a,Lem09a,Nie92,Owe13a,SloJoe94}.
 
 We have already constructed a simple Monte Carlo algorithm \citep{HicEtal14b} and two quasi-Monte Carlo algorithms \citep{HicJim16a,JimHic16a}, that \emph{adaptively} choose the sample size, $N$, in a way that rigorously ensures the user-specified error tolerance is satisfied:
 \begin{equation} \label{cubMCguar}
@@ -509,14 +509,14 @@ Without the use of the Hilbert--Schmidt SVD, evaluation of these determinants is
 \subsection*{Research Project 4.1. Numerical Solution of PDEs via Kernel ENO Methods}  \label{PDEsubsec}
 The use of kernel methods for the solution of hyperbolic PDEs via a (weighted) essentially non-oscillatory (W)ENO) approach is not new \citep{CecilEtAl04,IskeSonar96}. However, previous attempts have suffered either from numerical instabilities \citep{CecilEtAl04} or from the limitations of using a polyharmonic spline method of relatively low order \citep{IskeSonar96}. In \citep{McCourt13} the Hilbert--Schmidt SVD was used within the context of kernel collocation methods such as Kansa's approach \citep{Fas07a} yielding solutions that were vastly superior in accuracy to the standard (ill-conditioned) kernel approach, and also to polynomial spectral methods (see Fig.~\ref{Fig_MFS_BEM}). We expect similar benefits of using the Hilbert--Schmidt SVD within the (W)ENO framework.
 
-\subsection*{Research Project 4.2. Using Kernels to Solve the MEG and EEG Forward Problems} \label{SectMEEG}
+\subsection*{Research Project 4.2. Using Kernels to Predict Brain Activity from MEG and EEG Measurements} \label{SectMEEG}
 In an ongoing collaboration we use kernels to solve a system of coupled Poisson and Laplace PDE boundary value problems that arise in MEG and EEG modeling of brain activity. Fig.~\ref{Fig_MFS_BEM} is taken from \citep{AFFGM13} and provides a cost-per-accuracy plot comparing a kernel-based solver using a method of fundamental solutions approach with a boundary element method that is considered state-of-the-art in the community \citep{fieldtrip11}. The coupled system is solved on three nested concentric spherical shells and describes the forward problem corresponding to the electric potential on the outside surface resulting from a single dipole located inside a simplified brain-skull-scalp geometry. The three different low-rank MFS solutions are all more accurate and more efficient than the BEM solution. For any desired accuracy, the MFS solution is more efficient, and this effect is more pronounced as we demand more accuracy.
 
 \begin{figure}[h]
     \centering
     \includegraphics[height=2in]{HSSVD_BVP}
     \includegraphics[height=2in]{Fig_MFS_BEM}
-\caption{Left: Comparison between use of the Hilbert--Schmidt SVD (GaussQR), standard kernel approach (Fasshauer) and Chebyshev polynomial spectral method (Trefethen) to solve a boundary value problem (from \citep{McCourt13}). Right: Cost per accuracy plot of several MFS solutions vs. BEM solution for coupled PDE system.}\label{Fig_MFS_BEM}
+\caption{Left: Comparison between use of the Hilbert--Schmidt SVD (GaussQR), standard kernel approach (Fasshauer) and Chebyshev polynomial spectral method (Trefethen) to solve a boundary value problem (from \citep{McCourt13}). Right: Cost per accuracy plot of several MFS solutions vs.\ BEM solution for coupled PDE system.}\label{Fig_MFS_BEM}
 \end{figure}
 
 As the next steps for this project we expect (i) to move to a head model that reflects the geometry of the brain more realistically, and (ii) to integrate the forward solver into a full inverse problem framework which will allow us to identify the locations of activity inside the brain from measurements of the electric potential (instead of simulating the electric surface potential based on a given dipole source as done for the forward problem in Fig.~\ref{Fig_MFS_BEM}).
@@ -563,7 +563,7 @@ Greg Fasshauer (GEF) and Fred Hickernell (FJH) were the PIs for \emph{NSF-DMS-11
 \begin{description}[leftmargin=2.5ex]
 \item[IIT Faculty] GEF, FJH, Igor Cialenco (IC), John Erickson (JE, $\fA$), Lulu Kang (LK, $\fF$); Sou-Cheng Choi (SCC, $\fF$), Research Asst.\ Prof., IIT, National Opinion Research Center, U Chicago;
 \item[Visitors] Roberto Cavoretto (RC), U Torino;  Salvatore Ganci (SG), U Palermo; YungWook Jung, Gyeonggi College of Science and Technology; Junbin Li, Dalian U Technology; Yiuwei Liu (YiL), Lanzhou U; Michael McCourt (MM), UC--Denver; Jinming Wu, Zhejiang Gongshang U;
-\item[IIT Graduate Students] Aleks Borkovskiy (AB), Siyuan Deng (SD), Yuhan Ding (YD, $\fF$), Llu\'is Antoni Jim\'enez Rugama (LAJR), Lan Jiang (LJ, $\fF$), Yao Li (YaL), Yiou Li (YL, $\fF$), Jagadeeswaran Rathinavel (JR), Tiago Silva (TS), Xin Tong (XT, $\fF$), Qi Ye (QY), Xiaodong Zhang (XiZ), Yizhi Zhang (YZ), Xuan Zhou (XZ);
+\item[IIT Graduate Students] Aleks Borkovskiy, Siyuan Deng, Yuhan Ding (YD, $\fF$), Llu\'is Antoni Jim\'enez Rugama (LAJR), Lan Jiang (LJ, $\fF$), Yao Li (YaL), Yiou Li (YL, $\fF$), Jagadeeswaran Rathinavel, Tiago Silva (TS), Xin Tong (XT, $\fF$), Qi Ye (QY), Xiaodong Zhang (XiZ), Yizhi Zhang (YZ), Xuan Zhou (XZ);
 \item[IIT Undergraduate Students] Haocheng Bian (HB), Nick Clancy (NC), Martin Dillon (MD), Caleb Hamilton (CH), Joseph Kupiec, Barrett Leslie (BL), Timothy McCollam (TM), Martha Razo (MR, $\fL$, $\fF$);
 \item[Other Undergraduate Students] Casey Bylund (CB, $\fF$), U San Francisco; Matthew Gliebe (MG), Northwestern U; Palmer Lao (PL), Clarkson U; William Mayner (WM), Brown U;
 \item[High School Students] Sergey Papushin (SP), Sunny Yun (SY).
