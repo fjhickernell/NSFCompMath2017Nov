@@ -18,15 +18,23 @@ Project 1.
 a) We have extended the ideas of PI Fasshauer and Qi Ye from an earlier project to find a more elegant way for deriving an explicit expression for the reproducing kernel Hilbert space (RKHS) norm, if only the reproducing kernel and its Hilbert-Schmidt decomposition is known.  This is involving relating the eigenvalues in the Hilbert-Schmidt decomposition to those of a known Sturm-Liouville problem with the same eigenfunctions but different eigenvalues.  This work has been performed by the PIs with Tanner Johnson, a 2016 summer undergraduate student supported by this grant.
 
 Project 2. 
-a) Hickernell, Choi, Ding and Xin Tong have developed a guaranteed, locally adaptive algorithm for function approximation and optimization.  This extends the earlier work of Hickernell and collaborators that produced guaranteed, globally adaptive algorithms. While many previous algorithms are locally adaptive, our new algorithm has theoretical guarantees.
+a) Hickernell, Choi, Ding and Xin Tong have developed a guaranteed, locally adaptive algorithm for function approximation and optimization.  This extends the earlier work of Hickernell and collaborators that produced guaranteed, globally adaptive algorithms. While many previous algorithms are locally adaptive, our new algorithm has theoretical guarantees.  There work is part of the Guaranteed Automatic Integration Library (GAIL) MATLAB toolbox.
 
 b) Hickernell, Li, and Jiménez Rugama have been developing a guaranteed, adaptive quasi-Monte Carlo method that incorporates control variates.  One non-trivial challenge is that the optimal coefficient of the control variate is not the same for quasi-Monte Carlo methods as it is for IID Monte Carlo methods.  Li has completed his master's thesis on this topic.
 
 Project 3.
+a) There is a challenge that the power function computation is susceptible to ill-conditioning and round-off error.  To solve the round-off error we have been exploring an alternative formula, noticed by Fasshauer and McCourt, that involves the quotient of two determinants, and thus no subtractions of nearly equal quantities.
 
+b) We are also looking Bayesian cubature, which is like using kernel methods for integration.  Bayesian cubature has data-based confidence intervals, and we are exploring how to appropriate them in an non-Bayesian context.
 
 
 Project 4.
+a) Undergraduate Tianci Zhu and MS student Xiaoyang Zhao have been working on implementing the QE approximation to the Heston model for stock price paths.  They hope to facilitate automatic computation of option prices to fit a predefined error tolerance using our adaptive routines in the GAIL toolbox.
+
+b) Jiménez Rugama has been collaborating with scientists at Fermilab to use our adaptive quasi-Monte Carlo algorithms for computations in high energy physics.  Erratic changes in the values of the multi-dimensional integrals as the sample size increased highlighted long-overlooked bugs in the existing code.
+
+c) Jiménez Rugama and Hickernell have been collaborating with Clementine Prieur and her group on efficient computation of Sobol' indices. We want to use our automatic Sobol' cubature algorithm to compute them to a desired accuracy requirement.  One challenge is that the Sobol' indices are defined as a function of more than one integral.  This complicates satisfying the error tolerance.
+
 
 
 
@@ -37,7 +45,15 @@ a) We want to connect designer kernels, those defined in terms of eigenfunctions
 Project 2. 
 a) Now that we have constructed a low order algorithm for univariate approximation and optimization, we would like to extend these ideas to univariate quadrature.  We also want to construct algorithms with higher order accuracy.
 
-b) Hickernell, Li, and Jiménez Rugama have been developing a guaranteed, adaptive quasi-Monte Carlo method that incorporates control variates.  One non-trivial challenge is that the optimal coefficient of the control variate is not the same for quasi-Monte Carlo methods as it is for IID Monte Carlo methods.  Li has completed his master's thesis on this topic.
+b) The goal is to make the use of control variates in quasi-Monte Carlo seamless.  This includes finding the right way to compute the optimal control variate coefficient.  A related goal is to accommodate cases like American options, where the payoff for a particular stock path does not depend on that one path only, but the exercise boundary, which must be estimated using all the paths.
+
+Project 4.
+a) The objective is to allow option pricing to a user-defined error tolerance via (quasi-) Monte Carlo with this more realistic stochastic volatility model.  In the course of their work, they found that existing code gives poor accuracy for small volatility of the variance of the asset price.  They needed to modify the algorithm to correct this error.
+
+b) Jiménez Rugama has been collaborating with scientists at Fermilab to use our adaptive quasi-Monte Carlo algorithms for computations in high energy physics.  Erratic changes in the values of the multi-dimensional integrals as the sample size increased highlighted long-overlooked bugs in the existing code.
+
+c) Jiménez Rugama and Hickernell have been collaborating with Clementine Prieur and her group on efficient computation of Sobol' indices. We want to use our automatic Sobol' cubature algorithm to compute them to a desired accuracy requirement.  One challenge is that the Sobol' indices are defined as a function of more than one integral.  This complicates satisfying the error tolerance.
+
 
 % Significant Results
 Project 1. 
@@ -46,14 +62,19 @@ a) We have one new case of our method, but the details have not been fleshed out
 Project 2. 
 a) The new algorithm for univariate optimization has computational cost that is proportional to \sqrt{||f''||_{1/2}/\epsilon}, where \epsilon is the desired error tolerance.  This can be significantly smaller than the \sqrt{||f''||_{\infty}/\epsilon} cost of globally adaptive algorithms, because the 1/2-quasi-norm of a somewhat spiky function may be much smaller than the sup-norm of that same function.  The asymptotic optimality of our algorithm has been established.  A manuscript has been submitted for publication.
 
-b) Hickernell, Li, and Jiménez Rugama have been developing a guaranteed, adaptive quasi-Monte Carlo method that incorporates control variates.  One non-trivial challenge is that the optimal coefficient of the control variate is not the same for quasi-Monte Carlo methods as it is for IID Monte Carlo methods.  Li has completed his master's thesis on this topic.
+b) By computing the discrete Fourier Walsh coefficients, it is possible to compute the optimal control variate coefficient on as the function is being sampled, and in a way consistent with earlier observations by Hickernell, Lemieux, and Owen (2005).  Problems like American options are solved by using all function data to compute the exercise boundary, which means re-computing all payoffs each time additional stock paths are generated.  Li's thesis will be written up for publication.
+
+Project 4.
+a) By altering the approximation to the integral of the variance, they avoided amplified errors for small volatility of the variance.  The modified algorithm provides more accurate answers.  This work will form part of Xiaoyang Zhao's MS thesis.
 
 % Key Outcomes and Achievements
-Project 1. 
-a)
 
 Project 2. 
 a) This is the first instance we know of where the computational cost of an adaptive algorithm is expressed in terms of a quasi-norm, as we have found.  The popular Chebfun package, which performs numerical computations on Chebyshev polynomial approximations of functions, does not have guarantees that the answers they provide satisfy a given error tolerance.  Our algorithms have such guarantees.
+
+b) Guaranteed quasi-Monte Carlo algorithms have been extended to take advantage of control variates.
+
+
 
 %% Training and professional development
 
