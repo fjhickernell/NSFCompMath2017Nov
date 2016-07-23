@@ -3,7 +3,7 @@
 
 This research is comprised of four projects related to function approximation and integration:
 
-1. Extending our research on the Hilbert-Schmidt SVD by identifying more kernels and their Mercer series for which the Hilbert- SVD can be implemented,
+1. Extending our research on the Hilbert-Schmidt SVD by identifying more kernels and their Mercer series for which the Hilbert-SVD can be implemented,
 
 2. Extending our research on guaranteed, adaptive algorithms, 
 
@@ -18,9 +18,13 @@ Project 1.
 a) We have extended the ideas of PI Fasshauer and Qi Ye from an earlier project to find a more elegant way for deriving an explicit expression for the reproducing kernel Hilbert space (RKHS) norm, if only the reproducing kernel and its Hilbert-Schmidt decomposition is known.  This is involving relating the eigenvalues in the Hilbert-Schmidt decomposition to those of a known Sturm-Liouville problem with the same eigenfunctions but different eigenvalues.  This work has been performed by the PIs with Tanner Johnson, a 2016 summer undergraduate student supported by this grant.
 
 Project 2. 
-a) Hickernell, Choi, Ding and Xin Tong have developed a guaranteed, locally adaptive algorithm for function approximation and optimization.  This extends the earlier work of Hickernell and collaborators that produced guaranteed, globally adaptive algorithms. While many previous algorithms are locally adaptive, our new algorithm has theoretical guarantees.  There work is part of the Guaranteed Automatic Integration Library (GAIL) MATLAB toolbox.
+a) Hickernell and Jiang have extended the adaptive IID Monte Carlo method to accommodate relative error.  This requires an iterative procedure under which the number of samples is increased and the until the error tolerance is met.
 
-b) Hickernell, Li, and Jiménez Rugama have been developing a guaranteed, adaptive quasi-Monte Carlo method that incorporates control variates.  One non-trivial challenge is that the optimal coefficient of the control variate is not the same for quasi-Monte Carlo methods as it is for IID Monte Carlo methods.  Li has completed his master's thesis on this topic.
+b) Hickernell, Choi, Ding and Xin Tong have developed a guaranteed, locally adaptive algorithm for function approximation and optimization.  This extends the earlier work of Hickernell and collaborators that produced guaranteed, globally adaptive algorithms. While many previous algorithms are locally adaptive, our new algorithm has theoretical guarantees.  There work is part of the Guaranteed Automatic Integration Library (GAIL) MATLAB toolbox.
+
+c) Hickernell, Li, and Jiménez Rugama have been developing a guaranteed, adaptive quasi-Monte Carlo method that incorporates control variates.  One non-trivial challenge is that the optimal coefficient of the control variate is not the same for quasi-Monte Carlo methods as it is for IID Monte Carlo methods.  Li has completed his master's thesis on this topic.
+
+d) Students that were part of the Brazilian Scientific Mobility Program made extensions to the GAIL toolbox.  They worked on porting code from MATLAB to R.  They experimented with parallel implementations of algorithms.  They extended the algorithms to integration over balls and spheres.  Tianpei Qian, a student in a similar program, extended the automatic Monte Carlo integration algorithm to include antithetic and control variates.
 
 Project 3.
 a) There is a challenge that the power function computation is susceptible to ill-conditioning and round-off error.  To solve the round-off error we have been exploring an alternative formula, noticed by Fasshauer and McCourt, that involves the quotient of two determinants, and thus no subtractions of nearly equal quantities.
@@ -43,9 +47,13 @@ Project 1.
 a) We want to connect designer kernels, those defined in terms of eigenfunctions and eigenvalues chosen for their desirable properties, to explicit expressions for corresponding the RKHS norms.  We want to construct a general recipe that is demonstrated to succeed in several interesting cases. 
 
 Project 2. 
-a) Now that we have constructed a low order algorithm for univariate approximation and optimization, we would like to extend these ideas to univariate quadrature.  We also want to construct algorithms with higher order accuracy.
+a) In fact, the error tolerance can be a hybrid of absolute and relative tolerances.  We think that we have found the most efficient way to perform the iterations so that effort is not wasted, but we will take another look as we prepare the work in Jiang's thesis for publication.
 
-b) The goal is to make the use of control variates in quasi-Monte Carlo seamless.  This includes finding the right way to compute the optimal control variate coefficient.  A related goal is to accommodate cases like American options, where the payoff for a particular stock path does not depend on that one path only, but the exercise boundary, which must be estimated using all the paths.
+b) Now that we have constructed a low order algorithm for univariate approximation and optimization, we would like to extend these ideas to univariate quadrature.  We also want to construct algorithms with higher order accuracy.
+
+c) The goal is to make the use of control variates in quasi-Monte Carlo seamless.  This includes finding the right way to compute the optimal control variate coefficient.  A related goal is to accommodate cases like American options, where the payoff for a particular stock path does not depend on that one path only, but the exercise boundary, which must be estimated using all the paths.
+
+d) The GAIL toolbox showcases our algorithms and makes them available for others to use.  They are used extensively in the Monte Carlo class taught by Hickernell each fall.  The work done by the BSMP students and Qian was designed to enhance the features of our GAIL toolbox.
 
 Project 4.
 a) The objective is to allow option pricing to a user-defined error tolerance via (quasi-) Monte Carlo with this more realistic stochastic volatility model.  In the course of their work, they found that existing code gives poor accuracy for small volatility of the variance of the asset price.  They needed to modify the algorithm to correct this error.
@@ -60,12 +68,18 @@ Project 1.
 a) We have one new case of our method, but the details have not been fleshed out yet.  A manuscript is being prepared for publication.
 
 Project 2. 
-a) The new algorithm for univariate optimization has computational cost that is proportional to \sqrt{||f''||_{1/2}/\epsilon}, where \epsilon is the desired error tolerance.  This can be significantly smaller than the \sqrt{||f''||_{\infty}/\epsilon} cost of globally adaptive algorithms, because the 1/2-quasi-norm of a somewhat spiky function may be much smaller than the sup-norm of that same function.  The asymptotic optimality of our algorithm has been established.  A manuscript has been submitted for publication.
+a) The adaptive IID Monte Carlo algorithm with a hybrid error tolerance has been implemented in GAIL.  A manuscript will be prepared for publication.
 
-b) By computing the discrete Fourier Walsh coefficients, it is possible to compute the optimal control variate coefficient on as the function is being sampled, and in a way consistent with earlier observations by Hickernell, Lemieux, and Owen (2005).  Problems like American options are solved by using all function data to compute the exercise boundary, which means re-computing all payoffs each time additional stock paths are generated.  Li's thesis will be written up for publication.
+b) The new algorithm for univariate optimization has computational cost that is proportional to \sqrt{||f''||_{1/2}/\epsilon}, where \epsilon is the desired error tolerance.  This can be significantly smaller than the \sqrt{||f''||_{\infty}/\epsilon} cost of globally adaptive algorithms, because the 1/2-quasi-norm of a somewhat spiky function may be much smaller than the sup-norm of that same function.  The asymptotic optimality of our algorithm has been established.  A manuscript submitted for publication has received positive reviews and is being revised.
+
+c) By computing the discrete Fourier Walsh coefficients, it is possible to compute the optimal control variate coefficient on as the function is being sampled, and in a way consistent with earlier observations by Hickernell, Lemieux, and Owen (2005).  Problems like American options are solved by using all function data to compute the exercise boundary, which means re-computing all payoffs each time additional stock paths are generated.  Li's thesis will be written up for publication.
+
+d) The work by Qian my be written up for publication.  The work by the BSMP students will be part of the next release of GAIL.
 
 Project 4.
 a) By altering the approximation to the integral of the variance, they avoided amplified errors for small volatility of the variance.  The modified algorithm provides more accurate answers.  This work will form part of Xiaoyang Zhao's MS thesis.
+
+b) In the course of his work with Fermilab, Jiménez Rugama discovered the the MATLAB's own versions of the Sobol' sequence had been incorrectly coded.  This error and the suggested fix were brought to the attention of the Mathworks.
 
 % Key Outcomes and Achievements
 
@@ -77,8 +91,54 @@ b) Guaranteed quasi-Monte Carlo algorithms have been extended to take advantage 
 
 
 %% Training and professional development
+During the last year there have been several students involved in this project:
+
+Yuhan Ding, supported as a summer RA by this grant, completed her PhD at the end of 2015.  She will be a visiting assistant professor at Illinois Tech beginning August 2016.  She has co-authored one preprint during this grant period.  She presented a talk at the 2016 Joint Mathematics Meetings.
+
+Brazilian Scientific Mobility Program
+
+Lan Jiang, supported as a summer TA by this grant, completed her PhD in the spring of 2016.
+
+Lluís Antoni Jiménez Rugama, supported as an RA by this grant, has worked on several projects, including collaborations with Fermilab and a group of statisticians in France. He has co-authored one publication and one submitted manuscript during this grant period.  He presented talks at the 2015 BIRS Workship on Approximation of High-Dimensional Numerical Problems, the 2016 Joint Mathematics Meetings, the 2016 Spring Research Conference, and the 2016 Joint Statistics Meetings. Tony has also mentored Da Li and two high school students:  Waleed Aslam and Wyatt Press.
+
+Tanner Johnson, an undergraduate student from U Minnesota and supported during summer 2016 by this grant, is engaged in research on kernel methods that is leading towards a publication.
+
+Da Li completed his MS thesis in the summer of 2016.  He is giving a talk at the 2016 Joint Statistics Meetings.
+
+Jiazhen Liu is working on her MS research.
+
+Tianpei Qian
+
+Yizhi Zhang is (slowly) working on his PhD research.
+
+Xiaoyang Zhao is working on her MS research.  She is giving a talk at the 2016 Joint Statistics Meetings.
+
+Xuan Zhou completed his PhD thesis in the summer of 2015.
+
+Tianci Zhu, an undergraduate student, has done research during the summers of 2015 and 2016.  She presented a poster at the 2015 Fall AMS Sectional Meeting in Chicago and at the 2016 Spring Research Conference.
 
 %% Dissemination of results
 
+Our work has been presented at several meetings:
+
+Talk by Jiménez Rugama at the 2015 BIRS Workship on Approximation of High-Dimensional Numerical Problems
+
+Talks by Ding, Hickernell, and Jiménez Rugama at the 2016 Joint Mathematics Meetings
+
+Talks by Hickernell and Jiménez Rugama and a poster by Zhu at the 2016 Spring Research Conference.  Hickernell was one of the organizers of this annual conference with a 20+ year history.
+
+Talks by Hickernell, Jiménez Rugama, Li, and Zhao are being given at the 2016 Joint Statistics Meetings
+
+Several manuscripts have been submitted for publication and published.  These are detailed in the products section of the report.  In addition, we have continued to grow the GAIL toolbox, which contains algorithms backed by the theory developed in our articles.
+
+
+
 %% What are we planning to do
 
+Several of the work mentioned above is in need of being written up and submitted for publication.  As we do that, we will clarify our results.
+
+We want to extend all of our existing algorithms to include relative error tolerances.  This has been done for some.
+
+We want to extend our low convergence order guaranteed algorithms for univariate problems to higher order.  This involved moving from linear splines to higher order piecewise polynomial approximations or high degree polynomial approximations using Chebyshev nodes.
+
+We want to look at Bayesian cubature.  This method is related to function approximation by kernel methods, and it may be easier to construct adaptive Bayesian cubature algorithms (Project 2), and then use the lessons gained for adaptive function approximation (Project 3).
