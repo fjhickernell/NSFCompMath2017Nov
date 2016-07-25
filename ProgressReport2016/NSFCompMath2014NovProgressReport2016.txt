@@ -95,7 +95,7 @@ During the last year there have been several students involved in this project:
 
 Yuhan Ding, supported as a summer RA by this grant, completed her PhD at the end of 2015.  She will be a visiting assistant professor at Illinois Tech beginning August 2016.  She has co-authored one preprint during this grant period.  She presented a talk at the 2016 Joint Mathematics Meetings.
 
-Brazilian Scientific Mobility Program
+Six Brazilian Scientific Mobility Program students worked on three different projects over the course of eight weeks.  All had practice regularly reporting on their work and overcoming challenges.  Some of their work will be incorporated into GAIL.
 
 Lan Jiang, supported as a summer TA by this grant, completed her PhD in the spring of 2016.
 
@@ -107,7 +107,7 @@ Da Li completed his MS thesis in the summer of 2016.  He is giving a talk at the
 
 Jiazhen Liu is working on her MS research.
 
-Tianpei Qian
+Tianpei Qian, implemented automatic selection of control variates and antithetic variates.  He regularly reported on his work, some of which will be incorporated into GAIL.
 
 Yizhi Zhang is (slowly) working on his PhD research.
 
@@ -143,12 +143,20 @@ We want to look at Bayesian cubature.  This method is related to function approx
 
 %%% Impact
 %% Impact on the principle disciplines
-This project has developed adaptive algorithms for univariate and multivariate integration, for univariate function approximation, and for univariate optimization, which are theoretically justified, unlike other popular algorithms such as those in the Chebfun toolbox.  A paradigm has been established for rigorously analyzing the error of adaptive algorithms, and the important details are being worked out for various cases.  The computational costs of these new adaptive algorithms depend in some surprising ways on the quasi-norm of the function being integrated, approximated, or optimized.
+This project has developed adaptive algorithms for univariate and multivariate integration, for univariate function approximation, and for univariate optimization.  Unlike  other popular algorithms such as those in the Chebfun toolbox, our algorithms are theoretically justified.  A paradigm has been established for rigorously analyzing the error of adaptive algorithms, and the important details are being worked out for various cases.  The computational costs of these new adaptive algorithms depend in some surprising ways on the quasi-norm of the function being integrated, approximated, or optimized.
 
 
 %% Impact on other disciplines
+The basic operations of integration, function approximation, and optimization are used in a number of application areas in finance, engineering and science.  We are providing more efficient, robust and convenient tools, which will expedite the discovery of new science.
 
 %% Impact on the development of human resources
+Our mentees--high school through post-doctoral--have learned how to 
+identify a meaningful problem, 
+determine where the challenging parts are, 
+understand the existing state of the art, 
+identify new methods for attacking the problem,
+assessing their success, and
+reporting their work to their peers, orally and in written form.
 
 %% Impact on physical resources
 
