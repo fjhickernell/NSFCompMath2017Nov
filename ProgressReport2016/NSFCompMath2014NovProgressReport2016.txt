@@ -131,8 +131,6 @@ Talks by Hickernell, Jiménez Rugama, Li, and Zhao are being given at the 2016 J
 
 Several manuscripts have been submitted for publication and published.  These are detailed in the products section of the report.  In addition, we have continued to grow the GAIL toolbox, which contains algorithms backed by the theory developed in our articles.
 
-
-
 %% What are we planning to do
 
 Several of the work mentioned above is in need of being written up and submitted for publication.  As we do that, we will clarify our results.
@@ -142,3 +140,22 @@ We want to extend all of our existing algorithms to include relative error toler
 We want to extend our low convergence order guaranteed algorithms for univariate problems to higher order.  This involved moving from linear splines to higher order piecewise polynomial approximations or high degree polynomial approximations using Chebyshev nodes.
 
 We want to look at Bayesian cubature.  This method is related to function approximation by kernel methods, and it may be easier to construct adaptive Bayesian cubature algorithms (Project 2), and then use the lessons gained for adaptive function approximation (Project 3).
+
+%%% Impact
+%% Impact on the principle disciplines
+This project has developed adaptive algorithms for univariate and multivariate integration, for univariate function approximation, and for univariate optimization, which are theoretically justified, unlike other popular algorithms such as those in the Chebfun toolbox.  A paradigm has been established for rigorously analyzing the error of adaptive algorithms, and the important details are being worked out for various cases.  The computational costs of these new adaptive algorithms depend in some surprising ways on the quasi-norm of the function being integrated, approximated, or optimized.
+
+
+%% Impact on other disciplines
+
+%% Impact on the development of human resources
+
+%% Impact on physical resources
+
+%% Impact on institutional resources
+
+%% Impact on information resources
+
+%% Impact on technology transfer
+
+%% Impact on society beyond science and technology
