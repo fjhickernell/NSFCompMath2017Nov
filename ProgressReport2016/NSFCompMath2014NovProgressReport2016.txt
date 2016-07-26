@@ -1,4 +1,4 @@
-%% Accomplishments
+﻿%% Accomplishments
 % Major Goals
 
 This research is comprised of four projects related to function approximation and integration:
@@ -17,10 +17,12 @@ This research is comprised of four projects related to function approximation an
 Project 1. 
 a) We have extended the ideas of PI Fasshauer and Qi Ye from an earlier project to find a more elegant way for deriving an explicit expression for the reproducing kernel Hilbert space (RKHS) norm, if only the reproducing kernel and its Hilbert-Schmidt decomposition is known.  This is involving relating the eigenvalues in the Hilbert-Schmidt decomposition to those of a known Sturm-Liouville problem with the same eigenfunctions but different eigenvalues.  This work has been performed by the PIs with Tanner Johnson, a 2016 summer undergraduate student supported by this grant.
 
+b) Fasshauer collaborated with Jalil Rashidinia and Manoochehr Khasi on a more efficicent version of the stable evaluation algorithm for Gaussian RBFs developed by Fasshauer and Mike McCourt under a previously funded NSF grant. This version requires either a 1D domain or a tensor-product domain in higher dimensions and then takes advantage of the special properties of the (orthogonal) eigenfunctions of the Gaussian.
+
 Project 2. 
 a) Hickernell and Jiang have extended the adaptive IID Monte Carlo method to accommodate relative error.  This requires an iterative procedure under which the number of samples is increased and the until the error tolerance is met.
 
-b) Hickernell, Choi, Ding and Xin Tong have developed a guaranteed, locally adaptive algorithm for function approximation and optimization.  This extends the earlier work of Hickernell and collaborators that produced guaranteed, globally adaptive algorithms. While many previous algorithms are locally adaptive, our new algorithm has theoretical guarantees.  There work is part of the Guaranteed Automatic Integration Library (GAIL) MATLAB toolbox.
+b) Hickernell, Choi, Ding and Xin Tong have developed a guaranteed, locally adaptive algorithm for function approximation and optimization.  This extends the earlier work of Hickernell and collaborators that produced guaranteed, globally adaptive algorithms. While many previous algorithms are locally adaptive, our new algorithm has theoretical guarantees.  This work is part of the Guaranteed Automatic Integration Library (GAIL) MATLAB toolbox.
 
 c) Hickernell, Li, and Jiménez Rugama have been developing a guaranteed, adaptive quasi-Monte Carlo method that incorporates control variates.  One non-trivial challenge is that the optimal coefficient of the control variate is not the same for quasi-Monte Carlo methods as it is for IID Monte Carlo methods.  Li has completed his master's thesis on this topic.
 
@@ -29,7 +31,7 @@ d) Students that were part of the Brazilian Scientific Mobility Program made ext
 Project 3.
 a) There is a challenge that the power function computation is susceptible to ill-conditioning and round-off error.  To solve the round-off error we have been exploring an alternative formula, noticed by Fasshauer and McCourt, that involves the quotient of two determinants, and thus no subtractions of nearly equal quantities.
 
-b) We are also looking Bayesian cubature, which is like using kernel methods for integration.  Bayesian cubature has data-based confidence intervals, and we are exploring how to appropriate them in an non-Bayesian context.
+b) We are also looking into Bayesian cubature, which is like using kernel methods for integration.  Bayesian cubature has data-based confidence intervals, and we are exploring how to appropriate them in an non-Bayesian context.
 
 
 Project 4.
@@ -39,12 +41,21 @@ b) Jiménez Rugama has been collaborating with scientists at Fermilab to use our
 
 c) Jiménez Rugama and Hickernell have been collaborating with Clementine Prieur and her group on efficient computation of Sobol' indices. We want to use our automatic Sobol' cubature algorithm to compute them to a desired accuracy requirement.  One challenge is that the Sobol' indices are defined as a function of more than one integral.  This complicates satisfying the error tolerance.
 
+d) Fasshauer collaborated with Mike McCourt on applications of the Hilbert-Schmidt SVD to parameter estimation problems in statistics. Standard methods, such as e.g. MLE, benefit greatly from the increased numerical stability provided by the HS-SVD in certain ranges of the model parameters. 
+
+e) Fasshauer collaborated with P.K. Mishra, S.K. Nath and M.K. Sen on the analysis and application of a hybrid radial kernel composed of a Gaussian part along with a cubic part. In the context of scattered data interpolation, they showed that this kernel was producing results with a convergence rate similar to Gaussian, but with much greater numerical stability.
+
+f) Fasshauer collaborated with Guido Ala, Elisa Francomano, Salvatore Ganci and Mike McCourt on an extension of their earlier work using the method of fundamental solution (MFS) approach to solve the forward problem in an MEG-based model for brain activity.
+
+g) Fasshauer has been collaborating with P.-T. Vu, L.-A. P. Vu and Q.-V. Le on an application of an RBF-based finite difference method to problems in electric power transmission.
 
 
 
 % Specific Objectives
 Project 1. 
 a) We want to connect designer kernels, those defined in terms of eigenfunctions and eigenvalues chosen for their desirable properties, to explicit expressions for corresponding the RKHS norms.  We want to construct a general recipe that is demonstrated to succeed in several interesting cases. 
+
+b) We want to exploit special properties of eigenfunctions, such as their orthogonality and location of their zeros, to improve existing algorithms such as the Hilbert-Schmidt SVD for stable computation with kernel-based approximation methods.
 
 Project 2. 
 a) In fact, the error tolerance can be a hybrid of absolute and relative tolerances.  We think that we have found the most efficient way to perform the iterations so that effort is not wasted, but we will take another look as we prepare the work in Jiang's thesis for publication.
@@ -62,24 +73,43 @@ b) Jiménez Rugama has been collaborating with scientists at Fermilab to use our
 
 c) Jiménez Rugama and Hickernell have been collaborating with Clementine Prieur and her group on efficient computation of Sobol' indices. We want to use our automatic Sobol' cubature algorithm to compute them to a desired accuracy requirement.  One challenge is that the Sobol' indices are defined as a function of more than one integral.  This complicates satisfying the error tolerance.
 
+d) The recent monograph by Fasshauer and McCourt has served as the foundation for looking at kernel-based methods from both a deterministic and stochastic perspective, and then apply insights gained in one domain to the other.
+
+e) Applying insights gained in recent work on kernel-based approximation methods to the design of hybrid kernels may lead to new and improved kernel methods for interpolation and collocation algorithms.
+
+f) Similar to (d), insights gained by looking at numerical algorithms also from a statistical perspective may lead to new and improved numerical algorithms which can be applied in many different situations - here an MFS-based coupled PDE solver whose source points are selected using an LOOCV-like algorithm.
+
+g) Since radial basis function methods can be interpreted as generalizations of polynomial methods much that was previously done with polynomials (such as finite difference methods) can also be done in more generality - and hopefully more accurately and/or efficiently - with kernel-based methods. 
+
 
 % Significant Results
 Project 1. 
 a) We have one new case of our method, but the details have not been fleshed out yet.  A manuscript is being prepared for publication.
+
+b) A significantly more efficient implementation of the Hilbert-Schmidt SVD for Gaussian kernels that can be applied in certain special situations (1D or tensor product domains) was developed and a paper on this subject has been published.
 
 Project 2. 
 a) The adaptive IID Monte Carlo algorithm with a hybrid error tolerance has been implemented in GAIL.  A manuscript will be prepared for publication.
 
 b) The new algorithm for univariate optimization has computational cost that is proportional to \sqrt{||f''||_{1/2}/\epsilon}, where \epsilon is the desired error tolerance.  This can be significantly smaller than the \sqrt{||f''||_{\infty}/\epsilon} cost of globally adaptive algorithms, because the 1/2-quasi-norm of a somewhat spiky function may be much smaller than the sup-norm of that same function.  The asymptotic optimality of our algorithm has been established.  A manuscript submitted for publication has received positive reviews and is being revised.
 
-c) By computing the discrete Fourier Walsh coefficients, it is possible to compute the optimal control variate coefficient on as the function is being sampled, and in a way consistent with earlier observations by Hickernell, Lemieux, and Owen (2005).  Problems like American options are solved by using all function data to compute the exercise boundary, which means re-computing all payoffs each time additional stock paths are generated.  Li's thesis will be written up for publication.
+c) By computing the discrete Fourier Walsh coefficients, it is possible to compute the optimal control variate coefficient as the function is being sampled, and in a way consistent with earlier observations by Hickernell, Lemieux, and Owen (2005).  Problems like American options are solved by using all function data to compute the exercise boundary, which means re-computing all payoffs each time additional stock paths are generated.  Li's thesis will be written up for publication.
 
-d) The work by Qian my be written up for publication.  The work by the BSMP students will be part of the next release of GAIL.
+d) The work by Qian may be written up for publication.  The work by the BSMP students will be part of the next release of GAIL.
 
 Project 4.
 a) By altering the approximation to the integral of the variance, they avoided amplified errors for small volatility of the variance.  The modified algorithm provides more accurate answers.  This work will form part of Xiaoyang Zhao's MS thesis.
 
 b) In the course of his work with Fermilab, Jiménez Rugama discovered the the MATLAB's own versions of the Sobol' sequence had been incorrectly coded.  This error and the suggested fix were brought to the attention of the Mathworks.
+
+d) Fasshauer and McCourt have been looking at parameter selection algorithms for kernel methods from both a deterministic and stochastic perspective. The numerical stability provided by the Hilbert-Schmidt SVD improves various standard parameter estimation methods known from statistics, while insights from statistics provide new and improved numerical algorithms. A paper has been submitted for publication.
+
+e) The combination of very stable, parameter-indepedent cubic RBFs with rather unstable, parameter-dependent, but spectrally accurate, Gaussian RBFs allowed Fasshauer, Mishra, Nath and Sen to develop improved hybrid kernel methods for scattered data interpolation and approximation. A joint paper has been submitted for publication.
+
+f) By using an algorithm inspired by leave-one-out cross validation Fasshauer, Ala, Francomano, Ganci and McCourt were able to develop an improved solver for the MEG/EEG solver for brain activity. The key here is the "optimal" placement of source points for the MFS kernel functions provided by the new LOOCV-like algorithm. A joint paper has been submitted for publication.
+
+g) The meshfree nature of RBF-based finite difference schemes allowed Fasshauer, Vu, Vu and Le to propose some new and improved algorithms for the solution of electric power transmission problems. A joint paper has been submitted for publication.
+
 
 % Key Outcomes and Achievements
 
@@ -99,7 +129,7 @@ Six Brazilian Scientific Mobility Program students worked on three different pro
 
 Lan Jiang, supported as a summer TA by this grant, completed her PhD in the spring of 2016.
 
-Lluís Antoni Jiménez Rugama, supported as an RA by this grant, has worked on several projects, including collaborations with Fermilab and a group of statisticians in France. He has co-authored one publication and one submitted manuscript during this grant period.  He presented talks at the 2015 BIRS Workship on Approximation of High-Dimensional Numerical Problems, the 2016 Joint Mathematics Meetings, the 2016 Spring Research Conference, and the 2016 Joint Statistics Meetings. Tony has also mentored Da Li and two high school students:  Waleed Aslam and Wyatt Press.
+Lluís Antoni Jiménez Rugama, supported as an RA by this grant, has worked on several projects, including collaborations with Fermilab and a group of statisticians in France. He has co-authored one publication and one submitted manuscript during this grant period.  He presented talks at the 2015 BIRS Workshop on Approximation of High-Dimensional Numerical Problems, the 2016 Joint Mathematics Meetings, the 2016 Spring Research Conference, and the 2016 Joint Statistics Meetings. Tony has also mentored Da Li and two high school students:  Waleed Aslam and Wyatt Press.
 
 Tanner Johnson, an undergraduate student from U Minnesota and supported during summer 2016 by this grant, is engaged in research on kernel methods that is leading towards a publication.
 
@@ -108,6 +138,8 @@ Da Li completed his MS thesis in the summer of 2016.  He is giving a talk at the
 Jiazhen Liu is working on her MS research.
 
 Tianpei Qian, implemented automatic selection of control variates and antithetic variates.  He regularly reported on his work, some of which will be incorporated into GAIL.
+
+Jagadeeswaran Rathinavel has been working on his PhD research dealing with localized radial basis function-based finite difference methods. 
 
 Yizhi Zhang is (slowly) working on his PhD research.
 
@@ -127,6 +159,8 @@ Talks by Ding, Hickernell, and Jiménez Rugama at the 2016 Joint Mathematics Mee
 
 Talks by Hickernell and Jiménez Rugama and a poster by Zhu at the 2016 Spring Research Conference.  Hickernell was one of the organizers of this annual conference with a 20+ year history.
 
+Invited plenary lecture by Fasshauer at the 9th International Conference on Mathematical Methods for Curves and Surfaces, T{\o}nsberg, Norway, June 2016.
+
 Talks by Hickernell, Jiménez Rugama, Li, and Zhao are being given at the 2016 Joint Statistics Meetings
 
 Several manuscripts have been submitted for publication and published.  These are detailed in the products section of the report.  In addition, we have continued to grow the GAIL toolbox, which contains algorithms backed by the theory developed in our articles.
@@ -138,6 +172,8 @@ Several of the work mentioned above is in need of being written up and submitted
 We want to extend all of our existing algorithms to include relative error tolerances.  This has been done for some.
 
 We want to extend our low convergence order guaranteed algorithms for univariate problems to higher order.  This involved moving from linear splines to higher order piecewise polynomial approximations or high degree polynomial approximations using Chebyshev nodes.
+
+We want to further explore and exploit the interplay between the deterministic and stochastic perspective of various algorithms. 
 
 We want to look at Bayesian cubature.  This method is related to function approximation by kernel methods, and it may be easier to construct adaptive Bayesian cubature algorithms (Project 2), and then use the lessons gained for adaptive function approximation (Project 3).
 
