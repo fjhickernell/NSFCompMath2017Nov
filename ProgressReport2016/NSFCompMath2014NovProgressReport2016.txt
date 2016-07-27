@@ -15,14 +15,14 @@ This research is comprised of four projects related to function approximation an
 % Major Activities
 
 Project 1. 
-a) We have extended the ideas of PI Fasshauer and Qi Ye from an earlier project to find a more elegant way for deriving an explicit expression for the reproducing kernel Hilbert space (RKHS) norm, if only the reproducing kernel and its Hilbert-Schmidt decomposition is known.  This is involving relating the eigenvalues in the Hilbert-Schmidt decomposition to those of a known Sturm-Liouville problem with the same eigenfunctions but different eigenvalues.  This work has been performed by the PIs with Tanner Johnson, a 2016 summer undergraduate student supported by this grant.
+a) We have extended the ideas of PI Fasshauer and Qi Ye from an earlier project to find a more elegant way for deriving an explicit expression for the reproducing kernel Hilbert space (RKHS) norm, if only the reproducing kernel and its Hilbert-Schmidt decomposition are known.  This involves relating the eigenvalues in the Hilbert-Schmidt decomposition to those of a known Sturm-Liouville problem with the same eigenfunctions but different eigenvalues.  This work has been performed by the two PIs with Tanner Johnson, a 2016 summer undergraduate student supported by this grant.
 
 b) Fasshauer collaborated with Jalil Rashidinia and Manoochehr Khasi on a more efficicent version of the stable evaluation algorithm for Gaussian RBFs developed by Fasshauer and Mike McCourt under a previously funded NSF grant. This version requires either a 1D domain or a tensor-product domain in higher dimensions and then takes advantage of the special properties of the (orthogonal) eigenfunctions of the Gaussian.
 
 Project 2. 
 a) Hickernell and Jiang have extended the adaptive IID Monte Carlo method to accommodate relative error.  This requires an iterative procedure under which the number of samples is increased and the until the error tolerance is met.
 
-b) Hickernell, Choi, Ding and Xin Tong have developed a guaranteed, locally adaptive algorithm for function approximation and optimization.  This extends the earlier work of Hickernell and collaborators that produced guaranteed, globally adaptive algorithms. While many previous algorithms are locally adaptive, our new algorithm has theoretical guarantees.  This work is part of the Guaranteed Automatic Integration Library (GAIL) MATLAB toolbox.
+b) Hickernell, Choi, Ding and Xin Tong have developed a guaranteed, locally adaptive algorithm for function approximation and optimization.  "Local" adaption means that the density of the samples is non-uniform.  This extends the earlier work of Hickernell and collaborators that produced guaranteed, globally adaptive algorithms. While many existing algorithms are locally adaptive, our new algorithm has theoretical guarantees.  This work is part of the Guaranteed Automatic Integration Library (GAIL) MATLAB toolbox.
 
 c) Hickernell, Li, and Jiménez Rugama have been developing a guaranteed, adaptive quasi-Monte Carlo method that incorporates control variates.  One non-trivial challenge is that the optimal coefficient of the control variate is not the same for quasi-Monte Carlo methods as it is for IID Monte Carlo methods.  Li has completed his master's thesis on this topic.
 
@@ -31,15 +31,15 @@ d) Students that were part of the Brazilian Scientific Mobility Program made ext
 Project 3.
 a) There is a challenge that the power function computation is susceptible to ill-conditioning and round-off error.  To solve the round-off error we have been exploring an alternative formula, noticed by Fasshauer and McCourt, that involves the quotient of two determinants, and thus no subtractions of nearly equal quantities.
 
-b) We are also looking into Bayesian cubature, which is like using kernel methods for integration.  Bayesian cubature has data-based confidence intervals, and we are exploring how to appropriate them in an non-Bayesian context.
+b) We are also looking into Bayesian cubature, which is mimics using kernel methods for integration.  Unlike deterministic methods Bayesian cubature produces data-based confidence intervals for the integral.  We are exploring how to appropriate these ideas in a deterministic (non-Bayesian) context.
 
 
 Project 4.
-a) Undergraduate Tianci Zhu and MS student Xiaoyang Zhao have been working on implementing the QE approximation to the Heston model for stock price paths.  They hope to facilitate automatic computation of option prices to fit a predefined error tolerance using our adaptive routines in the GAIL toolbox.
+a) Undergraduate Tianci Zhu and MS student Xiaoyang Zhao have been working to implement the QE approximation to the Heston model for stock price paths.  They hope to facilitate automatic computation of option prices to fit a predefined error tolerance using our adaptive routines in the GAIL toolbox.
 
 b) Jiménez Rugama has been collaborating with scientists at Fermilab to use our adaptive quasi-Monte Carlo algorithms for computations in high energy physics.  Erratic changes in the values of the multi-dimensional integrals as the sample size increased highlighted long-overlooked bugs in the existing code.
 
-c) Jiménez Rugama and Hickernell have been collaborating with Clementine Prieur and her group on efficient computation of Sobol' indices. We want to use our automatic Sobol' cubature algorithm to compute them to a desired accuracy requirement.  One challenge is that the Sobol' indices are defined as a function of more than one integral.  This complicates satisfying the error tolerance.
+c) Jiménez Rugama and Hickernell have been collaborating with Clementine Prieur and her group on efficient computation of Sobol' indices, used in uncertainty quantification.
 
 d) Fasshauer collaborated with Mike McCourt on applications of the Hilbert-Schmidt SVD to parameter estimation problems in statistics. Standard methods, such as e.g. MLE, benefit greatly from the increased numerical stability provided by the HS-SVD in certain ranges of the model parameters. 
 
@@ -62,16 +62,16 @@ a) In fact, the error tolerance can be a hybrid of absolute and relative toleran
 
 b) Now that we have constructed a low order algorithm for univariate approximation and optimization, we would like to extend these ideas to univariate quadrature.  We also want to construct algorithms with higher order accuracy.
 
-c) The goal is to make the use of control variates in quasi-Monte Carlo seamless.  This includes finding the right way to compute the optimal control variate coefficient.  A related goal is to accommodate cases like American options, where the payoff for a particular stock path does not depend on that one path only, but the exercise boundary, which must be estimated using all the paths.
+c) The goal is to make the use of control variates in adaptive quasi-Monte Carlo seamless.  This includes finding the right way to compute the optimal control variate coefficient.  A related goal is to accommodate cases like American options, where the payoff for a particular stock path does not depend on that one path only, but on the exercise boundary, which itself must be estimated using all paths.
 
 d) The GAIL toolbox showcases our algorithms and makes them available for others to use.  They are used extensively in the Monte Carlo class taught by Hickernell each fall.  The work done by the BSMP students and Qian was designed to enhance the features of our GAIL toolbox.
 
 Project 4.
-a) The objective is to allow option pricing to a user-defined error tolerance via (quasi-) Monte Carlo with this more realistic stochastic volatility model.  In the course of their work, they found that existing code gives poor accuracy for small volatility of the variance of the asset price.  They needed to modify the algorithm to correct this error.
+a) The objective is to allow option pricing to a user-defined error tolerance via (quasi-) Monte Carlo with this more realistic stochastic volatility model.  In the course of their work, Zhao and Zhu found that existing code gives poor accuracy for small volatility of the variance of the asset price.  They needed to modify the algorithm to correct this error.
 
-b) Jiménez Rugama has been collaborating with scientists at Fermilab to use our adaptive quasi-Monte Carlo algorithms for computations in high energy physics.  Erratic changes in the values of the multi-dimensional integrals as the sample size increased highlighted long-overlooked bugs in the existing code.
+b) The objective of the collaboration between Jiménez Rugama and Fermilab is to apply more advanced techniques to speed up computation of the integrals required to infer from the observed data the most likely particle interactions that are occurring.
 
-c) Jiménez Rugama and Hickernell have been collaborating with Clementine Prieur and her group on efficient computation of Sobol' indices. We want to use our automatic Sobol' cubature algorithm to compute them to a desired accuracy requirement.  One challenge is that the Sobol' indices are defined as a function of more than one integral.  This complicates satisfying the error tolerance.
+c) We want to use our automatic Sobol' cubature algorithm to compute them to a desired accuracy requirement.  One challenge is that the Sobol' indices are defined as a function of more than one integral.  This complicates satisfying the error tolerance.
 
 d) The recent monograph by Fasshauer and McCourt has served as the foundation for looking at kernel-based methods from both a deterministic and stochastic perspective, and then apply insights gained in one domain to the other.
 
@@ -127,7 +127,7 @@ Yuhan Ding, supported as a summer RA by this grant, completed her PhD at the end
 
 Six Brazilian Scientific Mobility Program students worked on three different projects over the course of eight weeks.  All had practice regularly reporting on their work and overcoming challenges.  Some of their work will be incorporated into GAIL.
 
-Lan Jiang, supported as a summer TA by this grant, completed her PhD in the spring of 2016.
+Lan Jiang, supported as a summer RA by this grant, completed her PhD in the spring of 2016.
 
 Lluís Antoni Jiménez Rugama, supported as an RA by this grant, has worked on several projects, including collaborations with Fermilab and a group of statisticians in France. He has co-authored one publication and one submitted manuscript during this grant period.  He presented talks at the 2015 BIRS Workshop on Approximation of High-Dimensional Numerical Problems, the 2016 Joint Mathematics Meetings, the 2016 Spring Research Conference, and the 2016 Joint Statistics Meetings. Tony has also mentored Da Li and two high school students:  Waleed Aslam and Wyatt Press.
 
