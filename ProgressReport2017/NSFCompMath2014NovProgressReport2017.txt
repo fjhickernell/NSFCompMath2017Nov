@@ -16,7 +16,7 @@ This research is comprised of four projects related to function approximation an
 Project 1. 
 a) Fasshauer collaborated with Jalil Rashidinia and Manoochehr Khasi on an alternative approach to implementing Hilbert-Schmidt eigenfunctions of the Gaussian kernel by using Chebyshev polynomials instead of Hermite polynomials in the expansion used in our earlier work. This enhances the numerical stability of the algorithm. This new eigenfunction representation was also applied to the numerical solution of nonlinear unsteady convection-diffusion-reaction equations.
 
-b) Fasshauer has been collaborating with Paul Martin to extend an earlier derivation for eigenfunctions and eigenvalues of the $C^0$ Matern kernel on the half line from Fasshauer and McCourt (2015) to the entire real line. Extensions to smoother Matern kernels are currently being investigated. 
+b) Fasshauer has been collaborating with Paul Martin to extend an earlier derivation for eigenfunctions and eigenvalues of the $C^0$ Matern kernel on the half line from the monograph Fasshauer and McCourt (2015) to the entire real line. Extensions to smoother Matern kernels are currently being investigated. 
 
 Project 2. 
 a) Hickernell and and Jiménez Rugama generalized the earlier work by Hickernell and Jiang on relative error and on hybrid error.  We found a better way to determine the best estimate of the integral, which is not necessarily the sample mean.  By “better” we mean that to provide a more satisfactory procedure that works for both adaptive IID Monte Carlo and adaptive quasi-Monte Carlo algorithms.  By satisfactory, we mean that it allows for the Furthermore  Jiang have extended the adaptive IID Monte Carlo method to accommodate relative error.  This requires an iterative procedure under which the number of samples is increased and the until the error tolerance is met.
@@ -56,6 +56,13 @@ a) We want to enhance the numerical stability and computational efficiency of th
 
 b) Using various techniques from the classical theory of integral equations and known facts about special functions (such as Bessel functions), we want to make progress on the analytical derivation of eigenfunction expansions for kernels widely used in practice such as the family of Matern kernels, which is popular both in the statistics and numerical analysis communities.
 
+Project 4.
+a) The monograph by Fasshauer and McCourt (2015) has served as the foundation for looking at kernel-based methods from both a deterministic and stochastic perspective, and then apply insights gained in one domain to the other. A recent collaboration by the two of us has applied this strategy to black-box optimization.
+
+b) Since radial basis function methods can be interpreted as generalizations of polynomial methods we are investigating the use of kernel-based finite difference methods and the flexibility gained by added generality in various application areas such as in geophysics and electromagnetics. 
+
+
+*** OLD ***
 Project 2. 
 a) In fact, the error tolerance can be a hybrid of absolute and relative tolerances.  We think that we have found the most efficient way to perform the iterations so that effort is not wasted, but we will take another look as we prepare the work in Jiang's thesis for publication.
 
@@ -112,7 +119,11 @@ b) In the course of his work with Fermilab, Jiménez Rugama discovered the the M
 
 % Key Outcomes and Achievements
 
+Project 1.
+To our knowledge, it is the first time that eigenfunctions and eigenvalues on the real line for a kernel in the Matern family have been derived analytically. Thus far, such results were available only on bounded intervals.   
+
 Project 2. 
+*** OLD ***
 a) This is the first instance we know of where the computational cost of an adaptive algorithm is expressed in terms of a quasi-norm, as we have found.  The popular Chebfun package, which performs numerical computations on Chebyshev polynomial approximations of functions, does not have guarantees that the answers they provide satisfy a given error tolerance.  Our algorithms have such guarantees.
 
 b) Guaranteed quasi-Monte Carlo algorithms have been extended to take advantage of control variates.
@@ -122,6 +133,11 @@ b) Guaranteed quasi-Monte Carlo algorithms have been extended to take advantage 
 %% Training and professional development
 During the last year there have been several students involved in this project:
 
+Tanner Johnson, an undergraduate student from U Minnesota and supported during summer 2016 by this grant, worked on the characterization of reproducing kernel Hilbert spaces via the Hilbert-Schmidt decompositions of their kernels. A manuscript for a joint paper was prepared.
+
+Paul Wolfert, an undergraduate student at the Colorado School of Mines supported during summer 2017 by this grant, is investigating the use of kernel-based collocation methods to jointly solve space-time partial differential equations. 
+
+*** OLD ***
 Yuhan Ding, supported as a summer RA by this grant, completed her PhD at the end of 2015.  She will be a visiting assistant professor at Illinois Tech beginning August 2016.  She has co-authored one preprint during this grant period.  She presented a talk at the 2016 Joint Mathematics Meetings.
 
 Six Brazilian Scientific Mobility Program students worked on three different projects over the course of eight weeks.  All had practice regularly reporting on their work and overcoming challenges.  Some of their work will be incorporated into GAIL.
@@ -152,6 +168,15 @@ Tianci Zhu, an undergraduate student, has done research during the summers of 20
 
 Our work has been presented at several meetings:
 
+Talk by Fasshauer at Multivariate Approximation and Interpolation with Applications (MAIA 2016) in Luminy, France, September 2016.
+
+Talks of Fasshauer and Hickernell at the 2017 SIAM CSE Conference in Atlanta.
+
+Talk by Fasshauer at the International Conference on Kernel-Based Approximation Methods in Machine Learning in Guangzhou, China, May 2017. 
+
+Several manuscripts have been submitted for publication and published.  These are detailed in the products section of the report.  In addition, we have continued to grow the GAIL toolbox, which contains algorithms backed by the theory developed in our articles.
+
+*** OLD ***
 Talk by Jiménez Rugama at the 2015 BIRS Workship on Approximation of High-Dimensional Numerical Problems
 
 Talks by Ding, Hickernell, and Jiménez Rugama at the 2016 Joint Mathematics Meetings
