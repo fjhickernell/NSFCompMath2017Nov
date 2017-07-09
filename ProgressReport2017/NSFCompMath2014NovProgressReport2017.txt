@@ -19,22 +19,18 @@ a) Fasshauer collaborated with Jalil Rashidinia and Manoochehr Khasi on an alter
 b) Fasshauer has been collaborating with Paul Martin to extend an earlier derivation for eigenfunctions and eigenvalues of the $C^0$ Matern kernel on the half line from the monograph Fasshauer and McCourt (2015) to the entire real line. Extensions to smoother Matern kernels are currently being investigated. 
 
 Project 2. 
-a) Hickernell and and Lluis Antoni Jiménez Rugama improved the earlier work by Hickernell and Jiang on relative and hybrid error tolerances.  We found a better way to determine the best estimate of the integral, which is not necessarily the sample mean.  By “better” we mean an answer that satisfies a tighter error tolerance for both adaptive IID Monte Carlo and adaptive quasi-Monte Carlo algorithms.
+a) Hickernell and and Lluis Antoni Jiménez Rugama improved the earlier work by Hickernell and Jiang on relative and hybrid error tolerances.  We found a better way to determine the best estimate of the integral.  This is not necessarily the sample mean.  By “better” we mean an estimate that satisfies a tighter error tolerance for both adaptive IID Monte Carlo and adaptive quasi-Monte Carlo algorithms.
 
-b) Hickernell, Jiménez Rugama, and Da Li published their work implementing control variates for quasi-Monte Carlo.
+b) Hickernell, Jiménez Rugama, and Da Li completed and published their work implementing control variates for quasi-Monte Carlo.
 
-c) Hickernell and Jiménez Rugama also extended the work on hybrid error bounds to methods for estimating a function of integrals within a given error tolerance.  Such problems arise in Bayesian inference and Sobol’ indices.
+c) Hickernell and Jiménez Rugama also extended the work on hybrid error bounds to methods for estimating a function of several integrals within a given error tolerance.  Such problems arise in Bayesian inference and Sobol’ indices.
 
 d) Hickernell, Sou-Cheng Choi, Yuhan Ding and Xin Tong published their work on locally adaptive function approximation and optimization and implemented it in the Guaranteed Automatic Integration Library (GAIL) MATLAB toolbox.
 
-e) Hickernell, Li, and Jiménez Rugama have been developing a guaranteed, adaptive quasi-Monte Carlo method that incorporates control variates.  One non-trivial challenge is that the optimal coefficient of the control variate is not the same for quasi-Monte Carlo methods as it is for IID Monte Carlo methods.  Li has completed his master's thesis on this topic.
-
-f) Undergraduate students Yueyi Li and Cu Hauw Hung have been exploring internal control variates based on several 
+e) Undergraduate students Yueyi Li and Cu Hauw Hung have explored internal control variates based on several variable transformations that lead to the same integral.  Their automatic cubature algorithms chooses the optimal combination of these internal control variates.
 
 Project 3.
-a) Hickernell and Jagadeeswaran Rathinavel have been investigating Bayesian cubature for adaptively integrating multivariate functions.  We have also discovered a deterministic (non-Bayesian) context, which mimics kernel methods for integration.  We are focusing on kernels of a special form related to the low discrepancy point set that allow one to perform the matrix inversion and eigenvalue decomposition in O(n \log n) operations.  In some cases this requires variable transformations
-
-b) Now that Bayesian cubature is showing promise, we will also explore function approximation using these special kernels for function approximation. 
+a) Hickernell and Jagadeeswaran Rathinavel have investigated the effectiveness of Bayesian cubature for adaptively integrating multivariate functions.  We have also discovered a deterministic (non-Bayesian) context, which mimics kernel methods for integration.  By focusing on kernels of a special form related to the low discrepancy point set, we are able to perform the required matrix inversion and eigenvalue decomposition in O(n \log n) operations rather than O(n^3) operations.  In some cases this requires variable transformations.
 
 Project 4.
 a) Fasshauer extended his collaboration with P.K. Mishra, S.K. Nath and M.K. Sen to the numerical solution of partial differential equations with a kernel-based finite difference method based on the hybrid radial kernel composed of a Gaussian part along with a cubic part studied in a previous paper. In particular, a geophysics application to the solution of a frequency-domain wave equation was investigated.
@@ -49,11 +45,13 @@ e) Fasshauer is supervising an REU project with Paul Wolfert on the use of kerne
 
 f) Together with Alessandra De Rossi, Roberto Cavoretto and Emma Perracchione, Fasshauer is developing an anisotropic partition of unity method for the numerical solution of partial differential equations.
 
-g) Undergraduate Tianci Zhu and MS student Xiaoyang Zhao have been working to implement the QE approximation to the Heston model for stock price paths.  They hope to facilitate automatic computation of option prices to fit a predefined error tolerance using our adaptive routines in the GAIL toolbox.
+g) Undergraduate Tianci Zhu and MS student Xiaoyang Zhao implemented the QE approximation to the Heston model for stock price paths.  They discovered a modification to the QE algorithm that was necessary to preserve the desired convergence rate for vanishing volatility of the variance.  This has been implemented in the GAIL toolbox.
 
-h) Jiménez Rugama has been collaborating with scientists at Fermilab to use our adaptive quasi-Monte Carlo algorithms for computations in high energy physics.  Erratic changes in the values of the multi-dimensional integrals as the sample size increased highlighted long-overlooked bugs in the existing code.
+h) Jiménez Rugama continued collaborating with scientists at Fermilab to use our adaptive quasi-Monte Carlo algorithms for computations in high energy physics.
 
-i) Jiménez Rugama and Hickernell have been collaborating with Clementine Prieur and her group on efficient computation of Sobol' indices, used in uncertainty quantification.
+i) Jiménez Rugama and Hickernell completed a collaboration with Clémentine Prieur and her group on efficient computation of Sobol' indices, used in uncertainty quantification. Two publications resulted.
+
+j) Kan Zhang has explored using adaptive quasi-Monte Carlo algorithms for Bayesian inference, the choice of the sampling distribution (variable transformation) to make the problem amenable to such algorithms is under investigation.
 
 % Specific Objectives
 Project 1. 
@@ -61,36 +59,28 @@ a) We want to enhance the numerical stability and computational efficiency of th
 
 b) Using various techniques from the classical theory of integral equations and known facts about special functions (such as Bessel functions), we want to make progress on the analytical derivation of eigenfunction expansions for kernels widely used in practice such as the family of Matern kernels, which is popular both in the statistics and numerical analysis communities.
 
+Project 2.
+a) Important practical problems, such as Bayesian inference and Sobol' indices, require an answer that is a function of several integrals, not only a single integral.  We attempted to develop our earlier adaptive algorithms to accommodate such situations.  This is a non-trivial exercise since plugging in the sample averages for the corresponding integrals may lead to a poor estimate.
+
+b) In our attempt to increase the efficiency of our adaptive cubature algorithms and to keep them free of the need for user-tuning, we wanted to add control variates and internal control variates to our algorithms.  The internal control variates arise from transformations of the integration variable.  This frees the user from having to determine which variable transformation is the optimal one.  Several can be used simultaneously with the better one winning out.
+
+c) The GAIL toolbox showcases our algorithms and makes them available for others to use.  They are used extensively in the Monte Carlo class taught by Hickernell each fall.  We want to provide more advanced options available to the users of our GAIL toolbox.
+
+Project 3.
+a) As an alternative to our other adaptive low discrepancy methods, we wanted to explore Bayesian cubature, which has been given increased attention by the probabilistic numerics community.  We also wanted to ensure that these calculations did not require burdensome calculations, which is why we explored using kernels of a special form.  The lessons learned here we hoped will inform the function approximation problem.
+
 Project 4.
 a) The monograph by Fasshauer and McCourt (2015) has served as the foundation for looking at kernel-based methods from both a deterministic and stochastic perspective, and then apply insights gained in one domain to the other. A recent collaboration by the two of us has applied this strategy to black-box optimization.
 
 b) Since radial basis function methods can be interpreted as generalizations of polynomial methods we are investigating the use of kernel-based finite difference methods and the flexibility gained by added generality in various application areas such as in geophysics and electromagnetics. 
 
+c) We want to facilitate option pricing to a user-defined error tolerance via (quasi-) Monte Carlo with the more realistic stochastic volatility model.  In the course of their work, Zhao and Zhu found that existing code gives poor accuracy for small volatility of the variance of the asset price.  They needed to modify the algorithm to correct this error.
 
-*** OLD ***
-Project 2. 
-a) Because 
+d) The objective of the collaboration between Jiménez Rugama and Fermilab was to apply more advanced techniques to speed up computation of the integrals required to infer from the observed data the most likely particle interactions that are occurring.
 
-b) Now that we have constructed a low order algorithm for univariate approximation and optimization, we would like to extend these ideas to univariate quadrature.  We also want to construct algorithms with higher order accuracy.
+e) We wanted to demonstrate the efficacy of our automatic quasi-Monte Carlo cubature algorithms on the problem of Sobol' indices.  Since these are defined as a function of more than one integral satisfying the error tolerance is more complicated.
 
-c) The goal is to make the use of control variates in adaptive quasi-Monte Carlo seamless.  This includes finding the right way to compute the optimal control variate coefficient.  A related goal is to accommodate cases like American options, where the payoff for a particular stock path does not depend on that one path only, but on the exercise boundary, which itself must be estimated using all paths.
-
-d) The GAIL toolbox showcases our algorithms and makes them available for others to use.  They are used extensively in the Monte Carlo class taught by Hickernell each fall.  The work done by the BSMP students and Qian was designed to enhance the features of our GAIL toolbox.
-
-Project 4.
-a) The objective is to allow option pricing to a user-defined error tolerance via (quasi-) Monte Carlo with this more realistic stochastic volatility model.  In the course of their work, Zhao and Zhu found that existing code gives poor accuracy for small volatility of the variance of the asset price.  They needed to modify the algorithm to correct this error.
-
-b) The objective of the collaboration between Jiménez Rugama and Fermilab is to apply more advanced techniques to speed up computation of the integrals required to infer from the observed data the most likely particle interactions that are occurring.
-
-c) We want to use our automatic Sobol' cubature algorithm to compute them to a desired accuracy requirement.  One challenge is that the Sobol' indices are defined as a function of more than one integral.  This complicates satisfying the error tolerance.
-
-d) The recent monograph by Fasshauer and McCourt has served as the foundation for looking at kernel-based methods from both a deterministic and stochastic perspective, and then apply insights gained in one domain to the other.
-
-e) Applying insights gained in recent work on kernel-based approximation methods to the design of hybrid kernels may lead to new and improved kernel methods for interpolation and collocation algorithms.
-
-f) Similar to (d), insights gained by looking at numerical algorithms also from a statistical perspective may lead to new and improved numerical algorithms which can be applied in many different situations - here an MFS-based coupled PDE solver whose source points are selected using an LOOCV-like algorithm.
-
-g) Since radial basis function methods can be interpreted as generalizations of polynomial methods much that was previously done with polynomials (such as finite difference methods) can also be done in more generality - and hopefully more accurately and/or efficiently - with kernel-based methods. 
+f) Bayesian inference is a very important application area, but quasi-Monte Carlo methods are not used much because integrands are peaky.  We wanted to investigate whether our adaptive methods could be used to efficiently compute the answer to simple Bayesian inference problems
 
 
 % Significant Results
