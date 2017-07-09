@@ -19,16 +19,22 @@ a) Fasshauer collaborated with Jalil Rashidinia and Manoochehr Khasi on an alter
 b) Fasshauer has been collaborating with Paul Martin to extend an earlier derivation for eigenfunctions and eigenvalues of the $C^0$ Matern kernel on the half line from Fasshauer and McCourt (2015) to the entire real line. Extensions to smoother Matern kernels are currently being investigated. 
 
 Project 2. 
-a) Hickernell and and Jiménez Rugama generalized the earlier work by Hickernell and Jiang on relative error and on hybrid error.  We found a better way to determine the best estimate of the integral, which is not necessarily the sample mean.  By “better” we mean that to provide a more satisfactory procedure that works for both adaptive IID Monte Carlo and adaptive quasi-Monte Carlo algorithms.  By satisfactory, we mean that it allows for the Furthermore  Jiang have extended the adaptive IID Monte Carlo method to accommodate relative error.  This requires an iterative procedure under which the number of samples is increased and the until the error tolerance is met.
+a) Hickernell and and Lluis Antoni Jiménez Rugama improved the earlier work by Hickernell and Jiang on relative and hybrid error tolerances.  We found a better way to determine the best estimate of the integral, which is not necessarily the sample mean.  By “better” we mean an answer that satisfies a tighter error tolerance for both adaptive IID Monte Carlo and adaptive quasi-Monte Carlo algorithms.
 
-b) Hickernell, Choi, Ding and Xin Tong have developed a guaranteed, locally adaptive algorithm for function approximation and optimization.  "Local" adaption means that the density of the samples is non-uniform.  This extends the earlier work of Hickernell and collaborators that produced guaranteed, globally adaptive algorithms. While many existing algorithms are locally adaptive, our new algorithm has theoretical guarantees.  This work is part of the Guaranteed Automatic Integration Library (GAIL) MATLAB toolbox.
+b) Hickernell, Jiménez Rugama, and Da Li published their work implementing control variates for quasi-Monte Carlo.
 
-c) Hickernell, Li, and Jiménez Rugama have been developing a guaranteed, adaptive quasi-Monte Carlo method that incorporates control variates.  One non-trivial challenge is that the optimal coefficient of the control variate is not the same for quasi-Monte Carlo methods as it is for IID Monte Carlo methods.  Li has completed his master's thesis on this topic.
+c) Hickernell and Jiménez Rugama also extended the work on hybrid error bounds to methods for estimating a function of integrals within a given error tolerance.  Such problems arise in Bayesian inference and Sobol’ indices.
 
-d) Students that were part of the Brazilian Scientific Mobility Program made extensions to the GAIL toolbox.  They worked on porting code from MATLAB to R.  They experimented with parallel implementations of algorithms.  They extended the algorithms to integration over balls and spheres.  Tianpei Qian, a student in a similar program, extended the automatic Monte Carlo integration algorithm to include antithetic and control variates.
+d) Hickernell, Sou-Cheng Choi, Yuhan Ding and Xin Tong published their work on locally adaptive function approximation and optimization and implemented it in the Guaranteed Automatic Integration Library (GAIL) MATLAB toolbox.
+
+e) Hickernell, Li, and Jiménez Rugama have been developing a guaranteed, adaptive quasi-Monte Carlo method that incorporates control variates.  One non-trivial challenge is that the optimal coefficient of the control variate is not the same for quasi-Monte Carlo methods as it is for IID Monte Carlo methods.  Li has completed his master's thesis on this topic.
+
+f) Undergraduate students Yueyi Li and Cu Hauw Hung have been exploring internal control variates based on several 
 
 Project 3.
-a) We are also looking into Bayesian cubature, which is mimics using kernel methods for integration.  Unlike deterministic methods Bayesian cubature produces data-based confidence intervals for the integral.  We are exploring how to appropriate these ideas in a deterministic (non-Bayesian) context.
+a) Hickernell and Jagadeeswaran Rathinavel have been investigating Bayesian cubature for adaptively integrating multivariate functions.  We have also discovered a deterministic (non-Bayesian) context, which mimics kernel methods for integration.  We are focusing on kernels of a special form related to the low discrepancy point set that allow one to perform the matrix inversion and eigenvalue decomposition in O(n \log n) operations.  In some cases this requires variable transformations
+
+b) Now that Bayesian cubature is showing promise, we will also explore function approximation using these special kernels for function approximation. 
 
 Project 4.
 a) Fasshauer extended his collaboration with P.K. Mishra, S.K. Nath and M.K. Sen to the numerical solution of partial differential equations with a kernel-based finite difference method based on the hybrid radial kernel composed of a Gaussian part along with a cubic part studied in a previous paper. In particular, a geophysics application to the solution of a frequency-domain wave equation was investigated.
@@ -43,12 +49,11 @@ e) Fasshauer is supervising an REU project with Paul Wolfert on the use of kerne
 
 f) Together with Alessandra De Rossi, Roberto Cavoretto and Emma Perracchione, Fasshauer is developing an anisotropic partition of unity method for the numerical solution of partial differential equations.
 
-*** OLD ***
-a) Undergraduate Tianci Zhu and MS student Xiaoyang Zhao have been working to implement the QE approximation to the Heston model for stock price paths.  They hope to facilitate automatic computation of option prices to fit a predefined error tolerance using our adaptive routines in the GAIL toolbox.
+g) Undergraduate Tianci Zhu and MS student Xiaoyang Zhao have been working to implement the QE approximation to the Heston model for stock price paths.  They hope to facilitate automatic computation of option prices to fit a predefined error tolerance using our adaptive routines in the GAIL toolbox.
 
-b) Jiménez Rugama has been collaborating with scientists at Fermilab to use our adaptive quasi-Monte Carlo algorithms for computations in high energy physics.  Erratic changes in the values of the multi-dimensional integrals as the sample size increased highlighted long-overlooked bugs in the existing code.
+h) Jiménez Rugama has been collaborating with scientists at Fermilab to use our adaptive quasi-Monte Carlo algorithms for computations in high energy physics.  Erratic changes in the values of the multi-dimensional integrals as the sample size increased highlighted long-overlooked bugs in the existing code.
 
-c) Jiménez Rugama and Hickernell have been collaborating with Clementine Prieur and her group on efficient computation of Sobol' indices, used in uncertainty quantification.
+i) Jiménez Rugama and Hickernell have been collaborating with Clementine Prieur and her group on efficient computation of Sobol' indices, used in uncertainty quantification.
 
 % Specific Objectives
 Project 1. 
@@ -57,7 +62,7 @@ a) We want to enhance the numerical stability and computational efficiency of th
 b) Using various techniques from the classical theory of integral equations and known facts about special functions (such as Bessel functions), we want to make progress on the analytical derivation of eigenfunction expansions for kernels widely used in practice such as the family of Matern kernels, which is popular both in the statistics and numerical analysis communities.
 
 Project 2. 
-a) In fact, the error tolerance can be a hybrid of absolute and relative tolerances.  We think that we have found the most efficient way to perform the iterations so that effort is not wasted, but we will take another look as we prepare the work in Jiang's thesis for publication.
+a) Because 
 
 b) Now that we have constructed a low order algorithm for univariate approximation and optimization, we would like to extend these ideas to univariate quadrature.  We also want to construct algorithms with higher order accuracy.
 
