@@ -90,13 +90,13 @@ a) A paper has been submitted that details the new Chebyshev polynomial-based ei
 b) So far, we have been able to extend earlier results for low-order Matern kernels from the half-line to the entire real line. We are looking for ways to "lift" the techniques to accomplish this to the case of higher-order Matern kernels before preparing a paper on the topic.
 
 Project 2. 
-a) The adaptive IID Monte Carlo algorithm with a hybrid error tolerance has been implemented in GAIL.  A manuscript will be prepared for publication.
+a) A successful, and provably optimal, method for satisfying error criteria of the form, |true(several integrals) - approx| \le max(\epsilon_abs, \epsilon_rel x |true(several integrals)|, has been derived.  Here true(several integrals) is the true answer, a function of several integrals, and approx is some function of the sample means of the integrands at well chosen points and the data-based error bounds for the individual integrals. This work has been submitted and the positively reviewed manuscript has been revised and under consideration.
 
-b) The new algorithm for univariate optimization has computational cost that is proportional to \sqrt{||f''||_{1/2}/\epsilon}, where \epsilon is the desired error tolerance.  This can be significantly smaller than the \sqrt{||f''||_{\infty}/\epsilon} cost of globally adaptive algorithms, because the 1/2-quasi-norm of a somewhat spiky function may be much smaller than the sup-norm of that same function.  The asymptotic optimality of our algorithm has been established.  A manuscript submitted for publication has received positive reviews and is being revised.
+b) New locally adaptive algorithms for univariate function approximation and optimization have been found with computational cost that proportional to \sqrt{||f''||_{1/2}/\epsilon}, where \epsilon is the desired error tolerance.  These costs can be significantly smaller than the \sqrt{||f''||_{\infty}/\epsilon} costs of globally adaptive algorithms, because the 1/2-quasi-norm of a somewhat spiky function may be much smaller than the sup-norm of that same function.  A paper has been published.
 
-c) By computing the discrete Fourier Walsh coefficients, it is possible to compute the optimal control variate coefficient as the function is being sampled, and in a way consistent with earlier observations by Hickernell, Lemieux, and Owen (2005).  Problems like American options are solved by using all function data to compute the exercise boundary, which means re-computing all payoffs each time additional stock paths are generated.  Li's thesis will be written up for publication.
+c) By computing the discrete Fourier Walsh coefficients, it is possible to compute the optimal control variate coefficient as the function is being sampled, and in a way consistent with earlier observations by Hickernell, Lemieux, and Owen (2005).  This work has been published.
 
-d) The work by Qian may be written up for publication.  The work by the BSMP students will be part of the next release of GAIL.
+d) We are able to adaptively determine the sample size for Bayesian cubature assuming that the integrand is a Gaussian process and that the covariance kernel is accurately determined by maximum likelihood estimation.  We also discovered a previously unknown deterministic interpretation of Bayesian cubature.  Some of these results are in a tutorial paper that has received a positive review and is under revision.
 
 Project 4.
 a) A joint paper has been submitted to a geophysics journal presenting the kernel-based finite difference method for the numerical solution of partial differential equations with the hybrid Gaussian-cubic kernel studied earlier.
@@ -107,10 +107,11 @@ c) Fasshauer and McCourt each gave presentations black box Bayesian optimization
 
 d) A joint paper for an electrical engineering journal is in preparation that compares the use of interface-aware kernel-based finite difference methods to standard finite difference methods for the 2D Maxwell equations as they apply to problems in antenna design.
 
-*** OLD ***
-a) By altering the approximation to the integral of the variance, they avoided amplified errors for small volatility of the variance.  The modified algorithm provides more accurate answers.  This work will form part of Xiaoyang Zhao's MS thesis.
+e) By altering the approximation to the integral of the variance, they avoided amplified errors for small volatility of the variance.  The modified algorithm provides more accurate answers.  This work formed part of Xiaoyang Zhao's MS thesis completed in the spring of 2017.
 
-b) In the course of his work with Fermilab, Jiménez Rugama discovered the the MATLAB's own versions of the Sobol' sequence had been incorrectly coded.  This error and the suggested fix were brought to the attention of the Mathworks.
+f) In the course of his work with Fermilab, Jiménez Rugama discovered the the MATLAB's own versions of the Sobol' sequence had been incorrectly coded.  This error and the suggested fix were brought to the attention of the Mathworks.  They were fixed in MATLAB's 2017a released.
+
+g) Automatic integration has been successfully applied to a Bayesian inference problem for logistic regression.
 
 % Key Outcomes and Achievements
 
@@ -118,95 +119,87 @@ Project 1.
 To our knowledge, it is the first time that eigenfunctions and eigenvalues on the real line for a kernel in the Matern family have been derived analytically. Thus far, such results were available only on bounded intervals.   
 
 Project 2. 
-*** OLD ***
-a) This is the first instance we know of where the computational cost of an adaptive algorithm is expressed in terms of a quasi-norm, as we have found.  The popular Chebfun package, which performs numerical computations on Chebyshev polynomial approximations of functions, does not have guarantees that the answers they provide satisfy a given error tolerance.  Our algorithms have such guarantees.
+a) We have found a way to construct adaptive algorithms for more general problems—functions of several integrals—and more general error criteria involving absolute and relative error criteria.  This paradigm can be used for different kinds of problems beyond integration.
 
-b) Guaranteed quasi-Monte Carlo algorithms have been extended to take advantage of control variates.
+b) Adaptive Bayesian cubature based on low discrepancy sequences and kernels of special form have been found to be fast and accurate in practice as well as theory.
 
-
+Project 4.
+Kernel-based function approximation and adaptive cubature have been used to solve a wide variety of scientific and engineering problems.
 
 %% Training and professional development
 During the last year there have been several students involved in this project:
 
-Tanner Johnson, an undergraduate student from U Minnesota and supported during summer 2016 by this grant, worked on the characterization of reproducing kernel Hilbert spaces via the Hilbert-Schmidt decompositions of their kernels. A manuscript for a joint paper was prepared.
+Yuhan Ding, a visiting assistant professor at Illinois Tech co-authored a paper during this grant period and obtained a tenure track position for the fall of 2017.
 
-Paul Wolfert, an undergraduate student at the Colorado School of Mines supported during summer 2017 by this grant, is investigating the use of kernel-based collocation methods to jointly solve space-time partial differential equations. 
+Lluís Antoni Jiménez Rugama, supported as an RA by this grant, co-authored two publications during this grant period and finished his PhD in December 2016.  He presented talks at the August 2016 12th International Conference on Monte Carlo and Quasi-Monte Carlo Methods in Scientific Computing and prepared a talk (presented by Hickernell) at the July 2017 11th International Conference on Monte Carlo Methods and Applications.
 
-*** OLD ***
-Yuhan Ding, supported as a summer RA by this grant, completed her PhD at the end of 2015.  She will be a visiting assistant professor at Illinois Tech beginning August 2016.  She has co-authored one preprint during this grant period.  She presented a talk at the 2016 Joint Mathematics Meetings.
+Jagadeeswaran Rathinavel has been working on his PhD research dealing with Bayesian cubature.
 
-Six Brazilian Scientific Mobility Program students worked on three different projects over the course of eight weeks.  All had practice regularly reporting on their work and overcoming challenges.  Some of their work will be incorporated into GAIL.
-
-Lan Jiang, supported as a summer RA by this grant, completed her PhD in the spring of 2016.
-
-Lluís Antoni Jiménez Rugama, supported as an RA by this grant, has worked on several projects, including collaborations with Fermilab and a group of statisticians in France. He has co-authored one publication and one submitted manuscript during this grant period.  He presented talks at the 2015 BIRS Workshop on Approximation of High-Dimensional Numerical Problems, the 2016 Joint Mathematics Meetings, the 2016 Spring Research Conference, and the 2016 Joint Statistics Meetings. Tony has also mentored Da Li and two high school students:  Waleed Aslam and Wyatt Press.
-
-Tanner Johnson, an undergraduate student from U Minnesota and supported during summer 2016 by this grant, is engaged in research on kernel methods that is leading towards a publication.
-
-Da Li completed his MS thesis in the summer of 2016.  He is giving a talk at the 2016 Joint Statistics Meetings.
-
-Jiazhen Liu is working on her MS research.
-
-Tianpei Qian, implemented automatic selection of control variates and antithetic variates.  He regularly reported on his work, some of which will be incorporated into GAIL.
-
-Jagadeeswaran Rathinavel has been working on his PhD research dealing with localized radial basis function-based finite difference methods. 
+Kan Zhang, supported by this grant, is working on his PhD research on quasi-Monte Carlo methods for Bayesian inference.  He gave a talk at the July 2017 11th International Conference on Monte Carlo Methods and Applications.
 
 Yizhi Zhang is (slowly) working on his PhD research.
 
-Xiaoyang Zhao is working on her MS research.  She is giving a talk at the 2016 Joint Statistics Meetings.
+Da Li gave a talk at the August 2016 Joint Statistics Meetings.
 
-Xuan Zhou completed his PhD thesis in the summer of 2015.
+Xiaoyang Zhao completed her MS thesis in May 2017.  She gave a talk at the 2016 Joint Statistics Meetings.  She is writing up for publication the work that she and Zhu did on the Heston model.
 
-Tianci Zhu, an undergraduate student, has done research during the summers of 2015 and 2016.  She presented a poster at the 2015 Fall AMS Sectional Meeting in Chicago and at the 2016 Spring Research Conference.
+Jiazhen Lu is working on her MS research.
+
+Tanner Johnson, an undergraduate student from U Minnesota and supported during summer 2016 by this grant, worked on the characterization of reproducing kernel Hilbert spaces via the Hilbert-Schmidt decompositions of their kernels. A manuscript for a joint paper is in preparation.  He will be entering a PhD program at the University of British Columbia in the fall of 2017.
+
+Paul Wolfert, an undergraduate student at the Colorado School of Mines supported during summer 2017 by this grant, is investigating the use of kernel-based collocation methods to jointly solve space-time partial differential equations. 
+
+Tianci Zhu, received her BS from Illinois Tech in May 2017 and will enter NYU's MS in Mathematics in Finance.  She is writing up for publication the work that she and Zhao did on the Heston model.
+
 
 %% Dissemination of results
 
 Our work has been presented at several meetings:
 
+Talk by Hickernell at the Joint Statistics Meetings, at Chicago, August 2016.
+
+Invited tutorial by Hickernell at the 12th International Conference on Monte Carlo and Quasi-Monte Carlo Methods in Scientific Computing, at Stanford, CA, August 2016.
+
 Talk by Fasshauer at Multivariate Approximation and Interpolation with Applications (MAIA 2016) in Luminy, France, September 2016.
 
-Talks of Fasshauer and Hickernell at the 2017 SIAM CSE Conference in Atlanta.
+Talk by Hickernell at Information-Based Complexity 2016, in Bedlewo, Poland, September, 2016.
+
+Talk by Hickernell at the Joint Mathematics Meetings, January 2017.
+
+Talks by Fasshauer and Hickernell at the 2017 SIAM CSE Conference in Atlanta, February 2017.
 
 Talk by Fasshauer at the International Conference on Kernel-Based Approximation Methods in Machine Learning in Guangzhou, China, May 2017. 
 
-Several manuscripts have been submitted for publication and published.  These are detailed in the products section of the report.  In addition, we have continued to grow the GAIL toolbox, which contains algorithms backed by the theory developed in our articles.
+Talk by Hickernell at the 11th International Conference on Monte Carlo Methods and Applications, July 2017.
 
-*** OLD ***
-Talk by Jiménez Rugama at the 2015 BIRS Workship on Approximation of High-Dimensional Numerical Problems
-
-Talks by Ding, Hickernell, and Jiménez Rugama at the 2016 Joint Mathematics Meetings
-
-Talks by Hickernell and Jiménez Rugama and a poster by Zhu at the 2016 Spring Research Conference.  Hickernell was one of the organizers of this annual conference with a 20+ year history.
-
-Invited plenary lecture by Fasshauer at the 9th International Conference on Mathematical Methods for Curves and Surfaces, T{\o}nsberg, Norway, June 2016.
-
-Talks by Hickernell, Jiménez Rugama, Li, and Zhao are being given at the 2016 Joint Statistics Meetings
+Colloquium talks by Hickernell at Georgia Tech, Tulane, Colorado School of Mines.
 
 Several manuscripts have been submitted for publication and published.  These are detailed in the products section of the report.  In addition, we have continued to grow the GAIL toolbox, which contains algorithms backed by the theory developed in our articles.
+
 
 %% What are we planning to do
 
-Several of the work mentioned above is in need of being written up and submitted for publication.  As we do that, we will clarify our results.
+Several of the work mentioned above needs to be written up and submitted for publication.  As we do that, we will clarify our results.
 
-We want to extend all of our existing algorithms to include relative error tolerances.  This has been done for some.
+We want to extend the Bayesian cubature success to function approximation.
 
-We want to extend our low convergence order guaranteed algorithms for univariate problems to higher order.  This involved moving from linear splines to higher order piecewise polynomial approximations or high degree polynomial approximations using Chebyshev nodes.
+We want to extend our low convergence order guaranteed algorithms for univariate problems to higher order.  This involves moving from linear splines to higher order piecewise polynomial approximations or high degree polynomial approximations using Chebyshev nodes.
 
 We want to further explore and exploit the interplay between the deterministic and stochastic perspective of various algorithms. 
 
-We want to look at Bayesian cubature.  This method is related to function approximation by kernel methods, and it may be easier to construct adaptive Bayesian cubature algorithms (Project 2), and then use the lessons gained for adaptive function approximation (Project 3).
+Some of our friends are engaged with high dimensional problems where function approximation is expensive.  They have had some success with low degree polynomials.  We want to understand whether kernel methods are competitive and also what kind of high dimensional problems can be solved with a low number of function values.
 
 %%% Impact
 %% Impact on the principle disciplines
-This project has developed adaptive algorithms for univariate and multivariate integration, for univariate function approximation, and for univariate optimization.  Unlike  other popular algorithms such as those in the Chebfun toolbox, our algorithms are theoretically justified.  A paradigm has been established for rigorously analyzing the error of adaptive algorithms, and the important details are being worked out for various cases.  The computational costs of these new adaptive algorithms depend in some surprising ways on the quasi-norm of the function being integrated, approximated, or optimized.
+This project has developed adaptive algorithms for univariate and multivariate integration, for univariate function approximation, and for univariate optimization.  Unlike other popular algorithms here the adaptivity is based on heuristics, our algorithms are theoretically justified.  A paradigm has been established for rigorously analyzing the error of adaptive algorithms, and the important details are being worked out for various cases.  The computational costs of these new adaptive algorithms depend in some surprising ways on the quasi-norm of the function being integrated, approximated, or optimized.
 
 
 %% Impact on other disciplines
 The basic operations of integration, function approximation, and optimization are used in a number of application areas in finance, engineering and science.  We are providing more efficient, robust and convenient tools, which will expedite the discovery of new science.
 
 %% Impact on the development of human resources
-Our mentees--high school through post-doctoral--have learned how to 
-identify a meaningful problem, 
+Our mentees at many stages of their careers have learned how to 
+identify a meaningful problems, 
 determine where the challenging parts are, 
 understand the existing state of the art, 
 identify new methods for attacking the problem,
