@@ -181,7 +181,7 @@ Several manuscripts have been submitted for publication and published.  These ar
 
 Several of the work mentioned above needs to be written up and submitted for publication.  As we do that, we will clarify our results.
 
-We want to extend the Bayesian cubature success to function approximation.
+We want to extend the Bayesian cubature success to function approximation.  We want to explore smooth, scramble invariant kernels with Sobol' sequences
 
 We want to extend our low convergence order guaranteed algorithms for univariate problems to higher order.  This involves moving from linear splines to higher order piecewise polynomial approximations or high degree polynomial approximations using Chebyshev nodes.
 
@@ -191,7 +191,7 @@ Some of our friends are engaged with high dimensional problems where function ap
 
 %%% Impact
 %% Impact on the principle disciplines
-This project has developed adaptive algorithms for univariate and multivariate integration, for univariate function approximation, and for univariate optimization.  Unlike other popular algorithms here the adaptivity is based on heuristics, our algorithms are theoretically justified.  A paradigm has been established for rigorously analyzing the error of adaptive algorithms, and the important details are being worked out for various cases.  The computational costs of these new adaptive algorithms depend in some surprising ways on the quasi-norm of the function being integrated, approximated, or optimized.
+This project has developed adaptive algorithms for univariate and multivariate integration, for univariate function approximation, and for univariate optimization.  Unlike other popular algorithms where the adaptivity is based on heuristics, our algorithms are theoretically justified.  A paradigm has been established for rigorously analyzing the error of adaptive algorithms, and the important details are being worked out for various cases.  The computational costs of these new adaptive algorithms depend in some surprising ways on the quasi-norm of the function being integrated, approximated, or optimized.
 
 
 %% Impact on other disciplines
@@ -203,8 +203,9 @@ identify a meaningful problems,
 determine where the challenging parts are, 
 understand the existing state of the art, 
 identify new methods for attacking the problem,
-assessing their success, and
-reporting their work to their peers, orally and in written form.
+assess their success, 
+work as a team to solve problems, and
+report their work to their peers, orally and in written form.
 
 %% Impact on physical resources
 
