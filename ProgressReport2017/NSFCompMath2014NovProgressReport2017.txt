@@ -19,7 +19,7 @@ a) Fasshauer collaborated with Jalil Rashidinia and Manoochehr Khasi on an alter
 b) Fasshauer has been collaborating with Paul Martin to extend an earlier derivation for eigenfunctions and eigenvalues of the $C^0$ Matern kernel on the half line from the monograph Fasshauer and McCourt (2015) to the entire real line. Extensions to smoother Matern kernels are currently being investigated. 
 
 Project 2. 
-a) Hickernell and and Lluis Antoni Jiménez Rugama improved the earlier work by Hickernell and Jiang on relative and hybrid error tolerances.  We found a better way to determine the best estimate of the integral.  This is not necessarily the sample mean.  By “better” we mean an estimate that satisfies a tighter error tolerance for both adaptive IID Monte Carlo and adaptive quasi-Monte Carlo algorithms.
+a) Hickernell and and Lluis Antoni Jiménez Rugama improved the earlier work by Hickernell and Jiang on relative and hybrid error tolerances.  We found a better way to determine the best estimate of the integral.  This is not necessarily the sample mean.  “Better” means an estimate that satisfies a tighter error tolerance for both adaptive IID Monte Carlo and adaptive quasi-Monte Carlo algorithms.
 
 b) Hickernell, Jiménez Rugama, and Da Li completed and published their work implementing control variates for quasi-Monte Carlo.
 
@@ -27,10 +27,10 @@ c) Hickernell and Jiménez Rugama also extended the work on hybrid error bounds 
 
 d) Hickernell, Sou-Cheng Choi, Yuhan Ding and Xin Tong published their work on locally adaptive function approximation and optimization and implemented it in the Guaranteed Automatic Integration Library (GAIL) MATLAB toolbox.
 
-e) Undergraduate students Yueyi Li and Cu Hauw Hung have explored internal control variates based on several variable transformations that lead to the same integral.  Their automatic cubature algorithms chooses the optimal combination of these internal control variates.
+e) Undergraduate students Yueyi Li and Cu Hauw Hung explored internal control variates based on several variable transformations that lead to the same integral.  Their automatic cubature algorithms choose the optimal combination of these internal control variates.
 
 Project 3.
-a) Hickernell and Jagadeeswaran Rathinavel have investigated the effectiveness of Bayesian cubature for adaptively integrating multivariate functions.  We have also discovered a deterministic (non-Bayesian) context, which mimics kernel methods for integration.  By focusing on kernels of a special form related to the low discrepancy point set, we are able to perform the required matrix inversion and eigenvalue decomposition in O(n \log n) operations rather than O(n^3) operations.  In some cases this requires variable transformations.
+a) Hickernell and Jagadeeswaran Rathinavel investigated the effectiveness of Bayesian cubature for adaptively integrating multivariate functions.  We also discovered a deterministic (non-Bayesian) context, which mimics kernel methods for integration.  This includes a non-Bayesian interpretation of maximum likelihood estimation.  By focusing on kernels of a special form related to the low discrepancy point set, we are able to perform the required matrix inversion and eigenvalue decomposition in O(n \log n) operations rather than O(n^3) operations.  In some cases this requires periodizing variable transformations.
 
 Project 4.
 a) Fasshauer extended his collaboration with P.K. Mishra, S.K. Nath and M.K. Sen to the numerical solution of partial differential equations with a kernel-based finite difference method based on the hybrid radial kernel composed of a Gaussian part along with a cubic part studied in a previous paper. In particular, a geophysics application to the solution of a frequency-domain wave equation was investigated.
@@ -60,11 +60,11 @@ a) We want to enhance the numerical stability and computational efficiency of th
 b) Using various techniques from the classical theory of integral equations and known facts about special functions (such as Bessel functions), we want to make progress on the analytical derivation of eigenfunction expansions for kernels widely used in practice such as the family of Matern kernels, which is popular both in the statistics and numerical analysis communities.
 
 Project 2.
-a) Important practical problems, such as Bayesian inference and Sobol' indices, require an answer that is a function of several integrals, not only a single integral.  We attempted to develop our earlier adaptive algorithms to accommodate such situations.  This is a non-trivial exercise since plugging in the sample averages for the corresponding integrals may lead to a poor estimate.
+a) Important practical problems, such as Bayesian inference and Sobol' indices, require an answer that is a function of several integrals, not only a single integral.  We attempted to develop our earlier adaptive algorithms to accommodate such situations.  This is a non-trivial exercise since plugging in the sample averages for the corresponding integrals may lead to poor estimates.
 
-b) In our attempt to increase the efficiency of our adaptive cubature algorithms and to keep them free of the need for user-tuning, we wanted to add control variates and internal control variates to our algorithms.  The internal control variates arise from transformations of the integration variable.  This frees the user from having to determine which variable transformation is the optimal one.  Several can be used simultaneously with the better one winning out.
+b) In our attempt to increase the efficiency of our adaptive cubature algorithms and to prevent the need for user-tuning, we wanted to add control variates and internal control variates to our algorithms.  The internal control variates arise from different transformations of the integration variable.  This frees the user from having to determine which variable transformation is the optimal one.  Several transformations can be used simultaneously with the better one winning out.
 
-c) The GAIL toolbox showcases our algorithms and makes them available for others to use.  They are used extensively in the Monte Carlo class taught by Hickernell each fall.  We want to provide more advanced options available to the users of our GAIL toolbox.
+c) The GAIL toolbox showcases our algorithms and makes them available for others to use.  They are used extensively in the Monte Carlo class taught by Hickernell each fall.  We want to provide more advanced options to the users of our GAIL toolbox.
 
 Project 3.
 a) As an alternative to our other adaptive low discrepancy methods, we wanted to explore Bayesian cubature, which has been given increased attention by the probabilistic numerics community.  We also wanted to ensure that these calculations did not require burdensome calculations, which is why we explored using kernels of a special form.  The lessons learned here we hoped will inform the function approximation problem.
@@ -80,21 +80,25 @@ d) The objective of the collaboration between Jiménez Rugama and Fermilab was t
 
 e) We wanted to demonstrate the efficacy of our automatic quasi-Monte Carlo cubature algorithms on the problem of Sobol' indices.  Since these are defined as a function of more than one integral satisfying the error tolerance is more complicated.
 
-f) Bayesian inference is a very important application area, but quasi-Monte Carlo methods are not used much because integrands are peaky.  We wanted to investigate whether our adaptive methods could be used to efficiently compute the answer to simple Bayesian inference problems
+f) Bayesian inference is a very important application area, but quasi-Monte Carlo methods are not used much because integrands are peaky.  We wanted to investigate whether our adaptive methods could be used to efficiently compute the answer to simple Bayesian inference problems.
 
 
-% Significant Results
+%% Significant Results
 Project 1. 
 a) A paper has been submitted that details the new Chebyshev polynomial-based eigenfunction representation of the Gaussian kernel and uses this representation to solve nonlinear unsteady convection-diffusion-reaction equations.
 
 b) So far, we have been able to extend earlier results for low-order Matern kernels from the half-line to the entire real line. We are looking for ways to "lift" the techniques to accomplish this to the case of higher-order Matern kernels before preparing a paper on the topic.
 
 Project 2. 
-a) A successful, and provably optimal, method for satisfying error criteria of the form, |true(several integrals) - approx| \le max(\epsilon_abs, \epsilon_rel x |true(several integrals)|, has been derived.  Here true(several integrals) is the true answer, a function of several integrals, and approx is some function of the sample means of the integrands at well chosen points and the data-based error bounds for the individual integrals. This work has been submitted and the positively reviewed manuscript has been revised and under consideration.
+a) A successful, and provably optimal, method for satisfying error criteria of the form 
+
+|true(>=1 integrals) - approx| \le max(\epsilon_abs, \epsilon_rel x |true(>=1 integrals)| 
+
+has been derived.  Here true(>=1 integrals) is the true answer, a function of several integrals, and approx is some function of the sample means of the integrands at well chosen points and the data-based error bounds for the individual integrals. This work has been submitted and the positively reviewed manuscript has been revised and is under consideration.
 
 b) New locally adaptive algorithms for univariate function approximation and optimization have been found with computational cost that proportional to \sqrt{||f''||_{1/2}/\epsilon}, where \epsilon is the desired error tolerance.  These costs can be significantly smaller than the \sqrt{||f''||_{\infty}/\epsilon} costs of globally adaptive algorithms, because the 1/2-quasi-norm of a somewhat spiky function may be much smaller than the sup-norm of that same function.  A paper has been published.
 
-c) By computing the discrete Fourier Walsh coefficients, it is possible to compute the optimal control variate coefficient as the function is being sampled, and in a way consistent with earlier observations by Hickernell, Lemieux, and Owen (2005).  This work has been published.
+c) By computing the discrete Fourier Walsh coefficients, it is possible to compute the optimal control variate coefficient as the function is being sampled, and in a way consistent with earlier observations by Hickernell, Lemieux, and Owen (2005).  This work is under review.
 
 d) We are able to adaptively determine the sample size for Bayesian cubature assuming that the integrand is a Gaussian process and that the covariance kernel is accurately determined by maximum likelihood estimation.  We also discovered a previously unknown deterministic interpretation of Bayesian cubature.  Some of these results are in a tutorial paper that has received a positive review and is under revision.
 
@@ -125,6 +129,8 @@ b) Adaptive Bayesian cubature based on low discrepancy sequences and kernels of 
 
 Project 4.
 Kernel-based function approximation and adaptive cubature have been used to solve a wide variety of scientific and engineering problems.
+
+
 
 %% Training and professional development
 During the last year there have been several students involved in this project:
@@ -179,9 +185,9 @@ Several manuscripts have been submitted for publication and published.  These ar
 
 %% What are we planning to do
 
-Several of the work mentioned above needs to be written up and submitted for publication.  As we do that, we will clarify our results.
+Some of the work mentioned above needs to be written up and submitted for publication.  As we do that, we will clarify our results.
 
-We want to extend the Bayesian cubature success to function approximation.  We want to explore smooth, scramble invariant kernels with Sobol' sequences
+We want to extend the Bayesian cubature success to function approximation.  We want to explore smooth, scramble invariant kernels with Sobol' sequences.
 
 We want to extend our low convergence order guaranteed algorithms for univariate problems to higher order.  This involves moving from linear splines to higher order piecewise polynomial approximations or high degree polynomial approximations using Chebyshev nodes.
 
@@ -191,7 +197,7 @@ Some of our friends are engaged with high dimensional problems where function ap
 
 %%% Impact
 %% Impact on the principle disciplines
-This project has developed adaptive algorithms for univariate and multivariate integration, for univariate function approximation, and for univariate optimization.  Unlike other popular algorithms where the adaptivity is based on heuristics, our algorithms are theoretically justified.  A paradigm has been established for rigorously analyzing the error of adaptive algorithms, and the important details are being worked out for various cases.  The computational costs of these new adaptive algorithms depend in some surprising ways on the quasi-norm of the function being integrated, approximated, or optimized.
+This project has developed adaptive algorithms for univariate and multivariate integration, for univariate function approximation, and for univariate optimization.  Unlike other popular algorithms where the adaptivity is based on heuristics, our algorithms are theoretically justified.  A paradigm has been established for rigorously analyzing the error of adaptive algorithms, and the important details are being worked out for various cases.  The computational costs of these new adaptive algorithms depend in some surprising ways on the quasi-norm of the function being integrated, approximated, or optimized.  In addition, insights from both (deterministic) numerical analysis and statistics have allowed us to develop stable and efficient kernel- based methods for integration, interpolation, optimization, and the collocation solution of PDEs.
 
 
 %% Impact on other disciplines
@@ -199,17 +205,18 @@ The basic operations of integration, function approximation, and optimization ar
 
 %% Impact on the development of human resources
 Our mentees at many stages of their careers have learned how to 
-identify a meaningful problems, 
-determine where the challenging parts are, 
-understand the existing state of the art, 
-identify new methods for attacking the problem,
-assess their success, 
-work as a team to solve problems, and
-report their work to their peers, orally and in written form.
+o identify meaningful problems, 
+o determine where the challenging parts are, 
+o understand the existing state of the art, 
+o identify new methods for attacking the problem,
+o assess their success, 
+o work as a team to solve problems, and
+o report their work to their peers, orally and in written form.
 
 %% Impact on physical resources
 
 %% Impact on institutional resources
+The activity in this project has been a part of the impetus for the institution to start a Center for Interdisciplinary Scientific Computation in May 2017 with Hickernell as the first director.
 
 %% Impact on information resources
 
