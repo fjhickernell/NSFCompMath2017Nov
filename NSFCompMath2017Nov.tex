@@ -1,12 +1,26 @@
-% !TEX TS-program = PDFLatexBibtex
-%&LaTeX
-%Greg and Fred's NSF Grant Dec 2014
+%Fred's NSF Grant Dec 2017
 \documentclass[11pt]{NSFamsart}
 \usepackage{latexsym,amsfonts,amsmath,epsfig,multirow}
 \usepackage{stackrel,tabularx,mathtools,enumitem,xspace}
 \usepackage[dvipsnames]{xcolor}
 \usepackage[numbers]{natbib}
 \usepackage{hyperref,accents}
+\usepackage{algorithm, algorithmic}
+\usepackage{cleveref}
+\newcommand\myshade{85}
+\colorlet{mylinkcolor}{violet}
+\colorlet{mycitecolor}{Aquamarine}
+%\colorlet{mycitecolor}{OliveGreen}
+\colorlet{myurlcolor}{YellowOrange}
+
+\hypersetup{
+	linkcolor  = mylinkcolor!\myshade!black,
+	citecolor  = mycitecolor!\myshade!black,
+	urlcolor   = myurlcolor!\myshade!black,
+	colorlinks = true,
+}
+
+
 % This package prints the labels in the margin
 %\usepackage[notref,notcite]{showkeys}
 
@@ -30,11 +44,13 @@
 \newcommand{\hatg}{\hat{g}}
 \newcommand{\tf}{\tilde{f}}
 \newcommand{\tbf}{\tilde{\bff}}
+%\DeclareMathOperator{\Pr}{\mathbb{P}}
 \DeclareMathOperator{\cost}{cost}
 \DeclareMathOperator{\loss}{loss}
 \DeclareMathOperator{\lof}{lof}
 \DeclareMathOperator{\reg}{reg}
 \DeclareMathOperator{\CV}{CV}
+\DeclareMathOperator{\size}{wd}
 
 \def\reals{{\mathbb{R}}}
 \def\field{{\mathbb{F}}}
@@ -51,6 +67,10 @@
 \def\a{\alpha}
 \def\lall{\Lambda^{{\rm all}}}
 \def\lstd{\Lambda^{{\rm std}}}
+
+\newcommand{\hV}{\widehat{V}}
+\newcommand{\tV}{\widetilde{V}}
+\newcommand{\hcut}{\frak{h}}
 
 \newcommand{\bbE}{\mathbb{E}}
 \newcommand{\tQ}{\widetilde{Q}}
@@ -73,20 +93,9 @@
 \newcommand{\mPsi}{\mathsf{\Psi}}
 \newcommand{\mLambda}{\mathsf{\Lambda}}
 
-%\DeclareMathOperator{\APP}{APP}
-%\DeclareMathOperator{\INT}{INT}
-%\DeclareMathOperator{\app}{app}
-%\DeclareMathOperator{\integ}{int}
-%\DeclareMathOperator{\hAPP}{\widehat{\APP}}
-%\DeclareMathOperator{\hINT}{\widehat{\INT}}
-%\DeclareMathOperator{\happ}{\widehat{\app}}
-%\DeclareMathOperator{\hint}{\widehat{\integ}}
 \DeclareMathOperator{\err}{err}
 \DeclareMathOperator{\oerr}{\overline{\err}}
-%\DeclareMathOperator{\apperr}{aerr}
-%\DeclareMathOperator{\oaerr}{\overline{\apperr}}
-%\DeclareMathOperator{\interr}{ierr}
-%\DeclareMathOperator{\oierr}{\overline{\interr}}
+\DeclareMathOperator{\herr}{\widehat{\err}}
 
 %\DeclareMathOperator{\Spl}{Spline}
 %\DeclareMathOperator{\SSpl}{SmSpline}
@@ -98,6 +107,10 @@
 %\DeclareMathOperator*{\RMSE}{RMSE}
 %\DeclareMathOperator*{\bias}{bias}
 %\DeclareMathOperator*{\var}{var}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\INT}{INT}
+\DeclareMathOperator{\APP}{APP}
+\DeclareMathOperator{\OPT}{MIN}
 
 \newcommand{\bone}{\boldsymbol{1}}
 \newcommand{\bzero}{\boldsymbol{0}}
@@ -138,13 +151,6 @@
 \newcommand{\mi}{\textup{i}}
 \def\d{\textup{d}}
 \def\dif{\textup{d}}
-%\def\d{{\rm d}}
-
-%\def\eavg{{\rm error^{avg}}}
-%\def\ewc{{\rm error^{wor}}}
-%\def\ewcavg{{\rm error^{\left\{\substack{\rm wor \\ \rm avg}\right\}}}}
-%\def\eran{{\rm error^{ran}}}
-%\newcommand{\cl}{{\mathfrak{L}}}
 \newcommand{\cc}{\mathcal{C}}
 \newcommand{\cb}{\mathcal{B}}
 \newcommand{\cl}{L}
@@ -154,6 +160,7 @@
 \newcommand{\calfd}{{\calf_d}}
 \newcommand{\calh}{{\mathcal{H}}}
 \newcommand{\tcalh}{{\widetilde{\calh}}}
+\newcommand{\calI}{{\mathcal{I}}}
 \newcommand{\calhk}{\calh_d(K)}
 \newcommand{\calg}{{\mathcal{G}}}
 \newcommand{\calgd}{{\calg_d}}
@@ -184,7 +191,7 @@
 
 \newcommand{\des}{\{\bx_i\}}
 \newcommand{\desinf}{\{\bx_i\}_{i=1}^{\infty}}
-\newcommand{\desn}{\{\bx_i\}_{i=1}^N}
+\newcommand{\desn}{\{\bx_i\}_{i=1}^n}
 \newcommand{\wts}{\{g_i\}_{i=1}^N}
 \newcommand{\wtsn}{\{g_i\}_{i=1}^N}
 \newcommand{\datan}{\{y_i\}_{i=1}^N}
@@ -204,8 +211,12 @@
 
 \newcommand\starred[1]{\accentset{\star}{#1}}
 
+
+\definecolor{MATLABOrange}{rgb}{0.85,  0.325, 0.098}
+
 \newtheorem{resproblem}{Research Problem}
 \newtheorem{research}{Research Objectives}
+
 
 \newcommand{\refproba}{\hyperref[SectHSSVD]{Research Project~1}\xspace}
 \newcommand{\refprobaa}{\hyperref[AnalyticEigensubsec]{Research Project~1.1}\xspace}
@@ -230,183 +241,548 @@
 
 %\setcounter{page}{1}
 
+\setlist[description]{font=\normalfont\itshape}
+
+
 
 \begin{document}
 %\setlength{\leftmargini}{2.5ex}
 
 \centerline{\Large \bf Project Description}
-\vspace{-1ex}
+\vspace{-2ex}
+
+\setcounter{tocdepth}{1}
+\tableofcontents
+
+\vspace{-6ex}
+
 \section{Scientific Context and Timeliness of the Proposed Research}
-Computer simulation (or computer experimentation) has emerged as a third pillar of science \citep{PITAC05,OdenGhattas14}, complementing theory and experiment. Sometimes computer experimentation is the only way to understand a physical process, and sometimes it is just considerably cheaper, safer, ethically more responsible or environmentally friendlier than performing an actual physical experiment.  Computer simulation arises naturally in situations where one has a complex mathematical model (e.g., specified in terms of a system of partial differential equations (PDEs) and/or involving randomness) and one can use a computational approach to produce an output (or response) based on a given set of initial conditions and/or model parameters. A few examples of where computer simulations are employed are weather and climate modeling \citep{Lynch08}, drug design \citep{Baron12}, financial risk management \citep{Gla03}, and the design of nuclear reactors \citep[Sect.\ 2.4]{Smi14a}.
+Traditional error analysis for numerical algorithms \emph{does not} support the 
+stopping criteria employed by common adaptive numerical algorithms.  We will develop 
+rigorous data-driven error bounds that will underpin new adaptive 
+numerical algorithms for integration, function approximation, and optimization.  These 
+algorithms will allow the user to expend 
+the required computational effort to meet user-specified error criteria without having to 
+know the norm of the input function.  
+These adaptive algorithms will be 
+implemented 
+in the freely available GAIL software library.  They will be tested on various applications 
+problems to ensure that theory matches practice.
 
-Our research focuses on aspects of computer simulation that involve numerical function approximation or integration.  One application arises when the cost in computation time and/or high-performance computing hardware to produce \emph{a single output} is quite high.  This cost may be compounded by the desire to perform uncertainty quantification or sensitivity analysis. Substantial cost savings can often be realized by constructing inexpensive \emph{surrogate models} from the outputs of these complex computer simulations \citep{FangEtAl06,ForEtal09,SantnerWilliamsNotz03}.  This is a function approximation problem.
+\subsection{An Illustrative Example: Integration by the Trapezoidal Rule}  We introduce some 
+of the concepts arising in our proposed research via the problem of univariate integration.  Calculus 
+students are 
+taught to approximate the definite integral by the trapezoidal rule 
+\cite[Sect.\ 7.2, (7.15)]{BraPet11a}:
+\begin{gather}
+\label{traprule}
+\int_0^1 f(x) \, \dif x \approx T_n(f):= \frac1{2n} \left[f(0) + 2f(1/n) + \cdots + 2f(1-1/n) + f(1) \right ], \\
+\label{traperrbd}
+\err_n(f) := \abs{\int_0^1 f(x) \, \dif x - T_n(f)}  \le \frac{\Var(f')}{8 n^2} =: \oerr_n(f),
+\end{gather}
+where the total variation of the first derivative is defined as 
+\begin{equation*}
+\Var(f') : = \max \left \{\widehat{V}(f',\{t_i\}_{i=0}^n) := \sum_{i=2}^{n-1}  \abs{f'(t_i) - f'(t_{i-1})} \, \Big 
+\vert \, 
+\forall \text{ partitions }  \{t_i\}_{i=0}^n \text{ of } [0,1], \ \forall n \in \naturals \right \}.
+\end{equation*} 
+A partition $\{t_i\}_{i=0}^n$ of an interval is an ordered subset of that interval including both 
+endpoints.
+The practitioner wants to know how large $n$ 
+must be to ensure that $\err_n(f)  \le \varepsilon$, for a prescribed 
+absolute error tolerance $\varepsilon$.  Ensuring that $\oerr_n(f) \le \varepsilon$ is sufficient, but 
+this requires an upper bound on $\Var(f')$, which is normally unavailable  unless $f$ has a simple 
+form.
 
-The function approximation methods that we focus on, namely kernel methods, also arise in the numerical solution of PDEs \citep{ChenEtAl14,FornbergFlyer15,SarraKansa09}.  This is another application of interest to us.
+Numerical analysis texts  \cite[p.\ 223--224]{BurFai10}, \cite[p.\ 233]{CheKin12a}, 
+and  \cite[p.\ 270]{Sau12a} propose estimating the absolute error of $T_n(f)$ by 
+\begin{equation} \label{tradtraperrest}
+ \err_n(f) \approx  \abs{\frac{T_n(f) - T_{n/2}(f)}{3}} =: \herr_n(f).
+\end{equation}
+Although this $\herr_n(f)$ is valid in some cases, it is flawed.  This error estimate fails for 
+spiky integrands whose 
+spikes fall  between the nodes as in Figure \ref{quadfail}(a).  Worse, this $\herr_n(f)$ can fail 
+for 
+integrands that are not spiky if $T_n(f)$ is coincidentally (nearly) 
+the same as  $T_{n/2}(f)$ (see Figure \ref{quadfail}(b)).  Over 30 years ago, James 
+Lyness \cite[p.\ 69]{Lyn83} pointed out the flaws of nearly all adaptive quadratures:
+\begin{quote}
+	While prepared to take the risk of being misled by chance alignment of zeros in the integrand 
+	function, or by narrow peaks which are ``missed,'' the user may wish to be reassured that for 
+	``reasonable'' integrand functions which do not have these characteristics all will be well. It is the 
+	purpose of the rest of this section to demonstrate by example that he cannot be reassured on this 
+	point. In fact the routine is likely to be unreliable in a significant proportion of the problems it faces 
+	(say $1$ to $5\%$) and there is no way of predicting in a straightforward way in which of any set 
+	of apparently reasonable problems this will happen.
+\end{quote}
+Figure \ref{quadfail}(b) depicts a reasonable integrand for which $\herr_n(f)$ in 
+\eqref{tradtraperrest} fails.  Figure 
+\ref{quadfail}(c) depicts a reasonable integrand for which the error estimate, $\herr_n(f)$, 
+used 
+by  
+MATLAB's adaptive quadrature 
+\texttt{integral} \cite{MAT9.3} fails.  
 
-A third application is where one wishes to understand the expected behavior of a physical, geophysical, or financial system driven by many random variables or even several continuous time stochastic processes.  This is a problem of multivariate (or even infinite-dimensional) integration.
+\begin{figure}[h]
+	\begin{tabular}{>{\centering}m{0.31\textwidth}@{\quad}>{\centering}m{0.31\textwidth}@{\quad}>{\centering}m{0.3\textwidth}}
+		\includegraphics[width=0.3\textwidth]{ProgramsImages/SpikyFoolTrapezoidalcolor.eps} &
+		\includegraphics[width=0.3\textwidth]{ProgramsImages/FlukyFoolTrapezoidalcolor.eps} &
+		\includegraphics[width=0.3\textwidth]{ProgramsImages/FlukyFoolIntegralcolor.eps} 
+		\tabularnewline
+		(a) $\err_{100}(f) = 1 $ &
+		(b) $\err_{100}(f) =  1.4\text{E}{-4}$ &
+		(c) $\err_{150}(f) =  2.8\text{E}{-5}$
+		\end{tabular}
+	\caption{Integrands for which $\herr_n(f) = 0$ but 
+	$\err_n(f) \ne 0$. \label{quadfail}}
+\end{figure}
 
-We propose to construct and analyze function approximation and integration algorithms with the following properties:
+Despite Lyness's gloomy portrayal of adaptive quadratures, the PI and his collaborators have 
+developed an adaptive trapezoidal rule that \emph{succeeds for all reasonable integrands}, although 
+it 
+may fail for spiky integrands \cite{HicEtal14a,HicRazYun15a}. The key is a 
+data-based upper bound on $\Var(f')$.  
+
+Here we outline the key arguments from \cite{HicRazYun15a}.  Let 
+$\size(\{t_i\}_{i=0}^n) : = \max_{1 \le i \le n} t_i - t_{i-1}$ denote the partition width.  By 
+definition, $\Var(f')$ is bounded below by $\widehat{V}(f',\{t_i\}_{i=0}^n)$ for any partition. 
+Reasonable integrands are defined as those functions for which an inflated lower bound on  
+$\Var(f')$ provides an \emph{upper bound} on $\Var(f')$:
+\begin{multline} \label{conedef}
+\cc := \Bigl \{ f \in C^1[0,1]: \Var(f') \le \fC(\size(\{t_i\}_{i=0}^n)) \hV(f',\{t_i\}_{i=0}^n) \text{ for all  
+of }   n \in \naturals \\
+ \text{and partitions } \{t_i\}_{i=0}^n \text{ with } 
+\size(\{t_i\}_{i=0}^n) < \hcut \Bigr \}, \qquad  \fC(h) = \frac{\fC_0 \hcut}{\hcut - h}, \quad \fC_0 
+> 1, \ 
+\ 0 < \hcut < 1.
+\end{multline}
+This set of reasonable integrands, $\cc$, is a \emph{cone} since $f \in \cc \implies cf \in \cc$ 
+for 
+any 
+constant $c$.  The 
+parameters $\hcut$ and $\fC_0$ determine how inclusive this 
+set of reasonable functions is.  It is shown in \cite{HicRazYun15a} that $\Var(f')$ can rigorously be 
+bounded above by an 
+inflated variation of the derivative of the linear spline, which depends only on function values, not on 
+derivative values:
+\begin{equation*} %\label{tVdef}
+\tV_n(f) 
+% & : = \sum_{i=1}^{n-1} \abs{ \frac{f((i+1)/n)-f(i/n)}{1/n} - \frac{f(i/n)-f((i-1)/n)}{1/n}}  \\& 
+:= n\sum_{i=1}^{n-1} \abs{f((i+1)/n)-2f(i/n)+f((i-1)/n)}, 
+\quad \Var(f') \le \fC(2/n) \tV_n(f),  \ \ 
+\forall 
+f \in \fC,  \ n > 2 /\hcut.
+\end{equation*}
+This provides a data-driven upper bound on the error  of the trapezoidal rule, namely,
+\begin{equation} \label{guartraperrest}
+\err_n(f) \le \oerr_n(f) \le \herr_n(f) := \frac{\fC(2/n) \tV_n(f)}{8n^2} \qquad 
+\forall 
+f \in \fC,  \ n > 2 \hcut.
+\end{equation}
+An adaptive quadrature rule is constructed by increasing $n$ until $\herr_n(f)$ does 
+not exceed the error tolerance, $\varepsilon$.
+
+\begin{algorithm}
+	\caption{Adaptive Trapezoidal Rule \label{Trapalg}} 
+	\begin{algorithmic}[1]
+		\REQUIRE a black-box function, $f$; an absolute error tolerance,
+		$\varepsilon>0$; the maximum partition width, $\hcut$; the constant $\fC_0 > 1$;  the 
+		maximum number of trapezoids, $n_{\max}$
+
+\ENSURE $\abs{\int_0^1 f(x) \dif x - T_n(f)} \le \varepsilon$, provided $f \in \cc$
+
+\STATE $n \leftarrow \lfloor 1 /\hcut \rfloor + 1$
+
+\REPEAT
+
+\STATE $n \leftarrow 2n$
+
+\STATE Compute $\herr_n(f)$ according to \eqref{guartraperrest}
+
+\UNTIL  $\herr_n(f) \le \varepsilon$ or $n > n_{\max}$
+
+\STATE Compute $T_n(f)$ according to \eqref{traprule}.
+		
+\end{algorithmic}
+	\end{algorithm}
+
+
+\subsection{Key Ideas Illustrated by the Adaptive Trapezoidal Rule Algorithm 
+\ref{Trapalg}} 
+\label{subsect:trap}
+
 \begin{description}[leftmargin=2.5ex]
-\item[Stability] The computations do not suffer from catastrophic round-off error as some otherwise excellent algorithms do.
+	\item[Bound the error by bounding the semi-norm of $f$] Algorithm \ref{Trapalg} succeeds 
+	by 
+	\emph{bounding} 
+	$\Var(f')$---a key term in 
+	error 
+	bound \eqref{traperrbd}---for reasonable functions.  Typical  adaptive quadrature rules remain 
+	flawed because they assume that the difference between two quadrature rules is indicative of the 
+	error of one of them as in \eqref{tradtraperrest}.  
+	
+	\item[Identify a cone of reasonable functions] Our set of reasonable functions is a 
+	\emph{cone} 
+	defined precisely in \eqref{conedef}.  The widest spike must be wider than the minimum 
+	width, $\hcut$.  
+	The bound of $\Var(f')$ in terms of an inflated $ \hV(f',\{t_i\}_{i=0}^n)$ excludes large
+	changes in $f'$ over small intervals.
+	
+	\item[The cone here is non-convex] A convex combination of two reasonable 
+	functions, $f_1$ and 
+	$f_2$, may produce 
+	a spiky function as illustrated below (the narrow width, not the height makes it a spike):
+	
+	\centerline{\includegraphics[width = 0.35\textwidth]{ProgramsImages/broadpk.png}
+	\includegraphics[width = 0.35\textwidth]{ProgramsImages/choppedpk.png}
+\includegraphics[width = 0.35\textwidth]{ProgramsImages/narrowpk.png}}
 
-\item[Adaptivity] The algorithms adjust their parameters based on the data they observe---rather than a priori knowledge---to meet the specified error tolerance, and they do so with theoretical guarantees.  This frees the user from having to guess how much computational effort to expend.
+\vspace{-4ex}
+  \noindent A non-convex cone of input functions, $\cc$, is key to an adaptive algorithm 
+  that outperforms non-adaptive algorithms.  For convex sets of input functions---such as 
+  balls---adaptive algorithms have no 
+  advantage under rather 
+  general conditions  \cite[Chap.\ 4, Corollary 5.2.1]{TraWasWoz88}.
+	
 
-\item[Efficiency] The computational cost of the algorithms are asymptotically optimal---compared to the best possible algorithms---as the error tolerance becomes tighter.
+	\item[Bound the computational cost of the algorithm] The number of nodes required by 
+	Algorithm \ref{Trapalg} to obtain an 
+	approximation 
+	within an error tolerance 
+	of $\varepsilon$ for $f \in \cc$ is $\Order (\Var(f')\varepsilon^{-1/2})$ \cite{HicRazYun15a}.  
+	(Since $\Var(f')$ is unbounded for $f \in \cc$, we 
+	include it in the expression for the computational cost.)  The computational cost for Algorithm 
+	\ref{Trapalg} is asymptotically the same as that for a non-adaptive trapezoidal rule when 
+	$\Var(f')$ has a known 
+	upper bound.  For 
+	Algorithm \ref{Trapalg} an upper bound on $\Var(f')$ is \emph{not required}.
+	
+	\item[Show that the adaptive algorithm is optimal] The \emph{computational complexity} of this 
+	integration problem is defined as the 
+	computational cost of the best 
+	possible 
+	algorithm to to obtain an approximation within an error tolerance 
+	of $\varepsilon$ for $f \in \cc$.  It is also $\Order (\Var(f')\varepsilon^{-1/2})$ 
+	\cite{HicRazYun15a}.  This 
+	is 
+	established by constructing fooling functions that look like zero to the algorithm, but whose 
+	integral is nonzero. Thus, our algorithm is asymptotically optimal.
+	
+	\item[The definition of adaptive algorithm includes parameters] MATLAB's 
+	\texttt{integral} \cite{MAT9.3}
+	assumes an initial number of nodes and a maximum sample size.  Chebfun 
+	\cite{TrefEtal17a}, a 
+	numerical 
+	library that adaptively integrates functions via Chebyshev polynomial approximations 
+	assumes 
+	default values for these parameters as well as others.
+	These parameters are set to be reasonable for most situations, but may be modified if 
+	necessary.  The parameters  $\hcut = 0.02, \fC_0 = 
+	1.5$, and 
+	$n_{\max} = 10^7$ are meant to remain the same from problem to problem, but may be 
+	modified 
+	to 
+	enhance speed or increase robustness.
+	
+	\item[The adaptive algorithm is available]  Algorithm 1 and related adaptive algorithms 
+	developed 
+	by the PI and his collaborators have been published in the Guaranteed Automatic 
+	Integration 
+	Library (GAIL) \cite{ChoEtal17b}.  We propose to further develop this library (Section 
+	\ref{}).
+	
+	\item[Error bound exists even if  time is the limiting factor]  Specifying the number of 
+nodes rather than the error tolerance is accomplished by setting $n_{\max}$ to be this
+ number and $\varepsilon = 0$.  The error bound, $\herr_n(f)$, is not needed to 
+stop the algorithm but is available to inform the user how large the error might be.
+
+	\item[Adaptivity here is only for the number of nodes] While the  quadrature algorithm 
+	described 
+	above is 
+	adaptive in determining the $n$ (gloabal adaptivity), it is not adaptive in determining the 
+	placement of the nodes (local adaptivity).  
+	However, Section 
+	\ref{previousmeritsubsec} below describes work in that direction for function 
+	approximation and optimization.
+	
+	\item[Optimality is only for integrands with limited smoothness] This adaptive quadrature rule is 
+	optimal for the cone of integrands, $\cc$, however, it is 
+	sub-optimal for smoother integrands.  See Section \ref{?} for proposed research in this direction.
+	
 \end{description}
 
-\section{Overview of Proposed Research}
-Much of our proposed research revolves around kernel methods for function approximation \citep{Fas07a,SchWen06a,Wen05a}. These methods find their application in the context of scattered data fitting and surrogate modeling \cite{ForEtal09,Wen05a}, classification and regression approaches in machine learning \citep{HasTibFrie01}, and as the starting point for various approaches to the solution of PDEs, such as, pseudospectral collocation methods, partition of unity methods, or RBF-based finite difference methods \citep{Fas07a,FornbergFlyer15}.
+Our proposed research addresses a class of problems beyond univariate integration.  The next two 
+subsections provide the notation for these problems and outline our research goals.
 
-In the context of surrogate modeling, we are presented with a (costly) computer simulation which generates an output/response, $y=f(\bx)$, given any input $\bx \in \Omega \subset\reals^d$.  The goal is to construct a surrogate, $\tf$, based on the data $(\bx_1, y_1), \ldots, (\bx_N,y_N)$.
-%An approach based on kernel methods takes the form
-A kernel-based surrogate takes the form
-\begin{subequations} \label{rbfapprox}
-\begin{equation} \label{rbfform}
-\tf(\bx) := \sum_{j=1}^N K(\bx,\bx_j) c_j = \bk(\bx)^T \bc, \ \ \bc:=(c_1, \ldots, c_N)^T, \ \ \bk(\bx) := (K(\bx,\bx_1), \ldots, K(\bx,\bx_N))^T,
+
+\subsection{Traditional Error Analysis} Let $\calf$ be a Banach space of input functions 
+defined on the domain $\cx$, let
+$\calg$ be a Banach space of possible 
+solutions, and let $S:\calf \to \calg$ be a solution operator.  Ignoring for now the precise definitions 
+of $\calf$ and $\calg$, some examples of solution 
+operators for integration, function approximation (recovery), and optimization are
+\begin{equation} \label{probs}
+S = \INT: f \mapsto \int_{\Omega} f(\bx) \, \dif \bx, \qquad S = \APP:f \mapsto f, \qquad S = 
+\OPT :f \mapsto 
+\min_{\bx \in \Omega} f(\bx).
+% \\S: f \mapsto u, \text{ where } u'' + u = f(x), \quad u(0) = u(1) = 0.
 \end{equation}
-where $K:\Omega \times \Omega \to \reals$ is a known symmetric, positive definite kernel. One example is the Gaussian (or squared exponential) kernel:
-\begin{equation}  \label{gausskernel}
-K(\bx,\bt) = \exp\bigl(-\gamma_1^2 (x_1-t_1)^2 - \cdots - \gamma_d^2 (x_d-t_d)^2 \bigr), \quad \bx := (x_1,\ldots,x_d),\ \gamma_1,\ldots,\gamma_d >0,
+Let $\{A_n: 
+\calf \to \calg\}_{n \in \calI}$ be a sequence of algorithms.  Each $A_n$  samples the 
+input function, 
+$f$, at $n$ nodes
+(data sites) $\desn \subset \cx$, and produces an approximation to $S(f)$ based 
+on $\{(\bx_i,f(\bx_i))\}_{i=1}^n$.
+Here 
+$\calI$ is an index set of positive integers. 
+
+The error bounds  for $A_n$ typically take the  form
+\begin{gather} \label{typicalerr}
+\err_n(f): = \norm[\calg]{S(f) - A_n(f)} \le \norm{A_n} \norm[\calf]{f} =: \oerr_n(f) \qquad \forall f \in 
+\calf, \ n \in 
+\calI, 
+\\ \text{where }\norm{A_n}  : = \sup_{0 \ne f \in \calf} \frac{\norm[\calg]{S(f) - A_n(f)}} 
+{\norm[\calf]{f}}.
+\end{gather} 
+In some cases, such as  \eqref{traperrbd}, $\norm[\calf]{f}$ is a 
+semi-norm rather than a norm.  The term $\norm{A_n}$
+represents the worst case error for functions in the unit ball in $\calf$ and is a quality measure for 
+the algorithm, including the
+choice of nodes.  In some cases 
+$\norm{A_n}$ has an explicit expression ($1/(8n^2)$ in \eqref{traperrbd}), whereas in other 
+cases one 
+can only derive an upper bound on $\norm{A_n}$ or the convergence rate of 
+$\norm{A_n}$. 
+Error bounds of the form  \eqref{typicalerr} are typically 
+illustrated by plotting $\norm[\calg]{S(f) - A_n(f)}$ versus $n$ for some example $f$ and showing 
+that the 
+convergence rate has the same order as $\norm{A_n}$.
+
+\subsection{Adaptive Algorithms} A practical problem is choosing  $n$ to satisfy an 
+error criterion, e.g.,
+\begin{equation} \label{errorcrit}
+\norm[\calg]{S(f) - A_n(f)} \le \varepsilon \quad \text{where the tolerance } \varepsilon 
+\text{ is 
+specified by the user}.
 \end{equation}
-but there are also other good choices for the kernel.  In the most-straightforward variant of kernel methods, the unknown $\bc$ in \eqref{rbfform} is determined by imposing interpolation, namely,
-\begin{equation} \label{rbfcoef}
-\bc=\mK^{-1} \by, \qquad \mK:=\bigl(K(\bx_i,\bx_j)\bigr)_{i,j=1}^N, \quad \by:=(f(\bx_1), \ldots, f(x_N)).
+Theoretically, the best choice is $n = \min \{ n' \in \calI : \norm{A_n} \le \varepsilon / 
+\norm[\calf]{f}\}$.  However, even if $\norm{A_n}$ is known explicitly, $\norm[\calf]{f}$ is 
+typically 
+unknown and cannot be 
+bounded easily.  Thus, the error bound $\oerr_n(f)$ in \eqref{typicalerr} does not directly lead to
+a  data-based
+criterion for adaptively choosing $n$.  
+
+Adaptive algorithms rely on error bounds, $\herr_n(f)$, computed from function data, 
+$\{(\bx_i,f(\bx_i))\}_{i=1}^n$, and not a priori knowledge of the (semi-)norm of the function.  Those 
+commonly used in practice are inadequate because there is no theoretical justification that 
+$\oerr_n(f)  \le \herr_n(f)$.  As mentioned earlier MATLAB's \texttt{integral} bases its $\herr_n(f)$ on 
+the comparison of two Gaussian quadratures.  Chebfun determines the number of polynomials 
+required to approximate a function approximation of functions by Chebyshev polynomials by 
+determining when the coefficients of the higher degree polynomials have reached round-off 
+error.
+
+There is a family of adaptive integrals with a theoretical foundation based on interval 
+arithmetic 
+described in \cite{MoKeCl09} and \cite{Rum10a} and implemented in INTLAB \cite{Rum99a}.  
+This 
+approach requires the function subroutines to take interval arguments and return interval 
+outputs.  
+We are not following this approach because existing black-box, user-defined subroutines 
+normally 
+do not meet these requirements, and for multidimensional problems, which are of particular 
+interest, 
+interval arithmetic may be quite slow.
+
+For Algorithm \ref{Trapalg}  of Section \ref{subsect:trap}, $\norm[\calf]{f}$ is bounded in 
+terms of function data for reasonable functions in a cone, $\cc \subset \calf$. This allows us 
+to 
+construct an adaptive quadrature rule that has a theoretical foundation and that is 
+asymptotically the best possible algorithm for 
+approximating the solution to within the given error tolerance.  
+
+
+\subsection{What Comes Next}
+Our numerical algorithm for computing $\cos(x)$ to the desired accuracy---typically machine 
+precision---does not require the user to determine how many terms in the polynomial 
+approximation are required.  The computation is automatic.  Furthermore, there is theory 
+that justifies this algorithm.  
+
+We believe that the same should be possible for somewhat more complex problems, such as 
+those in \eqref{probs}.
+Our recent NSF-Funded research---summarized in the next section---has developed 
+some such adaptive numerical algorithms based on the ideas illustrated in Section 
+\ref{subsect:trap}.  These adaptive algorithms that have theoretical basis in that they are 
+proven to work for input functions in clearly defined cones, $\cc$; the stopping criteria are 
+not heuristics. These algorithms have been implemented in GAIL \cite{ChoEtal17b}, and their 
+effectiveness has been demonstrated on various practical problems.  The research proposed 
+in Section \ref{secProposed} aims to significantly enlarge the family of adaptive numerical 
+algorithms that have both a theoretical basis and practical application.
+
+\section{Results of Previous NSF-Funded Research,
+NSF-DMS-1522687\except{toc}{, \emph{Stable, Efficient, Adaptive Algorithms for 
+Approximation and 
+Integration}, 
+\$270,000, 2015--2018}} \label{SectPrevious}
+
+G. E. Fasshauer (GEF, co-PI) and F. J. Hickernell (PI) have led this project.  In the summer of 
+2016, Fasshauer left Illinois Tech and has participated since then as a sub-contractor.  
+Sou-Cheng Choi (SCC) has contributed as a senior personnel.  Other major contributors 
+have been the PI's research students Yuhan Ding (YD, PhD 2015), Lan Jiang (LJ, PhD 2016), 
+Llu\'is Antoni Jim\'enez Rugama, Da Li (DL, MS 2016), Jagadees Rathinavel (JR, PhD student)
+Xin Tong (XT, MS 2014, PhD student, University of Illinois at Chicago), Kan Zhang (KZ, PhD 
+student), Xuan Zhou (XZ, PhD 2015)
+
+
+\subsection{Intellectual Merit from Previous NSF Funding}
+\label{previousmeritsubsec}
+
+\subsubsection{Local Adaption for Univariate Problems} The PI, SC, YD, and XT developed 
+locally adaptive 
+algorithms for univariate function 
+approximation and 
+global optimization \cite{ChoEtal17a}, i.e., cases $\APP$ and $\OPT$ in 
+\eqref{probs} for $\Omega = [a,b]$.  
+The error of the \emph{linear spline}, $A_n$, using the 
+nodes $a = x_0 < x_1 < \cdots < x_n = b$,  in approximating a function is 
+\begin{equation} \label{linsplineerror}
+\norm[{\infty,[x_{i-1},x_i]}]{f - 
+	A_n(f)} \le \frac{(x_i-x_{i-1})^2\norm[\infty,{[x_{i-1},x_i]}]{f''}}{8} =: \oerr_n(f,[x_{i-1},x_i]),
 \end{equation}
-\end{subequations}
+where $\norm[{\infty,[\alpha,\beta]}]{\cdot}$ denotes the sup-norm over the interval 
+$[\alpha,\beta]$.  The cone of reasonable functions, $\cc$, consists essentially of those 
+functions for 
+which the local supremum of $f''$ is bounded above by an inflated value of the local infimum 
+of $f''$ to the left or the right (see \cite{ChoEtal17a} for details):
+\[
+\cc: = \left \{ f \in W^{2,\infty} : \norm[{\infty,[\alpha,\beta]}]{f''} \le \max\left(\fC(h_{-}) 
+\norm[-\infty,{[\beta-h_-,\alpha]}]{f''},\fC(h_{+})
+\norm[-\infty,{[\beta, \alpha+h_+]}]{f''}\right) \  \forall h_{\pm} \le \hcut \right\},
+\]
+where $\fC(\cdot)$ is the inflation factor in \eqref{conedef}, and $\norm[-\infty,{[\alpha, 
+\beta]}]{f''} = \inf_{\alpha \le x \le \beta} \abs{f''(x)}$.  Because one looks at the infimum of the 
+second derivative on both sides, 
+a reasonable function may have inflection points, but two inflection points may not be too 
+close together.  
 
-This numerical algorithm goes by different names, such as, radial basis function approximation \citep{Buh03a}, scattered data approximation \citep{Wen05a}, meshfree approximation \citep{Fas07a}, and kriging \citep{Ste99}. It is part of the JMP \citep{JMP11}, \Matlab \citep{MAT8.4} and R \citep{R3.03_2013} software packages.  It is flexible because the data sites need not follow a regular pattern. The basis vector $\bk(\cdot)$ is data-dependent, which is  much preferable to a data-independent basis vector.  The latter always leads to an ill-posed problem for some choice of data sites in dimensions greater than one according to the Mairhuber--Curtis theorem \citep{Fas07a}.
+For 
+reasonable functions, there exists a data-based error bound 
+$\herr_n(f,[x_{i-1},x_i]) \ge \oerr_n(f,[x_{i-1},x_i])$ defined in terms of second order 
+difference 
+quotients on the 
+left and right sides of $[x_{i-1},x_i]$.  Each interval $[x_{i-1},x_i]$ is refined until  
+$\herr_n(f,[x_{i-1},x_i]) \le \varepsilon$.  The resulting linear spline, $A_n(f)$, satisfies error 
+criterion \eqref{errorcrit} for the function approximation problem. Figure 
+\ref{localadaptfig} (left) displays an example of the function data required.  The function is 
+sampled sparsely where the second derivative is small.
 
-There is a deterministic optimality: $\tf$ is the best approximation to $f$ in the Hilbert space $\ch_K$ whose reproducing kernel is $K$ \citep{Fas07a,Wen05a}.  There is a stochastic optimality: $\tf$ is the best approximation to $f$ in the set of Gaussian stochastic processes whose covariance kernel is $K$ \citep{BerT-A04,Wah90}.  The procedure outlined above can be extended to include the exact reproduction of polynomials and also the situation where the $y_i$ are noisy observations of the $f(\bx_i)$ \citep{Wah90}.
+\begin{figure}
+	\centering
+	\vspace{-12ex}
+	\includegraphics[width = 0.48\textwidth]{ProgramsImages/sampling-funappxg.png}
+	\includegraphics[width = 0.48\textwidth]{ProgramsImages/sampling-funming.png}
+	
+	\vspace{-12ex}
+	\caption{The function data ({\color{MATLABOrange}$\bullet$}) for  locally adaptive 
+	function approximation  (left) and locally adaptive optimization (right) \label{localadaptfig}}
+\end{figure}
 
-One of the main accomplishments of \emph{NSF-DMS-1115392 Kernel Methods for Numerical Computation} (see Sect.~\ref{previousmeritsubsec}) was the development of the so-called \emph{Hilbert--Schmidt SVD} \citep{CavorettoEtAl14,FMcC12,McCF14,McCourtFas14}. The Hilbert--Schmidt SVD provides a framework for finding a new stable basis for often ill-conditioned kernel methods (Sect.\ \refproba), for optimizing kernel algorithms (Sect.\ \refprobc), and for solving a variety of applications (Sect.\ \refprobd).
 
-A second major accomplishment was the development of \emph{guaranteed, adaptive numerical integration algorithms} \citep{HicEtal14b,HicJim16a,HicEtal14a,JimHic16a} (see Sect.~\ref{previousmeritsubsec}).  We will extend the capability of these integration algorithms  (Sect.\ \refprobb) and apply similar ideas to construct adaptive kernel methods for function approximation (Sect.\ \refprobc).
+The computational cost of this locally adaptive approximation algorithm is 
+$\Order\left(\sqrt{\norm[1/2]{f''}/\varepsilon} \right)$ \cite{ChoEtal17a}, where 
+$\norm[1/2]{\cdot}$ is the $1/2$-quasinorm, which is weaker than the sup-norm.  This is  
+asymptotically the same cost as for the best possible algorithm for this problem. In contrast, 
+the globally adaptive function approximation algorithm in \cite{HicEtal14b} has a 
+computational cost of $\Order\left(\sqrt{\norm[\infty]{f''}/\varepsilon} \right)$.  For a spiky 
+function inside $\cc$, the local adaption algorithm may require significantly less effort 
+than a global adaption algorithm because $\norm[1/2]{f''}$ will be much smaller than 
+$\norm[\infty]{f''}$.
 
-Specifically, we propose the following four projects:
+Similar arguments to those above lead to a locally adaptive algorithm for the 
+optimization problem, $\OPT$ in \eqref{probs}.  In this case, those subintervals for which the 
+function is definitely greater than the minimum found so far need not be 
+refined further.  Figure 
+\ref{localadaptfig} (right) gives an example of the function data required.  The function is 
+sampled sparsely where the second derivative is small or the function is large.
 
-\begin{description}[leftmargin=2.5ex]
+\subsubsection{Global Adaption for Multidemsional Integration}
 
-\item[\refproba] Extend our research on the Hilbert--Schmidt SVD by identifying more kernels and their Mercer series for which the Hilbert--Schmidt SVD can be implemented.
-\begin{enumerate}
-\renewcommand{\labelenumi}{1.\arabic{enumi}.}
-\item Analytically compute eigenvalues and eigenfunctions associated with popular kernels.
-\item Numerically compute eigenvalues and eigenfunctions associated with popular kernels.
-\item Build new \emph{designer kernels}, $K$, by using a given orthogonal set of functions $\{\varphi_n\}_{n=1}^\infty$ and appropriately decaying scalars $\{\lambda_n\}_{n=1}^\infty$ to provide the Mercer series of $K$.
-\end{enumerate}
+e only 
+intervals that require refinement are those which might contain minimum
 
-\item[\refprobb] Extend our research on guaranteed, adaptive algorithms.
-\begin{enumerate}
-\renewcommand{\labelenumi}{2.\arabic{enumi}.}
-\item Develop adaptive (quasi-)Monte Carlo methods for multivariate integration that satisfy both absolute and relative error tolerances.
-\item Develop adaptive univariate integration and function approximation algorithms that are of higher order and locally adaptive.
-\end{enumerate}
+Project 1. 
+a) Fasshauer collaborated with Jalil Rashidinia and Manoochehr Khasi on an alternative 
+approach to implementing Hilbert-Schmidt eigenfunctions of the Gaussian kernel by using 
+Chebyshev polynomials instead of Hermite polynomials in the expansion used in our earlier 
+work. This enhances the numerical stability of the algorithm. This new eigenfunction 
+representation was also applied to the numerical solution of nonlinear unsteady 
+convection-diffusion-reaction equations.
 
-\item[\refprobc] Obtain guaranteed, adaptive algorithms for kernel methods.
-\begin{enumerate}
-\renewcommand{\labelenumi}{3.\arabic{enumi}.}
-\item Use cones to obtain guaranteed error bounds for function approximation with kernels.
-\item Use the Hilbert--Schmidt SVD for adaptive data-driven estimation of kernel parameters.
-\item Use the Hilbert--Schmidt SVD to obtain optimal adaptive data site locations.
-\end{enumerate}
+b) Fasshauer has been collaborating with Paul Martin to extend an earlier derivation for 
+eigenfunctions and eigenvalues of the $C^0$ Matern kernel on the half line from the 
+monograph Fasshauer and McCourt (2015) to the entire real line. Extensions to smoother 
+Matern kernels are currently being investigated. 
 
-\item[\refprobd] Apply our new results to various problems.
-\begin{enumerate}
-\renewcommand{\labelenumi}{4.\arabic{enumi}.}
-\item Solve PDEs via so-called RBF-(W)ENO (weighted essentially non-oscillatory) methods.
-\item Predict brain activity from MEG/EEG measurements.
-\item Create a surrogate model to predict the spread of Ebola in West Africa.
-%\item Use the eigenfunction expansion of kernels for low-rank approximations in machine learning.
-\end{enumerate}
-\end{description}
-The following four sections outline our plans for completing these projects.  PI Greg Fasshauer will be involved primarily in Research Projects 1, 3, and 4.  PI Fred Hickernell will be involved primarily in Research Projects 2 and 3.  Senior persons Sou-Cheng Choi and Michael McCourt will contribute to Research Projects 2, 3 and 1, 3, 4, respectively.
+Project 1. 
+a) A paper has been submitted that details the new Chebyshev polynomial-based 
+eigenfunction representation of the Gaussian kernel and uses this representation to solve 
+nonlinear unsteady convection-diffusion-reaction equations.
+
+b) So far, we have been able to extend earlier results for low-order Matern kernels from the 
+half-line to the entire real line. We are looking for ways to "lift" the techniques to accomplish 
+this to the case of higher-order Matern kernels before preparing a paper on the topic.
+
+
+To our knowledge, it is the first time that eigenfunctions and eigenvalues on the real line for 
+a kernel in the Matern family have been derived analytically. Thus far, such results were 
+available only on bounded intervals.   
+
+
+
+
+
+partially supported 
+\cite{ChoEtal17a,GilEtal16a,HicEtal17a,HicJim16a,JimHic16a,ZhoHic15a,ChoEtal17b,HicEtal18a}.
+
+
+
+\subsection{Broader Impacts from Previous NSF Funding}
+
+Project 1. 
+a) Fasshauer collaborated with Jalil Rashidinia and Manoochehr Khasi on an alternative 
+approach to implementing Hilbert-Schmidt eigenfunctions of the Gaussian kernel by using 
+Chebyshev polynomials instead of Hermite polynomials in the expansion used in our earlier 
+work. This enhances the numerical stability of the algorithm. This new eigenfunction 
+representation was also applied to the numerical solution of nonlinear unsteady 
+convection-diffusion-reaction equations.
+Project 1. 
+a) Fasshauer collaborated with Jalil Rashidinia and Manoochehr Khasi on an alternative 
+approach to implementing Hilbert-Schmidt eigenfunctions of the Gaussian kernel by using 
+Chebyshev polynomials instead of Hermite polynomials in the expansion used in our earlier 
+work. This enhances the numerical stability of the algorithm. This new eigenfunction 
+representation was also applied to the numerical solution of nonlinear unsteady 
+convection-diffusion-reaction equations.
+Project 1. 
+a) Fasshauer collaborated with Jalil Rashidinia and Manoochehr Khasi on an alternative 
+approach to implementing Hilbert-Schmidt eigenfunctions of the Gaussian kernel by using 
+Chebyshev polynomials instead of Hermite polynomials in the expansion used in our earlier 
+work. This enhances the numerical stability of the algorithm. This new eigenfunction 
+representation was also applied to the numerical solution of nonlinear unsteady 
+convection-diffusion-reaction equations.
+
+
+
+
+\section{Intelletual Merit of Proposed Research} \label{secProposed}
+
 
 \section*{Research Project 1. Extensions of the Hilbert--Schmidt SVD}\label{SectHSSVD}
 
-Every positive definite kernel $K$ has a Hilbert--Schmidt (or Mercer) series decomposition \citep{CourantHilbert53,RasWil06a}
-\begin{equation}\label{HSseries}
-K(\bx,\bt) = \sum_{n=1}^\infty \lambda_n \varphi_n(\bx) \varphi_n(\bt),
-\end{equation}
-where the $\lambda_n$ and $\varphi_n$ are the eigenvalues and eigenfunctions of the associated Hilbert--Schmidt integral operator $\cK : L_2(\Omega, \varrho) \to L_2(\Omega, \varrho)$, which depends on the probability density $\varrho$ and is defined by
-\begin{equation}\label{TK}
-(\cK f)(\bx) = \int_\Omega K(\bx, \bt)f(\bt)\, \varrho(\bt)\, \d \bt.
-\end{equation}
 
-The Hilbert--Schmidt SVD \citep{CavorettoEtAl14,FMcC12} of the kernel matrix $\mK$ from \eqref{rbfcoef} is the \emph{formal decomposition}
-\begin{subequations}\label{HSSVD}
-\begin{equation}
-\mK = \mPsi \mLambda_1 \mPhi_1^T,
-\end{equation}
-where all matrices are of size $N\times N$, but the matrix $\mPsi$ is formed as a product of semi-infinite and bi-infinite matrices, i.e.,
-\begin{equation}\label{PsiMatrix}
-\mPsi = \left(\mPhi_1\ \mPhi_2\right)\left(\begin{matrix}\mI_N\\\mLambda_2\mPhi_2^T\mPhi_1^{-T}\mLambda_1^{-1}\end{matrix}\right),
-\quad
-\left(\begin{matrix}\mLambda_1 & \\ & \mLambda_2\end{matrix}\right) = \text{diag}(\lambda_n)_{n=1}^\infty,\ \left(\mPhi_1\ \mPhi_2\right) = \mPhi = \left(\varphi_n(\bx_i)\right)_{i,n=1}^{N,\infty}.
-\end{equation}
-\end{subequations}
-For practical applications the matrices $\mLambda_2$ and $\mPhi_2$ will therefore have to be truncated appropriately \citep{CavorettoEtAl14,FMcC12}.
-We refer to the Hilbert--Schmidt SVD \eqref{HSSVD} as a ``formal decomposition''.  It is important to note that the matrices $\mPsi$, $\mLambda_1$, $\mLambda_2$, $\mPhi_1$ and $\mPhi_2$ are not found by manipulating $\mK$, but are formed directly from the eigenvalues and eigenfunctions of $\cK$. In fact, \emph{the ill-conditioned matrix $\mK$ never needs to be formed, nor is precise knowledge of the closed form of the kernel $K$ essential}. As long as the eigenfunctions and eigenvalues are known, the Hilbert--Schmidt SVD enables us to formulate stable and efficient algorithms for the associated kernel approximation problems \citep{CavorettoEtAl14}. These insights are the motivation for \refprobaa--\refprobac.
-
-From \eqref{PsiMatrix} we see that the Hilbert--Schmidt SVD provides a new and stable basis $\{\psi_1,\ldots,\psi_N\}$ collected in the vector
-\begin{equation}\label{StableBasis}
-\bpsi(\cdot)^T = \bphi(\cdot)^T\left(\begin{matrix}\mI_N\\\mLambda_2\mPhi_2^T\mPhi_1^{-T}\mLambda_1^{-1}\end{matrix}\right),
-\end{equation}
-where $\bphi(\cdot)^T$ is a vector of eigenfunctions, and $\bpsi(\bx_i)^T$ is the $i^{\text{th}}$ row of $\mPsi$. Now $\bpsi(\cdot)^T$ serves as an alternative to the standard basis collected in the vector $\bk(\cdot)^T = \bpsi(\cdot)^T\mLambda_1\mPhi_1^T$.  Also, $\bpsi(\cdot)^T$ is a desired data-dependent alternative to, say, the first $N$ eigenfunctions. If we apply the Hilbert--Schmidt SVD to the standard (or direct) interpolation approach \eqref{rbfapprox} then the result is a stable linear system of the form $\mPsi \bb = \by$, and the interpolant is evaluated as $\tf(\bx) = \sum_{j=1}^N \psi_j(\bx) b_j = \bpsi(\bx)^T \bb$.
-
-A typical comparison between interpolation errors based on the standard approach and the Hilbert--Schmidt approach for isotropic Gaussian kernel interpolation is shown in the left plot of Fig.~\ref{Fig_HSSVD}. The most accurate results are obtained for a positive value of $\gamma$, and they compare favorably to a polynomial interpolant corresponding to the ``flat'' $\gamma\to0$ limit. Moreover, in or near the ``flat'' limit regime the standard approach generates completely unreliable results (the dashed lines), i.e., the standard approach yields reliable answers only for relatively spiky kernels.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=.4\linewidth]{Fig_Error_ex17j}
-    \includegraphics[width=.4\linewidth]{Fig_MLE_ex17j}
-\caption{Interpolation errors (left) and maximum likelihood estimates of ``optimal'' $\gamma$ (right) for data sampled at $N$ Halton points from $f(\bx) = \sin\left(\tfrac{x_1+x_2+\ldots+x_5}{5}\right)$, $\bx=(x_1,x_2,\ldots,x_5) \in [-1,1]^5$. Solid lines denote Hilbert--Schmidt SVD, dashed lines standard basis approach.}\label{Fig_HSSVD}
-\end{figure}
-
-While Fig.~\ref{Fig_HSSVD} demonstrates that we are able to solve simple moderate-dimensional problems, the results of \cite{FasHicWoz12b, FasHicWoz12a} show that the use of anisotropic kernels is essential for maintaining good convergence rates in high dimensions. Therefore, in addition to the research projects we are about to describe, the implementation of the Hilbert--Schmidt SVD algorithm will benefit from an extension to the anisotropic case.
-
-\subsection*{Research Project 1.1. Analytical Computation of Eigensystems} \label{AnalyticEigensubsec}
-
-In addition to the Gaussian kernel \citep{FMcC12} and the iterated Brownian bridge kernels \citep{CavorettoEtAl14}, there are many other kernels for which it would be desirable to have stable and reliable algorithms. One family of special interest in the statistics community \citep{Ste99} is the Mat\'ern kernels defined on
-$\reals^d$, $K(\bx,\bt) = K_{(r-d)/2}\left(\gamma\|\bx-\bt\|\right) \left( \gamma \| \bx - \bt \|\right)^{(r-d)/2}$, $r > d$,
-where $K_{(r-d)/2}$ are modified Bessel functions of the second kind and $r$ is a smoothness parameter that should be chosen in a data-dependent way together with the shape parameter $\gamma$. For $r = d + 2k+1$, $k=0,1,\ldots$, the Mat\'ern kernels take on a simpler form and the Hilbert space $\ch_K$ is a classical Sobolev space \citep{FasshauerYe11,FasshauerYe13}. For example
-\begin{subequations}\label{Maternkernels}
-\begin{align}
-\text{$k = 0$, i.e., $r = d+1$:}\quad & K(\bx,\bt) = \me^{-\gamma \|\bx-\bt\|}, \label{C0Matern} \\
-\text{$k = 1$, i.e., $r = d+3$:}\quad & K(\bx,\bt) = (1+\gamma \|\bx-\bt\|)\me^{-\gamma \|\bx-\bt\|}, \label{C2Matern}
-\\ \text{$k = 2$, i.e., $r = d+5$:}\quad & K(\bx,\bt) = \left(1+\gamma \|\bx-\bt\|+\frac{1}{3}(\gamma \|\bx-\bt\|)^2\right)\me^{-\gamma \|\bx-\bt\|}.\label{C4Matern}
-\end{align}
-\end{subequations}
-%$\reals^d$, $K(\bx,\bt) = K_{\beta-d/2}\left(\gamma\|\bx-\bt\|\right) \left( \gamma \| \bx - \bt \|\right)^{\beta-d/2}$, $\beta > \frac d2$,
-%where $K_{\beta-d/2}$ are modified Bessel functions of the second kind and $\beta$ is a smoothness parameter that should be chosen in a data-dependent way together with the shape parameter $\gamma$. For $\beta = \frac{d + 2k+1}{2}$, $k=0,1,\ldots$, the Mat\'ern kernels take on a simpler form and the Hilbert space $\ch_K$ is equivalent to a classical Sobolev space \citep{FasshauerYe11,FasshauerYe13}. For example
-%\begin{subequations}\label{Maternkernels}
-%\begin{align}
-%\text{$k = 0$, i.e., $\beta = \frac{d+1}{2}$:}\quad & K(\bx,\bt) = \me^{-\gamma \|\bx-\bt\|}, \label{C0Matern} \\
-%\text{$k = 1$, i.e., $\beta = \frac{d+3}{2}$:}\quad & K(\bx,\bt) = (1+\gamma \|\bx-\bt\|)\me^{-\gamma \|\bx-\bt\|}, \label{C2Matern}
-%%\\ \text{$k = 2$, i.e., $\beta = \frac{d+5}{2}$:}\quad & K(\bx,\bt) = \left(1+\gamma \|\bx-\bt\|+\frac{1}{3}(\gamma \|\bx-\bt\|)^2\right)\me^{-\gamma \|\bx-\bt\|}.\label{C4Matern}
-%\end{align}
-%\end{subequations}
-The integral equation $2\int_0^\infty \me^{-\gamma|x-t|}\varphi(t)\me^{-2t} \dif t = \lambda \varphi(x)$ was solved by \citet{Juncosa45} in the context of random noise in radio receivers. This can be interpreted as the Hilbert--Schmidt integral eigenvalue problem for the $k=0$ Mat\'ern kernel \eqref{C0Matern} on $[0,\infty)$ with $\varrho(x) = 2\me^{-2|x|}$. We plan to generalize the work of \citet{Juncosa45} in two steps. First, we plan to obtain the eigenvalues and eigenfunctions of the $k=0$ Mat\'ern kernel on the entire real line. Next, we will tackle Mat\'ern kernels with higher smoothness on $\reals$ by solving the corresponding ODE boundary value problems of increasingly higher order. While a generalization of this approach to higher dimensions seems unlikely, it will be possible to consider product kernels as a new type of designer kernel (see Sect. \refprobac).
-
-\subsection*{Research Project 1.2. Numerical Computation of Eigensystems} \label{NumerEigensubsec}
-
-The Hilbert--Schmidt SVD depends on the availability of the eigenvalues and eigenfunctions of $\cK$. If the analytical approach in \refprobaa\ fails, then we can instead numerically generate approximate eigenvalues and eigenfunctions. This is especially useful if one wants to use ``traditional'' (RBF) kernels such as (inverse) multiquadrics, for which the analytical eigensystems are not known to us. The standard approach to approximating the eigenfunctions of the Hilbert--Schmidt operator $\cK$ uses a Nystr\"om method (see, e.g., \citep{Atkinson97,BachJordan03}). We propose the use of a more general collocation method.
-Assuming that an eigenfunction can be approximated as
-$\varphi(\bx) \approx \sum_{j=1}^{N_b} h_j(\bx) d_j$, where $\{h_1,h_2,\ldots,h_{N_b}\}$, is a basis of a finite-dimensional approximation space, one can use $N_c$ collocation points $\bx_1,\ldots,\bx_{N_c}$ to discretize the Hilbert--Schmidt integral eigenvalue problem resulting in a rectangular generalized eigenvalue problem with $N_c\times N_b$ matrices $\mA$ and $\mH$, i.e.,
-\begin{equation}\label{GeneralizedEVProblem}
-    \mA\bd = \lambda\mH\bd, \qquad \mA_{ij}=\int_\Omega K(\bx_i,\bt) h_j(\bt)\d\bt, \quad \mH_{ij}=h_j(\bx_i).
-\end{equation}
-Depending on the choice of basis and kernel, it may be possible to evaluate these integrals analytically or not. In the latter case we will use the quadrature rules of \refprobb. Since the solution of \eqref{GeneralizedEVProblem} in its full generality is not yet a standard numerical linear algebra problem---although some work exists \citep{DasNeumaier13}---we will also consider the simpler case when $N_c=N_b$,
-%i.e., the number of collocation points equals the number of basis functions,
-for which one of the REU students funded by our previous grant has obtained preliminary results. An important advantage of the collocation method over the simpler Nystr\"om method is that we can evaluate the approximate eigenfunctions at any point $\bx \in \Omega$ and therefore we can directly use those functions and corresponding eigenvalues just as we would use the analytical formulas from \refprobaa to fill the matrices involved in the Hilbert--Schmidt SVD. All the advantages of using kernels and the Hilbert--Schmidt SVD will still be available to us, such as optimality, data-dependence (as demanded for higher dimensions by the Mairhuber--Curtis theorem \citep{Fas07a}) and stability.
-
-\subsection*{Research Project 1.3. Designer Kernels}\label{SectDesignerKernels}
-In addition to the ``traditional'' approach in which we are given some kernel (such as, e.g., a Gaussian) whose eigensystem we can then use with the Hilbert--Schmidt SVD, it is also possible to turn the picture upside down and build a positive definite kernel via Mercer's theorem by combining an appropriate sequence of
-``eigenvalues'' $\{\lambda_n\}_{n=1}^\infty$ with a given set of orthogonal functions $\{\varphi_n\}_{n=1}^\infty$. Thus, the closed form of the kernel may or may not be known in this case. For example, one could start with Chebyshev polynomials on $[-1,1]$ and combine them with either a sequence of algebraically or geometrically decaying eigenvalues. This will result in Mercer kernels that provide either algebraic of spectral approximation rates and can be implemented stably and reliably within the Hilbert--Schmidt SVD framework. The kernels \eqref{PeriodicKernel} provide another example of a family of designer kernels, where the trigonometric eigenfunctions were chosen to satisfy periodic boundary conditions. Kernels with other boundary conditions, such as the iterated Brownian bridge kernels of \cite{CavorettoEtAl14}, which obey boundary conditions that generalize those of natural cubic splines, have been constructed using similar ideas.
 
 \section*{Research Project 2. Extensions of Guaranteed, Adaptive Algorithms}\label{SectGAIL}
 
-In our previous NSF-funded work (see Sect.\ \ref{previousmeritsubsec}) we derived a number of  adaptive algorithms for univariate and multivariate integration and for univariate function approximation.  These algorithms are \emph{guaranteed} to satisfy a user-specified error tolerance.  This sets them apart from existing adaptive algorithms, which have no such guarantees.
-
-For example, \Matlab's premier adaptive quadrature algorithm, \texttt{integral}, has no theoretical guarantee of success. Fig.\ \ref{MatIntegFailFig} displays two integrands for which \texttt{integral} fails to return the correct answer.  Sufficiently spiky integrands will always fool an algorithm, but we would like a theorem that tells us how spiky an integrand can be and have the algorithm still succeed.  The fluky integrand should not be difficult handle, but \texttt{integral} fails because of its flawed error estimation---common to all adaptive quadrature algorithms---as highlighted by James Lyness \cite{Lyn83} thirty years ago.
+doit Roshan
 
 \begin{figure}[htbp]
 \centering
@@ -540,81 +916,24 @@ As the next steps for this project we expect (i) to move to a head model that re
 
 \subsection*{Research Project 4.3. Using Kernels to Help Predict the Spread of Ebola} \label{ebolasubsec}
 Mike McCourt is working on a project titled ``Modeling the Ebola Epidemic with Discrete Time Filters'' at UC--Denver, where the DEXES II software (developed for the analysis, planning, and training for complex international humanitarian emergencies, peacekeeping missions, and non-traditional conflicts) is being modified and then used to predict the state of the Ebola epidemic in West Africa within a data assimilation framework. A significant component of that work involves formalizing the mathematics of general discrete time filters, specifically the assimilation of data (assumed to be Poisson distributed), and implementing such a Poisson filter efficiently in software. Key quantities of interest (QoI) include: the probability of any cases developing in Mali, the probability of a multimodal evolution within a region (after an initial peak is hit, can the disease regain momentum), or the total number of cases outside of presently infected regions.
-As an extension of that project, we plan to study the effect of various input parameters for the DEXES II model on the evolution of the Ebola crisis.  Such parameters may include: border permeability (the probability that someone can enter a country without screening), the development of quarantines within a region, and the availability of clean water and waste disposal facilities.  The QoI---computed at the end of a predictive session---may be written as QoI(permeability, quarantine, clean water) to denote its dependence on a variety of model parameters.  Studying the impact of these parameters on this QoI is a problem of surrogate modeling in potentially high dimensions.  Furthermore, as the number of dimensions we want to simultaneously consider increases, the experimental design for generating this surrogate model becomes increasingly relevant.  Thus, results from \refproba and \refprobcc should help with this Ebola study.
+As an extension of that project, we plan to study the effect of various input parameters for 
+the DEXES II model on the evolution of the Ebola crisis.  Such parameters may include: 
+border permeability (the probability that someone can enter a country without screening), 
+the development of quarantines within a region, and the availability of clean water and waste 
+disposal facilities.  The QoI---computed at the end of a predictive session---may be written 
+as QoI(permeability, quarantine, clean water) to denote its dependence on a variety of model 
+parameters.  Studying the impact of these parameters on this QoI is a problem of surrogate 
+modeling in potentially high dimensions.  Furthermore, as the number of dimensions we want 
+to simultaneously consider increases, the experimental design for generating this surrogate 
+model becomes increasingly relevant.  Thus, results from \refproba and \refprobcc should 
+help with this Ebola study.
 
-
-\section{Results of Previous NSF-Funded Research}\label{SectPrevious}
-
-Greg Fasshauer (GEF) and Fred Hickernell (FJH) were the PIs for \emph{NSF-DMS-1115392 Kernel Methods for Numerical Computation}, July 1, 2011 -- June 30, 2014, \$320,000.  Since Fall 2005, we have organized a weekly Meshfree Methods research seminar that draws regular participation from all of our local collaborators, including faculty members, visitors, and students.  Participants take turns posing interesting research problems, reporting work-in-progress, and presenting relevant work of others.  The atmosphere is informal; interruption and discussion are encouraged.  Occasionally we have speakers from outside applied mathematics and/or IIT. Regular participants for a month or more during the timeframe of this project include the following ($\fF$ = female,  $\fA$ = African-American, $\fL$ = Latina/Latino).
-
-\begin{description}[leftmargin=2.5ex]
-\item[IIT Faculty] GEF, FJH, Igor Cialenco (IC), John Erickson (JE, $\fA$), Lulu Kang (LK, $\fF$); Sou-Cheng Choi (SCC, $\fF$), Research Asst.\ Prof., IIT, National Opinion Research Center, U Chicago;
-\item[Visitors] Roberto Cavoretto (RC), U Torino;  Salvatore Ganci (SG), U Palermo; YungWook Jung, Gyeonggi College of Science and Technology; Junbin Li, Dalian U Technology; Yiuwei Liu (YiL), Lanzhou U; Michael McCourt (MM), UC--Denver; Jinming Wu, Zhejiang Gongshang U;
-\item[IIT Graduate Students] Aleks Borkovskiy (AB), Siyuan Deng (SD), Yuhan Ding (YD, $\fF$), Llu\'is Antoni Jim\'enez Rugama (LAJR), Lan Jiang (LJ, $\fF$), Yao Li (YaL), Yiou Li (YL, $\fF$), Jagadeeswaran Rathinavel, Tiago Silva (TS), Xin Tong (XT, $\fF$), Qi Ye (QY), Xiaodong Zhang (XiZ), Yizhi Zhang (YZ), Xuan Zhou (XZ);
-\item[IIT Undergraduate Students] Haocheng Bian (HB), Nick Clancy (NC), Martin Dillon (MD), Caleb Hamilton (CH), Joseph Kupiec, Barrett Leslie (BL), Timothy McCollam (TM), Martha Razo (MR, $\fL$, $\fF$);
-\item[Other Undergraduate Students] Casey Bylund (CB, $\fF$), U San Francisco; Matthew Gliebe (MG), Northwestern U; Palmer Lao (PL), Clarkson U; William Mayner (WM), Brown U;
-\item[High School Students] Sergey Papushin (SP), Sunny Yun (SY).
-\end{description}
-
-\subsection{Intellectual Merit from Previous NSF Funding}
-\label{previousmeritsubsec}
-
-With a collaborator we have investigated the convergence and tractability of meshfree methods, \eqref{rbfapprox}, using the Gaussian kernel with non-constant shape parameters, $\{\gamma_{\ell}\}_{\ell =1}^{\infty}$, \eqref{gausskernel}. Dimension-\emph{independent} convergence rates for function approximation were demonstrated, and they depend on the rate of decay of the $\gamma_{\ell}$ as $\ell \to \infty$, not on the smoothness of the kernel \citep{FasHicWoz12b, FasHicWoz12a}. These results were extended by XZ to a more general class of kernels that have a sequence of scale parameters $\{\alpha_{\ell}\}_{\ell=1}^{\infty}$ as well as shape parameters.  In this case the dimension-independent convergence rates depend on the rate of decay of the product $\alpha_{\ell} \gamma_{\ell}$ as $\ell \to \infty$ \citep{ZhoHic15a}.
-
-Together with QY and other collaborators, we have shown how the optimal solution of problems posed on reproducing kernel Hilbert spaces can be extended to Banach spaces \citep{FasHicYe13a,SonZhaHic12a}.
-
-Existing algorithms for multivariate or even infinite-dimensional approximation and integration problems require hand-tuning of the parameters that define the spaces of functions to which they apply, e.g., the shape, scale, or smoothness parameters of the associated reproducing kernel.  In our search for adaptive algorithms that automatically select these parameters, we started by searching for adaptive algorithms for even simpler problems, which are described below.  They all come with rigorous guarantees and are published in our Guaranteed Automated Integration Library (GAIL) \citep{ChoEtal14a}, which is publicly available and under ongoing development.
-
-FJH, JL, YiL, and a collaborator developed an adaptive simple Monte Carlo algorithm for calculating means of random variables and multidimensional integrals \citep{HicEtal14a}.  This algorithm uses Cantelli's inequality to guarantee our estimate of the variance and uses a Berry--Esseen inequality (a finite sample Central Limit Theorem) to determine the necessary sample size.  Our adaptive algorithm is guaranteed to succeed for the cone of random variables or integrands whose kurtosis satisfies some known bound.  FJH and LAJR developed adaptive quasi-Monte Carlo cubature algorithms based on digital nets \citep{HicJim16a} and rank-1 integration lattices \citep{JimHic16a} by expressing the integrands as infinite series, $f=\sum_{\bk} \hatf_\bk \varphi_{\bk}$, where the $\varphi_{\bk}$ are Walsh functions or complex exponential functions.  The cubature error is bounded in terms of discrete  approximations to the coefficients, $\hatf_\bk$.  These algorithms must succeed for a cone of integrands whose true series coefficients do not decay erratically.
-
-FJH, NC, YD, CH, and YZ constructed adaptive algorithms for univariate integration and function approximation \citep{HicEtal14b}.  This paper also sets out a general framework for constructing guaranteed adaptive algorithms for any problem where the solution operator is homogeneous by considering cones of input functions.  FJH, MR, and SY are preparing a paper that presents a new quadrature algorithm and explains these ideas to a broader audience.  XT completed her MS thesis \citep{Ton14a} on guaranteed adaptive optimization of univariate functions.
-
-GEF and QY formulated a theory of generalized Sobolev spaces for reproducing kernel Hilbert spaces that connects kernel-based approximation methods to fundamental solutions of differential operators \cite{FasshauerYe11, FasshauerYe13}. An important contribution is the fact that the definition of these generalized Sobolev spaces involves both a notion of smoothness and of scale, while traditional Sobolev spaces take into account only the smoothness of functions in the space.
-As an application of the generalized Sobolev space theory, GEF, QY and IC developed a framework for the numerical solution of stochastic partial differential equations with kernel-based methods \citep{CFY12,FasshauerYe13b,FasshauerYe14}.
-
-GEF and MM developed the Hilbert--Schmidt SVD algorithm (sometimes also referred to as RBF-QR) for the stable computation with ``flat'' kernels as explained in \refproba. This approach takes advantage of the Hilbert--Schmidt series of the kernels \eqref{HSseries}. The basic framework was reported in a paper on stable computations with Gaussian kernels \citep{FMcC12}, and further extensions to the solution of boundary value problems for PDEs \citep{McCourt13}, a fast recursive regression algorithm \citep{McCourt13b}, and coupled PDE problems \citep{McCF14} have been submitted for publication. A publicly available library of \Matlab code \citep{McCFBG13} is under ongoing development.
-
-Iterated Brownian bridge kernels were introduced by RC, GEF and MM \citep{CavorettoEtAl14}. The paper discusses these kernels, their connection to piecewise polynomial splines and an implementation of their Hilbert--Schmidt SVD. Special cases of these kernels were studied by CB and WM during their 2012 REU under the guidance of GEF and MM. In 2013 two other REU students, HB and MG, worked with GEF and MM on the numerical computation of kernel eigenvalues and eigenfunctions (see \refprobab) and on an application of the Hilbert--Schmidt SVD to the study of the Hilbert space norm of the kernel interpolant. The latter is important for the error estimation of kernel methods, and for the determination of optimal kernel parameters (see \refprobc).
-
-During SG's visit to IIT (08/2012--02/2013) he performed joint work with GEF and MM on the use of kernel-based methods for the solution of coupled boundary value problems for the application in EEG and MEG (see \refprobdb). This work makes use of the coupling framework of \cite{McCF14}. One joint paper is currently in press \citep{AFFGM15}, and \citep{AFFGM13} is currently under revision.
-
-Understanding the covariance kernel, eigenfunctions and associated Hilbert space of fractional Brownian motion was the focus of a research project during summer 2013 involving MD under the guidance of JE and GEF. Outcomes of this research were presented at the 2014 Joint Mathematics Meeting. During summer 2014 PL and TM looked at change of basis ways to overcome
-the conditioning problems for kernel-based approximation
-and collocation methods, and SP worked on optimal point configurations for kernel
-interpolation under the guidance of JE and GEF.
-
-\subsection{Broader Impacts from Previous NSF Funding}
-
-We have trained a number of PhD, MS, BS, and high school students in research, as evidenced by the list above.  QY and YL received their PhDs and took visiting academic appointments in research universities. SD, YaL, TS, XT, and XiZ received their MS degrees. The latter three are now PhD students.  QY, YD, LJ, LAJR, YL, XZ, HB, MR, SY, NC, MD, CH, BL, CB, WM, and SY have all presented their work at academic meetings in talks.  We have been pleased to have two underrepresented minority scientists and several female scientists (undergraduate through to faculty members) in our research group.
-
-GEF presented a week-long tutorial to students from many different engineering disciplines at U Palermo. As a result, SG, a PhD student from Palermo supported by Italian funds, visited IIT from 08/2012-02/2013 to receive guidance on his research from GEF and MM.
-
-RC, a postdoctoral researcher from U Torino supported by Italian funds, visited IIT from 03/2012-05/2012 and also in April 2013. He received advanced training in the area of meshfree approximation and has since been able to secure a position as a research fellow at U Torino.
-
-The new developments using eigenfunction expansions of positive definite kernels were integrated into MATH 590 (Meshfree Approximation Methods), which focuses on kernel methods and uses GEF's monograph \citep{Fas07a}. GEF and MM are preparing the new book \citep{FMcC15} based on updated lecture notes for this course.  The new results on adaptive (quasi-)Monte Carlo algorithms have been taught in MATH 565 (Monte Carlo Methods in Finance), and the GAIL library is used by the students.
-
-SCC and FJH offered an experimental graduate seminar course for seven students, MATH 573 (Reliable Mathematical Software). Topics included reproducible computational science research, efficient coding, thorough documentation, careful testing, convenient user interfaces, and software publication.  We intend to offer this course again because the topics are not normally covered in standard mathematics or computer science courses.
-
-The research team has organized and attended conferences and special sessions, presented invited talks, presented talks at departmental colloquia, and given talks to non-mathematical audiences and high school students.
-
-%Members of the research team have organized conferences. Together with Larry L.~Schumaker, GEF organized the NSF-supported 14th International Conference on Approximation Theory in San Antonio, TX, in April 2013. A special mentoring session for PhD students and postdocs was included in the program of this conference. QY was the main organizer for the SIAM Student Chapter Conference on Recent Advances in Computational Science and Statistics held at IIT Oct. 29--30, 2011 (\href{http://www.math.iit.edu/~siam/workshop/}{\nolinkurl{www.math.iit.edu/~siam/workshop}}). BL was a co-organizer. This conference brought together graduate students and postdocs from various Chicago area universities and Argonne National Lab and featured three plenary lectures (by Jerry L. Bona, Charles K. Chui, and Wei B. Wu) along with 25 contributed talks and a poster session. Since then, other Chicago-Area SIAM chapters have joined the IIT chapter in organizing this conference on a yearly basis.
-
-%\begin{itemize}[leftmargin=2.5ex]
-%\item
-%GEF gave minisymposium talks at the 2012, 2013, and 2014 SIAM Annual Meetings.  He also gave invited presentations at the Indiana-Illinois Workshop on Scientific Computing at Purdue U, April~2014, at the workshop on Multivariate Approximation and Interpolation with Applications in Erice, Italy in Sept.~2013, at the Freeform Optics Incubator Meeting of the Optical Society of America, Washington, D.C., in Oct.~2011, and at the NSF-CBMS Conference on Radial Basis Functions: Mathematical Developments and Applications, at UMass--Dartmouth, in June~2011. He gave a talk to the Level Set Collective at the NSF-sponsored Institute of Pure and Applied Mathematics (IPAM) and an invited talk at the 2013 Midwest Numerical Analysis Day. GEF is a steering committee member of the Midwest Numerical Analysis Conference series. In 2011, he gave a week-long workshop at U Palermo (Italy, engineering). GEF gave departmental colloquium/seminar talks at Chapman U (math \& computer science), U Chicago (statistics), Middle Tennessee State U (math), Northwestern U (industrial engineering \& management sciences), and U Padua (Italy, math).  GEF attended the 2010--2012 Intel International Science and Engineering Fairs (2011--2012 as chair of the AMS Menger Prize committee), where he judged projects in the mathematical sciences and interviewed high school students about their research. These interviews can be viewed on the YouTube channel of the AMS. He has also given presentations to students at Neuqua Valley and Carl Sandburg high schools.
-
-%\item
-%FJH gave a talk at a special session at the 2012 Joint Mathematics Meetings (JMM), a plenary lecture at the Tenth International Conference on Monte Carlo and Quasi-Monte Carlo Methods in Scientific Computing (MCQMC) in 2012, an invited talk at the 2013 Midwest Numerical Analysis Day, and an invited session talk at the Eleventh MCQMC in April, 2014, an invited session talk at the 2014 SIAM Annual Meeting, and an invited talk at an ICERM workshop in September, 2014.  He spoke at the 2014 JMM and will speak at the 2015 JMM. FJH gave departmental colloquium/seminar talks at Argonne National Laboratory (mathematics and computer science), U Chicago (statistics), DePaul U (mathematics), Georgia Tech (industrial and systems engineering), and Illinois Institute of Technology (computer science, mathematics).  FJH was invited to speak to STEM students at Oakton Community College and to students at Hinsdale Central High School.
-
-%\end{itemize}
 
 
 \section{Broader Impact of Proposed Research}\label{SectBroad}
 
 
 \subsection{Contributions to Training, Mentoring and Other Human Resource Developments}
-
-The PIs are dedicated to mentoring young researchers from high school through postdoctoral levels.  We are excited to see our mentees transition from curiosity about what scholarship entails to choosing and solving their own problems.  We are committed to our regular Meshfree Methods research seminar because we believe that we learn good research practices by seeing them modeled and we find good research ideas from a variety of sources. Outside of the Meshfree Methods seminar we meet with members individually or in smaller groups to discuss details of their research projects.
 
 \begin{description}[leftmargin=0ex]
 \item[Providing Research Experiences for Undergraduates and High School Students]\ We \linebreak[4]    strongly believe that students should be introduced to research before graduate school so that they can learn how to discover the unknown, something that is not taught well in a classroom. We request funds to support two summer REU students per year. Having advertised our REU opportunities for several years now has given us some visibility within the community and is prompting inquiries from prospective participants well before we even announce our latest program offerings. As in the past several years, we expect the NSF funds will serve as a catalyst for funds to support additional summer students. In choosing REU students we make a deliberate effort to build a diverse research environment by targeting female and underrepresented minority students as well as students from less research-focused institutions (see Sect.~\ref{SectPrevious}). We will also continue to receive well-prepared high school students to join our research group as we did for the past two summers.
@@ -677,12 +996,12 @@ GEF and FJH both have a record of reaching out to high school students which we 
 
 \newpage
 \clearpage
-\pagenumbering{arabic}
+%\pagenumbering{arabic}
 
 \bibliographystyle{spbasic}
 
-\renewcommand{\refname}{\hfill \textbf{\large References Cited} \hfill \hfill}                   %%
+\renewcommand{\refname}{References Cited}                   %%
 \renewcommand{\bibliofont}{\normalsize}
 
-\bibliography{FJH22,FJHown23,GEF}
+\bibliography{FJH23,FJHown23}
 \end{document}
