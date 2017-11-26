@@ -26,7 +26,7 @@ f2x(xp > 1/2) = -f(phi(1 - xp(xp > 1/2),pkst, platst, plat), 1/2, af);
 f3x = 0.5*(f1x+f2x);
 figure
 plot(xp, f1x, '-', 'linewidth', 4)
-text(0.41, 0, '\(f_1(x)\)', 'fontsize',32)
+text(0.29, -0.15, 'reasonable \(f_1\)', 'fontsize',32)
 axis([0 1 -1 1])
 axis off
 print('-dpng','broadpk.png')
@@ -35,15 +35,14 @@ figure
 plot(xp, f2x, '-','color',MATLABOrange, 'linewidth', 4)
 axis([0 1 -1 1])
 axis off
-text(0.41, 0, '\(f_2(x)\)', 'fontsize',32)
+text(0.29, 0.15, 'reasonable \(f_2\)', 'fontsize',32)
 print -dpng choppedpk.png
-
 
 figure
 plot(xp, f3x, '-','color',MATLABGreen, 'linewidth', 4)
 axis([0 1 -1 1])
 axis off
-text(0.2, -0.2, '\(0.5 f_1(x) + 0.5 f_2(x)\)', 'fontsize',32)
+text(0.2, -0.2, 'spiky \(0.5 f_1 + 0.5 f_2\)', 'fontsize',32)
 print -dpng narrowpk.png
 
 

@@ -53,8 +53,8 @@ xplot = (-1:.001:1);
 % gail.save_eps(whichdir, 'f1ppf2ppplot');
 
 %% Sample functions with piecwise constant second derivatives
-% f3param = @(x,delta,c) (1./(2*delta.^2))*(4*delta.^2 + (x-c).^2 + (x-c-delta).*abs(x-c-delta) ...
-%    - (x-c+delta).*abs(x-c+delta)).*(abs(x-c) <= 2*delta);
+ f3param = @(x,delta,c) (1./(2*delta.^2))*(4*delta.^2 + (x-c).^2 + (x-c-delta).*abs(x-c-delta) ...
+    - (x-c+delta).*abs(x-c+delta)).*(abs(x-c) <= 2*delta);
 % f3ppparam = @(x,delta,c) (1./(delta.^2))*(1 + sign(x-c-delta) - sign(x-c+delta)) ...
 %    .*(abs(x-c) <= 2*delta);
 % c = -0.2;
@@ -126,6 +126,9 @@ xlabel('\(x\)')
 %   'location', 'east','box','off')
 set(gca,'DataAspectRatio',[1 2 1])
 axis off
+axis tight
+h = get(gcf,'OuterPosition'); h(4) = 0.5*h(4);
+set(gcf,'OuterPosition',h)
 print -dpng sampling-funappxg.png
 
 %% Sampling of hump function for funmin_g
@@ -142,6 +145,9 @@ xlabel('\(x\)')
 %    'location', 'east','box','off')
 set(gca,'DataAspectRatio',[1 2 1])
 axis off
+axis tight
+h = get(gcf,'OuterPosition'); h(4) = 0.5*h(4);
+set(gcf,'OuterPosition',h)
 print -dpng sampling-funming
 
 
