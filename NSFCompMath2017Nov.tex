@@ -265,7 +265,9 @@ be tested on various applications problems to ensure that theory matches practic
 development, implementation and application of these algorithms will involve undergraduate 
 students through senior faculty in a variety of disciplines.
 
-\subsection{An Illustrative Example: Integration by the Trapezoidal Rule}  We introduce some 
+\subsection{An Illustrative Example: Integration by the Trapezoidal Rule}  
+\label{TrapIllSect}
+We introduce some 
 key ideas in our proposed research via the problem of univariate integration.  Calculus 
 students are taught to approximate the definite integral by the trapezoidal rule 
 \cite[Sect.\ 7.2, (7.15)]{BraPet11a}:
@@ -296,10 +298,10 @@ and  \cite[p.\ 270]{Sau12a} propose estimating the absolute error of $T_n(f)$ by
 \end{equation}
 Although this $\herr_n(f)$ is valid in some cases, it is flawed.  This $\herr_n(f)$  fails for 
 spiky integrands whose 
-spikes fall  between the nodes as in Figure \ref{quadfail}(a).  Worse, this $\herr_n(f)$ can fail 
+spikes fall  between the nodes as in Figure \ref{quadfailfig}(a).  Worse, this $\herr_n(f)$ can fail 
 for 
 integrands that are \emph{not spiky} if $T_n(f)$ is coincidentally (nearly) 
-the same as  $T_{n/2}(f)$ (see Figure \ref{quadfail}(b)).  Over 30 years ago, James 
+the same as  $T_{n/2}(f)$ (see Figure \ref{quadfailfig}(b)).  Over 30 years ago, James 
 Lyness \cite[p.\ 69]{Lyn83} pointed out the flaws of nearly all adaptive quadratures:
 \begin{quote}
 	While prepared to take the risk of being misled by chance alignment of zeros in the integrand 
@@ -310,9 +312,9 @@ Lyness \cite[p.\ 69]{Lyn83} pointed out the flaws of nearly all adaptive quadrat
 	(say $1$ to $5\%$) and there is no way of predicting in a straightforward way in which of any set 
 	of apparently reasonable problems this will happen.
 \end{quote}
-Figure \ref{quadfail}(b) depicts a reasonable integrand for which $\herr_n(f)$ in 
+Figure \ref{quadfailfig}(b) depicts a reasonable integrand for which $\herr_n(f)$ in 
 \eqref{tradtraperrest} fails.  Figure 
-\ref{quadfail}(c) depicts a reasonable integrand for which the error estimate, $\herr_n(f)$, 
+\ref{quadfailfig}(c) depicts a reasonable integrand for which the error estimate, $\herr_n(f)$, 
 used 
 by  
 MATLAB's adaptive quadrature 
@@ -329,7 +331,7 @@ MATLAB's adaptive quadrature
 		(c) $\err_{150}(f) =  2.8\text{E}{-5}$
 		\end{tabular}
 	\caption{Integrands for which $\herr_n(f) = 0$ but 
-	$\err_n(f) \ne 0$. \label{quadfail}}
+	$\err_n(f) \ne 0$. \label{quadfailfig}}
 \end{figure}
 
 Despite Lyness's gloomy portrayal of adaptive quadratures, the PI and his collaborators have 
@@ -680,6 +682,7 @@ include
 	ChoEtal17b,
 	Din15a, 
 	GilEtal16a,
+	GilJim16b,
 	Hic17a,
 	HicJim16a,
 	HicEtal18a,
@@ -954,25 +957,51 @@ derivations.
 
 \subsection{Broader Impacts from Previous NSF Funding}
 
-\subsubsection{Publications and Conference Participation} This project has resulted in a 
-number of publications by the PI, GEF, students, and collaborators (see the list at the beginning of 
-this 
-section).  We have also spoken at a number of applied mathematics, statistics, and computational 
-science conferences.  As highlights, the PI gave invited tutorials at the Twelfth International 
-Conference 
-on Monte Carlo and Quasi-Monte Carlo Methods in Scientific Computing (MCQMC 2016) 
-\cite{Hic17a} and at the Opening Worskshop of SAMSI-QM.
+\subsubsection{Publications , Conference Participation, and Conference Organization} This 
+project has resulted in a number of publications by the PI, GEF, students, and collaborators listed at 
+the beginning of this section.  We have also spoken at a number of applied mathematics, statistics, 
+and computational science conferences and given colloquium/seminar talks to mathematics and 
+statistics departments.  As highlights, the PI gave invited tutorials at the Twelfth International 
+Conference on Monte Carlo and Quasi-Monte Carlo Methods in Scientific Computing (MCQMC 
+2016) 
+\cite{Hic17a}, a biennial conference for which he also serves on the steering committee.  The PI also 
+serves as a program leader for the tatistical and Applied Mathematical Sciences 
+Institute (SAMSI) 2017--18 
+\href{https://www.samsi.info/programs-and-activities/year-long-research-programs/2017-18-program-quasi-monte-carlo-high-dimensional-sampling-methods-applied-mathematics-qmc/
+}{Program on Quasi-Monte Carlo and High-Dimensional Sampling Methods for Applied 
+	Mathematics (SAMSI-QMC)}.  He  gave an invited tutorial at the Opening Workshop, leads one of 
+	the working groups, and participates in two others.  
+	
+	
+The PI's leadership in the MCQMC conferences  and SAMSI-QMC is 
+	designed to bring QMC to other areas of potential application.  One concrete example, was the 
+	collaboration between the PI, LlAJR and French collaborators working in uncertainty quantification 
+	that resulted in \cite{GilEtal16a, GilJim16b}.  Another example, is the collaboration of LlAJR with 
+	high energy physicists at Fermilab, in the Chicago suburbs, where LlAJR was helping improve the 
+	efficiency of their Monte Carlo methods by using QMC.
+	
+\subsubsection{GAIL Software} The theoretical results of this research have been implemented in 
+GAIL, the open source MATLAB library hosted on Github at 
+\href{http://gailgithub.github.io/GAIL_Dev/} {\nolinkurl{gailgithub.github.io/GAIL_Dev/}}. This software 
+has been implemented with input parsing, input validation, unit tests, inline documentation, and 
+demonstrations.  GAIL makes it easier for practitioners to try our new adaptive algorithms.  
 
-\subsubsection{title}
+\subsubsection{Boosting the STEM Workforce} The PI and GEF have mentored a number of 
+research students associated with this project.  The main ones are mentioned at the beginning of 
+this section.  Female students mentored include YD, LJ, XT, and XZ.   There have also been several 
+undergraduate students who the PI, GEF, and SCC have mentored including more than a dozen 
+Brazilian Science Mobility Program in the summers of 2015 and 2016, Tanner Johnson (BS, U 
+Minnesota, PhD? student at U British Columbia), Tianci Zhu 
+(female, BS IIT, MS student at NYU),  Cu Hauw Hung (BS student at Biola University, applying for 
+graduate study), and Yueyi Li (BS student at Macalester University, applying for 
+graduate study).  As part of our team, these students conducted theoretical an practical research 
+that resulted in publications and new features for GAIL.  They have learned how to contribute to a 
+substantial, long-term software project in a way that preserves the integrity of the software library.
 
-\subsubsection{Boosting the STEM Workforce}
-
-Theses
-Conferences SAMSI
-Fermilab
-
-
-
+The PI teaches a course on Monte Carlo methods each fall.  For the past several years students 
+have been introduced to GAIL and used it in their coursework.  GAIL has been used to teach how to 
+know how large $n$ must be for an IID MC or QMC simulation to reach the desired accuracy 
+requirement.  Some students have chosen as their class project to improve GAIL.
 
 
 \section{Intelletual Merit of Proposed Research} \label{secProposed}
@@ -980,7 +1009,35 @@ Fermilab
 
 \subsection{Higher Order Adaptive Algorithms for Univariate Problems}\label{SectUniProb}
 
+\subsubsection{A Theoretically Justified Alternative to MATLAB's 
+\textup{\texttt{integral.m}}} 
+MATLAB's premier adaptive quadrature algorithm is based on composite high order Gaussian 
+quadrature rules, so it converges much faster than our adaptive trapezoidal rule (Algorithm 
+\ref{Trapalg}). However, as noted in Sect.\ \ref{TrapIllSect} and illustrated in Fig.\ 
+\ref{quadfailfig}(c), 
+\texttt{integral.m} can fail even for reasonable functions, which our Algorithm 
+\ref{Trapalg} does not. The adaptive quadrature algorithms in the other popular scientific libraries, 
+such as the NAG library, GSL, and SciPy, have the same defect as MATLAB's \texttt{integral.m}.  
+
+YZ is already working on a locally adaptive Simpson's rule.  Our next step will be a 
+locally adaptive high order algorithm that is competitive with MATLAB's \texttt{integral.m} but with 
+rigorous data-driven error bounds and a stopping criterion that succeeds for all reasonable 
+functions, i.e., all functions in a cone, $\cc$, to be defined.  Our goal is to provide replacement for 
+MATLAB's \texttt{integral.m}.  
+
+Rather than use Gauss quadrature rules, we will likely use composite Clenshaw-Curtis quadrature, 
+which is based on integrating Chebyshev polynomial approximations to the function.  
+Trefethen \cite{Tre08a} has pointed out that Clenshaw-Curtis quadrature is competitive with Gauss 
+quadrature.  
+
 \subsubsection{Chebfun and related algorithms}
+The Chebfun software \cite{TrefEtal17a} approximates functions by Chebyshev polynomial series of 
+sufficiently high degree.  These polynomials can then be used for integration, optimization, 
+root-finding, and other numerical computations.  Although Chebfun claims to perform computations 
+to nearly machine precision, there are no theoretical guarantees.
+
+We propose to provide a theoretical basis for Chebfun by defining a cone of reasonable functions, 
+$\cc$, for which 
 
 \subsubsection{Algorithms based on piecewise approximation} 
 
