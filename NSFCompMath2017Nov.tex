@@ -74,6 +74,7 @@
 \newcommand{\vf}{\boldsymbol{f}}
 \newcommand{\hV}{\widehat{V}}
 \newcommand{\tV}{\widetilde{V}}
+\newcommand{\fu}{\frak{u}}
 \newcommand{\hcut}{\frak{h}}
 
 \newcommand{\bbE}{\mathbb{E}}
@@ -124,6 +125,7 @@
 \newcommand{\bh}{{\boldsymbol{h}}}
 \newcommand{\bk}{{\boldsymbol{k}}}
 \newcommand{\bg}{{\boldsymbol{g}}}
+\newcommand{\bn}{{\boldsymbol{n}}}
 \newcommand{\bv}{{\boldsymbol{v}}}
 \newcommand{\bu}{{\boldsymbol{u}}}
 \newcommand{\by}{{\boldsymbol{y}}}
@@ -168,6 +170,7 @@
 \newcommand{\fC}{\mathfrak{C}}
 \newcommand{\fF}{\mathfrak{F}}
 \newcommand{\fL}{\mathfrak{L}}
+\newcommand{\fU}{\mathfrak{U}}
 \newcommand{\hS}{\widehat{S}}
 \DeclareMathOperator{\Prob}{\mathbb{P}}
 
@@ -363,14 +366,16 @@ set of reasonable functions is.  It is shown in \cite{HicRazYun15a} that $\Var(f
 bounded above by an 
 inflated variation of the derivative of the linear spline, which depends only on function values, not on 
 derivative values:
-\begin{equation*} %\label{tVdef}
+\begin{subequations} \label{tVdef}
+\begin{gather} 
 \tV_n(f) 
 % & : = \sum_{i=1}^{n-1} \abs{ \frac{f((i+1)/n)-f(i/n)}{1/n} - \frac{f(i/n)-f((i-1)/n)}{1/n}}  \\& 
 := n\sum_{i=1}^{n-1} \abs{f((i+1)/n)-2f(i/n)+f((i-1)/n)}, 
 \quad \Var(f') \le \fC(2/n) \tV_n(f),  \ \ 
 \forall 
 f \in \fC,  \ n > 2 /\hcut.
-\end{equation*}
+\end{gather}
+\end{subequations}
 This provides a data-driven upper bound on the error  of the trapezoidal rule, namely,
 \begin{equation} \label{guartraperrest}
 \err_n(f) \le \oerr_n(f) \le \herr_n(f) := \frac{\fC(2/n) \tV_n(f)}{8n^2} \qquad 
@@ -704,7 +709,8 @@ include
 \subsection{Intellectual Merit from Previous NSF Funding}
 \label{previousmeritsubsec}
 
-\subsubsection{Local Adaption for Univariate Problems} The PI, SC, YD, and XT developed 
+\subsubsection{Local Adaption for Univariate Problems} \label{localadpatsec}
+The PI, SC, YD, and XT developed 
 locally adaptive 
 algorithms for univariate function 
 approximation and 
@@ -778,7 +784,8 @@ YZ's PhD research is developing a locally
 adaptive Simpson's rule for univariate integration.  It will have higher order accuracy than Algorithm 
 \ref{Trapalg} above.
 
-\subsubsection{Globally  Adaptive Quasi-Monte Carlo (QMC) Cubature} The PI, LlAJR, and DL 
+\subsubsection{Globally  Adaptive Quasi-Monte Carlo (QMC) Cubature} \label{QMCsec}
+The PI, LlAJR, and DL 
 have 
 developed adaptive quasi-Monte Carlo algorithms for integration over the unit cube, $\Omega = 
 [0,1]^d$ \cite{HicJim16a,JimHic16a}.  For multidimensional integrals over different domains, a 
@@ -898,7 +905,7 @@ correct $\bbeta$ for QMC cubature.  The PI, LlAJR, and DL provide an alternative
 determining $\bbeta$ that looks directly at $\herr_n(f -  
 \bbeta^T[g - S(g)])$ \cite{HicEtal17a}.
 
-\subsubsection{Adaptive Bayesian Cubature}  Recent research by the PI and JR has assumed 
+\emph{Adaptive Bayesian Cubature.}  Recent research by the PI and JR has assumed 
 that the integrand in the multiple integration problem \eqref{multiInt} is an instance of a Gaussian 
 Process with constant mean $m$, and covariance kernel, $C:[0,1]^d \times [0,1]^d \to \reals$, i.e., 
 $f \sim \GP (m,C)$.  This approach to computational mathematics has been pursued by several 
@@ -922,7 +929,8 @@ necessary vector-matrix operations can be accomplished with computational cost $
 \log(n))$, making Bayesian cubature practical.  This work has been presented at conferences and 
 as in the process of being written up for publication.
 
-\subsubsection{Generalized Error Criteria}  Some practitioners may prefer the adaptive algorithm 
+\emph{Generalized Error Criteria.}  Some practitioners may prefer the adaptive 
+algorithm 
 to satisfy a more general error 
 criterion than \eqref{errorcrit}, say, 
 \begin{multline}
@@ -943,7 +951,7 @@ choose an appropriate $\fA(\vf,\varepsilon, \reltol)$.  In general, the
 best approximation is \emph{not} $V(A_n(\vf))$.  
 
 
-\subsubsection{Multivariate Function Approximation}
+\emph{Multivariate Function Approximation.}
 GEF has led the effort in accurate, well-conditioned function approximation and solution of 
 differential equations using reproducing kernel Hilbert space methods.  Much of his effort has been 
 developing truncated Hilbert-Schmidt decomposition of the reproducing kernels using appropriate 
@@ -957,7 +965,7 @@ derivations.
 
 \subsection{Broader Impacts from Previous NSF Funding}
 
-\subsubsection{Publications , Conference Participation, and Conference Organization} This 
+\emph{Publications , Conference Participation, and Conference Organization.} This 
 project has resulted in a number of publications by the PI, GEF, students, and collaborators listed at 
 the beginning of this section.  We have also spoken at a number of applied mathematics, statistics, 
 and computational science conferences and given colloquium/seminar talks to mathematics and 
@@ -980,13 +988,13 @@ The PI's leadership in the MCQMC conferences  and SAMSI-QMC is
 	high energy physicists at Fermilab, in the Chicago suburbs, where LlAJR was helping improve the 
 	efficiency of their Monte Carlo methods by using QMC.
 	
-\subsubsection{GAIL Software} The theoretical results of this research have been implemented in 
+\emph{GAIL Software.} The theoretical results of this research have been implemented in 
 GAIL, the open source MATLAB library hosted on Github at 
 \href{http://gailgithub.github.io/GAIL_Dev/} {\nolinkurl{gailgithub.github.io/GAIL_Dev/}}. This software 
 has been implemented with input parsing, input validation, unit tests, inline documentation, and 
 demonstrations.  GAIL makes it easier for practitioners to try our new adaptive algorithms.  
 
-\subsubsection{Boosting the STEM Workforce} The PI and GEF have mentored a number of 
+\emph{Boosting the STEM Workforce.} The PI and GEF have mentored a number of 
 research students associated with this project.  The main ones are mentioned at the beginning of 
 this section.  Female students mentored include YD, LJ, XT, and XZ.   There have also been several 
 undergraduate students who the PI, GEF, and SCC have mentored including more than a dozen 
@@ -1003,56 +1011,168 @@ have been introduced to GAIL and used it in their coursework.  GAIL has been use
 know how large $n$ must be for an IID MC or QMC simulation to reach the desired accuracy 
 requirement.  Some students have chosen as their class project to improve GAIL.
 
+The PI was recently appointed the director of Illinois Tech's new Center for Interdisciplinary 
+Scientific Computation.  In this position he has been fostering collaborative scientific computation 
+research across departments by hosting matchmaking seminars and sponsoring a seed grant 
+competition.
+
 
 \section{Intelletual Merit of Proposed Research} \label{secProposed}
 
 
 \subsection{Higher Order Adaptive Algorithms for Univariate Problems}\label{SectUniProb}
 
-\subsubsection{A Theoretically Justified Alternative to MATLAB's 
-\textup{\texttt{integral.m}}} 
+\emph{A Theoretically Justified Alternative to MATLAB's 
+\textup{\texttt{integral.m}}.} 
 MATLAB's premier adaptive quadrature algorithm is based on composite high order Gaussian 
 quadrature rules, so it converges much faster than our adaptive trapezoidal rule (Algorithm 
 \ref{Trapalg}). However, as noted in Sect.\ \ref{TrapIllSect} and illustrated in Fig.\ 
 \ref{quadfailfig}(c), 
-\texttt{integral.m} can fail even for reasonable functions, which our Algorithm 
-\ref{Trapalg} does not. The adaptive quadrature algorithms in the other popular scientific libraries, 
+\texttt{integral.m} can fail even for reasonable integrands, whereas our Algorithm 
+\ref{Trapalg} will always succeed for reasonable integrands. The adaptive quadrature algorithms in 
+the other popular scientific libraries, 
 such as the NAG library, GSL, and SciPy, have the same defect as MATLAB's \texttt{integral.m}.  
 
-YZ is already working on a locally adaptive Simpson's rule.  Our next step will be a 
-locally adaptive high order algorithm that is competitive with MATLAB's \texttt{integral.m} but with 
-rigorous data-driven error bounds and a stopping criterion that succeeds for all reasonable 
-functions, i.e., all functions in a cone, $\cc$, to be defined.  Our goal is to provide replacement for 
-MATLAB's \texttt{integral.m}.  
+YZ is already working on a locally adaptive Simpson's rule, following the ideas in Sect.\ 
+\ref{localadpatsec}.  Our next step will be a 
+locally adaptive high order algorithm that is competitive with MATLAB's \texttt{integral.m} but that 
+has 
+rigorous data-driven error bounds that will make it succeed for all reasonable 
+integrands, i.e., all functions in a cone, $\cc$, to be defined.  Our goal is to provide replacement for 
+MATLAB's \texttt{integral.m} and similar algorithms.  
 
 Rather than use Gauss quadrature rules, we will likely use composite Clenshaw-Curtis quadrature, 
-which is based on integrating Chebyshev polynomial approximations to the function.  
+which is based on integrating a Chebyshev polynomial approximation to the integrand on each 
+subinterval 
+$[\alpha, \beta]$ of the integration interval $[a,b]$.  
 Trefethen \cite{Tre08a} has pointed out that Clenshaw-Curtis quadrature is competitive with Gauss 
-quadrature.  
+quadrature.  Starting with the theoretical error bounds for Clenshaw-Curtis quadrature 
+\cite[Sect.\ 5.4]{BraPet11a}, we will develop a data-driven upper bound on the roughness of the 
+function, 
+analogous to how $\fC(2/n)\tV_n(f)$ provides  an upper bound on $\Var(f')$ in \eqref{tVdef} for 
+reasonable functions.  However, rather than developing a global bound, we will develop local bounds 
+as was done in \cite{ChoEtal17a}.  This will then lead to a data-driven quadrature error bounds, 
+$\herr_n(f,[\alpha,\beta])$, that 
+can be used to adaptively determine the sample size needed to satisfy the error criteria 
+\eqref{errorcrit} or \eqref{generrorcrit}.
 
-\subsubsection{Chebfun and related algorithms}
-The Chebfun software \cite{TrefEtal17a} approximates functions by Chebyshev polynomial series of 
+\emph{Locally Adaptive Optimization and Function Approximation.}
+We will use a similar line of argument to that in Sect.\ 
+\ref{localadpatsec} to develop a locally adaptive 
+optimization algorithm of higher order convergence than the one we have constructed already.  Our 
+earlier 
+algorithm used piecewise linear approximations, and we expect faster convergence with piecewise 
+quadratic approximations.  We emphasize that while being locally adaptive, our algorithm finds the 
+global optimum.
+
+We will investigate the possibility of an adaptive function approximation algorithm with higher order 
+convergence than that  in 
+\cite{ChoEtal17a}, again based on piecewise approximation.  However, this problem is complicated 
+by the typical requirement that the 
+approximation have continuous derivatives to as high an order as possible.  Such a requirement does 
+not arise with integration and 
+optimization.  A locally adaptive cubic spline approximation with theoretical justification may be 
+possible.
+
+\emph{Chebfun.}
+Chebfun \cite{TrefEtal17a} is an elegant, popular software library that approximates functions by 
+Chebyshev polynomials of 
 sufficiently high degree.  These polynomials can then be used for integration, optimization, 
-root-finding, and other numerical computations.  Although Chebfun claims to perform computations 
-to nearly machine precision, there are no theoretical guarantees.
+root-finding, and other numerical computations.  Chebfun is mainly a globally adaptive algorithm in 
+that the node pattern is fixed, but the number of nodes, which corresponds to 
+the the degree of the polynomial is chosen adaptively.  Although Chebfun claims to perform 
+computations 
+to nearly machine precision, there are no theoretical guarantees.  
 
-We propose to provide a theoretical basis for Chebfun by defining a cone of reasonable functions, 
-$\cc$, for which 
-
-\subsubsection{Algorithms based on piecewise approximation} 
+We will provide a theoretical basis for Chebfun by defining a cone of reasonable functions, 
+$\cc$, for which Chebfun must give the correct answer.  This will be done in a similar manner as for 
+QMC quadrature in Sect.\ \ref{QMCsec}.  The cone $\cc$ will consist of functions 
+whose Chebyshev series does not decay erratically for terms with polynomial degree greater than 
+some minimum value.  Functions lying outside this cone, $\cc$, will be spiky functions.   Our 
+theoretical foundation for Chebfun will explain why it may or may not succeed as claimed.
 
 \subsection{Adaptive Algorithms for Multivariate Problems}\label{SectMultiProb}
 
-\subsubsection{Integration over domains with unbounded dimension}
+\emph{Integration over domains with unbounded dimension} The next natural challenge for 
+multivariate integration is to extend our 
+globally adaptive QMC algorithms described in Sect.\ \ref{QMCsec} to situations with arbitrarily large 
+or infinite dimension, say,
+\[
+S(f) = \lim_{d \to \infty} S_d(f_d), \quad S_d(f_d):= \int_{\Omega^d} f_d(\bx) \, \varrho_d(\bx) \, \dif 
+\bx, \quad \varrho_d(\bx) : = \prod_{r=1}^{d} \varrho(x_r)
+\]
+where $f_d$ is an  approximation to $f$ that depends only on the first $d$ variables.  Such 
+problems arise as the expected value of a functional of the solution of a 
+stochastic differential equation (SDE), where $d$ is the number of time steps in the numerical 
+approximation of the SDE.  
 
-\subsubsection{Function approximation using matching kernels and sampling schemes}
+One method for approximating $S(f)$ is to approximate the finite 
+dimensional integral $S_{d_L}(f_{d_L})$ for some large dimension, $d_L$.  However, the cost of 
+evaluating $f_{d_L}(x_{d_L})$ is often proportional to $d_L$.  If $A_{n,d}$ represents an IID MC, 
+QMC or other cubature 
+using $n$ nodes on the $d$-dimensional domain,  the true cost of approximating $S(f)$ by an 
+algorithm using 
+$n_l$ nodes is
+$\Order(d_L n_L)$.
+
+Two alternative methods for approximating $S(f)$ are the multi-level method (MLM) and the 
+multivariate 
+decomposition method (MDM).  The function $f$, which depends on $\bx=(x_1, x_2, \ldots) \in 
+\Omega^\naturals$, 
+is decomposed into pieces that only depend on the a subset of the coordinates:  
+\begin{equation*}
+f(\bx) = \sum_{\fu \subset \naturals, \abs{\fu} < \infty} f_{\fu}(\bx) = \sum_{\ell 
+=1}^\infty [f_{d_\ell}(\bx) - f_{d_{\ell-1}}(\bx)], \qquad  f_d:= \sum_{\fu \subseteq \{1, 
+\ldots, d\}} f_\fu, \quad f_0:= 0.
+\end{equation*}
+HereThis decomposition is not unique and may be based on convenience.  Each $f_{\fu}$ depends 
+only 
+on the coordinates with indices in $\fu$.  If $A_{n,d}$ represents an IID MC, QMC or other cubature 
+using $n$ nodes on the $d$-dimensional domain, then the MLM and MDM cubatures for 
+approximating $S(f)$ is 
+\begin{gather*}
+A^{\textup{MLM}}_{\bn,\bd}(f) = \sum_{\ell=1}^L A_{n_l,d_l}(f_{d_\ell} - f_{d_{\ell-1}}), \quad \bn = 
+(n_\ell)_{\ell = 1}^L, \ \bd = 
+(d_\ell)_{\ell = 1}^L, \quad \cost(f,A^{\textup{MLM}}_{\bn,\bd}) = \Order\left (\sum_{\ell=1}^L d_\ell 
+n_\ell \right), \\
+A^{\textup{MDM}}_{\bn,\fU}(f) = \sum_{\fu \in \fU} A_{n_{\fu},\abs{\fu}}(f_{u}), \quad \bn = 
+(n_\fu)_{\fu \in \fU}, \ \bd = 
+(d_\fu)_{\fu \in \fU}, \quad \cost(f,A^{\textup{MDM}}_{\bn,\bd}) = \Order\left (\sum_{\fu \in \fU} d_\fu 
+n_\fu\right)\\
+\end{gather*}
+At first glance, these costs may look greater than the $\Order(d_L n_L)$ cost of the cubature 
+$A_{n_L,d_L}(f)$ for approximating $S(f)$.  However, the MLM and MDM are actually more 
+economical for the commonly occurring integrals where the low dimensional cubatures require 
+larger numbers of nodes, 
+but the higher dimensional cubatures actually require fewer numbers of nodes.
+
+The challenge in constructing a theoretically sound adaptive algorithm is determining good choices 
+of the dimension vector $\bd$ for MLM or the set of sets of important coordinate directions, $\fU$.  
+These must be chosen so that the error due to ignoring some pieces of the integrand is negligible 
+and so that the total cost of the cubatures is efficient. 
+Once  $\bd$ or$\fU$ are set, our adaptive cubatures in Sect.\ \ref{QMCsec} can be used to 
+determine the vector $\bn$ needed to meet the error criterion.  We propose to develop sound 
+adaptive cubatures $\fA^{MLM}$ and $\fA^{MDM}$ for infinite dimensional integration satisfying the 
+error criteria \eqref{errorcrit} and 
+\eqref{generrorcrit}.
+
+
+
+
+
+
+
+
+\emph{Function approximation using matching kernels and sampling schemes}
 
 doit Roshan
 
 \subsection{Adaptive Algorithms for Problems with Expensive Function Values} 
 \label{SectExpensive}
 
-\subsubsection{}
+
+
+\emph{}
 
 
 
@@ -1062,87 +1182,80 @@ doit Roshan
 
 \subsection{Contributions to Training, Mentoring and Other Human Resource Developments}
 
-\begin{description}[leftmargin=0ex]
-\item[Providing Research Experiences for Undergraduates and High School Students]\ We 
-\linebreak[4]    strongly believe that students should be introduced to research before graduate 
-school so that they can learn how to discover the unknown, something that is not taught well in a 
-classroom. We request funds to support two summer REU students per year. Having advertised our 
-REU opportunities for several years now has given us some visibility within the community and is 
-prompting inquiries from prospective participants well before we even announce our latest program 
-offerings. As in the past several years, we expect the NSF funds will serve as a catalyst for funds to 
+\emph{Providing Research Experiences for Undergraduate and High School Students.} Students 
+should be introduced to research before graduate school so that they can learn how to 
+discover the unknown, something that is not taught well in a classroom. We request funds to 
+support two summer REU students per year.  Having run our small REU program for several  years 
+has given us some visibility and is prompting inquiries from prospective participants well before we 
+even announce our latest program 
+offerings. As in the past, we expect the NSF funds will serve as a catalyst for funds to 
 support additional summer students. In choosing REU students we make a deliberate effort to build 
 a diverse research environment by targeting female and underrepresented minority students as well 
 as students from less research-focused institutions (see Sect.~\ref{SectPrevious}). We will also 
-continue to receive well-prepared high school students to join our research group as we did for the 
-past two summers.
+welcome well-prepared high school students to join our research group.
 
-\item[Preparing Students for Academic Careers] We consider mentoring to be a multi-faceted and potentially long-term process continuing even after the mentee has moved on from IIT.  For example, MM was an undergraduate student at IIT who collaborated with GEF during his PhD studies at Cornell U.  We will continue to mentor him as senior person for this proposal.
+\emph{Preparing Students for Academic Careers} We consider mentoring to be a multi-faceted and 
+potentially long-term process continuing even after the mentee has moved on from IIT.  For 
+example, MM was an undergraduate student at IIT who collaborated with GEF during his PhD 
+studies at Cornell U.  We will continue to mentor him as senior person for this proposal.
     %Similarly, although QY has left IIT, he has continued his collaboration with GEF and FJH.
     We have provided and will continue to provide SCC, a Research Assistant Professor at IIT and another senior person for this project, teaching and mentoring experience.  We will continue to find opportunities for special mentoring activities for our students, like those QY and YD participated in at the NSF-supported 14th International Conference on Approximation Theory in San Antonio organized by GEF in April 2013.  We  will continue our collaboration with Argonne National Laboratory, which has led to short-term and long-term opportunities for our PhD students and graduates.
 
-\item[Preparing Students for Industry Careers]
+\emph{Preparing Students for Industry Careers}
 In addition to preparing students for the academic landscape, we also help current students land competitive jobs in the business world. Our training in the areas of algorithm development and coding tends to give our students the needed edge. For example, WM graduated from Brown U in 2013 and then joined an internet startup company. AB, SD, YaL, and TS are working in the financial services industry.
 
-\item[Supervising Visitors]
+\emph{Supervising Visitors.}
 GEF has established contacts with several Italian universities attracting students and postdoctoral 
 visitors to IIT for extended visits (see Sect.~\ref{SectPrevious}). Having lived in Hong Kong for 19 
 years, FJH has contacts with Chinese scientists that have prompted several long-term visiting 
 Chinese scholars and students to join our research.  These activities will continue.
 
-\item[Giving Short Courses and Invited Lectures]
+\emph{Giving Short Courses and Invited Lectures}
 We will continue our active track record of providing lectures to students at various stages in their careers, ranging from high school to graduate school. These encourage students to enter STEM and encourage STEM students to engage in research.
 
-\end{description}
 
 \subsection{Contributions to Resources in Research, Education and the Broader Society}
 
 The research we propose straddles mathematics, statistics, computer science, and applications in engineering and related fields.  The two PIs have complementary strengths that facilitate this interdisciplinary research.  GEF has expertise in approximation theory, meshfree methods, and numerical PDEs, while FJH has expertise in (quasi-)Monte Carlo methods, kernel-based methods, information-based complexity theory, and experimental design. Our expertise provides both an obligation and an opportunity to interact with a number of diverse communities. We envision the following contributions:
 
-\begin{description}[leftmargin=0ex]
-\item[Disseminating Research]
+\emph{Disseminating Research}
 The research supported by this grant will result in publications in peer-reviewed journals in a broad spectrum of applied mathematics, computer science, statistics and engineering. These journals will include both those that emphasize theory and those that emphasize applications.
 
-\item[Promoting Cones] The idea of guaranteed, adaptive algorithms via cones of input functions has broad potential application.  We will be promoting this idea among numerical analysts who develop new algorithms and analyze their computational costs, as well as among information-based complexity theorists who analyze the lower bounds on the complexity of numerical problems.
+\emph{Promoting Cones} The idea of guaranteed, adaptive algorithms via cones of input functions 
+has broad potential application.  We will be promoting this idea among numerical analysts who 
+develop new algorithms and analyze their computational costs, as well as among information-based 
+complexity theorists who analyze the lower bounds on the complexity of numerical problems.
 
-\item[Promoting the Hilbert--Schmidt SVD] Similarly, we will encourage other researchers to take advantage of the stability given to kernel-based methods by the Hilbert--Schmidt SVD, to use our code, and to join our research efforts (\citep{FMcC12} has already more than 40 citations on Google Scholar).
-
-\item[Bridging Mathematics and Statistics]
+\emph{Bridging Mathematics and Statistics}
 This project touches on topics that are of interest to the statistics community: kriging, Monte Carlo methods, and design of experiments.  Historically, there has been relatively little interaction between numerical analysts and statisticians.  We have and will continue to engage the statistics community by speaking a their conferences and departmental seminars.  For example, in 2015 FJH will give a colloquium talk in the Department of Statistics at Virginia Tech and an invited talk at the $47^{\text{th}}$ Days of Statistics of the Soci\'et\'e Fran\c{c}aise de Statistique. The book \citep{FMcC15} by GEF and MM will contain several chapters bridging this gap.
 
-\item[Collaborating with Engineers]
-GEF and MM have an ongoing collaboration with engineering colleagues at U Palermo (see ). We 
-have submitted two joint proposals to the Italian government and to U Palermo requesting support 
-for our work (but without direct support for GEF and MM). Thus this collaboration will benefit from 
-travel funds via the current proposal.
-%Since kernel methods are becoming a rather popular numerical tool in science and engineering, other opportunities for collaborations outside mathematics frequently arise. For example, GEF participated in an incubator meeting on freeform surfaces organized by the Optical Society of America.
-
-\item[Promoting the Well-being of the Broader Society]
+\emph{Promoting the Well-being of the Broader Society}
  uses kernel methods for the solution of inverse problems arising in the detection of brain activity 
  from MEG or EEG data. This non-invasive diagnostic procedure might help doctors detect early 
  functional and neurophysiological markers of diseases (e.g., Alzheimer's). It might also lead to a 
  reduction in doctors' visits, shorter hospitalization periods and a greater longevity with overall 
  improved quality of life. Similarly, may enable better management of the Ebola epidemic.
 
-\item[Organizing and Presenting at Conferences]
+\emph{Organizing and Presenting at Conferences}
 We and our students involved in this project will present our results at a variety of conferences and workshops.  These include: (i) specialized meetings focusing on approximation theory, complexity, experimental design, meshfree methods, and Monte Carlo methods; (ii) the national meetings of AMS, SIAM, and the statistical societies; and (iii) conferences devoted to application areas.  We are frequently invited to speak at such conferences, which will give our results a prominent hearing. We will also continue to organize specialized conferences or minisymposia within larger conferences.
 
-\item[Writing Textbooks and Survey Papers]
+\emph{Writing Textbooks and Survey Papers}
 GEF and MM are currently preparing \citep{FMcC15}. This book will provide an exposition of the theory and implementation of the Hilbert--Schmidt SVD along with numerous applications. The book will form a bridge to the GaussQR library \citep{McCFBG13} and may serve as a textbook for a graduate class on meshfree methods, such as MATH 590 at IIT. GEF and FJH occasionally publish survey articles (e.g., a 42 page paper on kernel-based methods \citep{Fasshauer11}).
 
-\item[Refreshing Course Syllabi]
+\emph{Refreshing Course Syllabi}
 MATH 590 (Meshfree Methods), taught by GEF in the fall semester of every even-numbered year, just underwent a major change as the preparation of \citep{FMcC15} progresses.
 MATH 565 (Monte Carlo Methods in Finance), taught every fall by FJH, has incorporated our new 
 results on guaranteed (quasi-)Monte Carlo multivariate integration. In the future it will include our 
 new results on control variates and guaranteed multi-level and (quasi-)Monte Carlo sampling (see ).
 Current texts teach students to estimate the error of the trapezoidal rule, $T_n(f)$, by $[T_n(f)-T_{n/2}(f)]/3$ (see, e.g., \cite[pp.\ 223--224]{BurFai10}).  The arguments behind this estimate introduce the valuable concept of extrapolation, however, this is a flawed error estimate as pointed out in \cite{Lyn83} and highlighted by our recent work \cite{HicEtal14b}.  This same flawed idea underlies \Matlab's {\tt integral.m}.  We will urge numerical analysis textbook authors and educators to change the way that error estimation is taught based on our recent and proposed work.  These ideas will also enter our more traditional numerical analysis courses such as MATH 350 (Intro to Computational Math) or MATH 577 and 578 (Computational Math I \& II).  SCC and FJH will continue to develop MATH 573 (Reliable Mathematical Software) as a valuable course for our own students and an example that we wish to propagate to other universities.
 
-\item[Creating Software and Collaborating with Software Developers]
+\emph{Creating Software and Collaborating with Software Developers}
 GEF and MM have created the website \citep{McCFBG13} which serves as the home for the software on our stable algorithms built upon the Hilbert--Schmidt SVD. This \Matlab library is freely available and allows others to experiment with our code. Thus far, the library contains routines for Gaussian and iterated Brownian bridge kernels. As our research expands to other kernels and their eigenexpansions the resulting code will be added to the library. The GaussQR library also serves as a sandbox for students---especially REU students---to learn about our research and allows them to contribute pieces of their own work.
 We will continue to develop GAIL \citep{ChoEtal14a} (now up to version 2) as part of our proposed research.  The GAIL software will serve the wider community that relies on numerical approximation and integration algorithms.  It will also demonstrate how adaptive algorithms ought to be implemented, which we hope will inspire and inform those working on adaptive algorithms for other mathematical problems.  We also expect our new algorithms to be incorporated into widely used numerical packages, as was done for our algorithm in \cite{HonHic00a} by \Matlab \citep{MAT8.4} and NAG \citep{NAG23}.  We will continue to discuss with software developers about these issues.
 
-\item[Reaching Out]
+\emph{Reaching Out.}
 GEF and FJH both have a record of reaching out to high school students which we plan to continue. The website \href{http://math.iit.edu/~openscholar/meshfree/}{\nolinkurl{math.iit.edu/~openscholar/meshfree/}} helps manage our internal and external communication and dissemination of research findings. Advertising for the summer REU experiences is also facilitated via this website.  Information about GAIL is at \href{http://code.google.com/p/gail}{\nolinkurl{code.google.com/p/gail}}.
-\end{description}
+
 
 \newpage
 \clearpage
