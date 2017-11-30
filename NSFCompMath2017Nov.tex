@@ -7,7 +7,7 @@
 \usepackage{hyperref,accents, booktabs}
 \usepackage{algorithm, algorithmic}
 \usepackage{cleveref}
-\newcommand\myshade{85}
+\newcommand{\myshade}{85}
 \colorlet{mylinkcolor}{violet}
 \colorlet{mycitecolor}{Aquamarine}
 %\colorlet{mycitecolor}{OliveGreen}
@@ -31,6 +31,10 @@
 
 \headsep-0.6in
 %\headsep-0.45in
+
+%%list of acronyms with links
+\newcommand{\QMC}{\hyperlink{QMClink}{QMC}\xspace}
+\newcommand{\IIDMC}{\hyperlink{IIDMClink}{IID MC}\xspace}
 
 \setlength{\textwidth}{6.5in}
 \setlength{\oddsidemargin}{0in}
@@ -782,19 +786,22 @@ sampled sparsely where the second derivative is small or the function is large.
 
 YZ's PhD research is developing a locally 
 adaptive Simpson's rule for univariate integration.  It will have higher order accuracy than Algorithm 
-\ref{Trapalg} above.
+\ref{Trapalg} above.  
 
-\subsubsection{Globally  Adaptive Quasi-Monte Carlo (QMC) Cubature} \label{QMCsec}
+\subsubsection[QMCsec]{Globally  Adaptive Quasi-Monte Carlo (QMC) 
+Cubature} \hypertarget{QMClink}{}
+\label{QMCsec}
 The PI, LlAJR, and DL 
 have 
 developed adaptive quasi-Monte Carlo algorithms for integration over the unit cube, $\Omega = 
 [0,1]^d$ \cite{HicJim16a,JimHic16a}.  For multidimensional integrals over different domains, a 
 transformation of variables can 
-often change the domain to the unit cube.  QMC algorithms are commonly 
+often change the domain to the unit cube.  \QMC algorithms are commonly 
 chose the 
 sequence of nodes, $\{\bx_i\}_{i=0}^\infty$, to be an integration lattice node sequence  or a digital 
-sequence, especially the Sobol' sequence \cite{DicEtal14a}.  QMC cubature is superior to 
-independent and identically distributed (IID) Monte Carlo cubature because the nodes are more 
+sequence, especially the Sobol' sequence \cite{DicEtal14a}.  \QMC cubature is superior to 
+independent and identically distributed Monte Carlo (\hypertarget{IIDMClink}{IID MC}) cubature 
+because the nodes are more 
 evenly spread throughout the domain.   Fig.\ \ref{PtsFig} illustrates this fact.
 
 \begin{figure}[h] % MATLAB Driver: PlotPoints.m
@@ -806,7 +813,7 @@ evenly spread throughout the domain.   Fig.\ \ref{PtsFig} illustrates this fact.
 	\caption{IID nodes contrasted with nodes used for QMC cubature.\label{PtsFig}}
 \end{figure}
 
-For the two kinds of QMC sampling considered here and illustrated in Fig.\ \ref{PtsFig}, the number 
+For the two kinds of \QMC sampling considered here and illustrated in Fig.\ \ref{PtsFig}, the number 
 of nodes used is commonly restricted to a power of two, which we follow.  Moreover, it is common 
 to index the nodes starting with $0$, however, we start with $1$ to be consistent with the notation 
 elsewhere in the proposal.  The well-known theoretical error bound for 
@@ -826,7 +833,7 @@ f(\bx) \, \overline{\phi}_{\bk}(\bx) \quad \forall \bk \in \bbK, \\
 i=1, \ldots, n \} \\
 \nonumber
 \begin{array}{ccc}
-\text{QMC Nodes} & \bbK & \phi_{\bk} \\
+\text{\QMC Nodes} & \bbK & \phi_{\bk} \\
 \toprule
 \text{Shifted integration lattice sequence} & \integers^d & \text{Multivariate complex 
 exponentials}\\
@@ -836,11 +843,11 @@ functions}
 \end{gather}
 The error bound, $\oerr_n(f)$, arises because the basis, 
 $\{\phi_{\bk}\}_{\bk \in \bbK}$ is 
-chosen to match the particular QMC nodes.  As $n \to \infty$, the dual set, $P^\perp_n$, loses 
+chosen to match the particular \QMC nodes.  As $n \to \infty$, the dual set, $P^\perp_n$, loses 
 elements, and $\oerr_n(f) \to 0$.
 
 The PI and LlAJR in \cite{HicJim16a,JimHic16a} took $\oerr_n(f)$ as a starting point for their 
-adaptive QMC rules.   Although true Fourier 
+adaptive \QMC rules.   Although true Fourier 
 coefficients, $\hf(\bk)$, are rarely 
 known, they may be approximated 
 by discrete Fourier coefficients,
@@ -883,25 +890,25 @@ theoretically justified, data-based error bound can be derived:
 \end{equation*}
 Here $\fC(n)$ is an inflation factor and $n_1$ is a power of $2$ used to define what is meant by 
 ``moderate-sized'' wavenumbers.  This data-driven error bound in terms of the discrete Fourier 
-coefficients is used in \cite{HicJim16a,JimHic16a} to construct guaranteed adaptive QMC cubature 
+coefficients is used in \cite{HicJim16a,JimHic16a} to construct guaranteed adaptive \QMC cubature 
 algorithms: $n$ is increased by doubling until $\herr_n(f) \le \varepsilon$.  Then choosing 
 $\fA(f,\varepsilon) = A_n(f)$ satisfies  error criterion 
 \eqref{errorcrit}.  
 
-If $n$ is the final number of nodes required, the computational cost of these adaptive QMC 
+If $n$ is the final number of nodes required, the computational cost of these adaptive \QMC 
 cubature algorithms  is $\Order\bigl(\$(f)n + n \log(n)\bigr)$, 
 where $\$(f)$ denotes the cost of one function value.  For practical values of $n$,  $\$(f)n$ and 
 $n \log(n)$ are comparable.
 
-The PI, LlAJR, and DL have generalized the adaptive QMC rules to accommodate control variates.  
+The PI, LlAJR, and DL have generalized the adaptive \QMC rules to accommodate control variates.  
 This means replacing the integrand $f$ by $f - \bbeta^T[\bg - S(\bg)]$, where $\bg$ is a vector 
 function whose integral, $S(\bg)$, is known exactly.  Note that $S(f - \bbeta^T[g - S(g)]) = 
 S(f)$ for any constant $\bbeta$.  The data-driven error bound now is $\herr_n(f -  
 \bbeta^T[g - S(g)])$, and the choice of $\bbeta$ can significantly decrease or increase this error 
 bound, 
-and consequently the computational cost.  For IID MC cubature, a nearly optimal $\bbeta$ is 
+and consequently the computational cost.  For \IIDMC cubature, a nearly optimal $\bbeta$ is 
 computed by linear regression, but as pointed out by \cite{HicEtal03}, this is not necessarily the 
-correct $\bbeta$ for QMC cubature.  The PI, LlAJR, and DL provide an alternative method for 
+correct $\bbeta$ for \QMC cubature.  The PI, LlAJR, and DL provide an alternative method for 
 determining $\bbeta$ that looks directly at $\herr_n(f -  
 \bbeta^T[g - S(g)])$ \cite{HicEtal17a}.
 
@@ -925,7 +932,7 @@ contribution of the PI and JR has been to choose families of covariance kernels 
 decompositions of the form $C(\bx,\bt) = \sum_{\bk \in \bbK} \lambda_\bk \phi_{\bk}(\bx) 
 \phi_{\bk}(\bt)$, where the $\phi_{\bk}$ are the same as those used in the previous section.  The 
 eigenvalues $\lambda_\bk$ must be chosen so that the infinite sum has a closed form.  Kernels of 
-this form used with the corresponding QMC nodes yield Gram matrices $\mC$ for which the 
+this form used with the corresponding \QMC nodes yield Gram matrices $\mC$ for which the 
 necessary vector-matrix operations can be accomplished with computational cost $\Order(n 
 \log(n))$, making Bayesian cubature practical.  This work has been presented at conferences and 
 as in the process of being written up for publication.
@@ -983,11 +990,11 @@ Institute (SAMSI) 2017--18
 	
 	
 The PI's leadership in the MCQMC conferences  and SAMSI-QMC is 
-	designed to bring QMC to other areas of potential application.  One concrete example, was the 
+	designed to bring \QMC to other areas of potential application.  One concrete example, was the 
 	collaboration between the PI, LlAJR and French collaborators working in uncertainty quantification 
 	that resulted in \cite{GilEtal16a, GilJim16b}.  Another example, is the collaboration of LlAJR with 
 	high energy physicists at Fermilab, in the Chicago suburbs, where LlAJR was helping improve the 
-	efficiency of their Monte Carlo methods by using QMC.
+	efficiency of their Monte Carlo methods by using \QMC.
 	
 \emph{GAIL Software.} The theoretical results of this research have been implemented in 
 GAIL, the open source MATLAB library hosted on Github at 
@@ -1011,7 +1018,7 @@ substantial, long-term software project in a way that preserves the integrity of
 
 The PI teaches a course on Monte Carlo methods each fall.  For the past several years students 
 have been introduced to GAIL and used it in their coursework.  GAIL has been used to teach how to 
-know how large $n$ must be for an IID MC or QMC simulation to reach the desired accuracy 
+know how large $n$ must be for an \IIDMC or \QMC simulation to reach the desired accuracy 
 requirement.  Some students have chosen as their class project to improve GAIL.
 
 The PI was recently appointed the director of Illinois Tech's new Center for Interdisciplinary 
@@ -1089,16 +1096,17 @@ to nearly machine precision, there are no theoretical guarantees.
 
 We will provide a theoretical basis for Chebfun by defining a cone of reasonable functions, 
 $\cc$, for which Chebfun must give the correct answer.  This will be done in a similar manner as for 
-QMC quadrature in Sect.\ \ref{QMCsec}.  The cone $\cc$ will consist of functions 
+\QMC quadrature in Sect.\ \ref{QMCsec}.  The cone $\cc$ will consist of functions 
 whose Chebyshev series does not decay erratically for terms with polynomial degree greater than 
 some minimum value.  Functions lying outside this cone, $\cc$, will be spiky functions.   Our 
 theoretical foundation for Chebfun will explain why it may or may not succeed as claimed.
 
 \subsection{Adaptive Algorithms for Multivariate Problems}\label{SectMultiProb}
 
-\emph{Integration over domains with unbounded dimension} The next natural challenge for 
+\emph{Integration over domains with unbounded dimension.} The next natural challenge for 
 multivariate integration is to extend our 
-globally adaptive QMC algorithms described in Sect.\ \ref{QMCsec} to situations with arbitrarily large 
+globally adaptive \QMC algorithms described in Sect.\ \ref{QMCsec} to situations with arbitrarily 
+large 
 or infinite dimension, say,
 \[
 S(f) = \lim_{d \to \infty} S_d(f_d), \quad S_d(f_d):= \int_{\Omega^d} f_d(\bx) \, \varrho_d(\bx) \, \dif 
@@ -1111,17 +1119,19 @@ approximation of the SDE.
 
 One method for approximating $S(f)$ is to approximate the finite 
 dimensional integral $S_{d_L}(f_{d_L})$ for some large dimension, $d_L$.  However, the cost of 
-evaluating $f_{d_L}(x_{d_L})$ is often proportional to $d_L$.  If $A_{n,d}$ represents an IID MC, 
-QMC or other cubature 
+evaluating $f_{d_L}(x_{d_L})$ is often proportional to $d_L$.  If $A_{n,d}$ represents an \IIDMC, 
+\QMC or other cubature 
 using $n$ nodes on the $d$-dimensional domain,  the true cost of approximating $S(f)$ by an 
 algorithm using 
 $n_l$ nodes is
 $\Order(d_L n_L)$.
 
-Two alternative methods for approximating $S(f)$ are the multi-level method (MLM) \cite{Gil14a} 
+Two alternative methods for approximating $S(f)$ are the multi-level method (MLM) \cite{Gil15a} 
 and the 
 multivariate 
-decomposition method (MDM) \cite{Was13b}.  The function $f$, which depends on $\bx=(x_1, x_2, 
+decomposition method (MDM) \cite{Was13b}.  (Note: the MLM for cubature is inspired by the MLM 
+for solving partial differential equations, but is quite different.) The function $f$, which depends on 
+$\bx=(x_1, x_2, 
 \ldots) \in 
 \Omega^\naturals$, 
 is decomposed into pieces that only depend on the a subset of the coordinates:  
@@ -1136,7 +1146,7 @@ only
 on the coordinates with indices in $\fu$.  If $A_{n,d}$ represents a cubature 
 using $n$ nodes on the $d$-dimensional domain, $\Omega^d$, then the MLM and MDM cubatures 
 for 
-approximating $S(f)$ are \cite{Gil14a, Was13b}
+approximating $S(f)$ are \cite{Gil15a, Was13b}
 \begin{gather*}
 A^{\textup{MLM}}_{\bn,\bd}(f) = \sum_{\ell=1}^L A_{n_l,d_l}(f_{d_\ell} - f_{d_{\ell-1}}), \quad \bn = 
 (n_\ell)_{\ell = 1}^L, \ \bd = 
@@ -1157,31 +1167,63 @@ but the higher dimensional cubatures (large $d_\ell$ or $\abs{\fu}$) actually re
 of nodes.  In contrast, the single-level cubature requires a large number of nodes for a high 
 dimension
 
-The challenge in constructing a theoretically sound adaptive algorithm is determining good choices 
+Adaptive MLMs constructed so far are based on heuristics.  The MDM is still in the early stages of 
+practical application.  In theory, for nice enough integrands the costs of both methods for satisfying 
+\eqref{errorcrit} are proportional to the costs of the finite-dimensional cubatures used, i.e., 
+$\Order(\varepsilon^{-2})$ for \IIDMC and $\Order(\varepsilon^{-1+\delta})$ for \QMC.  The 
+challenge 
+in constructing a 
+\emph{theoretically sound} adaptive algorithm is determining good choices 
 of the dimension vector $\bd$ for MLM or the set of sets of important coordinate directions, $\fU$, 
-for MDM.  
+for MDM.
 These must be chosen so that (i) the error due to ignoring some pieces of the integrand is negligible 
 and (ii) the total cost of the cubatures is small. 
 Once  $\bd$ or $\fU$ are fixed, our adaptive cubatures in Sect.\ \ref{QMCsec} can be used to 
 determine the vector $\bn$ needed to meet the error criterion.  We propose to develop sound 
 adaptive cubatures $\fA^{MLM}$ and $\fA^{MDM}$ for infinite dimensional integration satisfying the 
 error criteria \eqref{errorcrit} and 
-\eqref{generrorcrit}.
+\eqref{generrorcrit}.  The PI's familiarity with the MLM \cite{HicMGRitNiu09a, NiuHic09a, 
+NiuHic09b} will facilitate this task.
 
-\emph{Bayesian cubature} The ideas being worked out by JR for his PhD thesis as described in 
-Sect.\ \ref{Bayessect} are complete for the lattice node QMC sampling, but not yet for the digital 
-sequence node QMC sampling.  In particular, we expect that smoother kernels and higher order nets 
+\emph{Generalized Error Criterion for \IIDMC.}  LJ developed a theoretically justified \IIDMC 
+algorithm satisfying a hybrid error criterion encompassing both absolute and relative error in her PhD 
+thesis \cite{Jia16a}.  However, her error criterion is not as general as \eqref{generrorcrit} in that it 
+did not allow the desired answer to be a function of several integrals.  We will generalize LJ's work to 
+cover this case.  There are challenges working in this setting because the algorithm is random and 
+so the error criterion should be satisfied with some confidence level $1- \alpha$.  The eventual 
+sample size needed is determined sequentially by increasing it and then estimating the error of the 
+sample mean.  This means that that each step in the sequential algorithm must proceed with a 
+higher confidence so that the target confidence level can be reached.
+
+We  do not yet have a bound on the computational complexity in this randomized setting for 
+multivariate integration.  We are discussing this problem with collaborators and hope to discover the 
+answer.
+
+\emph{Bayesian cubature.} The ideas being worked out by JR for his PhD thesis as described in 
+Sect.\ \ref{Bayessect} are complete for the lattice node \QMC sampling, but not yet for the digital 
+sequence node \QMC sampling.  In particular, we expect that smoother kernels and higher order 
+nets 
 will lead to higher order adaptive cubature methods.
 
 
-\emph{Function approximation using matching kernels and sampling schemes}
-The Bayesian cubature framework may also be used for function approximation.  This approach is 
-known as kriging in the statistics literature or kernel/radial basis function approximation in the 
-numerical analysis literature.  Again the We will develop adaptive function approximation 
-doit Roshan
+\emph{Function approximation using matching kernels and sampling schemes.}
+The Bayesian cubature framework may also be adapted to function approximation.  This approach is 
+known as kriging or Gaussian process modeling in the statistics literature \cite{RasWil06a,Ste99} 
+and is known as meshfree/radial basis function 
+approximation in the 
+numerical analysis literature \cite{Fas07a,FasMcC15a,Wen05a}.  Although the theory is 
+well-developed, the computational cost of operations involving the $n \times n$ Gram matrix, 
+$\mC$, mentioned in Sect.\ \ref{Bayessect} can be prohibitive.  
+
+We will employ the matched \QMC node sequences with the well-matched kernels that we 
+have found successful for cubature to the problem of multivariate function approximation.  We will 
+develop theoretically justified adaptive algorithms and bounds on their computational costs.  
+Because the theory of \QMC node sequences for function approximation is under-developed, there 
+is much work to be done.
 
 \subsection{Adaptive Algorithms for Problems with Expensive Function Values} 
 \label{SectExpensive}
+The 
 
 
 
@@ -1233,7 +1275,7 @@ We will continue our active track record of providing lectures to students at va
 
 The research we propose straddles mathematics, statistics, computer science, and application 
 areas.  The two PIs have complementary strengths that facilitate this interdisciplinary research.  FJH 
-has expertise in (quasi-)Monte Carlo methods, kernel-based methods, information-based complexity 
+has expertise in \QMC methods, kernel-based methods, information-based complexity 
 theory, and experimental design. SCC has expertise in computer science and applications.  Our 
 expertise provides both an obligation and an opportunity to interact with a number of diverse 
 communities. We envision the following contributions:
@@ -1255,7 +1297,7 @@ methods, and design of experiments.  Historically, there has been relatively lit
 numerical analysts and statisticians.  We have and will continue to engage the statistics community 
 by speaking a their conferences and departmental colloquia.  For example, the PI visited the 
 statistics group at Georgia Tech earlier this year, and the PI is also engaging statisticians and 
-applied mathematicians through the SAMSI QMC program.
+applied mathematicians through the SAMSI-QMC program.
 
 \emph{Organizing and Presenting at Conferences}
 We and our students involved in this project will present our results at a variety of conferences and 
@@ -1280,7 +1322,17 @@ GEF and MM have created the website \citep{McCFBG13} which serves as the home fo
 We will continue to develop GAIL \citep{ChoEtal14a} (now up to version 2) as part of our proposed research.  The GAIL software will serve the wider community that relies on numerical approximation and integration algorithms.  It will also demonstrate how adaptive algorithms ought to be implemented, which we hope will inspire and inform those working on adaptive algorithms for other mathematical problems.  We also expect our new algorithms to be incorporated into widely used numerical packages, as was done for our algorithm in \cite{HonHic00a} by \Matlab \citep{MAT8.4} and NAG \citep{NAG23}.  We will continue to discuss with software developers about these issues.
 
 \emph{Reaching Out.}
-GEF and FJH both have a record of reaching out to high school students which we plan to continue. The website \href{http://math.iit.edu/~openscholar/meshfree/}{\nolinkurl{math.iit.edu/~openscholar/meshfree/}} helps manage our internal and external communication and dissemination of research findings. Advertising for the summer REU experiences is also facilitated via this website.  Information about GAIL is at \href{http://code.google.com/p/gail}{\nolinkurl{code.google.com/p/gail}}.
+GEF and FJH both have a record of reaching out to high school students which we plan to continue. 
+The website 
+\href{http://math.iit.edu/~openscholar/meshfree/}{\nolinkurl{math.iit.edu/~openscholar/meshfree/}} 
+helps manage our internal and external communication and dissemination of research findings. 
+Advertising for the summer REU experiences is also facilitated via this website.  Information about 
+GAIL is at \href{http://code.google.com/p/gail}{\nolinkurl{code.google.com/p/gail}}.
+
+Fermi
+Bayesian inference
+Julia, Python, R
+
 
 
 \newpage
