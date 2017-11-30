@@ -905,7 +905,8 @@ correct $\bbeta$ for QMC cubature.  The PI, LlAJR, and DL provide an alternative
 determining $\bbeta$ that looks directly at $\herr_n(f -  
 \bbeta^T[g - S(g)])$ \cite{HicEtal17a}.
 
-\emph{Adaptive Bayesian Cubature.}  Recent research by the PI and JR has assumed 
+\subsubsection{Adaptive Bayesian Cubature}  \label{Bayessect} Recent research by the PI and 
+JR has assumed 
 that the integrand in the multiple integration problem \eqref{multiInt} is an instance of a Gaussian 
 Process with constant mean $m$, and covariance kernel, $C:[0,1]^d \times [0,1]^d \to \reals$, i.e., 
 $f \sim \GP (m,C)$.  This approach to computational mathematics has been pursued by several 
@@ -963,7 +964,7 @@ decompositions of the Matern kernels on the half line to the entire real line, t
 derivations.
 
 
-\subsection{Broader Impacts from Previous NSF Funding}
+\subsection{Broader Impacts from Previous NSF Funding} \label{prevBIsect}
 
 \emph{Publications , Conference Participation, and Conference Organization.} This 
 project has resulted in a number of publications by the PI, GEF, students, and collaborators listed at 
@@ -996,14 +997,16 @@ demonstrations.  GAIL makes it easier for practitioners to try our new adaptive 
 
 \emph{Boosting the STEM Workforce.} The PI and GEF have mentored a number of 
 research students associated with this project.  The main ones are mentioned at the beginning of 
-this section.  Female students mentored include YD, LJ, XT, and XZ.   There have also been several 
+this section.  Female students mentored include YD, LJ, XT, and XZ.   There have also been a 
+number of 
 undergraduate students who the PI, GEF, and SCC have mentored including more than a dozen 
 Brazilian Science Mobility Program in the summers of 2015 and 2016, Tanner Johnson (BS, U 
-Minnesota, PhD? student at U British Columbia), Tianci Zhu 
+Minnesota, MS student at U British Columbia), Tianci Zhu 
 (female, BS IIT, MS student at NYU),  Cu Hauw Hung (BS student at Biola University, applying for 
 graduate study), and Yueyi Li (BS student at Macalester University, applying for 
-graduate study).  As part of our team, these students conducted theoretical an practical research 
-that resulted in publications and new features for GAIL.  They have learned how to contribute to a 
+graduate study).  We have also had a few high school students join us. As part of our team, all of 
+these students conducted theoretical and/or practical research, some of which resulted in 
+publications and new features for GAIL.  Our students have learned how to contribute to a 
 substantial, long-term software project in a way that preserves the integrity of the software library.
 
 The PI teaches a course on Monte Carlo methods each fall.  For the past several years students 
@@ -1115,9 +1118,11 @@ algorithm using
 $n_l$ nodes is
 $\Order(d_L n_L)$.
 
-Two alternative methods for approximating $S(f)$ are the multi-level method (MLM) and the 
+Two alternative methods for approximating $S(f)$ are the multi-level method (MLM) \cite{Gil14a} 
+and the 
 multivariate 
-decomposition method (MDM).  The function $f$, which depends on $\bx=(x_1, x_2, \ldots) \in 
+decomposition method (MDM) \cite{Was13b}.  The function $f$, which depends on $\bx=(x_1, x_2, 
+\ldots) \in 
 \Omega^\naturals$, 
 is decomposed into pieces that only depend on the a subset of the coordinates:  
 \begin{equation*}
@@ -1125,11 +1130,13 @@ f(\bx) = \sum_{\fu \subset \naturals, \abs{\fu} < \infty} f_{\fu}(\bx) = \sum_{\
 =1}^\infty [f_{d_\ell}(\bx) - f_{d_{\ell-1}}(\bx)], \qquad  f_d:= \sum_{\fu \subseteq \{1, 
 \ldots, d\}} f_\fu, \quad f_0:= 0.
 \end{equation*}
-HereThis decomposition is not unique and may be based on convenience.  Each $f_{\fu}$ depends 
+Here $\abs{\fu}$ denotes the cardinality of the set $\fu$.  This decomposition is not unique and may 
+be based on convenience.  Each $f_{\fu}$ depends 
 only 
-on the coordinates with indices in $\fu$.  If $A_{n,d}$ represents an IID MC, QMC or other cubature 
-using $n$ nodes on the $d$-dimensional domain, then the MLM and MDM cubatures for 
-approximating $S(f)$ is 
+on the coordinates with indices in $\fu$.  If $A_{n,d}$ represents a cubature 
+using $n$ nodes on the $d$-dimensional domain, $\Omega^d$, then the MLM and MDM cubatures 
+for 
+approximating $S(f)$ are \cite{Gil14a, Was13b}
 \begin{gather*}
 A^{\textup{MLM}}_{\bn,\bd}(f) = \sum_{\ell=1}^L A_{n_l,d_l}(f_{d_\ell} - f_{d_{\ell-1}}), \quad \bn = 
 (n_\ell)_{\ell = 1}^L, \ \bd = 
@@ -1138,33 +1145,39 @@ n_\ell \right), \\
 A^{\textup{MDM}}_{\bn,\fU}(f) = \sum_{\fu \in \fU} A_{n_{\fu},\abs{\fu}}(f_{u}), \quad \bn = 
 (n_\fu)_{\fu \in \fU}, \ \bd = 
 (d_\fu)_{\fu \in \fU}, \quad \cost(f,A^{\textup{MDM}}_{\bn,\bd}) = \Order\left (\sum_{\fu \in \fU} d_\fu 
-n_\fu\right)\\
+n_\fu\right).
 \end{gather*}
-At first glance, these costs may look greater than the $\Order(d_L n_L)$ cost of the cubature 
+At first glance, these costs may look greater than the $\Order(d_L n_L)$ cost of the single-level 
+cubature 
 $A_{n_L,d_L}(f)$ for approximating $S(f)$.  However, the MLM and MDM are actually more 
-economical for the commonly occurring integrals where the low dimensional cubatures require 
-larger numbers of nodes, 
-but the higher dimensional cubatures actually require fewer numbers of nodes.
+economical for commonly occurring integrals when the goal is meeting a fixed error tolerance.   The 
+low dimensional cubatures (small $d_\ell$ or $\abs{\fu}$) require 
+larger numbers of nodes,  
+but the higher dimensional cubatures (large $d_\ell$ or $\abs{\fu}$) actually require fewer numbers 
+of nodes.  In contrast, the single-level cubature requires a large number of nodes for a high 
+dimension
 
 The challenge in constructing a theoretically sound adaptive algorithm is determining good choices 
-of the dimension vector $\bd$ for MLM or the set of sets of important coordinate directions, $\fU$.  
-These must be chosen so that the error due to ignoring some pieces of the integrand is negligible 
-and so that the total cost of the cubatures is efficient. 
-Once  $\bd$ or$\fU$ are set, our adaptive cubatures in Sect.\ \ref{QMCsec} can be used to 
+of the dimension vector $\bd$ for MLM or the set of sets of important coordinate directions, $\fU$, 
+for MDM.  
+These must be chosen so that (i) the error due to ignoring some pieces of the integrand is negligible 
+and (ii) the total cost of the cubatures is small. 
+Once  $\bd$ or $\fU$ are fixed, our adaptive cubatures in Sect.\ \ref{QMCsec} can be used to 
 determine the vector $\bn$ needed to meet the error criterion.  We propose to develop sound 
 adaptive cubatures $\fA^{MLM}$ and $\fA^{MDM}$ for infinite dimensional integration satisfying the 
 error criteria \eqref{errorcrit} and 
 \eqref{generrorcrit}.
 
-
-
-
-
-
+\emph{Bayesian cubature} The ideas being worked out by JR for his PhD thesis as described in 
+Sect.\ \ref{Bayessect} are complete for the lattice node QMC sampling, but not yet for the digital 
+sequence node QMC sampling.  In particular, we expect that smoother kernels and higher order nets 
+will lead to higher order adaptive cubature methods.
 
 
 \emph{Function approximation using matching kernels and sampling schemes}
-
+The Bayesian cubature framework may also be used for function approximation.  This approach is 
+known as kriging in the statistics literature or kernel/radial basis function approximation in the 
+numerical analysis literature.  Again the We will develop adaptive function approximation 
 doit Roshan
 
 \subsection{Adaptive Algorithms for Problems with Expensive Function Values} 
@@ -1184,69 +1197,82 @@ doit Roshan
 
 \emph{Providing Research Experiences for Undergraduate and High School Students.} Students 
 should be introduced to research before graduate school so that they can learn how to 
-discover the unknown, something that is not taught well in a classroom. We request funds to 
+discover the unknown, something that is not necessarily taught in the classroom. We request funds 
+to 
 support two summer REU students per year.  Having run our small REU program for several  years 
-has given us some visibility and is prompting inquiries from prospective participants well before we 
+has given us some visibility and prompts inquiries from prospective participants well before we 
 even announce our latest program 
 offerings. As in the past, we expect the NSF funds will serve as a catalyst for funds to 
 support additional summer students. In choosing REU students we make a deliberate effort to build 
 a diverse research environment by targeting female and underrepresented minority students as well 
-as students from less research-focused institutions (see Sect.~\ref{SectPrevious}). We will also 
+as students from less research-focused institutions (see Sect.~\ref{prevBIsect}). We will also 
 welcome well-prepared high school students to join our research group.
 
-\emph{Preparing Students for Academic Careers} We consider mentoring to be a multi-faceted and 
-potentially long-term process continuing even after the mentee has moved on from IIT.  For 
-example, MM was an undergraduate student at IIT who collaborated with GEF during his PhD 
-studies at Cornell U.  We will continue to mentor him as senior person for this proposal.
-    %Similarly, although QY has left IIT, he has continued his collaboration with GEF and FJH.
-    We have provided and will continue to provide SCC, a Research Assistant Professor at IIT and another senior person for this project, teaching and mentoring experience.  We will continue to find opportunities for special mentoring activities for our students, like those QY and YD participated in at the NSF-supported 14th International Conference on Approximation Theory in San Antonio organized by GEF in April 2013.  We  will continue our collaboration with Argonne National Laboratory, which has led to short-term and long-term opportunities for our PhD students and graduates.
+\emph{Preparing Students for Academic Careers.} We consider mentoring to be a multi-faceted and 
+potentially long-term process continuing even after the mentee has moved on from IIT.  We 
+continue to have contact with many of our former students, and in particular we continue to have 
+collaborations with YD, Qi Ye, and Yiou Li, who are pursuing academic careers.  
 
-\emph{Preparing Students for Industry Careers}
-In addition to preparing students for the academic landscape, we also help current students land competitive jobs in the business world. Our training in the areas of algorithm development and coding tends to give our students the needed edge. For example, WM graduated from Brown U in 2013 and then joined an internet startup company. AB, SD, YaL, and TS are working in the financial services industry.
+\emph{Preparing Students for Industry Careers.}
+In addition to preparing students for the academic landscape, we also help current students land 
+competitive jobs in the business world. Our training in the areas of algorithm development and 
+coding tends to give our students the needed edge. For example, WM graduated from Brown U in 
+2013 and then joined an internet startup company. LlAJR and XZ are working in the financial 
+services industry and  LJ is working in marketing analytics.  All of them are developing and testing 
+quantitatively sophisticated and computationally intensive models.
 
 \emph{Supervising Visitors.}
-GEF has established contacts with several Italian universities attracting students and postdoctoral 
-visitors to IIT for extended visits (see Sect.~\ref{SectPrevious}). Having lived in Hong Kong for 19 
-years, FJH has contacts with Chinese scientists that have prompted several long-term visiting 
-Chinese scholars and students to join our research.  These activities will continue.
+Both the PI and the Co-PI have strong connections to East Asia.  We have hosted several long-term 
+self-funded visitors in the past and plan to do so in the future.
 
-\emph{Giving Short Courses and Invited Lectures}
+\emph{Giving Tutorials and Invited Lectures}
 We will continue our active track record of providing lectures to students at various stages in their careers, ranging from high school to graduate school. These encourage students to enter STEM and encourage STEM students to engage in research.
 
 
 \subsection{Contributions to Resources in Research, Education and the Broader Society}
 
-The research we propose straddles mathematics, statistics, computer science, and applications in engineering and related fields.  The two PIs have complementary strengths that facilitate this interdisciplinary research.  GEF has expertise in approximation theory, meshfree methods, and numerical PDEs, while FJH has expertise in (quasi-)Monte Carlo methods, kernel-based methods, information-based complexity theory, and experimental design. Our expertise provides both an obligation and an opportunity to interact with a number of diverse communities. We envision the following contributions:
+The research we propose straddles mathematics, statistics, computer science, and application 
+areas.  The two PIs have complementary strengths that facilitate this interdisciplinary research.  FJH 
+has expertise in (quasi-)Monte Carlo methods, kernel-based methods, information-based complexity 
+theory, and experimental design. SCC has expertise in computer science and applications.  Our 
+expertise provides both an obligation and an opportunity to interact with a number of diverse 
+communities. We envision the following contributions:
 
 \emph{Disseminating Research}
-The research supported by this grant will result in publications in peer-reviewed journals in a broad spectrum of applied mathematics, computer science, statistics and engineering. These journals will include both those that emphasize theory and those that emphasize applications.
+The research supported by this grant will result in publications in peer-reviewed journals in a broad 
+spectrum of applied mathematics, computer science, statistics and science or engineering. These 
+journals will include both those that emphasize theory and those that emphasize applications.
 
 \emph{Promoting Cones} The idea of guaranteed, adaptive algorithms via cones of input functions 
-has broad potential application.  We will be promoting this idea among numerical analysts who 
+has broad potential application.  We will continue to promote this idea among numerical analysts 
+who 
 develop new algorithms and analyze their computational costs, as well as among information-based 
-complexity theorists who analyze the lower bounds on the complexity of numerical problems.
+complexity theorists who analyze the lower bounds on the complexity of numerical problems.  
 
 \emph{Bridging Mathematics and Statistics}
-This project touches on topics that are of interest to the statistics community: kriging, Monte Carlo methods, and design of experiments.  Historically, there has been relatively little interaction between numerical analysts and statisticians.  We have and will continue to engage the statistics community by speaking a their conferences and departmental seminars.  For example, in 2015 FJH will give a colloquium talk in the Department of Statistics at Virginia Tech and an invited talk at the $47^{\text{th}}$ Days of Statistics of the Soci\'et\'e Fran\c{c}aise de Statistique. The book \citep{FMcC15} by GEF and MM will contain several chapters bridging this gap.
-
-\emph{Promoting the Well-being of the Broader Society}
- uses kernel methods for the solution of inverse problems arising in the detection of brain activity 
- from MEG or EEG data. This non-invasive diagnostic procedure might help doctors detect early 
- functional and neurophysiological markers of diseases (e.g., Alzheimer's). It might also lead to a 
- reduction in doctors' visits, shorter hospitalization periods and a greater longevity with overall 
- improved quality of life. Similarly, may enable better management of the Ebola epidemic.
+This project touches on topics that are of interest to the statistics community: kriging, Monte Carlo 
+methods, and design of experiments.  Historically, there has been relatively little interaction between 
+numerical analysts and statisticians.  We have and will continue to engage the statistics community 
+by speaking a their conferences and departmental colloquia.  For example, the PI visited the 
+statistics group at Georgia Tech earlier this year, and the PI is also engaging statisticians and 
+applied mathematicians through the SAMSI QMC program.
 
 \emph{Organizing and Presenting at Conferences}
-We and our students involved in this project will present our results at a variety of conferences and workshops.  These include: (i) specialized meetings focusing on approximation theory, complexity, experimental design, meshfree methods, and Monte Carlo methods; (ii) the national meetings of AMS, SIAM, and the statistical societies; and (iii) conferences devoted to application areas.  We are frequently invited to speak at such conferences, which will give our results a prominent hearing. We will also continue to organize specialized conferences or minisymposia within larger conferences.
+We and our students involved in this project will present our results at a variety of conferences and 
+workshops.  These include: (i) specialized meetings focusing on approximation theory, complexity, 
+experimental design, and Monte Carlo methods; (ii) the national meetings of AMS, SIAM, and the 
+statistical societies; and (iii) conferences devoted to application areas.  We are frequently invited to 
+speak at such conferences, which will give our results a prominent hearing. We will also continue to 
+organize specialized conferences or minisymposia within larger conferences.
 
-\emph{Writing Textbooks and Survey Papers}
-GEF and MM are currently preparing \citep{FMcC15}. This book will provide an exposition of the theory and implementation of the Hilbert--Schmidt SVD along with numerous applications. The book will form a bridge to the GaussQR library \citep{McCFBG13} and may serve as a textbook for a graduate class on meshfree methods, such as MATH 590 at IIT. GEF and FJH occasionally publish survey articles (e.g., a 42 page paper on kernel-based methods \citep{Fasshauer11}).
+\emph{Writing Survey Papers}
+The PIs will continue their practice of writing tutorial, survey, and encyclopedia articles.  These will 
+make our findings accessible to a wider audience.
 
 \emph{Refreshing Course Syllabi}
-MATH 590 (Meshfree Methods), taught by GEF in the fall semester of every even-numbered year, just underwent a major change as the preparation of \citep{FMcC15} progresses.
 MATH 565 (Monte Carlo Methods in Finance), taught every fall by FJH, has incorporated our new 
 results on guaranteed (quasi-)Monte Carlo multivariate integration. In the future it will include our 
-new results on control variates and guaranteed multi-level and (quasi-)Monte Carlo sampling (see ).
+new results on guaranteed multi-level and (quasi-)Monte Carlo sampling (see ).
 Current texts teach students to estimate the error of the trapezoidal rule, $T_n(f)$, by $[T_n(f)-T_{n/2}(f)]/3$ (see, e.g., \cite[pp.\ 223--224]{BurFai10}).  The arguments behind this estimate introduce the valuable concept of extrapolation, however, this is a flawed error estimate as pointed out in \cite{Lyn83} and highlighted by our recent work \cite{HicEtal14b}.  This same flawed idea underlies \Matlab's {\tt integral.m}.  We will urge numerical analysis textbook authors and educators to change the way that error estimation is taught based on our recent and proposed work.  These ideas will also enter our more traditional numerical analysis courses such as MATH 350 (Intro to Computational Math) or MATH 577 and 578 (Computational Math I \& II).  SCC and FJH will continue to develop MATH 573 (Reliable Mathematical Software) as a valuable course for our own students and an example that we wish to propagate to other universities.
 
 \emph{Creating Software and Collaborating with Software Developers}
