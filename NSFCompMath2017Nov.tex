@@ -35,6 +35,7 @@
 %%list of acronyms with links
 \newcommand{\QMC}{\hyperlink{QMClink}{QMC}\xspace}
 \newcommand{\IIDMC}{\hyperlink{IIDMClink}{IID MC}\xspace}
+\newcommand{\SAMSIQMC}{\hyperlink{SAMSIlink}{SAMSI-QMC}\xspace}
 
 \setlength{\textwidth}{6.5in}
 \setlength{\oddsidemargin}{0in}
@@ -78,8 +79,8 @@
 \newcommand{\vf}{\boldsymbol{f}}
 \newcommand{\hV}{\widehat{V}}
 \newcommand{\tV}{\widetilde{V}}
-\newcommand{\fu}{\frak{u}}
-\newcommand{\hcut}{\frak{h}}
+\newcommand{\fu}{\mathfrak{u}}
+\newcommand{\hcut}{\mathfrak{h}}
 
 \newcommand{\bbE}{\mathbb{E}}
 \newcommand{\tQ}{\widetilde{Q}}
@@ -217,8 +218,8 @@
 
 \definecolor{MATLABOrange}{rgb}{0.85,  0.325, 0.098}
 
-\newtheorem{resproblem}{Research Problem}
-\newtheorem{research}{Research Objectives}
+%\newtheorem{resproblem}{Research Problem}
+%\newtheorem{research}{Research Objectives}
 
 
 
@@ -240,34 +241,35 @@
 \vspace{-6ex}
 
 \section{Scientific Context and Timeliness of the Proposed Research}
-Integration, function approximation, and optimization are the nuts and bolts calculations when 
-solving practical problems in a variety of areas, including financial risk management, particle physics, 
-Bayesian inference, and uncertainty quantification.  Practitioners would like to expend the  
-computational effort required to meet the desired error criterion, but not expend unneeded 
-computational effort. 
-Practitioners also want the algorithm to require no more than a specification of the problem and the 
+Integration and function approximation are the nuts and bolts calculations when 
+solving practical problems in a variety of areas, including financial risk management \cite{Gla03}, 
+statistical physics~\cite{LanBin14}, 
+Bayesian inference~\cite{GelEtal13}, and uncertainty quantification~\cite{ForEtal09, Smi14a}.  
+Practitioners 
+want to expend the  
+computational effort required to meet their error criterion, but not much more. 
+Practitioners also want the algorithm to require no more than the problem specification and the 
 error criterion.   Adaptive algorithms fill this need by determining when to stop the computation 
 based on data-driven error bounds, $\herr_n(f)$, where $f$ is the input function and $n$ is the 
-number of nodes used in the calculation.
+number of nodes (points where $f$ is evaluated).
 
-Common adaptive algorithms employ \emph{heuristic} error bounds, that sometimes fail, and for 
+Common adaptive algorithms employ \emph{heuristic} error bounds, that sometimes fail, and fail for 
 unknown reasons. Traditional error 
 analysis for numerical algorithms 
-yields error bounds, $\oerr_n(f)$, which involve norms of the input functions, $\norm[\calf]{f}$, lying 
-in 
-some Banach space of input functions, $\calf$.  However, $\norm[\calf]{f}$ is typically unknown a 
+yields rigorous error bounds, $\oerr_n(f)$, which involve norms of the input functions, 
+$\norm[\calf]{f}$.  However, $\norm[\calf]{f}$ is typically unknown a 
 priori.  Thus, traditional  error 
-bounds by themselves are inadequate  to produce rigorous stopping criteria for adaptive algorithms.
+bounds alone are inadequate  to produce rigorous stopping criteria for adaptive algorithms.
 
 Our project will develop \emph{rigorous} data-driven error bounds that will underpin new adaptive 
-numerical algorithms for integration, function approximation, and optimization.  The 
-key---discovered in our recent research---is to identify a cone of \emph{reasonable} input functions, 
-$\cc 
-\subset \calf $,  for which the traditional error bounds can certainly be bounded in terms of 
+numerical algorithms for integration and function approximation.  The 
+key---discovered in our recent NSF-funded research---is to identify a cone of \emph{reasonable} 
+input functions, 
+$\cc$,  for which the traditional error bounds can certainly be bounded in terms of 
 data-driven error bounds, i.e., $\oerr_n(f) \le \herr_n(f)$ for all $f \in \cc$.  
-Our new adaptive algorithms will yield answers to with desired accuracy and require only 
+Our new adaptive algorithms will yield answers with the desired accuracy and require only 
 specification of the problem and the error tolerance---not a bound on $\norm[\calf]{f}$. 
-These adaptive algorithms will be implemented in the freely available GAIL software library.  They will 
+These adaptive algorithms will be implemented in our freely available GAIL software library.  They will 
 be tested on various applications problems to ensure that theory matches practice.  The 
 development, implementation and application of these algorithms will involve undergraduate 
 students through senior faculty in a variety of disciplines.
@@ -290,8 +292,7 @@ where the total variation of the first derivative is defined as
 \vert \, 
 \forall \text{ partitions }  \{t_i\}_{i=0}^n \text{ of } [0,1], \ \forall n \in \naturals \right \}.
 \end{equation*} 
-A partition $\{t_i\}_{i=0}^n$ of an interval is an ordered subset including both 
-endpoints.
+A partition of an interval is an ordered subset including both endpoints.
 The practitioner wants to know how large $n$ 
 must be to ensure that $\err_n(f)  \le \varepsilon$, for a prescribed 
 absolute error tolerance $\varepsilon$.  Ensuring that $\oerr_n(f) \le \varepsilon$ is sufficient, but 
@@ -366,7 +367,7 @@ for
 any 
 constant $c$.  The 
 parameters $\hcut$ and $\fC_0$ determine how inclusive this 
-set of reasonable functions is.  It is shown in \cite{HicRazYun15a} that $\Var(f')$ can rigorously be 
+cone of reasonable functions is.  It is shown in \cite{HicRazYun15a} that $\Var(f')$ can rigorously be 
 bounded above by an 
 inflated variation of the derivative of the linear spline, which depends only on function values, not on 
 derivative values:
@@ -375,7 +376,7 @@ derivative values:
 \tV_n(f) 
 % & : = \sum_{i=1}^{n-1} \abs{ \frac{f((i+1)/n)-f(i/n)}{1/n} - \frac{f(i/n)-f((i-1)/n)}{1/n}}  \\& 
 := n\sum_{i=1}^{n-1} \abs{f((i+1)/n)-2f(i/n)+f((i-1)/n)}, 
-\quad \Var(f') \le \fC(2/n) \tV_n(f),  \ \ 
+\\ \Var(f') \le \fC(2/n) \tV_n(f),  \ \ 
 \forall 
 f \in \fC,  \ n > 2 /\hcut.
 \end{gather}
@@ -424,8 +425,8 @@ not exceed the error tolerance, $\varepsilon$.
 	by 
 	\emph{bounding} 
 	$\Var(f')$---a key term in 
-	error 
-	bound \eqref{traperrbd}---for reasonable functions.  Typical  adaptive quadrature algorithms 
+	$\oerr_n(f)$ in \eqref{traperrbd}---for reasonable functions.  Typical  adaptive quadrature 
+	algorithms 
 	remain 
 	flawed because they assume that the difference between two quadrature rules is indicative of the 
 	error of one of them as in \eqref{tradtraperrest}.  
@@ -498,16 +499,16 @@ not exceed the error tolerance, $\varepsilon$.
 	by the PI and his collaborators have been published in the Guaranteed Automatic 
 	Integration 
 	Library (GAIL) \cite{ChoEtal17b}.  We propose to further develop this library (Sect.\ 
-	\ref{}).
+	\ref{BroaderTwoSec}).
 	
-	\item[Error bound exists even if  time is the limiting factor]  Specifying the number of 
+	\item[An error bound exists even if  time is the limiting factor]  Specifying the number of 
 nodes rather than the error tolerance is accomplished by setting $n_{\max}$ to be this
  number and $\varepsilon = 0$.  The error bound, $\herr_n(f)$, is not needed to 
 stop the algorithm but is available to inform the user how large the error might be.
 
 	\item[This algorithm is globally adaptive] The  quadrature algorithm 
 	described above adaptively determines $n$ based on function data, which we term \emph{global 
-	adaptivity}.  Algorithms that determine the placement of the nodes, as well as the number, based 
+	adaptivity}.  Algorithms that determine the pattern of the nodes---as well as their number---based 
 	on function data are termed \emph{locally adaptive}.  Sect.\ 
 	\ref{previousmeritsubsec} below describes locally adaptive algorithms for function 
 	approximation and optimization.
@@ -520,16 +521,15 @@ stop the algorithm but is available to inform the user how large the error might
 	
 \end{description}
 
-Our proposed research addresses a class of problems beyond univariate integration.  The next 
+Our proposed research addresses problems beyond just univariate integration.  The next 
 subsections provide the notation for these problems and outline our research goals.
 
 
 \subsection{Traditional Error Analysis} Let $\calf$ be a Banach space of input functions 
 defined on the domain $\cx$, let
 $\calg$ be a Banach space of possible 
-solutions, and let $S:\calf \to \calg$ be a solution operator.  Ignoring for now the precise definitions 
-of $\calf$ and $\calg$, some examples of solution 
-operators for integration, function approximation (recovery), and optimization are
+solutions, and let $S:\calf \to \calg$ be a solution operator.  Some examples of solution 
+operators for integration, function approximation, and optimization are
 \begin{equation} \label{probs}
 S = \INT: f \mapsto \int_{\Omega} f(\bx) \, \dif \bx, \qquad S = \APP:f \mapsto f, \qquad S = 
 \OPT :f \mapsto 
@@ -562,10 +562,6 @@ $\norm{A_n}$ has an explicit expression ($1/(8n^2)$ in \eqref{traperrbd}), where
 cases one 
 can only derive an upper bound on $\norm{A_n}$ or the convergence rate of 
 $\norm{A_n}$. 
-Error bounds of the form  \eqref{typicalerr} are typically 
-illustrated by plotting $\norm[\calg]{S(f) - A_n(f)}$ versus $n$ for some example $f$ and showing 
-that the 
-convergence rate has the same order as $\norm{A_n}$.
 
 \subsection{Adaptive Algorithms} From a practical standpoint, users would like an adaptive 
 algorithm, 
@@ -586,35 +582,35 @@ Adaptive algorithms require error bounds, $\herr_n(f)$, computed from function d
 $\{(\bx_i,f(\bx_i))\}_{i=1}^n$, and not a priori knowledge of the (semi-)norm of the function.  Those 
 commonly used in practice are inadequate because there is no theory that justifies
 $\oerr_n(f)  \le \herr_n(f)$.  As mentioned earlier MATLAB's \texttt{integral} bases its $\herr_n(f)$ on 
-the comparison of two Gaussian quadratures.  Chebfun determines the number of polynomials 
-required to approximate a function approximation of functions by Chebyshev polynomials by 
-determining when the coefficients of the higher degree polynomials have reached round-off 
-error.
+the comparison of two Gaussian quadratures.  Chebfun truncates its Chebyshev polynomial 
+approximation to $f$ when the observed high order Chebyshev coefficients reach round-off 
+error, in spite of the possibility that even higher order coefficients could be significant.
 
 There is a family of adaptive algorithms with a theoretical foundation based on interval 
 arithmetic 
 described in \cite{MoKeCl09} and \cite{Rum10a} and implemented in INTLAB \cite{Rum99a}.  
 This 
-approach requires the function subroutines to take interval arguments and return interval 
+approach requires the function subroutines to take \emph{interval} arguments and return 
+\emph{interval} 
 outputs.  
 We do not pursue this approach because existing black-box function algorithms
 normally 
 do not meet these requirements.
 
 \subsection{What We Propose}
-The numerical algorithm that computes $\cos(x)$ to the desired accuracy---typically machine 
-precision---does not require the user to determine how many terms in the polynomial 
+The numerical algorithm we use everyday that computes $\cos(x)$ to our desired accuracy does 
+not require the user to determine how many terms in the polynomial 
 approximation are required.  The computation is \emph{automatic}.  Furthermore, theory 
 underpins this algorithm.  We believe that the same should be possible for problems that are 
 somewhat more difficult than evaluating elementary or special functions, such as the problems in 
 \eqref{probs}.  
 
 As computing power grows, and is matched by the complexity of the simulations attempted, certain 
-fundamental problems, such as integration, function approximation, and optimization should become 
+fundamental problems, such as integration and function approximation should become 
 as effortless as computing $\cos(x)$.  If the user specifies the problem and the error tolerance, the 
-algorithm should be able to provide the answer meeting the accuracy requirement.  Unfortunately, 
-that is not the case yet because our current adaptive integration, function approximation, and 
-optimization algorithms do not have sound theoretical underpinnings.
+algorithm should be able to provide the correct answer.  Unfortunately, 
+that is not the case yet because our current adaptive integration and function approximation 
+algorithms do not have sound theoretical underpinnings.
 
 To bring us closer to our ideal, we propose the following research program:
 \begin{itemize}
@@ -625,8 +621,8 @@ To bring us closer to our ideal, we propose the following research program:
 	\item The adaptive algorithms will likely be based on familiar algorithms, $A_n$, with 
 	well-understood theoretical error bounds, $\oerr_n(\cdot)$.  
 	
-	\item The cones, $\cc$, will be defined in a way that facilitates a data-driven error 
-	bound, $\herr_n(\cdot)$, which satisfies $\oerr_n(f) \le \herr_n(f)$ for all $f\in \cc$.  A key 
+	\item The cones, $\cc$, will be defined in a way that facilitate data-driven error 
+	bounds, $\herr_n(\cdot)$, which satisfy $\oerr_n(f) \le \herr_n(f)$ for all $f\in \cc$.  A key 
 	challenge is to identify the right $\cc$ and $\herr_n(\cdot)$.  For any silly 
 	$\herr_n(\cdot)$, one could define $\cc = \{f \, \vert \, \oerr_n(f) 
 	\le \herr_n(f) \}$, but we insist that the definition of $\cc$ \emph{not} depend on specific data, 
@@ -647,11 +643,14 @@ To bring us closer to our ideal, we propose the following research program:
 	\le v$, we aim to demonstrate that 
 	our 
 	adaptive algorithms are asymptotically optimal, i.e., $\comp(v,\varepsilon) = \Order 
-	\bigl((v/\varepsilon)^p \bigr)$ for the same $p$ as above.
+	\bigl((v/\varepsilon)^p \bigr)$ for the same $p$ as above.  These kinds of results are common in 
+	information-based complexity \cite{TraWer98,TraWasWoz88}, but rare when the set of input 
+	functions is a cone.
 	
 	\item These adaptive algorithms, $\fA$, will be implemented in the freely-available GAIL 
 	\cite{ChoEtal17b}.  Their 
-	effectiveness will be demonstrated on various practical problems.
+	effectiveness will be demonstrated on various practical problems such as those in \cite{VirLib17a} 
+	and those arising from collaborations.
 	
 	\item Academics, practitioners and students will be introduced to these 
 	new adaptive algorithms.  Students (high school through PhD) contributing to GAIL will learn to 
@@ -664,9 +663,10 @@ To bring us closer to our ideal, we propose the following research program:
 
 
 Our recent NSF-Funded research---summarized in the next section---has obtained some success in 
-this direction.  The proposed research detailed 
+the direction of our intended research.  The proposed research detailed 
 in Sect.\ \ref{secProposed} aims to significantly enlarge the family of adaptive numerical 
-algorithms that have both a theoretical basis and practical application.
+algorithms that have both a theoretical basis and practical application.  The last section details are 
+efforts aimed at broader impact.
 
 \section{Results of Previous NSF-Funded Research,
 NSF-DMS-1522687\except{toc}{, \emph{Stable, Efficient, Adaptive Algorithms for 
@@ -769,9 +769,9 @@ sampled sparsely where the second derivative is small.
 For this locally adaptive approximation algorithm 
 $\cost(\fA,f,\varepsilon) = \Order\left(\sqrt{\norm[1/2]{f''}/\varepsilon} \right)$ \cite{ChoEtal17a}, 
 where 
-$\norm[1/2]{\cdot}$ is the $1/2$-quasinorm, which is weaker than the sup-norm.  This is  
+$\norm[1/2]{\cdot}$, the $1/2$-quasinorm, is weaker than the sup-norm.  This is  
 asymptotically the same cost as for the best possible algorithm for this problem. In contrast, 
-the globally adaptive function approximation algorithm in \cite{HicEtal14b} has a 
+our older globally adaptive function approximation algorithm in \cite{HicEtal14b} has a 
 computational cost of $\Order\left(\sqrt{\norm[\infty]{f''}/\varepsilon} \right)$.  For a spiky 
 function inside $\cc$, the local adaption algorithm may require significantly less effort 
 than a global adaption algorithm because $\norm[1/2]{f''}$ will be much smaller than 
@@ -782,7 +782,7 @@ optimization problem, $\OPT$ in \eqref{probs}.  In this case, those subintervals
 function is definitely greater than the minimum found so far need not be 
 refined further.  Figure 
 \ref{localadaptfig} (right) gives an example of the function data required.  The function is 
-sampled sparsely where the second derivative is small or the function is large.
+sampled sparsely where the second derivative is small \emph{or} the function is large.
 
 YZ's PhD research is developing a locally 
 adaptive Simpson's rule for univariate integration.  It will have higher order accuracy than Algorithm 
@@ -985,11 +985,12 @@ serves as a program leader for the tatistical and Applied Mathematical Sciences
 Institute (SAMSI) 2017--18 
 \href{https://www.samsi.info/programs-and-activities/year-long-research-programs/2017-18-program-quasi-monte-carlo-high-dimensional-sampling-methods-applied-mathematics-qmc/
 }{Program on Quasi-Monte Carlo and High-Dimensional Sampling Methods for Applied 
-	Mathematics (SAMSI-QMC)}.  He  gave an invited tutorial at the Opening Workshop, leads one of 
+	Mathematics (\hypertarget{SAMSIlink}{SAMSI-QMC})}.   He  gave an invited tutorial 
+	at the Opening Workshop, leads one of 
 	the working groups, and participates in two others.  
 	
 	
-The PI's leadership in the MCQMC conferences  and SAMSI-QMC is 
+The PI's leadership in the MCQMC conferences  and \SAMSIQMC is 
 	designed to bring \QMC to other areas of potential application.  One concrete example, was the 
 	collaboration between the PI, LlAJR and French collaborators working in uncertainty quantification 
 	that resulted in \cite{GilEtal16a, GilJim16b}.  Another example, is the collaboration of LlAJR with 
@@ -1223,7 +1224,62 @@ is much work to be done.
 
 \subsection{Adaptive Algorithms for Problems with Expensive Function Values} 
 \label{SectExpensive}
-The 
+The previous two subsections have considered the situation where the time cost of a function value, 
+$f(\bx)$, is comparable to the cost of a floating point operation, or at worst, the cost of $d$ floating 
+point 
+operations, where $d$ is the dimension.  In this section we consider problems where the time cost 
+of a function value is more expensive than the cost of $n^p$ floating point operations for any 
+practical $p$.  A climate model may take hours or days to complete one run.  A simulation of the 
+future performance of a financial portfolio may take hours.  The outputs from simulations like these 
+depend on parameters, $\bx \in \reals^d$, whose values are uncertain or whose effect 
+on the output, $f(\bx)$ one needs to understand.
+
+We want to know under what situations one can integrate or approximate a function using 
+$\Order(d)$ function values, because this is the minimum number required to understand how each 
+scalar input affects the output.  Furthermore, we want to develop adaptive algorithms to compute 
+the integral and approximation to such functions.
+
+The three-volume series of monographs \cite{NovWoz08a,NovWoz10a,NovWoz12a} summarizes a 
+huge body of recent work on the the \emph{tractability} of integration and function approximation 
+problems, essentially, under what conditions the computational cost of satisfying \eqref{errorcrit} is 
+$\Order(d^q \varepsilon^{-p})$ as $d \to \infty$.  The PI has contributed to this literature 
+\cite{FasHicWoz12b,HicSloWas03a,HicSloWas03b,HicSloWas03c,HicSloWas03e,HicWasWoz06a,HicWoz00b,WanHic00b,YueHic04a,YueHic05a,ZhoHic15a}.
+  It is 
+common to consider weighted tensor product 
+spaces of input functions, such as the following Hilbert space with the decomposition notation 
+adopted 
+in Sect.\ \ref{SectMultiProb}:
+\begin{gather*}
+\calf := \left\{ f : [0,1]^d \to \reals \, \Big \vert \norm[\calf]{f}^2 := \!\!\!\sum_{\fu \subseteq \{1, 
+\ldots, d\}} 
+\frac{1}{\gamma_{\fu}^2}\int_{[0,1]^d}\abs{\frac{\partial^{\abs{\fu}}f_{\fu}}{\partial \bx_u}(\bx_u)}^2 \,  
+\dif \bx
+\right\}, 
+\frac{\partial^{\abs{\fu}}f}{\partial \bx_u}(\bx_u,\bzero), \\
+\text{e.g., } f(x_1,x_2) = (x_1^2+1)\cos(x_2), \ \ \partial^{\emptyset}f =  1, \ \ \partial^{\{1\}} f = 2 x_1, \ \ 
+\partial^{\{2\}}f  = \sin(x_2), \ \  \partial^{\{1,2\}}f  = 2x_1\sin(x_2),
+\end{gather*}
+The coordinate weights, $\bigl(\gamma_{\fu} \bigr)_{\fu \subseteq \{1, \ldots, d\}}$, indicate the 
+importance of the subsets of coordinate indices.  The smaller $\gamma_{\fu}$ is, the less influential 
+$f_u(\bx)$ is on $f(\bx)$.  The literature cited above provides necessary and sufficient conditions 
+guaranteeing that integration and function approximation are tractable for weighted spaces like the 
+one above.  For product weights, $\gamma_{\fu} = \prod_{r \in \fu} \gamma_r$, tractability is 
+guaranteed  
+if $\gamma_{r} \to 0$ quickly enough as $r \to \infty$.  Algorithms can be constructed whose 
+computational cost depend reasonably on dimension.
+
+In some contexts one has a sense of how to order the coordinates in roughly order of decreasing 
+importance, but in the contexts we have in mind, such an ordering does not exist.  The helpful ideas 
+from the tractability literature can be applied only after an initial probe of the function indicates 
+which coordinates are more important and which are less so.
+
+Two of the \SAMSIQMC working groups that the PI is involved in are exploring this problem of 
+placing an initial set 
+of nodes to evenly probe the domain of $f$, followed by node placement that favors the important 
+coordinate directions.  In essence, this will help us determine the coordinate weights and then allow 
+us to use the ideas from tractability to solve the integration or optimization problem.  
+
+Our new algorithms will 
 
 
 
@@ -1271,7 +1327,8 @@ self-funded visitors in the past and plan to do so in the future.
 We will continue our active track record of providing lectures to students at various stages in their careers, ranging from high school to graduate school. These encourage students to enter STEM and encourage STEM students to engage in research.
 
 
-\subsection{Contributions to Resources in Research, Education and the Broader Society}
+\subsection{Contributions to Resources in Research, Education and the Broader Society} 
+\label{BroaderTwoSec}
 
 The research we propose straddles mathematics, statistics, computer science, and application 
 areas.  The two PIs have complementary strengths that facilitate this interdisciplinary research.  FJH 
@@ -1297,7 +1354,7 @@ methods, and design of experiments.  Historically, there has been relatively lit
 numerical analysts and statisticians.  We have and will continue to engage the statistics community 
 by speaking a their conferences and departmental colloquia.  For example, the PI visited the 
 statistics group at Georgia Tech earlier this year, and the PI is also engaging statisticians and 
-applied mathematicians through the SAMSI-QMC program.
+applied mathematicians through the \SAMSIQMC program.
 
 \emph{Organizing and Presenting at Conferences}
 We and our students involved in this project will present our results at a variety of conferences and 
