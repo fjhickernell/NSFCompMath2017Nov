@@ -484,7 +484,7 @@ not exceed the error tolerance, $\varepsilon$.
 	integration problem is the computational cost of the best possible algorithm that is based on 
 	function values only,  
 	\[
-	\comp(v,\varepsilon)  := \inf_ {\ct'} \ \sup\{\cost(\ct',f,\varepsilon) : f \in \cc, \Var(f') \le v \} 
+	\comp(v,\varepsilon)  := \inf_ {\ct'} \ \sup\{\cost(\ct',f,\varepsilon) : f \in \cc, \Var(f') \le v \} .
 	\]
 	It is shown in \cite{HicRazYun15a} that $\comp(v,\varepsilon) = \Order 
 	(\sqrt{v/\varepsilon})$ by constructing fooling functions that look like zero to the algorithm, but 
@@ -840,7 +840,7 @@ f(\bx) \, \overline{\phi}_{\bk}(\bx) \quad \forall \bk \in \bbK, \\
 \oerr_n(f), \\
 \nonumber
 \text{Dual set: }P_n^\perp : = \{\bk \in \bbK \, \vert \, \phi_{\bk}(\bx_i) = \phi_{\bk}(\bx_1) \text{ for } 
-i=1, \ldots, n \} \\
+i=1, \ldots, n \}. \\[3ex]
 \nonumber
 \begin{array}{ccc}
 \text{\QMC Nodes} & \bbK & \phi_{\bk} \\
@@ -1139,7 +1139,7 @@ globally adaptive \QMC algorithms described in Sect.\ \ref{QMCsec} to situations
 dimension:
 \[
 S(f) = \lim_{d \to \infty} S_d(f_d), \quad S_d(f_d):= \int_{\tOmega^d} f_d(\bx) \, \varrho_d(\bx) \, \dif 
-\bx, \quad \tvarrho_d(\bx) : = \prod_{r=1}^{d} \varrho(x_r)
+\bx, \quad \tvarrho_d(\bx) : = \prod_{r=1}^{d} \varrho(x_r),
 \]
 where $f_d$ is an  approximation to $f$ that depends only on the first $d$ variables, and $\tvarrho$ 
 is a probability density function on $\tOmega$.  Such 
@@ -1189,13 +1189,13 @@ n_\fu\right).
 \end{gather*}
 At first glance, these costs may look greater than the $\Order(d_L n_L)$ cost of the single-level 
 cubature 
-$A_{n_L,d_L}(f)$ for approximating $S(f)$.  However, the MLM and MDM are actually more 
+$A_{n_L,d_L}(f)$.  However, the MLM and MDM are actually more 
 economical for commonly occurring integrals when the goal is meeting a fixed error tolerance.   The 
 low dimensional cubatures (small $d_\ell$ or $\abs{\fu}$) require 
 larger numbers of nodes ($n_\ell$ or $n_{\fu}$),  
 but the higher dimensional cubatures (large $d_\ell$ or $\abs{\fu}$) actually require fewer numbers 
 of nodes.  In contrast, the single-level cubature requires a large number of nodes for a high 
-dimension
+dimension.
 
 Adaptive MLMs constructed so far are based on heuristics.  The MDM is still in the early stages of 
 practical application.  In theory, for nice enough integrands the costs of both methods for satisfying 
@@ -1222,8 +1222,11 @@ does not allow the desired answer to be a function of several integrals.  We wil
 to 
 cover this case.  There are challenges working in this setting because the algorithm is random and 
 so the error criterion should be satisfied with some confidence level $1- \alpha$.  The eventual 
-$n$ needed is determined sequentially by increasing it and then estimating the error of the 
-sample mean.  This means that that each step in the sequential algorithm must proceed with a 
+$n$ required is determined sequentially by increasing it and then re-determining whether the 
+generalized 
+error tolerance---which depends on the unknown answer---is met.  Each step in 
+the sequential algorithm must proceed 
+with a 
 higher confidence so that the target confidence level can be reached.
 
 We  do not yet have a bound on the computational complexity in this randomized setting for 
@@ -1250,7 +1253,8 @@ We will employ the \QMC node sequences with their well-matched kernels for multi
 approximation, similar to what  we 
 have already found successful for cubature.  We will 
 develop theoretically justified adaptive algorithms and bounds on their computational costs.  
-Because the theory of \QMC node sequences for function approximation is under-developed, there 
+Because the theory of \QMC node sequences for function approximation using kernels is 
+under-developed, there 
 is much work to be done.
 
 \subsection{Adaptive Algorithms for Problems with Expensive Function Values} 
@@ -1265,10 +1269,10 @@ future performance of a financial portfolio may take hours.  The outputs from si
 depend on parameters, $\bx \in \reals^d$, whose values are uncertain or whose effect 
 on the output, $f(\bx)$ one needs to understand.
 
-We want to know under what situations one can integrate or approximate a function using 
+We want to know under what situations one can integrate or approximate a function using only
 $\Order(d)$ function values, because this is the minimum number required to understand how each 
-scalar input affects the output.  Furthermore, we want to develop adaptive algorithms to compute 
-the integral and approximation to such functions.
+scalar input affects the output.  Furthermore, we want to develop adaptive algorithms for function 
+approximations.  These surrogate models will facilitate cheap ``what-if'' explorations. 
 
 The three-volume series of monographs \cite{NovWoz08a,NovWoz10a,NovWoz12a} summarizes a 
 huge body of work on the \emph{tractability} of integration and function approximation 
@@ -1284,7 +1288,8 @@ in Sect.\ \ref{SectMultiProb}:
 \begin{equation*}
 \calf := \left\{ f : [0,1]^d \to \reals \, \Big \vert \norm[\calf]{f}^2 := \!\!\!\sum_{\fu \subseteq \{1, 
 \ldots, d\}} 
-\frac{1}{\gamma_{\fu}^2}\int_{[0,1]^d}\abs{\frac{\partial^{\abs{\fu}}f_{\fu}}{\partial \bx_u}(\bx_u)}^2 \,  
+\frac{1}{\gamma_{\fu}^2}\int_{[0,1]^d}\abs{\frac{\partial^{\abs{\fu}}f_{\fu}}{\partial \bx_\fu}(\bx_u)}^2 
+\,  
 \dif \bx
 \right\}.
 \end{equation*}
@@ -1301,22 +1306,26 @@ if $\gamma_{r} \to 0$ quickly enough as $r \to \infty$.  Algorithms can be const
 computational cost depend reasonably on dimension.
 
 For some applications one knows how to order the coordinates in roughly order of decreasing 
-importance, but for other applications we have in mind, such an ordering does not exist.  The helpful 
+importance, but for the applications we have in mind, such an ordering does not exist.  It must be 
+discovered by evaluating the function.  Only then, can the 
 tractability literature can be applied only after an initial probe of the function indicates 
 which coordinates are more important.
 
 Two of the \SAMSIQMC working groups that the PI belongs to are exploring how to
 place an initial set 
-of nodes to evenly to uncover the important coordinate directions of $f$, followed by node 
+of nodes evenly to uncover the important coordinate directions of $f$, followed by node 
 placement that favors the important 
-coordinate directions to approximate $f$ well.  In essence, this will help us determine the coordinate 
-weights and then allow 
-us to use the ideas from tractability to solve the integration or optimization problem.  
+coordinate directions to approximate $f$ well.  We expect the existing literature plus the new ideas 
+arising from the working groups will set us on a path to solving this problem.
 
 \section{Broader Impacts of the Proposed Research}\label{SectBroad}
 
 
 \subsection{Contributions to Training, Mentoring and Other Human Resource Developments}
+The PI runs a weekly research group meeting comprised of long-term and short-term student 
+collaborators, 
+visitors, the curious, and special guests.  Ongoing work in early or polished stages is shared.  Papers 
+of other authors are presented.  Mentoring takes place during these meetings as well as individually.
 
 \emph{Providing Research Experiences for Undergraduate and High School Students.} Students 
 should be introduced to research before graduate school so that they can learn how to 
@@ -1338,12 +1347,12 @@ Our PhD students gain experience both research and mentoring the younger student
 research group.  We 
 continue contact with many of our former students in academia.  In particular we continue to have 
 collaborations with YD, Qi Ye, and Yiou Li.  We will continue to help our students prepare for 
-academic careers if they choose and continue mentoring them after they leave Illinois Tech.
+academic careers and continue mentoring them after they leave Illinois Tech.
 
 \emph{Preparing Students for Industry Careers.}
 We also help current students land 
 competitive jobs in the business world. Our training in the areas of computation and software 
-development tends to give our students the needed edge in comparison to other mathematics 
+development gives our students the needed edge in comparison to other mathematics 
 graduates. For example, LlAJR and XZ are working in the financial services industry and  LJ is 
 working in marketing analytics.  All of them are developing and testing quantitatively sophisticated 
 and computationally intensive models.
@@ -1361,7 +1370,8 @@ to engage in research.
 \subsection{Contributions to Resources in Research, Education and the Broader Society} 
 \label{BroaderTwoSec}
 
-The research we propose straddles mathematics, statistics, computer science, and application 
+The research we propose straddles mathematics, statistics, theoretical computer science, and 
+application 
 areas.  The two PIs have complementary strengths that facilitate this interdisciplinary research.  FJH 
 has expertise in \QMC methods, kernel-based methods, information-based complexity 
 theory, and experimental design. SCC has expertise in computer science and applications.  Our 
@@ -1373,7 +1383,7 @@ The research supported by this grant will result in publications in peer-reviewe
 mathematics, computer science, statistics, and science/engineering. These 
 journals will include both those that emphasize theory and those that emphasize applications.
 
-\emph{Promoting Cones} The idea of guaranteed, adaptive algorithms via cones of reasonable input 
+\emph{Promoting Cones.} The idea of guaranteed, adaptive algorithms via cones of reasonable input 
 functions 
 has broad potential application.  We will continue to promote this idea among numerical analysts 
 who 
@@ -1389,7 +1399,7 @@ by speaking a their conferences and departmental colloquia.  For example, the PI
 statistics group at Georgia Tech earlier this year, and the PI is also engaging statisticians and 
 applied mathematicians through the \SAMSIQMC program.
 
-\emph{Organizing and Presenting at Conferences}
+\emph{Organizing and Presenting at Conferences.}
 We and our students involved in this project will present our results at a variety of conferences and 
 workshops.  These include: (i) specialized meetings focusing on approximation theory, complexity, 
 experimental design, and Monte Carlo methods; (ii) the national meetings of AMS, SIAM, and the 
@@ -1397,16 +1407,16 @@ statistical societies; and (iii) conferences devoted to application areas.  We a
 speak at such conferences, which will give our results a prominent hearing. We will also continue to 
 organize specialized conferences or minisymposia within larger conferences.
 
-\emph{Writing Survey Papers}
+\emph{Writing Survey Papers.}
 The PIs will continue their practice of writing tutorial, survey, and encyclopedia articles.  These will 
 make our findings accessible to a wider audience.
 
-\emph{Refreshing Course Syllabi}
+\emph{Refreshing Course Syllabi.}
 MATH 565 (Monte Carlo Methods in Finance), taught every fall by FJH, has incorporated our new 
 results on guaranteed (quasi-)Monte Carlo multivariate integration. In the future it will include our 
 new results on our guaranteed MLM and MDM (see Sect.\ \ref{SectMultiProb}).
 
-As noted in Sect.\ \ref{TrapIllSect}, current texts teach students propagate poor practices for 
+As noted in Sect.\ \ref{TrapIllSect}, current texts propagate poor practices for 
 adaptive quadrature.  We will urge numerical analysis textbook authors and educators to change the 
 way that error estimation is taught based on our recent and proposed work.  These ideas will also 
 enter our more traditional numerical analysis courses such as MATH 350 (Intro to Computational 
@@ -1414,18 +1424,18 @@ Math).  SCC and FJH will continue to develop MATH 573 (Reliable Mathematical Sof
 valuable course for our own students and an example that we wish to propagate to other 
 universities.
 
-\emph{Creating Software and Collaborating with Software Developers}
+\emph{Creating Software and Collaborating with Software Developers.}
 We will continue to develop \GAIL \citep{ChoEtal17b} (now up to version 2.2).  The \GAIL software 
 will 
 serve the wider community that relies on numerical approximation and integration algorithms.  It will 
 also demonstrate how adaptive algorithms ought to be implemented, which we hope will inspire and 
 inform those working on adaptive algorithms for other mathematical problems.  We will involve 
-students in porting \GAIL to other platforms, such as Python, R, and Julia.  We also expect our 
+students in porting \GAIL to other platforms, such as Python, R, and Julia.  We expect our 
 new algorithms to be incorporated into widely used numerical packages, as was done for our 
 algorithm in \cite{HonHic00a} by \Matlab \citep{MAT8.4} and NAG \citep{NAG23}.  We will continue 
 to discuss with software developers about good practices for adaptive algorithms.
 
-\emph{New Applications of \QMC}
+\emph{New Applications of \QMC.}
 The application of \QMC has focused on a few areas, such as financial modeling and computer 
 graphics, but there is 
 potential for much wider application.  LlAJR has collaborated with Fermilab implementing \QMC 
