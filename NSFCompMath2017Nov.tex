@@ -33,6 +33,7 @@
 %\headsep-0.45in
 
 %%list of acronyms with links
+\newcommand{\GAIL}{\hyperlink{GAILlink}{GAIL}\xspace}
 \newcommand{\QMC}{\hyperlink{QMClink}{QMC}\xspace}
 \newcommand{\IIDMC}{\hyperlink{IIDMClink}{IID MC}\xspace}
 \newcommand{\SAMSIQMC}{\hyperlink{SAMSIlink}{SAMSI-QMC}\xspace}
@@ -81,6 +82,8 @@
 \newcommand{\tV}{\widetilde{V}}
 \newcommand{\fu}{\mathfrak{u}}
 \newcommand{\hcut}{\mathfrak{h}}
+\newcommand{\tOmega}{\widetilde{\Omega}}
+\newcommand{\tvarrho}{\widetilde{\varrho}}
 
 \newcommand{\bbE}{\mathbb{E}}
 \newcommand{\tQ}{\widetilde{Q}}
@@ -241,7 +244,7 @@
 \vspace{-6ex}
 
 \section{Scientific Context, Key Ideas,  and Timeliness of the Proposed Research}
-Integration and function approximation are the nuts and bolts calculations when 
+Integration and function approximation are the nuts and bolts when 
 solving practical problems in a variety of areas, including financial risk management \cite{Gla03}, 
 statistical physics~\cite{LanBin14}, 
 Bayesian inference~\cite{GelEtal13}, and uncertainty quantification~\cite{ForEtal09, Smi14a}.  
@@ -266,12 +269,15 @@ numerical algorithms for integration and function approximation.  The
 key---discovered in our recent NSF-funded research---is to identify a cone of \emph{reasonable} 
 input functions, 
 $\cc$,  for which the traditional error bounds can certainly be bounded in terms of 
-data-driven error bounds, i.e., $\oerr_n(f) \le \herr_n(f)$ for all $f \in \cc$.  
+data-driven error bounds, i.e., $\oerr_n(f) \le \herr_n(f)$ for all $f \in \cc$.  To guarantee their 
+correctness, our data-driven error bounds typically are different than the heuristics commonly 
+employed.
 Our new adaptive algorithms will yield answers with the desired accuracy and require only 
 specification of the problem and the error tolerance---not a bound on $\norm[\calf]{f}$. 
-These adaptive algorithms will be implemented in our freely available GAIL software library.  They will 
+These adaptive algorithms will be implemented in our freely available \GAIL software library.  They 
+will 
 be tested on various applications problems to ensure that theory matches practice.  The 
-development, implementation and application of these algorithms will involve undergraduate 
+development, implementation and application of these algorithms will involve high school 
 students through senior faculty in a variety of disciplines.
 
 \subsection{An Illustrative Example: Integration by the Trapezoidal Rule}  
@@ -294,7 +300,7 @@ where the total variation of the first derivative is defined as
 \end{equation*} 
 A partition of an interval is an ordered subset including both endpoints.
 The practitioner wants to know how large $n$ 
-must be to ensure that $\err_n(f)  \le \varepsilon$, for a prescribed 
+must be to ensure that $\err_n(f)  \le \varepsilon$ for a prescribed 
 absolute error tolerance $\varepsilon$.  Ensuring that $\oerr_n(f) \le \varepsilon$ is sufficient, but 
 this requires an upper bound on $\Var(f')$, which is normally unavailable  unless $f$ has a simple 
 form.
@@ -358,7 +364,7 @@ $\Var(f')$ provides an \emph{upper bound} on $\Var(f')$:
 \cc := \Bigl \{ f \in C^1[0,1]: \Var(f') \le \fC(\size(\{t_i\}_{i=0}^n)) \hV(f',\{t_i\}_{i=0}^n) \text{ for all }   n 
 \in \naturals \\
  \text{and partitions } \{t_i\}_{i=0}^n \text{ with } 
-\size(\{t_i\}_{i=0}^n) < \hcut \Bigr \}, \qquad  \fC(h) = \frac{\fC_0 \hcut}{\hcut - h}, \quad \fC_0 
+\size(\{t_i\}_{i=0}^n) < \hcut \Bigr \}, \qquad  \fC(h) := \frac{\fC_0 \hcut}{\hcut - h}, \quad \fC_0 
 > 1, \ 
 \ 0 < \hcut < 1.
 \end{multline}
@@ -425,7 +431,13 @@ not exceed the error tolerance, $\varepsilon$.
 	by 
 	\emph{bounding} 
 	$\Var(f')$---a key term in 
-	$\oerr_n(f)$ in \eqref{traperrbd}---for reasonable functions.  Typical  adaptive quadrature 
+	$\oerr_n(f)$ in \eqref{traperrbd}---for reasonable functions:
+	\begin{equation*}
+	\underbrace{\err_n(f)}_{\text{actual error}} \ \ \underbrace{\le}_{\text{all } f} \ \ 	
+	\underbrace{\oerr_n(f)}_{\text{theoretical  bound}} \ \ \underbrace{\le}_{f \in \cc} \ \ 
+	\underbrace{\herr_n(f)}_{\text{data-driven  bound}} .
+	\end{equation*}
+	Typical  adaptive quadrature 
 	algorithms 
 	remain 
 	flawed because they assume that the difference between two quadrature rules is indicative of the 
@@ -458,7 +470,7 @@ not exceed the error tolerance, $\varepsilon$.
 
 	\item[Bound the computational cost of the algorithm] Let $\cost(\ct,f,\varepsilon)$ denote the 
 	computational cost or number of function values  required by 
-	Algorithm \ref{Trapalg} to obtain the required $\ct(f,\varepsilon)$ for $f \in \cc$.  It is shown that 
+	Algorithm \ref{Trapalg} to obtain $\ct(f,\varepsilon)$ for $f \in \cc$.  It is shown that 
 	$\cost(\ct,f,\varepsilon) = \Order (\sqrt{\Var(f')/\varepsilon})$ in \cite{HicRazYun15a}.  
 	(Since $\Var(f')$ is unbounded for $f \in \cc$, we 
 	include it in the expression for the computational cost.)  The computational cost for Algorithm 
@@ -471,21 +483,19 @@ not exceed the error tolerance, $\varepsilon$.
 	integration problem is the computational cost of the best possible algorithm that is based on 
 	function values only,  
 	\[
-	\comp(v,\varepsilon)  := \inf_ {\ct'} \sup_{f \in \cc, \Var(f') \le v} \cost(\ct',f,\varepsilon)
+	\comp(v,\varepsilon)  := \inf_ {\ct'} \ \sup\{\cost(\ct',f,\varepsilon) : f \in \cc, \Var(f') \le v \} 
 	\]
-	It is also shown in \cite{HicRazYun15a} that $\comp(v,\varepsilon) = \Order 
-	(\sqrt{v/\varepsilon})$.  This is 
-	established by constructing fooling functions that look like zero to the algorithm, but whose 
-	integral is nonzero. Thus, our algorithm is asymptotically optimal.
+	It is shown in \cite{HicRazYun15a} that $\comp(v,\varepsilon) = \Order 
+	(\sqrt{v/\varepsilon})$ by constructing fooling functions that look like zero to the algorithm, but 
+	whose 
+	integral is nonzero. Our algorithm is asymptotically optimal.
 	
 	\item[The definition of adaptive algorithm includes parameters] MATLAB's 
 	\texttt{integral} \cite{MAT9.3}
-	assumes an initial number of nodes and a maximum sample size.  Chebfun 
-	\cite{TrefEtal17a}, a 
-	numerical 
-	library that adaptively integrates functions via Chebyshev polynomial approximations 
-	assumes 
-	default values for these parameters as well as others.
+	assumes an initial number of nodes and a maximum sample size.  
+	%Chebfun \cite{TrefEtal17a}, a numerical library that adaptively integrates functions via 
+	%Chebyshev polynomial approximations assumes default values for these parameters as well as 
+	%others.
 	These parameters are set to be reasonable for most situations, but may be modified if 
 	necessary.  The parameters  $\hcut = 0.02, \fC_0 = 
 	1.5$, and 
@@ -498,7 +508,8 @@ not exceed the error tolerance, $\varepsilon$.
 	developed 
 	by the PI and his collaborators have been published in the Guaranteed Automatic 
 	Integration 
-	Library (GAIL) \cite{ChoEtal17b}.  We propose to further develop this library (Sect.\ 
+	Library (\hypertarget{GAILlink}{GAIL}) \cite{ChoEtal17b}.  We propose to further develop this 
+	library (Sect.\ 
 	\ref{BroaderTwoSec}).
 	
 	\item[An error bound exists even if  time is the limiting factor]  Specifying the number of 
@@ -510,14 +521,14 @@ stop the algorithm but is available to inform the user how large the error might
 	described above adaptively determines $n$ based on function data, which we term \emph{global 
 	adaptivity}.  Algorithms that determine the pattern of the nodes---as well as their number---based 
 	on function data are termed \emph{locally adaptive}.  Sect.\ 
-	\ref{previousmeritsubsec} below describes locally adaptive algorithms for function 
-	approximation and optimization.
+	\ref{previousmeritsubsec} describes new locally adaptive algorithms.
 	
 	\item[Optimality is only for integrands with limited smoothness] This adaptive quadrature 
 	algorithm is 
 	optimal for the cone of integrands, $\cc$, however, it is 
-	sub-optimal for smoother integrands.  See Sect.\ \ref{SectUniProb} for proposed research in 
-	this direction.
+	sub-optimal for smoother integrands.  See Sect.\ \ref{SectUniProb} for proposed research on 
+	algorithms with
+	higher order convergence.
 	
 \end{description}
 
@@ -541,11 +552,12 @@ Let $\{A_n:
 input function, 
 $f$, at $n$ nodes
 (data sites) $\desn \subset \cx$, and produces an approximation to $S(f)$ based 
-on $\{(\bx_i,f(\bx_i))\}_{i=1}^n$.
+on $\{(\bx_i,f(\bx_i))\}_{i=1}^n$.  Typically, $A_n(f) = \sum_{i=1}^n w_i f(\bx_i)$ for some 
+$\{w_i\}_{i=1}^n \subset \calg$.
 Here 
 $\calI$ is an index set of positive integers. 
 
-The error bounds  for $A_n$ typically take the  form
+The error bounds  for $A_n$ commonly take the  form
 \begin{gather} \label{typicalerr}
 \err_n(f): = \norm[\calg]{S(f) - A_n(f)} \le \norm{A_n} \norm[\calf]{f} =: \oerr_n(f) \qquad \forall f \in 
 \calf, \ n \in 
@@ -553,12 +565,12 @@ The error bounds  for $A_n$ typically take the  form
 \\ \text{where }\norm{A_n}  : = \sup_{0 \ne f \in \calf} \frac{\norm[\calg]{S(f) - A_n(f)}} 
 {\norm[\calf]{f}}.
 \end{gather} 
-In some cases, such as  \eqref{traperrbd}, $\norm[\calf]{f}$ is a 
-semi-norm rather than a norm.  The term $\norm{A_n}$
+It may be that $\norm[\calf]{f}$ is a 
+semi-norm rather than a norm as in  \eqref{traperrbd}.  The term $\norm{A_n}$
 represents the worst case error for functions in the unit ball in $\calf$ and is a quality measure for 
 the algorithm, including the
 choice of nodes.  In some cases 
-$\norm{A_n}$ has an explicit expression ($1/(8n^2)$ in \eqref{traperrbd}), whereas in other 
+$\norm{A_n}$ has an explicit expression ($1/(8n^2)$ in \eqref{traperrbd}), but in other 
 cases one 
 can only derive an upper bound on $\norm{A_n}$ or the convergence rate of 
 $\norm{A_n}$. 
@@ -647,13 +659,13 @@ To bring us closer to our ideal, we propose the following research program:
 	information-based complexity \cite{TraWer98,TraWasWoz88}, but rare when the set of input 
 	functions is a cone.
 	
-	\item These adaptive algorithms, $\fA$, will be implemented in the freely-available GAIL 
+	\item These adaptive algorithms, $\fA$, will be implemented in the freely-available \GAIL 
 	\cite{ChoEtal17b}.  Their 
 	effectiveness will be demonstrated on various practical problems such as those in \cite{VirLib17a} 
 	and those arising from collaborations.
 	
 	\item Academics, practitioners and students will be introduced to these 
-	new adaptive algorithms.  Students (high school through PhD) contributing to GAIL will learn to 
+	new adaptive algorithms.  Students (high school through PhD) contributing to \GAIL will learn to 
 	collaboratively develop robust, tested, 
 	and documented numerical software that supports reproducible research.  This will support their 
 	future careers and strengthen our country's computational science capability.
@@ -669,10 +681,10 @@ algorithms that have both a theoretical basis and practical application.  The la
 efforts aimed at broader impact.
 
 \section{Results of Previous NSF-Funded Research,
-NSF-DMS-1522687\except{toc}{, \emph{Stable, Efficient, Adaptive Algorithms for 
+NSF-DMS-1522687\except{toc}{, \\ \emph{Stable, Efficient, Adaptive Algorithms for 
 Approximation and 
-Integration}, 
-\$270,000, 2015--2018}} \label{SectPrevious}
+Integration}, \\
+\$270,000, August 2015 -- July 2018}} \label{SectPrevious}
 
 G. E. Fasshauer (GEF, co-PI) and F. J. Hickernell (PI) have led this project.  In the summer of 
 2016, Fasshauer left Illinois Tech and has participated since then as a sub-contractor.  
@@ -1004,11 +1016,11 @@ The PI's leadership in the MCQMC conferences  and \SAMSIQMC is
 	high energy physicists at Fermilab, in the Chicago suburbs, where LlAJR was using \QMC to speed 
 	up their Monte Carlo calculations.
 	
-\emph{GAIL Software.} The theoretical results of this research have been implemented in 
-GAIL, the open source MATLAB library hosted on Github at 
+\emph{\GAIL Software.} The theoretical results of this research have been implemented in 
+\GAIL, the open source MATLAB library hosted on Github at 
 \href{http://gailgithub.github.io/GAIL_Dev/} {\nolinkurl{gailgithub.github.io/GAIL_Dev/}}. This software 
 has been implemented with input parsing, input validation, unit tests, inline documentation, and 
-demonstrations.  GAIL makes it easier for practitioners to try our new adaptive algorithms.  
+demonstrations.  \GAIL makes it easier for practitioners to try our new adaptive algorithms.  
 
 \emph{Boosting the STEM Workforce.} The PI and GEF have mentored a number of 
 research students associated with this project.  The main ones are mentioned at the beginning of 
@@ -1023,13 +1035,14 @@ Minnesota, MS student at U British Columbia), Tianci Zhu
 graduate study), and Yueyi Li (female BS student at Macalester University, applying for 
 graduate study).  We have also had a few high school students join us. As part of our team, all of 
 these students conducted theoretical and/or practical research, some of which resulted in 
-publications and new features for GAIL.  Our students have learned how to contribute to a 
+publications and new features for \GAIL.  Our students have learned how to contribute to a 
 substantial, long-term software project in a way that preserves the integrity of the software library.
 
 The PI teaches a course on Monte Carlo methods each fall.  For the past several years students 
-have been introduced to GAIL and used it in their coursework.  GAIL has been used to teach how to 
+have been introduced to \GAIL and used it in their coursework.  \GAIL has been used to teach how 
+to 
 know how large $n$ must be for an \IIDMC or \QMC simulation to reach the desired accuracy 
-requirement.  A number of student class projects have been devoted to improving GAIL.
+requirement.  A number of student class projects have been devoted to improving \GAIL.
 
 The PI was recently appointed the director of Illinois Tech's new Center for Interdisciplinary 
 Scientific Computation.  In this position he has been fostering collaborative scientific computation 
@@ -1037,7 +1050,7 @@ research across departments by hosting matchmaking seminars and sponsoring a see
 competition.
 
 
-\section{Intelletual Merit of Proposed Research} \label{secProposed}
+\section{Intellectual Merit of the Proposed Research} \label{secProposed}
 
 
 \subsection{Higher Order Adaptive Algorithms for Univariate Problems}\label{SectUniProb}
@@ -1122,11 +1135,11 @@ globally adaptive \QMC algorithms described in Sect.\ \ref{QMCsec} to situations
 large 
 or infinite dimension, say,
 \[
-S(f) = \lim_{d \to \infty} S_d(f_d), \quad S_d(f_d):= \int_{\Omega^d} f_d(\bx) \, \varrho_d(\bx) \, \dif 
-\bx, \quad \varrho_d(\bx) : = \prod_{r=1}^{d} \varrho(x_r)
+S(f) = \lim_{d \to \infty} S_d(f_d), \quad S_d(f_d):= \int_{\tOmega^d} f_d(\bx) \, \varrho_d(\bx) \, \dif 
+\bx, \quad \tvarrho_d(\bx) : = \prod_{r=1}^{d} \varrho(x_r)
 \]
-where $f_d$ is an  approximation to $f$ that depends only on the first $d$ variables, and $\varrho$ 
-is a probability density function.  Such 
+where $f_d$ is an  approximation to $f$ that depends only on the first $d$ variables, and $\tvarrho$ 
+is a probability density function on $\tOmega$.  Such 
 problems arise as the expected value of a functional of the solution of a 
 stochastic differential equation (SDE) using $d$ time steps.  
 
@@ -1157,7 +1170,7 @@ Here $\abs{\fu}$ denotes the cardinality of the set $\fu$.  This decomposition i
 be based on convenience.  Each $f_{\fu}$ depends 
 only 
 on the coordinates with indices in $\fu$.  If $A_{n,d}$ represents a cubature 
-using $n$ nodes on the $d$-dimensional domain, $\Omega^d$, then the MLM and MDM cubatures 
+using $n$ nodes on the $d$-dimensional domain, $\tOmega^d$, then the MLM and MDM cubatures 
 for 
 approximating $S(f)$ are \cite{Gil15a, Was13b}
 \begin{gather*}
@@ -1296,7 +1309,7 @@ coordinate directions to approximate $f$ well.  In essence, this will help us de
 weights and then allow 
 us to use the ideas from tractability to solve the integration or optimization problem.  
 
-\section{Broader Impact of Proposed Research}\label{SectBroad}
+\section{Broader Impacts of the Proposed Research}\label{SectBroad}
 
 
 \subsection{Contributions to Training, Mentoring and Other Human Resource Developments}
@@ -1398,11 +1411,12 @@ valuable course for our own students and an example that we wish to propagate to
 universities.
 
 \emph{Creating Software and Collaborating with Software Developers}
-We will continue to develop GAIL \citep{ChoEtal17b} (now up to version 2.2).  The GAIL software will 
+We will continue to develop \GAIL \citep{ChoEtal17b} (now up to version 2.2).  The \GAIL software 
+will 
 serve the wider community that relies on numerical approximation and integration algorithms.  It will 
 also demonstrate how adaptive algorithms ought to be implemented, which we hope will inspire and 
 inform those working on adaptive algorithms for other mathematical problems.  We will involve 
-students in porting GAIL to other platforms, such as Python, R, and Julia.  We also expect our 
+students in porting \GAIL to other platforms, such as Python, R, and Julia.  We also expect our 
 new algorithms to be incorporated into widely used numerical packages, as was done for our 
 algorithm in \cite{HonHic00a} by \Matlab \citep{MAT8.4} and NAG \citep{NAG23}.  We will continue 
 to discuss with software developers about good practices for adaptive algorithms.
