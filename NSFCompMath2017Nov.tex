@@ -796,8 +796,8 @@ have
 developed adaptive quasi-Monte Carlo algorithms for integration over the unit cube, $\Omega = 
 [0,1]^d$ \cite{HicJim16a,JimHic16a}.  For multidimensional integrals over different domains, a 
 transformation of variables can 
-often change the domain to the unit cube.  \QMC algorithms are commonly 
-chose the 
+often change the domain to the unit cube.  \QMC algorithms  commonly 
+choose the 
 sequence of nodes, $\{\bx_i\}_{i=0}^\infty$, to be an integration lattice node sequence  or a digital 
 sequence, especially the Sobol' sequence \cite{DicEtal14a}.  \QMC cubature is superior to 
 independent and identically distributed Monte Carlo (\hypertarget{IIDMClink}{IID MC}) cubature 
@@ -813,10 +813,8 @@ evenly spread throughout the domain.   Fig.\ \ref{PtsFig} illustrates this fact.
 	\caption{IID nodes contrasted with nodes used for QMC cubature.\label{PtsFig}}
 \end{figure}
 
-For the two kinds of \QMC sampling considered here and illustrated in Fig.\ \ref{PtsFig}, the number 
-of nodes used is commonly restricted to a power of two, which we follow.  Moreover, it is common 
-to index the nodes starting with $0$, however, we start with $1$ to be consistent with the notation 
-elsewhere in the proposal.  The well-known theoretical error bound for 
+For the two kinds of \QMC sampling considered here and illustrated in Fig.\ \ref{PtsFig}, $n$ is 
+commonly a power of two.  The well-known theoretical error bound for 
 quasi-Monte Carlo cubature can be expressed in terms of some of the Fourier coefficients of the 
 integrand \cite{DicEtal14a, DicPil10a, HicJim16a,JimHic16a, Nie92, SloJoe94}:
 \begin{gather}
@@ -843,7 +841,8 @@ functions}
 \end{gather}
 The error bound, $\oerr_n(f)$, arises because the basis, 
 $\{\phi_{\bk}\}_{\bk \in \bbK}$ is 
-chosen to match the particular \QMC nodes.  As $n \to \infty$, the dual set, $P^\perp_n$, loses 
+chosen to \emph{match} the particular \QMC nodes.  As $n \to \infty$, the dual set, $P^\perp_n$, 
+loses 
 elements, and $\oerr_n(f) \to 0$.
 
 The PI and LlAJR in \cite{HicJim16a,JimHic16a} took $\oerr_n(f)$ as a starting point for their 
@@ -852,7 +851,7 @@ coefficients, $\hf(\bk)$, are rarely
 known, they may be approximated 
 by discrete Fourier coefficients,
 \begin{equation*}
-\tf(\bk)  = \frac{1}n \sum_{i=1}^{n} f(\bx_i) \overline{\phi}_{\bk}(\bx_i)
+\tf(\bk)  = \frac{1}n \sum_{i=1}^{n} f(\bx_i) \overline{\phi}_{\bk}(\bx_i).
 \end{equation*}
 The $n$ unique discrete Fourier coefficients can be evaluated with a computational cost of 
 $\Order(n \log(n))$.  However, the index set $P^\perp_n \setminus\{\bzero\}$ contains large 
@@ -901,19 +900,21 @@ where $\$(f)$ denotes the cost of one function value.  For practical values of $
 $n \log(n)$ are comparable.
 
 The PI, LlAJR, and DL have generalized the adaptive \QMC rules to accommodate control variates.  
-This means replacing the integrand $f$ by $f - \bbeta^T[\bg - S(\bg)]$, where $\bg$ is a vector 
-function whose integral, $S(\bg)$, is known exactly.  Note that $S(f - \bbeta^T[g - S(g)]) = 
-S(f)$ for any constant $\bbeta$.  The data-driven error bound now is $\herr_n(f -  
-\bbeta^T[g - S(g)])$, and the choice of $\bbeta$ can significantly decrease or increase this error 
-bound, 
-and consequently the computational cost.  For \IIDMC cubature, a nearly optimal $\bbeta$ is 
+%This means replacing the integrand $f$ by $f - \bbeta^T[\bg - S(\bg)]$, where $\bg$ is a vector 
+%function whose integral, $S(\bg)$, is known exactly.  Note that $S(f - \bbeta^T[g - S(g)]) = 
+%S(f)$ for any constant $\bbeta$.  The data-driven error bound now is $\herr_n(f -  
+%\bbeta^T[g - S(g)])$, and the choice of $\bbeta$ can significantly decrease or increase this error 
+%bound, 
+%and consequently the computational cost.  
+For \IIDMC cubature, a nearly optimal control variate coefficient, $\bbeta$, is 
 computed by linear regression, but as pointed out by \cite{HicEtal03}, this is not necessarily the 
-correct $\bbeta$ for \QMC cubature.  The PI, LlAJR, and DL provide an alternative method for 
-determining $\bbeta$ that looks directly at $\herr_n(f -  
-\bbeta^T[g - S(g)])$ \cite{HicEtal17a}.
+correct $\bbeta$ for \QMC cubature.  The PI, LlAJR, and DL provide an alternative, satisfactory 
+method for 
+determining $\bbeta$.
+% that looks directly at $\herr_n(f -  \bbeta^T[g - S(g)])$ \cite{HicEtal17a}.
 
 \subsubsection{Adaptive Bayesian Cubature}  \label{Bayessect} Recent research by the PI and 
-JR has assumed 
+JR assumes
 that the integrand in the multiple integration problem \eqref{multiInt} is an instance of a Gaussian 
 Process with constant mean $m$, and covariance kernel, $C:[0,1]^d \times [0,1]^d \to \reals$, i.e., 
 $f \sim \GP (m,C)$.  This approach to computational mathematics has been pursued by several 
@@ -930,17 +931,17 @@ involving the Gram matrix $\mC = \bigl(C(\bx_i,\bx_j)\bigr)_{i,j=1}^n$, which ar
 $\Order(n^3)$.  The 
 contribution of the PI and JR has been to choose families of covariance kernels with Hilbert-Schmidt 
 decompositions of the form $C(\bx,\bt) = \sum_{\bk \in \bbK} \lambda_\bk \phi_{\bk}(\bx) 
-\phi_{\bk}(\bt)$, where the $\phi_{\bk}$ are the same as those used in the previous section.  The 
+\phi_{\bk}(\bt)$, where the $\phi_{\bk}$ are \emph{the same as those in the previous section}.  The 
 eigenvalues $\lambda_\bk$ must be chosen so that the infinite sum has a closed form.  Kernels of 
-this form used with the corresponding \QMC nodes yield Gram matrices $\mC$ for which the 
+this form used with the matching \QMC nodes yield Gram matrices $\mC$ for which the 
 necessary vector-matrix operations can be accomplished with computational cost $\Order(n 
 \log(n))$, making Bayesian cubature practical.  This work has been presented at conferences and 
-as in the process of being written up for publication.
+as being written up for publication.
 
 \emph{Generalized Error Criteria.}  Some practitioners may prefer the adaptive 
 algorithm 
 to satisfy a more general error 
-criterion than \eqref{errorcrit}, say, 
+criterion than \eqref{errorcrit}, e.g., 
 \begin{multline}
 \label{generrorcrit} \tag{G-CRIT}
 \abs{V(S(\vf)) - \fA(\vf,\varepsilon, \reltol) } \le \max(\varepsilon, \reltol \abs{V(S(\vf))} ),  \\
@@ -948,9 +949,10 @@ criterion than \eqref{errorcrit}, say,
 \Omega \to \reals^p, \ \ V: \reals^p \to \reals, \ \ S(\vf) = \bigl(S(f_1), \ldots, S(f_p) \bigr)^T, \ \  0 \le 
 \reltol \le 1,
 \end{multline}
-where now the value sought, $V(S(\vf))$, is a function of say, the integral of $p$-vector function, 
+where now the value sought, $V(S(\vf))$, is a function the integral of $p$-vector function, 
 $\vf$. Examples of situations where there the value sought is a function of several intergrals include 
-Sobol' indices \cite{} and Bayesian inference \cite{}.  The approximate solution is acceptable if it 
+Sobol' indices \cite{Sal02a} and Bayesian inference \cite{GelEtal13}.  The approximate solution is 
+acceptable if it 
 satisfies either an absolute error tolerance, 
 $\varepsilon$, \emph{or} a relative error tolerance, $\reltol$.  The PI, LlAJR, and DL showed in 
 \cite{HicEtal17a} how to use data-driven error bounds, $\abs{S(f_j) - A_n(f_j)} \le \herr_{n}(f_j)$, $j = 
@@ -977,25 +979,30 @@ derivations.
 project has resulted in a number of publications by the PI, GEF, students, and collaborators listed at 
 the beginning of this section.  We have also spoken at a number of applied mathematics, statistics, 
 and computational science conferences and given colloquium/seminar talks to mathematics and 
-statistics departments.  As highlights, the PI gave invited tutorials at the Twelfth International 
+statistics departments.  Here are some highlights.  The PI, SCC, LJ, and LlAJR recently finished an 
+encyclopedia entry on adaptive Monte Carlo \cite{HicEtal18a}.  The PI co-organized the 
+\href{http://cos.iit.edu/2016-spring-research-conference/}{2016 Spring Research 
+Conference}, a long-standing annual industrial statistics conference.   The PI gave an invited tutorial 
+at the \href{http://mcqmc2016.stanford.edu}{Twelfth International 
 Conference on Monte Carlo and Quasi-Monte Carlo Methods in Scientific Computing (MCQMC 
-2016) 
+2016)} 
 \cite{Hic17a}, a biennial conference for which he also serves on the steering committee.  The PI also 
-serves as a program leader for the tatistical and Applied Mathematical Sciences 
+serves as a program leader for the Statistical and Applied Mathematical Sciences 
 Institute (SAMSI) 2017--18 
 \href{https://www.samsi.info/programs-and-activities/year-long-research-programs/2017-18-program-quasi-monte-carlo-high-dimensional-sampling-methods-applied-mathematics-qmc/
 }{Program on Quasi-Monte Carlo and High-Dimensional Sampling Methods for Applied 
 	Mathematics (\hypertarget{SAMSIlink}{SAMSI-QMC})}.   He  gave an invited tutorial 
 	at the Opening Workshop, leads one of 
-	the working groups, and participates in two others.  
+	the working groups, and participates in two others.  The PI received the 2016 Joseph F.\ Traub 
+	Prize for Achievement in Information-Based Complexity.
 	
 	
 The PI's leadership in the MCQMC conferences  and \SAMSIQMC is 
 	designed to bring \QMC to other areas of potential application.  One concrete example, was the 
 	collaboration between the PI, LlAJR and French collaborators working in uncertainty quantification 
 	that resulted in \cite{GilEtal16a, GilJim16b}.  Another example, is the collaboration of LlAJR with 
-	high energy physicists at Fermilab, in the Chicago suburbs, where LlAJR was helping improve the 
-	efficiency of their Monte Carlo methods by using \QMC.
+	high energy physicists at Fermilab, in the Chicago suburbs, where LlAJR was using \QMC to speed 
+	up their Monte Carlo calculations.
 	
 \emph{GAIL Software.} The theoretical results of this research have been implemented in 
 GAIL, the open source MATLAB library hosted on Github at 
@@ -1005,13 +1012,15 @@ demonstrations.  GAIL makes it easier for practitioners to try our new adaptive 
 
 \emph{Boosting the STEM Workforce.} The PI and GEF have mentored a number of 
 research students associated with this project.  The main ones are mentioned at the beginning of 
-this section.  Female students mentored include YD, LJ, XT, and XZ.   There have also been a 
+this section.  Female students mentored include YD, LJ, XT, and Xiaoyang Zhao (MS IIT).   There 
+have also been a 
 number of 
 undergraduate students who the PI, GEF, and SCC have mentored including more than a dozen 
-Brazilian Science Mobility Program in the summers of 2015 and 2016, Tanner Johnson (BS, U 
+Brazilian Science Mobility Program students in the summers of 2015 and 2016, Tanner Johnson (BS 
+U 
 Minnesota, MS student at U British Columbia), Tianci Zhu 
 (female, BS IIT, MS student at NYU),  Cu Hauw Hung (BS student at Biola University, applying for 
-graduate study), and Yueyi Li (BS student at Macalester University, applying for 
+graduate study), and Yueyi Li (female BS student at Macalester University, applying for 
 graduate study).  We have also had a few high school students join us. As part of our team, all of 
 these students conducted theoretical and/or practical research, some of which resulted in 
 publications and new features for GAIL.  Our students have learned how to contribute to a 
@@ -1020,7 +1029,7 @@ substantial, long-term software project in a way that preserves the integrity of
 The PI teaches a course on Monte Carlo methods each fall.  For the past several years students 
 have been introduced to GAIL and used it in their coursework.  GAIL has been used to teach how to 
 know how large $n$ must be for an \IIDMC or \QMC simulation to reach the desired accuracy 
-requirement.  Some students have chosen as their class project to improve GAIL.
+requirement.  A number of student class projects have been devoted to improving GAIL.
 
 The PI was recently appointed the director of Illinois Tech's new Center for Interdisciplinary 
 Scientific Computation.  In this position he has been fostering collaborative scientific computation 
@@ -1058,14 +1067,15 @@ subinterval
 $[\alpha, \beta]$ of the integration interval $[a,b]$.  
 Trefethen \cite{Tre08a} has pointed out that Clenshaw-Curtis quadrature is competitive with Gauss 
 quadrature.  Starting with the theoretical error bounds for Clenshaw-Curtis quadrature 
-\cite[Sect.\ 5.4]{BraPet11a}, we will develop a data-driven upper bound on the roughness of the 
+\cite{BraPet11a}, we will develop a data-driven upper bound on the roughness of the 
 function, 
 analogous to how $\fC(2/n)\tV_n(f)$ provides  an upper bound on $\Var(f')$ in \eqref{tVdef} for 
 reasonable functions.  However, rather than developing a global bound, we will develop local bounds 
 as was done in \cite{ChoEtal17a}.  This will then lead to a data-driven quadrature error bounds, 
 $\herr_n(f,[\alpha,\beta])$, that 
 can be used to adaptively determine the sample size needed to satisfy the error criteria 
-\eqref{errorcrit} or \eqref{generrorcrit}.
+\eqref{errorcrit} or \eqref{generrorcrit}.  We will also provide an upper bound on the computational 
+cost of our new algorithm and a lower bound on the computational complexity of the problem.
 
 \emph{Locally Adaptive Optimization and Function Approximation.}
 We will use a similar line of argument to that in Sect.\ 
@@ -1073,8 +1083,10 @@ We will use a similar line of argument to that in Sect.\
 optimization algorithm of higher order convergence than the one we have constructed already.  Our 
 earlier 
 algorithm used piecewise linear approximations, and we expect faster convergence with piecewise 
-quadratic approximations.  We emphasize that while being locally adaptive, our algorithm finds the 
-global optimum.
+quadratic approximations.  Again computational cost of the algorithm and computational complexity 
+of the problem will be addressed.  We emphasize that while being locally adaptive, our algorithm 
+finds the 
+\emph{global} optimum.
 
 We will investigate the possibility of an adaptive function approximation algorithm with higher order 
 convergence than that  in 
@@ -1113,18 +1125,18 @@ or infinite dimension, say,
 S(f) = \lim_{d \to \infty} S_d(f_d), \quad S_d(f_d):= \int_{\Omega^d} f_d(\bx) \, \varrho_d(\bx) \, \dif 
 \bx, \quad \varrho_d(\bx) : = \prod_{r=1}^{d} \varrho(x_r)
 \]
-where $f_d$ is an  approximation to $f$ that depends only on the first $d$ variables.  Such 
+where $f_d$ is an  approximation to $f$ that depends only on the first $d$ variables, and $\varrho$ 
+is a probability density function.  Such 
 problems arise as the expected value of a functional of the solution of a 
-stochastic differential equation (SDE), where $d$ is the number of time steps in the numerical 
-approximation of the SDE.  
+stochastic differential equation (SDE) using $d$ time steps.  
 
-One method for approximating $S(f)$ is to approximate the finite 
+One way to approximate $S(f)$ is to approximate the finite 
 dimensional integral $S_{d_L}(f_{d_L})$ for some large dimension, $d_L$.  However, the cost of 
 evaluating $f_{d_L}(x_{d_L})$ is often proportional to $d_L$.  If $A_{n,d}$ represents an \IIDMC, 
 \QMC or other cubature 
 using $n$ nodes on the $d$-dimensional domain,  the true cost of approximating $S(f)$ by an 
 algorithm using 
-$n_l$ nodes is
+$n_L$ nodes is
 $\Order(d_L n_L)$.
 
 Two alternative methods for approximating $S(f)$ are the multi-level method (MLM) \cite{Gil15a} 
@@ -1163,7 +1175,7 @@ cubature
 $A_{n_L,d_L}(f)$ for approximating $S(f)$.  However, the MLM and MDM are actually more 
 economical for commonly occurring integrals when the goal is meeting a fixed error tolerance.   The 
 low dimensional cubatures (small $d_\ell$ or $\abs{\fu}$) require 
-larger numbers of nodes,  
+larger numbers of nodes ($n_\ell$ or $n_{\fu}$),  
 but the higher dimensional cubatures (large $d_\ell$ or $\abs{\fu}$) actually require fewer numbers 
 of nodes.  In contrast, the single-level cubature requires a large number of nodes for a high 
 dimension
@@ -1189,10 +1201,11 @@ NiuHic09b} will facilitate this task.
 \emph{Generalized Error Criterion for \IIDMC.}  LJ developed a theoretically justified \IIDMC 
 algorithm satisfying a hybrid error criterion encompassing both absolute and relative error in her PhD 
 thesis \cite{Jia16a}.  However, her error criterion is not as general as \eqref{generrorcrit} in that it 
-did not allow the desired answer to be a function of several integrals.  We will generalize LJ's work to 
+does not allow the desired answer to be a function of several integrals.  We will generalize LJ's work 
+to 
 cover this case.  There are challenges working in this setting because the algorithm is random and 
 so the error criterion should be satisfied with some confidence level $1- \alpha$.  The eventual 
-sample size needed is determined sequentially by increasing it and then estimating the error of the 
+$n$ needed is determined sequentially by increasing it and then estimating the error of the 
 sample mean.  This means that that each step in the sequential algorithm must proceed with a 
 higher confidence so that the target confidence level can be reached.
 
@@ -1216,8 +1229,9 @@ numerical analysis literature \cite{Fas07a,FasMcC15a,Wen05a}.  Although the theo
 well-developed, the computational cost of operations involving the $n \times n$ Gram matrix, 
 $\mC$, mentioned in Sect.\ \ref{Bayessect} can be prohibitive.  
 
-We will employ the matched \QMC node sequences with the well-matched kernels that we 
-have found successful for cubature to the problem of multivariate function approximation.  We will 
+We will employ the \QMC node sequences with their well-matched kernels for multivariate function 
+approximation, similar to what  we 
+have already found successful for cubature.  We will 
 develop theoretically justified adaptive algorithms and bounds on their computational costs.  
 Because the theory of \QMC node sequences for function approximation is under-developed, there 
 is much work to be done.
@@ -1240,53 +1254,47 @@ scalar input affects the output.  Furthermore, we want to develop adaptive algor
 the integral and approximation to such functions.
 
 The three-volume series of monographs \cite{NovWoz08a,NovWoz10a,NovWoz12a} summarizes a 
-huge body of recent work on the the \emph{tractability} of integration and function approximation 
+huge body of work on the \emph{tractability} of integration and function approximation 
 problems, essentially, under what conditions the computational cost of satisfying \eqref{errorcrit} is 
-$\Order(d^q \varepsilon^{-p})$ as $d \to \infty$.  The PI has contributed to this literature 
+$\Order(d^q \varepsilon^{-p})$ as $d \to \infty$.  We want $q=1$.  The PI has contributed to this 
+literature 
 \cite{FasHicWoz12b,HicSloWas03a,HicSloWas03b,HicSloWas03c,HicSloWas03e,HicWasWoz06a,HicWoz00b,WanHic00b,YueHic04a,YueHic05a,ZhoHic15a}.
   It is 
 common to consider weighted tensor product 
 spaces of input functions, such as the following Hilbert space with the decomposition notation 
 adopted 
 in Sect.\ \ref{SectMultiProb}:
-\begin{gather*}
+\begin{equation*}
 \calf := \left\{ f : [0,1]^d \to \reals \, \Big \vert \norm[\calf]{f}^2 := \!\!\!\sum_{\fu \subseteq \{1, 
 \ldots, d\}} 
 \frac{1}{\gamma_{\fu}^2}\int_{[0,1]^d}\abs{\frac{\partial^{\abs{\fu}}f_{\fu}}{\partial \bx_u}(\bx_u)}^2 \,  
 \dif \bx
-\right\}, 
-\frac{\partial^{\abs{\fu}}f}{\partial \bx_u}(\bx_u,\bzero), \\
-\text{e.g., } f(x_1,x_2) = (x_1^2+1)\cos(x_2), \ \ \partial^{\emptyset}f =  1, \ \ \partial^{\{1\}} f = 2 x_1, \ \ 
-\partial^{\{2\}}f  = \sin(x_2), \ \  \partial^{\{1,2\}}f  = 2x_1\sin(x_2),
-\end{gather*}
+\right\}.
+\end{equation*}
 The coordinate weights, $\bigl(\gamma_{\fu} \bigr)_{\fu \subseteq \{1, \ldots, d\}}$, indicate the 
 importance of the subsets of coordinate indices.  The smaller $\gamma_{\fu}$ is, the less influential 
-$f_u(\bx)$ is on $f(\bx)$.  The literature cited above provides necessary and sufficient conditions 
+$f_\fu(\bx)$ is assumed to be on $f(\bx)$.  In other words, for $f$ with moderate sized norm, 
+$f_\fu$ 
+must be small if $\gamma_{\fu}$ is small. The literature cited above provides necessary and 
+sufficient conditions 
 guaranteeing that integration and function approximation are tractable for weighted spaces like the 
 one above.  For product weights, $\gamma_{\fu} = \prod_{r \in \fu} \gamma_r$, tractability is 
 guaranteed  
 if $\gamma_{r} \to 0$ quickly enough as $r \to \infty$.  Algorithms can be constructed whose 
 computational cost depend reasonably on dimension.
 
-In some contexts one has a sense of how to order the coordinates in roughly order of decreasing 
-importance, but in the contexts we have in mind, such an ordering does not exist.  The helpful ideas 
-from the tractability literature can be applied only after an initial probe of the function indicates 
-which coordinates are more important and which are less so.
+For some applications one knows how to order the coordinates in roughly order of decreasing 
+importance, but for other applications we have in mind, such an ordering does not exist.  The helpful 
+tractability literature can be applied only after an initial probe of the function indicates 
+which coordinates are more important.
 
-Two of the \SAMSIQMC working groups that the PI is involved in are exploring this problem of 
-placing an initial set 
-of nodes to evenly probe the domain of $f$, followed by node placement that favors the important 
-coordinate directions.  In essence, this will help us determine the coordinate weights and then allow 
+Two of the \SAMSIQMC working groups that the PI belongs to are exploring how to
+place an initial set 
+of nodes to evenly to uncover the important coordinate directions of $f$, followed by node 
+placement that favors the important 
+coordinate directions to approximate $f$ well.  In essence, this will help us determine the coordinate 
+weights and then allow 
 us to use the ideas from tractability to solve the integration or optimization problem.  
-
-Our new algorithms will 
-
-
-
-\emph{}
-
-
-
 
 \section{Broader Impact of Proposed Research}\label{SectBroad}
 
@@ -1297,34 +1305,40 @@ Our new algorithms will
 should be introduced to research before graduate school so that they can learn how to 
 discover the unknown, something that is not necessarily taught in the classroom. We request funds 
 to 
-support two summer REU students per year.  Having run our small REU program for several  years 
-has given us some visibility and prompts inquiries from prospective participants well before we 
-even announce our latest program 
+support two summer REU students per year.  Our small REU program has established some visibility 
+and is prompting inquiries from prospective participants well before we 
+even announce our latest 
 offerings. As in the past, we expect the NSF funds will serve as a catalyst for funds to 
-support additional summer students. In choosing REU students we make a deliberate effort to build 
+support additional summer students. In choosing REU students we will make a deliberate effort to 
+build 
 a diverse research environment by targeting female and underrepresented minority students as well 
 as students from less research-focused institutions (see Sect.~\ref{prevBIsect}). We will also 
 welcome well-prepared high school students to join our research group.
 
-\emph{Preparing Students for Academic Careers.} We consider mentoring to be a multi-faceted and 
-potentially long-term process continuing even after the mentee has moved on from IIT.  We 
-continue to have contact with many of our former students, and in particular we continue to have 
-collaborations with YD, Qi Ye, and Yiou Li, who are pursuing academic careers.  
+\emph{Preparing Students for Academic Careers.} Mentoring is a multi-faceted and 
+potentially long-term process continuing even after the mentee has moved on from Illinois Tech.  
+Our PhD students gain experience both research and mentoring the younger students in our 
+research group.  We 
+continue contact with many of our former students in academia.  In particular we continue to have 
+collaborations with YD, Qi Ye, and Yiou Li.  We will continue to help our students prepare for 
+academic careers if they choose and continue mentoring them after they leave Illinois Tech.
 
 \emph{Preparing Students for Industry Careers.}
-In addition to preparing students for the academic landscape, we also help current students land 
-competitive jobs in the business world. Our training in the areas of algorithm development and 
-coding tends to give our students the needed edge. For example, WM graduated from Brown U in 
-2013 and then joined an internet startup company. LlAJR and XZ are working in the financial 
-services industry and  LJ is working in marketing analytics.  All of them are developing and testing 
-quantitatively sophisticated and computationally intensive models.
+We also help current students land 
+competitive jobs in the business world. Our training in the areas of computation and software 
+development tends to give our students the needed edge in comparison to other mathematics 
+graduates. For example, LlAJR and XZ are working in the financial services industry and  LJ is 
+working in marketing analytics.  All of them are developing and testing quantitatively sophisticated 
+and computationally intensive models.
 
 \emph{Supervising Visitors.}
 Both the PI and the Co-PI have strong connections to East Asia.  We have hosted several long-term 
 self-funded visitors in the past and plan to do so in the future.
 
-\emph{Giving Tutorials and Invited Lectures}
-We will continue our active track record of providing lectures to students at various stages in their careers, ranging from high school to graduate school. These encourage students to enter STEM and encourage STEM students to engage in research.
+\emph{Giving Tutorials and Invited Lectures.}
+We will continue providing lectures to students at various stages in their careers, ranging from high 
+school to graduate school. These encourage students to enter STEM and encourage STEM students 
+to engage in research.
 
 
 \subsection{Contributions to Resources in Research, Education and the Broader Society} 
@@ -1338,20 +1352,22 @@ expertise provides both an obligation and an opportunity to interact with a numb
 communities. We envision the following contributions:
 
 \emph{Disseminating Research}
-The research supported by this grant will result in publications in peer-reviewed journals in a broad 
-spectrum of applied mathematics, computer science, statistics and science or engineering. These 
+The research supported by this grant will result in publications in peer-reviewed journals in applied 
+mathematics, computer science, statistics, and science/engineering. These 
 journals will include both those that emphasize theory and those that emphasize applications.
 
-\emph{Promoting Cones} The idea of guaranteed, adaptive algorithms via cones of input functions 
+\emph{Promoting Cones} The idea of guaranteed, adaptive algorithms via cones of reasonable input 
+functions 
 has broad potential application.  We will continue to promote this idea among numerical analysts 
 who 
 develop new algorithms and analyze their computational costs, as well as among information-based 
-complexity theorists who analyze the lower bounds on the complexity of numerical problems.  
+complexity theorists who analyze the lower bounds on the complexity of numerical problems.  A 
+posteriori error analysis for finite element analysis may be an area where we can contribute since 
+this involves quadratures and cubatures.
 
-\emph{Bridging Mathematics and Statistics}
+\emph{Bridging Applied Mathematics and Statistics.}
 This project touches on topics that are of interest to the statistics community: kriging, Monte Carlo 
-methods, and design of experiments.  Historically, there has been relatively little interaction between 
-numerical analysts and statisticians.  We have and will continue to engage the statistics community 
+methods, and design of experiments.  We have and will continue to engage the statistics community 
 by speaking a their conferences and departmental colloquia.  For example, the PI visited the 
 statistics group at Georgia Tech earlier this year, and the PI is also engaging statisticians and 
 applied mathematicians through the \SAMSIQMC program.
@@ -1371,24 +1387,33 @@ make our findings accessible to a wider audience.
 \emph{Refreshing Course Syllabi}
 MATH 565 (Monte Carlo Methods in Finance), taught every fall by FJH, has incorporated our new 
 results on guaranteed (quasi-)Monte Carlo multivariate integration. In the future it will include our 
-new results on guaranteed multi-level and (quasi-)Monte Carlo sampling (see ).
-Current texts teach students to estimate the error of the trapezoidal rule, $T_n(f)$, by $[T_n(f)-T_{n/2}(f)]/3$ (see, e.g., \cite[pp.\ 223--224]{BurFai10}).  The arguments behind this estimate introduce the valuable concept of extrapolation, however, this is a flawed error estimate as pointed out in \cite{Lyn83} and highlighted by our recent work \cite{HicEtal14b}.  This same flawed idea underlies \Matlab's {\tt integral.m}.  We will urge numerical analysis textbook authors and educators to change the way that error estimation is taught based on our recent and proposed work.  These ideas will also enter our more traditional numerical analysis courses such as MATH 350 (Intro to Computational Math) or MATH 577 and 578 (Computational Math I \& II).  SCC and FJH will continue to develop MATH 573 (Reliable Mathematical Software) as a valuable course for our own students and an example that we wish to propagate to other universities.
+new results on our guaranteed MLM and MDM (see Sect.\ \ref{SectMultiProb}).
+
+As noted in Sect.\ \ref{TrapIllSect}, current texts teach students propagate poor practices for 
+adaptive quadrature.  We will urge numerical analysis textbook authors and educators to change the 
+way that error estimation is taught based on our recent and proposed work.  These ideas will also 
+enter our more traditional numerical analysis courses such as MATH 350 (Intro to Computational 
+Math).  SCC and FJH will continue to develop MATH 573 (Reliable Mathematical Software) as a 
+valuable course for our own students and an example that we wish to propagate to other 
+universities.
 
 \emph{Creating Software and Collaborating with Software Developers}
-GEF and MM have created the website \citep{McCFBG13} which serves as the home for the software on our stable algorithms built upon the Hilbert--Schmidt SVD. This \Matlab library is freely available and allows others to experiment with our code. Thus far, the library contains routines for Gaussian and iterated Brownian bridge kernels. As our research expands to other kernels and their eigenexpansions the resulting code will be added to the library. The GaussQR library also serves as a sandbox for students---especially REU students---to learn about our research and allows them to contribute pieces of their own work.
-We will continue to develop GAIL \citep{ChoEtal14a} (now up to version 2) as part of our proposed research.  The GAIL software will serve the wider community that relies on numerical approximation and integration algorithms.  It will also demonstrate how adaptive algorithms ought to be implemented, which we hope will inspire and inform those working on adaptive algorithms for other mathematical problems.  We also expect our new algorithms to be incorporated into widely used numerical packages, as was done for our algorithm in \cite{HonHic00a} by \Matlab \citep{MAT8.4} and NAG \citep{NAG23}.  We will continue to discuss with software developers about these issues.
+We will continue to develop GAIL \citep{ChoEtal17b} (now up to version 2.2).  The GAIL software will 
+serve the wider community that relies on numerical approximation and integration algorithms.  It will 
+also demonstrate how adaptive algorithms ought to be implemented, which we hope will inspire and 
+inform those working on adaptive algorithms for other mathematical problems.  We will involve 
+students in porting GAIL to other platforms, such as Python, R, and Julia.  We also expect our 
+new algorithms to be incorporated into widely used numerical packages, as was done for our 
+algorithm in \cite{HonHic00a} by \Matlab \citep{MAT8.4} and NAG \citep{NAG23}.  We will continue 
+to discuss with software developers about good practices for adaptive algorithms.
 
-\emph{Reaching Out.}
-GEF and FJH both have a record of reaching out to high school students which we plan to continue. 
-The website 
-\href{http://math.iit.edu/~openscholar/meshfree/}{\nolinkurl{math.iit.edu/~openscholar/meshfree/}} 
-helps manage our internal and external communication and dissemination of research findings. 
-Advertising for the summer REU experiences is also facilitated via this website.  Information about 
-GAIL is at \href{http://code.google.com/p/gail}{\nolinkurl{code.google.com/p/gail}}.
-
-Fermi
-Bayesian inference
-Julia, Python, R
+\emph{New Applications of \QMC}
+The application of \QMC has focused on a few areas, such as financial modeling and computer 
+graphics, but there is 
+potential for much wider application.  LlAJR has collaborated with Fermilab implementing \QMC 
+algorithms, and we plan to continue.    New applications of \QMC are arising from \SAMSIQMC that 
+we plan to pursue.  Presently, KZ is exploring how to use \QMC to more efficiently perform Bayesian 
+inference.
 
 
 
