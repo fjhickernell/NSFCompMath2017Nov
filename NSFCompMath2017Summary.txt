@@ -2,14 +2,31 @@ Overview
 Practitioners require numerical algorithms for integration and function approximation that adaptively determine the computational effort needed to meet the prescribed error tolerance.  They should only need to specify the problem and the error tolerance.  Existing adaptive algorithms rely on heuristics and lack a theoretical foundation.  Theoretically sound error bounds are insufficient for adaptive algorithms because they are given in terms of an unknown (semi-)norm of the input function.  The proposed research will rectify this deficiency.
 
 Intellectual Merit
-The key idea is to identify and precisely define cones of "reasonable" input functions, i.e., functions that are not too spiky.  Then it is possible to construct data-driven error bounds that certainly hold for such reasonable input functions.  Adaptive algorithms proceed by increasing the number of nodes used for integration or approximation until the data-driven error bounds do not exceed the error tolerance.  This project will construct three kinds of new adaptive algorithms following the above paradigm and building upon the PI's previous work.
+The key idea is to identify and precisely define cones of "reasonable" input functions, i.e., functions 
+that are not too spiky.  Then it is possible to construct data-driven error bounds that certainly hold 
+for such reasonable input functions.  Adaptive algorithms proceed by increasing the number of 
+nodes used for integration or approximation until the data-driven error bounds do not exceed the 
+error tolerance.  This project will construct three kinds of new adaptive algorithms following the 
+above paradigm and building upon the previous work of the PIs.
 
 Univariate:  Existing low-order adaptive, univariate integration, function approximation, and optimization algorithms will be upgraded to high-order adaptive algorithms.
 
 Multivariate:  Existing quasi-Monte Carlo (QMC) multivariate integration algorithms will form a basis for adaptive infinite-dimensional integration algorithms using multi-level or multivariate decomposition ideas.  The Bayesian numerical analysis framework will be applied to integration and function approximation, using credible intervals to bound the error.  By matching the covariance kernels to the QMC sampling schemes, the matrix-vector operations can be performed cheaply by fast transforms.
 
-Expensive function values:  Adaptive integration and function approximation algorithms will be developed for situations where function values are the result of simulations that may take hours or days to run.  Limited by the practical constraint where the number of function values is proportional to the number of inputs, the new algorithms will identify important inputs through an initial screening sample, and then sample more strategically.
+Expensive function values:  Adaptive integration and function approximation algorithms will be 
+developed for situations where function values are the result of simulations that may take hours or 
+days to run.  Limited by the practical constraint where the number of function values is proportional 
+to the number of input variables, the new algorithms will identify important inputs through an initial 
+screening sample, and then sample more strategically.
 
 
 Broader Impact
-The new algorithms developed will be published in a variety of journals, and they will be implemented in the freely available Guaranteed Automatic Integration Library (GAIL), which has a five year history and in the midst of ongoing development.  High school through PhD students will be mentored in conducting research with a sound theoretical foundation and practical application.  They will join the dozens who have already contributed to GAIL, in the process learning good practice for developing robust, user-friendly, and documented numerical software that supports reproducible research. Students will continue to use GAIL in the classroom for assignments and projects.  The effectiveness of the GAIL algorithms will be demonstrated on standard test functions and through collaborations with practitioners.
+The new algorithms developed will be published in a variety of journals, and they will be implemented 
+in the freely available Guaranteed Automatic Integration Library (GAIL), which has a five year history 
+and is in the midst of ongoing development.  High school through PhD students will be mentored in 
+conducting research with a sound theoretical foundation and practical application.  They will join the 
+dozens who have already contributed to GAIL, in the process learning good practice for developing 
+robust, user-friendly, and documented numerical software that supports reproducible research. 
+Students will continue to use GAIL in the classroom for assignments and projects.  The 
+effectiveness of the GAIL algorithms will be demonstrated on standard test functions and through 
+collaborations with practitioners.
