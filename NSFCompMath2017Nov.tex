@@ -110,6 +110,7 @@
 \DeclareMathOperator{\err}{err}
 \DeclareMathOperator{\oerr}{\overline{\err}}
 \DeclareMathOperator{\herr}{\widehat{\err}}
+\DeclareMathOperator{\Ans}{Ans}
 
 \DeclareMathOperator{\Var}{Var}
 \DeclareMathOperator{\INT}{INT}
@@ -746,7 +747,8 @@ of $|f''|$ to the left or the right (see \cite{ChoEtal17a} for details):
 \norm[-\infty,{[\beta, \alpha+h_+]}]{f''}\right) \  \forall h_{\pm} \le \hcut \right\},
 \]
 where $\fC(\cdot)$ is the inflation factor in \eqref{conedef}, and $\norm[-\infty,{[\alpha, 
-\beta]}]{f''} = \inf_{\alpha \le x \le \beta} \abs{f''(x)}$.  Because one looks at the infimum of $|f''|$ on 
+\beta]}]{f''} = \inf_{\alpha \le x \le \beta} \abs{f''(x)}$.  Because one looks at the infimum of $|f''(x)|$ 
+on 
 both sides, 
 a reasonable function may have inflection points, but two inflection points may not be too 
 close together.  
@@ -781,7 +783,8 @@ where
 $\norm[1/2]{\cdot}$, the $1/2$-quasinorm, is weaker than the sup-norm.  This is  
 asymptotically the same cost as for the best possible algorithm for this problem. In contrast, 
 our older globally adaptive function approximation algorithm in \cite{HicEtal14b} has a 
-computational cost of $\Order\left(\sqrt{\norm[\infty]{f''}/\varepsilon} \right)$.  For a spiky 
+computational cost of $\Order\left(\sqrt{\norm[\infty]{f''}/\varepsilon} \right)$.  For a somewhat 
+spiky, but reasonable, 
 function inside $\cc$, the local adaption algorithm may require significantly less effort 
 than a global adaption algorithm because $\norm[1/2]{f''}$ will be much smaller than 
 $\norm[\infty]{f''}$.
@@ -791,7 +794,7 @@ optimization problem, $\OPT$ in \eqref{probs}.  In this case, those subintervals
 function is definitely greater than the minimum found so far need not be 
 refined further.  Figure 
 \ref{localadaptfig} (right) gives an example of the function data required.  The function is 
-sampled sparsely where the second derivative is small \emph{or} the function is large.
+sampled sparsely where either $|f''(x)|$ is small \emph{or} the $f(x)$ is large.
 
 YZ's PhD research is developing a locally 
 adaptive Simpson's rule for univariate integration.  It will have higher order accuracy than Algorithm 
@@ -807,7 +810,7 @@ developed adaptive quasi-Monte Carlo algorithms for integration over the unit cu
 transformation of variables can 
 often change the domain to the unit cube.  \QMC algorithms  commonly 
 choose the 
-sequence of nodes, $\{\bx_i\}_{i=0}^\infty$, to be an integration lattice node sequence  or a digital 
+sequence of nodes, $\{\bx_i\}_{i=1}^\infty$, to be an integration lattice node sequence  or a digital 
 sequence, especially the Sobol' sequence \cite{DicEtal14a}.  \QMC cubature is superior to 
 independent and identically distributed Monte Carlo (\hypertarget{IIDMClink}{IID MC}) cubature 
 because the nodes are more 
@@ -848,27 +851,26 @@ exponentials}\\
 functions}
 \end{array}
 \end{gather}
-The error bound, $\oerr_n(f)$, arises because the basis, 
+The theoretical error bound, $\oerr_n(f)$, arises because the basis, 
 $\{\phi_{\bk}\}_{\bk \in \bbK}$ is 
 chosen to \emph{match} the particular \QMC nodes.  As $n \to \infty$, the dual set, $P^\perp_n$, 
 loses 
 elements, and $\oerr_n(f) \to 0$.
 
 The PI and LlAJR in \cite{HicJim16a,JimHic16a} took $\oerr_n(f)$ as a starting point for their 
-adaptive \QMC rules.   Although true Fourier 
-coefficients, $\hf(\bk)$, are rarely 
-known, they may be approximated 
+adaptive \QMC rules.   True Fourier 
+coefficients, $\hf(\bk)$ may be approximated 
 by discrete Fourier coefficients,
 \begin{equation*}
-\tf(\bk)  = \frac{1}n \sum_{i=1}^{n} f(\bx_i) \overline{\phi}_{\bk}(\bx_i).
+\tf_n(\bk)  = \frac{1}n \sum_{i=1}^{n} f(\bx_i) \overline{\phi}_{\bk}(\bx_i).
 \end{equation*}
 The $n$ unique discrete Fourier coefficients can be evaluated with a computational cost of 
-$\Order(n \log(n))$.  However, the index set $P^\perp_n \setminus\{\bzero\}$ contains large 
+$\Order(n \log(n))$.  However, the index set $P^\perp_n \setminus\{\bzero\}$ contains only large 
 wavenumbers, for which the discrete Fourier coefficients approximate poorly the true Fourier 
 coefficients.  So, PI and LlAJR defined a cone of reasonable integrands, $\cc$, 
 whose Fourier coefficients do not decay erratically.  We omit the important technical details, but 
 provide an intuitive explanation.  The true Fourier coefficients of a reasonable integrand
-need not decay monotonically.  However, if the average size of the true Fourier coefficients for 
+need not decay monotonically.  But, if the average size of the true Fourier coefficients for 
 moderate-sized (relative to $n$) wavenumbers is small, then the average size of the true 
 coefficients for large-sized wavenumbers must also be small.  Fig.\ \ref{GoodBadWalshFig} 
 illustrates an example of a reasonable function and an unreasonable function and their Fourier 
@@ -894,7 +896,7 @@ the $d$-dimensional wavenumbers in $\bbK$.
 Under this definition of $\cc$, a 
 theoretically justified, data-based error bound can be derived:
 \begin{equation*}
-\herr_n(f) = \fC(n) \sum_{\kappa = n/(2n_1) + 1}^{n/n_1} \abs{\tf(\bk(\kappa))}.
+\herr_n(f) = \fC(n) \sum_{\kappa = n/(2n_1) + 1}^{n/n_1} \abs{\tf_n(\bk(\kappa))}.
 \end{equation*}
 Here $\fC(n)$ is an inflation factor and $n_1$ is a power of $2$ used to define what is meant by 
 ``moderate-sized'' wavenumbers.  This data-driven error bound in terms of the discrete Fourier 
@@ -924,7 +926,8 @@ determining $\bbeta$.
 
 \subsubsection{Adaptive Bayesian Cubature}  \label{Bayessect} Recent research by the PI and 
 JR assumes
-that the integrand in the multiple integration problem \eqref{multiInt} is an instance of a Gaussian 
+that the integrand in the multivariate integration problem \eqref{multiInt} is an instance of a 
+Gaussian 
 Process with constant mean $m$, and covariance kernel, $C:[0,1]^d \times [0,1]^d \to \reals$, i.e., 
 $f \sim \GP (m,C)$.  This approach to computational mathematics has been pursued by several 
 scholars in the past \cite{Dia88a, OHa91a, RasGha03a, Rit00a} and has gained recent interest 
@@ -937,15 +940,16 @@ $\herr_n(f)$ depends on the function data and the inferred values of $m$ and $C$
 
 A longstanding drawback of this approach has been the computational cost of the matrix operations 
 involving the Gram matrix $\mC = \bigl(C(\bx_i,\bx_j)\bigr)_{i,j=1}^n$, which are ordinarily at least 
-$\Order(n^3)$.  The 
+$\Order(n^3)$.  Attempts to overcome this cost include \cite{AniCheSte16a, ParEtal17a}.  The 
 contribution of the PI and JR has been to choose families of covariance kernels with Hilbert-Schmidt 
 decompositions of the form $C(\bx,\bt) = \sum_{\bk \in \bbK} \lambda_\bk \phi_{\bk}(\bx) 
 \phi_{\bk}(\bt)$, where the $\phi_{\bk}$ are \emph{the same as those in the previous section}.  The 
-eigenvalues $\lambda_\bk$ must be chosen so that the infinite sum has a closed form.  Kernels of 
+eigenvalues $\lambda_\bk$ must be chosen so that the infinite sum has a closed form.  Such 
+kernels have arisen in other contexts \cite{Hic99b,HicYue00}.  Kernels of 
 this form used with the matching \QMC nodes yield Gram matrices $\mC$ for which the 
 necessary vector-matrix operations can be accomplished with computational cost $\Order(n 
 \log(n))$, making Bayesian cubature practical.  This work has been presented at conferences and 
-as being written up for publication.
+as being prepared for submission for publication.
 
 \emph{Generalized Error Criteria.}  Some practitioners may prefer the adaptive 
 algorithm 
@@ -953,12 +957,12 @@ to satisfy a more general error
 criterion than \eqref{errorcrit}, e.g., 
 \begin{multline}
 \label{generrorcrit} \tag{G-CRIT}
-\abs{V(S(\vf)) - \fA(\vf,\varepsilon, \reltol) } \le \max(\varepsilon, \reltol \abs{V(S(\vf))} ),  \\
+\abs{\Ans(S(\vf)) - \fA(\vf,\varepsilon, \reltol) } \le \max(\varepsilon, \reltol \abs{\Ans(S(\vf))} ),  \\
  \vf: 
 \Omega \to \reals^p, \ \ V: \reals^p \to \reals, \ \ S(\vf) = \bigl(S(f_1), \ldots, S(f_p) \bigr)^T, \ \  0 \le 
 \reltol \le 1,
 \end{multline}
-where now the value sought, $V(S(\vf))$, is a function the integral of $p$-vector function, 
+where now the value sought, $\Ans(S(\vf))$, is a function the integral of $p$-vector function, 
 $\vf$. Examples of situations where there the value sought is a function of several intergrals include 
 Sobol' indices \cite{Sal02a} and Bayesian inference \cite{GelEtal13}.  The approximate solution is 
 acceptable if it 
@@ -967,7 +971,7 @@ $\varepsilon$, \emph{or} a relative error tolerance, $\reltol$.  The PI, LlAJR, 
 \cite{HicEtal17a} how to use data-driven error bounds, $\abs{S(f_j) - A_n(f_j)} \le \herr_{n}(f_j)$, $j = 
 1, \ldots, p$,  to 
 choose an appropriate $\fA(\vf,\varepsilon, \reltol)$.  In general, the 
-best approximation is \emph{not} $V(A_n(\vf))$.  
+best approximation is \emph{not} $\Ans(A_n(\vf))$.  
 
 
 \emph{Multivariate Function Approximation.}
@@ -991,18 +995,19 @@ and computational science conferences and given colloquium/seminar talks to math
 statistics departments.  Here are some highlights.  The PI, SCC, LJ, and LlAJR recently finished an 
 encyclopedia entry on adaptive Monte Carlo \cite{HicEtal18a}.  The PI co-organized the 
 \href{http://cos.iit.edu/2016-spring-research-conference/}{2016 Spring Research 
-Conference}, a long-standing annual industrial statistics conference.   The PI gave an invited tutorial 
+Conference}, a long-running annual industrial statistics conference.   The PI gave an invited tutorial 
 at the \href{http://mcqmc2016.stanford.edu}{Twelfth International 
 Conference on Monte Carlo and Quasi-Monte Carlo Methods in Scientific Computing (MCQMC 
 2016)} 
-\cite{Hic17a}, a biennial conference for which he also serves on the steering committee.  The PI also 
+\cite{Hic17a}, a biennial conference for which he also serves on the steering committee.  The PI 
 serves as a program leader for the Statistical and Applied Mathematical Sciences 
 Institute (SAMSI) 2017--18 
 \href{https://www.samsi.info/programs-and-activities/year-long-research-programs/2017-18-program-quasi-monte-carlo-high-dimensional-sampling-methods-applied-mathematics-qmc/
 }{Program on Quasi-Monte Carlo and High-Dimensional Sampling Methods for Applied 
 	Mathematics (\hypertarget{SAMSIlink}{SAMSI-QMC})}.   He  gave an invited tutorial 
 	at the Opening Workshop, leads one of 
-	the working groups, and participates in two others.  The PI received the 2016 Joseph F.\ Traub 
+	the working groups, and participates in two working groups.  The PI received the 2016 Joseph F.\ 
+	Traub 
 	Prize for Achievement in Information-Based Complexity.
 	
 	
@@ -1017,7 +1022,8 @@ The PI's leadership in the MCQMC conferences  and \SAMSIQMC is
 \GAIL, the open source MATLAB library hosted on Github at 
 \href{http://gailgithub.github.io/GAIL_Dev/} {\nolinkurl{gailgithub.github.io/GAIL_Dev/}}. This software 
 has been implemented with input parsing, input validation, unit tests, inline documentation, and 
-demonstrations.  \GAIL makes it easier for practitioners to try our new adaptive algorithms.  
+demonstrations.  \GAIL makes it easier for practitioners to try our new adaptive algorithms.  With the 
+help of students, we are starting to port GAIL to Python and R.
 
 \emph{Boosting the STEM Workforce.} The PI and GEF have mentored a number of 
 research students associated with this project.  The main ones are mentioned at the beginning of 
@@ -1027,13 +1033,14 @@ number of
 undergraduate students who the PI, GEF, and SCC have mentored including more than a dozen 
 Brazilian Science Mobility Program students in the summers of 2015 and 2016, Tanner Johnson (BS 
 U 
-Minnesota, MS student at U British Columbia), Tianci Zhu 
+Minnesota, MS student at U British Columbia), Tianpei Qian (BS NUS, MS student at Stanford), 
+Tianci Zhu 
 (female, BS IIT, MS student at NYU),  Cu Hauw Hung (BS student at Biola University, applying for 
 graduate study), and Yueyi Li (female BS student at Macalester University, applying for 
 graduate study).  We have also had a few high school students join us. As part of our team, all of 
 these students conducted theoretical and/or practical research, some of which resulted in 
 publications and new features for \GAIL.  Our students have learned how to contribute to a 
-substantial, long-term software project in a way that preserves the integrity of the software library.
+substantial, long-term software project.
 
 The PI teaches a course on Monte Carlo methods each fall.  For the past several years students 
 have been introduced to \GAIL and used it in their coursework.  \GAIL has been used to teach how 

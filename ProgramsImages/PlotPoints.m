@@ -24,8 +24,8 @@ tick = 0:0.25:1;
 xIID = rand(n,d);
 figure
 plot(xIID(:,1),xIID(:,2),'.','color',MATLABBlue)
-xlabel('\(x_1\)')
-ylabel('\(x_2\)')
+xlabel('\(x_{i1}\)')
+ylabel('\(x_{i2}\)')
 title('IID Nodes')
 axis square
 set(gca,'xtick',tick,'ytick',tick)
@@ -35,8 +35,8 @@ print -depsc IIDPoints.eps
 xUSobol = net(sobolset(d),n);
 figure
 plot(xUSobol(:,1),xUSobol(:,2),'.','color',MATLABOrange)
-xlabel('\(x_1\)')
-ylabel('\(x_2\)')
+xlabel('\(x_{i1}\)')
+ylabel('\(x_{i2}\)')
 title('Unscrambled Sobol'' Nodes')
 axis square
 set(gca,'xtick',tick,'ytick',tick)
@@ -46,8 +46,8 @@ print -depsc USobolPoints.eps
 xSSobol = net(scramble(sobolset(d),'MatousekAffineOwen'),n);
 figure
 plot(xSSobol(:,1),xSSobol(:,2),'.','color',MATLABPurple)
-xlabel('\(x_1\)')
-ylabel('\(x_2\)')
+xlabel('\(x_{i1}\)')
+ylabel('\(x_{i2}\)')
 title('Scrambled Sobol'' Nodes')
 axis square
 set(gca,'xtick',tick,'ytick',tick)
@@ -60,8 +60,8 @@ shift = rand(1,d);
 sxlat = mod(bsxfun(@plus,xlattice,shift),1); 
 figure
 plot(sxlat(:,1),sxlat(:,2),'.','color',MATLABGreen)
-xlabel('\(x_1\)')
-ylabel('\(x_2\)')
+xlabel('\(x_{i1}\)')
+ylabel('\(x_{i2}\)')
 title('Shifted Lattice Nodes')
 axis square
 set(gca,'xtick',tick,'ytick',tick)
