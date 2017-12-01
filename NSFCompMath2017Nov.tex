@@ -988,7 +988,7 @@ derivations.
 
 \subsection{Broader Impacts from Previous NSF Funding} \label{prevBIsect}
 
-\emph{Publications , Conference Participation, and Conference Organization.} This 
+\emph{Publications, Conference Participation, and Conference Organization.} This 
 project has resulted in a number of publications by the PI, GEF, students, and collaborators listed at 
 the beginning of this section.  We have also spoken at a number of applied mathematics, statistics, 
 and computational science conferences and given colloquium/seminar talks to mathematics and 
@@ -1135,9 +1135,8 @@ theoretical foundation for Chebfun will explain why it may or may not succeed as
 
 \emph{Integration over domains with unbounded dimension.} The next natural challenge for 
 multivariate integration is to extend our 
-globally adaptive \QMC algorithms described in Sect.\ \ref{QMCsec} to situations with arbitrarily 
-large 
-or infinite dimension, say,
+globally adaptive \QMC algorithms described in Sect.\ \ref{QMCsec} to situations with infinite 
+dimension:
 \[
 S(f) = \lim_{d \to \infty} S_d(f_d), \quad S_d(f_d):= \int_{\tOmega^d} f_d(\bx) \, \varrho_d(\bx) \, \dif 
 \bx, \quad \tvarrho_d(\bx) : = \prod_{r=1}^{d} \varrho(x_r)
@@ -1163,8 +1162,9 @@ decomposition method (MDM) \cite{Was13b}.  (Note: the MLM for cubature is inspir
 for solving partial differential equations, but is quite different.) The function $f$, which depends on 
 $\bx=(x_1, x_2, 
 \ldots) \in 
-\Omega^\naturals$, 
-is decomposed into pieces that only depend on the a subset of the coordinates:  
+\tOmega^\naturals$, 
+is decomposed into pieces that only depend on the a subset of the coordinates (see 
+\cite{WanHic00b} for example):  
 \begin{equation*}
 f(\bx) = \sum_{\fu \subset \naturals, \abs{\fu} < \infty} f_{\fu}(\bx) = \sum_{\ell 
 =1}^\infty [f_{d_\ell}(\bx) - f_{d_{\ell-1}}(\bx)], \qquad  f_d:= \sum_{\fu \subseteq \{1, 
