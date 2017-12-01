@@ -577,7 +577,7 @@ $\norm{A_n}$.
 
 \subsection{Adaptive Algorithms} From a practical standpoint, users would like an adaptive 
 algorithm, 
-$\fA$, which only requires as input a black box function algorithm, $f$, and an error tolerance, 
+$\fA$, which only requires as input a black box function subroutine, $f$, and an error tolerance, 
 $\varepsilon$, and which satisfies the error criterion
 \begin{equation} \label{errorcrit} \tag{CRIT}
 \norm[\calg]{S(f) - \fA(f,\varepsilon)} \le \varepsilon.
@@ -591,37 +591,32 @@ bounded easily.  Thus, the error bound $\oerr_n(f)$ in \eqref{typicalerr} does n
 adaptive algorithm.
 
 Adaptive algorithms require error bounds, $\herr_n(f)$, computed from function data, 
-$\{(\bx_i,f(\bx_i))\}_{i=1}^n$, and not a priori knowledge of the (semi-)norm of the function.  Those 
-commonly used in practice are inadequate because there is no theory that justifies
-$\oerr_n(f)  \le \herr_n(f)$.  As mentioned earlier MATLAB's \texttt{integral} bases its $\herr_n(f)$ on 
+$\{(\bx_i,f(\bx_i))\}_{i=1}^n$, and not from a priori knowledge of the (semi-)norm of the function.  
+Common adaptive algorithms are inadequate because there is no theory justifying
+$\oerr_n(f)  \le \herr_n(f)$.  MATLAB's \texttt{integral} bases its $\herr_n(f)$ on 
 the comparison of two Gaussian quadratures.  Chebfun truncates its Chebyshev polynomial 
 approximation to $f$ when the observed high order Chebyshev coefficients reach round-off 
 error, in spite of the possibility that even higher order coefficients could be significant.
 
 There is a family of adaptive algorithms with a theoretical foundation based on interval 
-arithmetic 
-described in \cite{MoKeCl09} and \cite{Rum10a} and implemented in INTLAB \cite{Rum99a}.  
-This 
-approach requires the function subroutines to take \emph{interval} arguments and return 
-\emph{interval} 
-outputs.  
-We do not pursue this approach because existing black-box function algorithms
-normally 
-do not meet these requirements.
+arithmetic described in \cite{MoKeCl09} and \cite{Rum10a} and implemented in INTLAB 
+\cite{Rum99a}.  This approach requires the function subroutines to take \emph{interval} arguments 
+and return \emph{interval} outputs.  We do not pursue this approach because existing black-box 
+function subroutines normally do not meet these requirements.
 
 \subsection{What We Propose}
-The numerical algorithm we use everyday that computes $\cos(x)$ to our desired accuracy does 
-not require the user to determine how many terms in the polynomial 
+The numerical algorithm we use everyday to compute $\cos(x)$ to our desired accuracy does 
+not require us to determine how many terms in the polynomial 
 approximation are required.  The computation is \emph{automatic}.  Furthermore, theory 
 underpins this algorithm.  We believe that the same should be possible for problems that are 
-somewhat more difficult than evaluating elementary or special functions, such as the problems in 
+somewhat more difficult than evaluating  functions of real variables, such as the problems in 
 \eqref{probs}.  
 
 As computing power grows, and is matched by the complexity of the simulations attempted, certain 
 fundamental problems, such as integration and function approximation should become 
 as effortless as computing $\cos(x)$.  If the user specifies the problem and the error tolerance, the 
 algorithm should be able to provide the correct answer.  Unfortunately, 
-that is not the case yet because our current adaptive integration and function approximation 
+that is not yet the case because our current adaptive integration and function approximation 
 algorithms do not have sound theoretical underpinnings.
 
 To bring us closer to our ideal, we propose the following research program:
@@ -630,7 +625,7 @@ To bring us closer to our ideal, we propose the following research program:
 	problem definition, the cone of reasonable functions, $\cc$, and the
 	function data, and which certainly satisfy error criterion \eqref{errorcrit} for all $f \in \cc$.  
 	
-	\item The adaptive algorithms will likely be based on familiar algorithms, $A_n$, with 
+	\item The adaptive algorithms may be based on familiar algorithms, $A_n$, with 
 	well-understood theoretical error bounds, $\oerr_n(\cdot)$.  
 	
 	\item The cones, $\cc$, will be defined in a way that facilitate data-driven error 
@@ -656,10 +651,10 @@ To bring us closer to our ideal, we propose the following research program:
 	our 
 	adaptive algorithms are asymptotically optimal, i.e., $\comp(v,\varepsilon) = \Order 
 	\bigl((v/\varepsilon)^p \bigr)$ for the same $p$ as above.  These kinds of results are common in 
-	information-based complexity \cite{TraWer98,TraWasWoz88}, but rare when the set of input 
-	functions is a cone.
+	information-based complexity \cite{TraWer98,TraWasWoz88}, but typically for input functions in 
+	a ball, not a cone.
 	
-	\item These adaptive algorithms, $\fA$, will be implemented in the freely-available \GAIL 
+	\item These adaptive algorithms, $\fA$, will be implemented in our freely-available \GAIL 
 	\cite{ChoEtal17b}.  Their 
 	effectiveness will be demonstrated on various practical problems such as those in \cite{VirLib17a} 
 	and those arising from collaborations.
@@ -686,7 +681,8 @@ Approximation and
 Integration}, \\
 \$270,000, August 2015 -- July 2018}} \label{SectPrevious}
 
-G. E. Fasshauer (GEF, co-PI) and F. J. Hickernell (PI) have led this project.  In the summer of 
+Gregory E.\ Fasshauer (GEF, co-PI) and Fred J.\ Hickernell (PI) have led this project.  In the summer 
+of 
 2016, Fasshauer left Illinois Tech and has participated since then as a sub-contractor.  
 Sou-Cheng Choi (SCC) has contributed as a senior personnel.  Other major contributors 
 have been the PI's research students Yuhan Ding (YD, PhD 2015), Lan Jiang (LJ, PhD 2016), 
@@ -741,16 +737,17 @@ nodes $a = x_0 < x_1 < \cdots < x_n = b$,  in approximating a function is
 where $\norm[{\infty,[\alpha,\beta]}]{\cdot}$ denotes the sup-norm over the interval 
 $[\alpha,\beta]$.  The cone of reasonable functions, $\cc$, consists essentially of those 
 functions for 
-which the local supremum of $f''$ is bounded above by an inflated value of the local infimum 
-of $f''$ to the left or the right (see \cite{ChoEtal17a} for details):
+which the local supremum of $|f''|$ is bounded above by an inflated value of the local 
+\emph{infimum} 
+of $|f''|$ to the left or the right (see \cite{ChoEtal17a} for details):
 \[
 \cc: = \left \{ f \in W^{2,\infty} : \norm[{\infty,[\alpha,\beta]}]{f''} \le \max\left(\fC(h_{-}) 
 \norm[-\infty,{[\beta-h_-,\alpha]}]{f''},\fC(h_{+})
 \norm[-\infty,{[\beta, \alpha+h_+]}]{f''}\right) \  \forall h_{\pm} \le \hcut \right\},
 \]
 where $\fC(\cdot)$ is the inflation factor in \eqref{conedef}, and $\norm[-\infty,{[\alpha, 
-\beta]}]{f''} = \inf_{\alpha \le x \le \beta} \abs{f''(x)}$.  Because one looks at the infimum of the 
-second derivative on both sides, 
+\beta]}]{f''} = \inf_{\alpha \le x \le \beta} \abs{f''(x)}$.  Because one looks at the infimum of $|f''|$ on 
+both sides, 
 a reasonable function may have inflection points, but two inflection points may not be too 
 close together.  
 
@@ -763,8 +760,8 @@ $\herr_n(f,[x_{i-1},x_i]) \le \varepsilon$.  The resulting linear spline, $\fA(f
 satisfies 
 error 
 criterion \eqref{errorcrit} for the function approximation problem. Figure 
-\ref{localadaptfig} (left) displays an example of the function data required.  The function is 
-sampled sparsely where the second derivative is small.
+\ref{localadaptfig} (left) displays an example of the function data required.  The function $f$ is 
+sampled sparsely where $|f''(x)|$ is small.
 
 \begin{figure}[h]
 	\centering
